@@ -1,0 +1,145 @@
+body {
+    margin-top: 50px;
+}
+
+.navbar-inner {
+    background-image: none;
+    background: url(/static/images/top.png) repeat-x top center;
+    filter: none;
+    border-bottom: 1px solid #999;
+    height: 24px;
+}
+
+    .navbar .brand {
+        margin-left: -10px;
+        color: #333;
+		margin-top: -3px ;
+        font-family: Monaco, Consolas, "Lucida Console", monospace;
+        font-size: 25px;
+    }
+
+    .navbar .nav > li > a {
+        color: #fff;
+        text-shadow: none;
+        padding: 10px 10px 3px;
+    }
+
+    .navbar .nav > li > a:hover {
+        color: #333;
+        text-decoration: underline;
+    }
+
+.messages {
+    list-style-type: none;
+    top: 50px;
+    right: 10px;
+    position: absolute;
+    z-index: 200;
+}
+
+    .messages li {
+        margin: 10px 0;
+        padding: 18px 28px;
+        border: 1px solid #ccc;
+        font-size: 16px
+    }
+
+    .messages li:hover {
+        -webkit-transform: scale(1.1);
+           -moz-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+             -o-transform: scale(1.1);
+                transform: scale(1.1);
+        cursor: pointer;
+    }
+
+#loader {
+    margin-top: 70px;
+    text-align: center;
+}
+
+
+.tags {
+    padding: 13px 0;
+}
+
+    .tag {
+        cursor: pointer;
+    }
+
+#pins {
+    top: 70px;
+    position: absolute;
+    background: #eee;
+    z-index: 100;
+}
+
+    .pin {
+        background: #fff;
+        width: 200px;
+        float: left;
+        border: 1px solid #ccc;
+        padding: 20px;
+        display: none;
+    }
+
+        .pin img {
+            width: 200px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pin p {
+            margin-bottom: 0;
+            padding-top: 15px
+        }
+
+            .pin strong {
+                color: #777;
+                font-weight: normal;
+            }
+
+.pin-options {
+    margin: 5px;
+    display: none;
+    right: 20px;
+    position: absolute;
+    padding: 5px 7px 4px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 0 1px 3px #ccc;
+       -moz-box-shadow: 0 1px 3px #ccc;
+            box-shadow: 0 1px 3px #ccc;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+}
+    
+    .pin:hover .pin-options {
+        display: block;
+    }
+
+#form {
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 15px;
+}
+
+    #form h1 {
+        font-family: 'Monoton';
+        text-align: center;
+        font-weight: normal;
+        margin-bottom: 15px;
+    }
+
+    form {
+        margin-bottom: 0;
+    }
+
+        textarea {
+            height: 70px;
+        }
+
+        .form-actions {
+            margin-bottom: 0;
+        }
