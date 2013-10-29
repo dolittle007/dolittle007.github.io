@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html  lang="en">
+    <head>
+
+        <title> DataBeauty - 
+				A Platform for Data Lovers & Data Artists
+</title>
+		<meta name="google-site-verification" content="" />
+		<meta name="description" content="Plovist is a platform for Artists and Art Lovers to upload, discover, and buy or sell various Artforms Like Paintings, Photography,and  Digital art." />  
+        <meta name="keywords" content="art, upload, buy affordable paintings for homes,sell paintings, photography, Expert, Visual Artists, Display, digital, Travel, Abstract, Contemporary, Modern Art,  Generative,emerging artists " />
+			<link rel="stylesheet" href="/static/css/romeo.css">
+			<link rel="stylesheet" href="/static/css/style_bak.css">
+			<link rel="stylesheet" href="/static/css/style.css">	
+			<link rel="stylesheet" href="/static/css/fourist.css">
+			<script src="/static/js/modernizr-2.5.3.min.js"></script>
+			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+
+            <link rel="stylesheet" href="/static/css/bootstrap.css">
+			<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+			<link rel="stylesheet" href="/static/css/bootstrap-responsive.css">
+          
+			<link rel="stylesheet" href="/static/css/overcast/jquery-ui-1.10.3.custom.css">
+			<link rel="stylesheet" href="/static/css/pinry.css">
+		
+<script>
+         $(document).ready( function() {
+$('.dropdown-toggle').dropdown();
+
+	   $('.desc').click(function(e){
+					e.preventDefault();
+					});
+});
+</script>
+
+<script>
+$(function () {
+    $("#follow_button, #unfollow_button").click(function () {
+        $.post($(this).attr("href"), {});
+        $(this).parent().find("#follow_button, #unfollow_button").toggle();
+        return false
+    });
+});
+</script>
+
+
+		<!-- Le fav and touch icons -->
+		<link rel="shortcut icon" href="/static/images/ee.png">
+
+		<script src="/static/js/modernizr-transitions.js"></script>
+
+<!-- bxSlider Javascript file -->
+<script src="/static/js/jquery.bxslider.min.js"></script>
+<!-- bxSlider CSS file -->
+<link href="/static/css/jquery.bxslider.css" rel="stylesheet" />
+	
+<style>
+	.up{position:fixed; right:10px;top:92%; z-index:9999}
+
+         a#labelFeedback { position:fixed; display:block; top:50%; left:-20px; width:46px; height:103px; margin-top:-50px;
+		background:url("/static/images/feedbacknew.jpg") no-repeat 10px 0; text-indent:-5000px;
+		-moz-transition: left 0.3s ease-in 0s;
+		-webkit-transition: left 0.3s ease-in 0s;
+		-o-transition: left 0.3s ease-in 0s;
+		transition: left 0.3s ease-in 0s;
+		z-index:999; }
+
+		a#labelFeedback:hover {left:-10px}
+
+		.dropdown-menu .dropdown-submenu {
+               left: 100%;
+               position: absolute;
+               top: 0;
+               visibility: hidden;
+               margin-top: -1px;
+       }
+
+       .dropdown-menu li:hover .dropdown-submenu {
+               visibility: visible;
+       }
+
+	    .dropdown-menu li {
+   position: relative;
+}
+    
+</style>
+	
+	<style>
+.nav > li > a:focus, .navbar .nav > li > a:hover {
+background-color: #000;
+color:white;
+text-decoration: none;
+}
+
+.nav > li > a {
+text-shadow: none;
+font-weight: bold;
+font-size: 12px;
+}
+
+.nav > li > a {
+float: none;
+padding: 10px 10px 3px;
+text-decoration: none;
+}
+
+
+
+
+
+.footer-container {
+  min-height: 40px;
+     background: url(/static/images/top.png) repeat-x top center;}
+.footer-container h2 {
+    float: left;
+    color: #FFFFFF;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    display: inline;
+    margin: 0 5px 0 0; }
+.footer-container .footer-subcontainer {
+    width: 100%;
+    height: 30px;
+    border-bottom: dotted 1px #8B8B8B;
+    padding-top: 18px; }
+  .footer-container footer {
+    font-size: 12px;
+    padding: 0;
+    color: #FFFFFF; }
+    .footer-container footer a {
+      color: #FFFFFF; }
+    .footer-container footer section {
+      height: inherit; }
+    .footer-container footer section.footer-left {
+      float: left;
+      width: 53%;
+      padding-left: 10%; }
+    .footer-container footer section.footer-right {
+      float: right;
+      width: 36%; }
+    .footer-container footer ul {
+      float: left;
+      list-style: none;
+      display: inline; }
+    .footer-container footer li {
+      float: left;
+      display: inline;
+      border-left: solid 1px #FFF;
+      padding: 0 10px 0 10px; }
+      .footer-container footer li:first-child {
+        border-left: none;
+        padding-left: 0px; }
+    .footer-container footer section ul {
+      margin: 0;
+      padding: 0; }
+    .footer-container footer .share-link {
+      float: left;
+      margin: 0 5px 0 5px;
+      position: relative;
+      top: -5px; }
+	  
+	  ::selection {
+	background: #000; /* Safari */
+	}
+::-moz-selection {
+	background: #000; /* Firefox */
+}
+
+::-webkit-selection{
+	background: #000; /* Firefox */
+}
+</style>
+
+
+	
+<script>
+function vote(slug, direction) {
+    $.post('/tips/'+slug+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
+           function(data) {
+               if (data.success == true) {
+                   $('#score').text(data.score.score);
+                   $('#num_votes').text(data.score.num_votes);
+               } else {
+                   alert('ERROR: ' + data.error_message);
+               }
+           }, 'json'
+          )
+}
+</script>
+<script type="text/javascript">
+/* GA */
+</script>
+		
+
+</head>
+	
+    <body name="top">
+<div class="navbar  navbar-fixed-top" style="zoom:90%;">
+<div class="navbar-inner">
+                <div class="container-fluid">
+
+     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<span class="icon-bar"> </span>
+<span class="icon-bar"> </span>
+<span class="icon-bar"> </span>
+ </a>
+ <a class="brand" href="/pins" style="color:white; margin-left:40px;margin-top:1px;letter-spacing:-1px">DataBeauty <sub >&beta;</sub> </a>
+ <div class="nav-collapse">
+<ul class="nav">
+ <li class="dropdown clearfix"><a data-toggle="dropdown" class="dropdown-toggle" href="#" style="color:white;">Explore Art<b class="caret"></b></a>
+ <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+    <li><a href="#">All</a>	</li>
+	<li><a href="#">Paintings</a></li>
+	<li><a href="#">Photography</a></li>
+	<li><a href="#">Digital Art</a></li>
+			<li class="divider"></li>
+    <li><a href="#">Draw Something</a></li>
+    <!--
+	<li><a href="/ex_pos">Exhibition</a></li>
+	<li><a href="/opportunities">Art Opportunities</a></li>
+	<li><a href="/featured-artists">Featured Artists</a></li>
+	<li><a href="/mlaom">Most Loved Artworks</a></li>
+    <li><a href="/pins/tag/cap_one">Go Green Contest</a></li>
+    --> 
+ </ul>
+</li>
+ 
+</ul>  
+
+<span class="pull-left">
+		
+      	<ul class="nav">
+          <li class="dropdown">
+		  
+      	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon-white"></i>Shop<b class="caret"></b></a>
+         <ul class="dropdown-menu" id='' >
+                  <li><a href="#" role="button"> Paintings</a></li>
+                  <li><a href="#" role="button"> Photograph</a></li>
+                  <li><a href="#" role="button"> Digital Art</a></li>
+         </ul>
+         </li>
+         </ul>
+</span>  
+<span class="pull-left">
+	<ul class="nav">		  
+      	<li>
+<a href="/blog" class="dropdown-toggle" data-toggle="dropdown">
+<i class="icon-list icon-white"></i>Blog
+</a> 
+</li>
+</ul>
+</span>
+
+	   	
+
+
+<span class="pull-left">
+		
+      	<ul class="nav">		  
+      	<li>
+		   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-arrow-up icon-white"></i>Tutorials</a>
+		</li>
+        </ul>
+</span>
+
+<!-- <span class="pull-left">
+		
+      	<ul class="nav">
+          <li class="dropdown">
+		  
+      	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                   How to
+                    <b class="caret"></b>
+        </a>
+         <ul class="dropdown-menu" id='' >
+                  <li>
+                  	<a href="#NavModal" role="button" data-toggle="modal"> Sign Up and Login</a>
+                  </li>
+                  <li>
+                  	<a href="#postModal" role="button" data-toggle="modal"> Edit Your Profile</a>
+                  </li>
+                  <li>
+                  	<a href="#STModal" role="button" data-toggle="modal"> Upload Artworks</a>
+                  </li>
+                           
+				  <li>
+                  	<a href="#newModal" role="button" data-toggle="modal">Sell Artworks</a>
+                  </li>  
+				   <li>
+                  	<a href="#followModal" role="button" data-toggle="modal">Shop Artworks</a>
+                  </li> 
+					
+         </ul>
+         </li>
+         </ul>
+  </span> -->
+
+<!-- <div style="margin-top:1px;" class="btn-group pull-right">
+  <a href="/login/?next=/concept/" class="btn btn-success" style="color:white;">Login</a>
+  <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+   
+  <li><a href="/login/facebook/?next=/concept/">Facebook Login</a></li>
+    <li><a href="/login/twitter/?next=/concept/">Twitter Login</a></li>
+	    <li><a href="/login/?next=/concept/">Plovist Login</a></li>
+  
+  </ul>
+</div> -->
+<!-- SEARCH -->
+
+
+
+
+<span class="pull-right">
+		
+      	<ul class="nav">
+        <li class="dropdown">
+		  
+      	<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-off icon-white"></i> Login
+		<b class="caret"></b>
+        </a>
+         <ul class="dropdown-menu" id='' >
+			<li><a href="/login/facebook/?next=/concept/">Facebook Login</a></li>
+			<li><a href="/login/twitter/?next=/concept/">Twitter Login</a></li>
+			<li><a href="/login/?next=/concept/">DataBeauty Login</a></li>						
+         </ul>
+         </li>
+         </ul>
+</span>
+
+
+<span class="pull-right">
+<form  id='searchform' class="navbar-form " style="margin-top:1px;" action="/search/" method="get" >
+ <input id='search' style=" height:19px;width:350px;"  type="text" class="input-medium search-query span3" placeholder="Search for Data Beauty" name="q"> 
+</form>
+</span> 
+
+
+
+ </div><!--/.nav-collapse -->
+</div>  <!--/.container -->
+</div> 
+        </div><!--navbar-->
+
+
+		<a id="labelFeedback" href="/contact" title="send your feedback">feedback</a>
+		 <!-- <a title="Scroll to Top" href="#top" class="up"><img src="/static/images/scroll-to-top.png"/> </a>-->
+       
+	   
+<style>
+.item img {
+	width: 1200px;
+	height: auto;
+}
+</style>
+<style>
+.footer-container {
+  min-height: 40px;
+     background: url(/static/images/top.png) repeat-x top center;}
+.footer-container h2 {
+    float: left;
+    color: #FFFFFF;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    display: inline;
+    margin: 0 5px 0 0; }
+.footer-container .footer-subcontainer {
+    width: 100%;
+    height: 30px;
+    border-bottom: dotted 1px #8B8B8B;
+    padding-top: 18px; }
+  .footer-container footer {
+    font-size: 12px;
+    padding: 0;
+    color: #FFFFFF; }
+    .footer-container footer a {
+      color: #FFFFFF; }
+    .footer-container footer section {
+      height: inherit; }
+    .footer-container footer section.footer-left {
+      float: left;
+      width: 53%;
+      padding-left: 10%; }
+    .footer-container footer section.footer-right {
+      float: right;
+      width: 36%; }
+    .footer-container footer ul {
+      float: left;
+      list-style: none;
+      display: inline; }
+    .footer-container footer li {
+      float: left;
+      display: inline;
+      border-left: solid 1px #FFF;
+      padding: 0 10px 0 10px; }
+      .footer-container footer li:first-child {
+        border-left: none;
+        padding-left: 0px; }
+    .footer-container footer section ul {
+      margin: 0;
+      padding: 0; }
+    .footer-container footer .share-link {
+      float: left;
+      margin: 0 5px 0 5px;
+      position: relative;
+      top: -5px; }
+	  
+	  
+.x img{
+   -webkit-transition: all 0.3s;
+   -moz-transition: all 0.3s;
+   -o-transition: all 0.3s ;
+   -ms-transition: all 0.3s;
+}
+
+.x img:hover{
+ 
+       -webkit-transform:rotate(-10deg) scale(0.9);
+   -moz-transform: rotate(-10deg) scale(0.9);
+   -o-transform: rotate(-10deg)) scale(0.9);
+   -ms-transform: rotate(-10deg) scale(0.9);
+}
+ 
+</style>
+
+
+	
+ 
+    <div class="container">
+
+		
+		<div class="span12">
+                               <div class="hero-unit bg" style="background-image:url(/static/images/collage.png);
+                                               position:relative;background-size:1200px 414px; margin-top:-55px;" >
+                               <section id="opener">
+                                               <div class="width_wrap">
+                                       <br/>        <br><br><br><br><br><br><br><br><br><br><br/><br/>
+                            									   
+									    <a href="#"   style="margin-left:370px;">
+                                       <span class="x"> <img src="/static/images/ee.png"  width="150px;"/></span></a>
+                                       <br/>
+									   <a href="#"   >
+									   <img  style="position:absolute;left:360px;top:300px;" src="/static/images/ee_add_2.png"  width="150px;"/>
+                                       </a>
+                                       </div>        
+                               </section>
+                               </div>                
+       </div>
+	   
+		<br><br>
+      <!-- Example row of columns -->
+      <div class="row" style="margin-left:95px;">
+        <div class="span3" style="margin-left:30px;">
+          <h2>Share Art</h2>
+<p style="text-align:justify;">Create portfolio of your paintings, photographs, digital art and get appreciated by a large community of art lovers. 
+		  Discover awesome works of artists around the globe.</p>
+<p ><a href="#" class="btn btn-success" style="width:80px;font-size:18px;text-align:justify;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank">
+ Explore</a></p> 
+			</div>
+			
+			
+			
+				
+			 <div class="span3" style="margin-left:30px;">
+<!-- 3.Featured Artist -->
+<h2>Art Marketplace</h2>
+ <p style="text-align:justify;" > Buy unique artworks at affordable prices from artists around the globe or Sell your artworks in a community of art lovers from more than 90 countries.</p>
+		    <p > <a href="#" class="btn btn-success" style="width:80px;font-size:18px;text-align:justify;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank" > Explore</a></p>
+
+        </div>
+			
+			 <div class="span3" style="margin-left:30px;">
+<!-- 2. Be On Frontpage -->
+<h2>Competitions</h2>
+<p style="text-align:justify;">
+Ongoing Competition : Go Green by Capital One Analytics. Only Capital One Employees can Upload, but anyone can view/like or comment, entry with max likes wins.
+</p>
+<p><a href="#" class="btn btn-success" style="width:80px;font-size:18px;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank"> 
+Explore</a></p>
+			</div>
+			
+		
+		
+		
+      </div>
+	  <br>
+	        <div class="row" style="margin-left:95px;">
+        <div class="span3" style="margin-left:30px;">
+          <h2>Loved Artworks</h2>
+<p style="text-align:justify;"> Top 10  user submitted artworks at Plovist.com in each of the following categories Painting, Photography, and Digital art will be displayed on the front page every month.</p>
+<p ><a href="#" class="btn btn-success" style="width:80px;font-size:18px;text-align:justify;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank">
+ Explore</a></p> 
+			</div>
+			
+			
+			 <div class="span3" style="margin-left:30px;">
+<!-- 2. Be On Frontpage -->
+<h2>Exhibitions</h2>
+<p style="text-align:justify;">
+Get a chance to exhibit your art in front of people who count like curators, critics, collectors, advisors, gallery owners
+ and other influential art world players.
+</p>
+<p><a href="#" class="btn btn-success" style="width:80px;font-size:18px;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank"> 
+Explore</a></p>
+			</div>
+			
+			
+			 <div class="span3" style="margin-left:30px;">
+<!-- 3.Featured Artist -->
+<h2>Featured Artist</h2>
+ <p style="text-align:justify;" >India's Leading Fashion Photographer Pravin Talan is Featured Artist. He has been a part of many international projects, including the highly acclaimed Taj Mahal Project. </p>
+		    <p > <a href="#" class="btn btn-success" style="width:80px;font-size:18px;text-align:justify;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank"> Explore</a></p>
+
+        </div>
+		
+		
+      </div>
+	  <br />
+
+<br /><br />	  
+
+
+
+
+
+
+<hr style="border: 0;
+ width: 100%;
+ color: #cccac6;
+background-color: #cccac6;
+height: 1px;visibility:visible;"/>
+<br/>
+	
+	<a href="/mlaom" target="_blank"><h2 style="font-family: 'Segoe UI', Frutiger, 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif;text-align: center;font-size:30px;margin-bottom: 30px; color : #345">Most Loved Data Beauty of the Month !!</h2></a>
+
+	<div id='slider1' class="bxslider">
+			
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'The Dancer' by Jennaleeart"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/1.jpg" width="160" alt="Artist : jennaleeart" height="160">
+
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Eve and Tree of Knowledge' by Tokhtaman"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/2.jpg" width="160" alt="Artist : tokhtaman" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/Eva_and_Tree_of_Knowledge.jpg" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Horse Shoe Bend -Grand Canyon North Rim' by Koulvivek"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/3.jpg" width="160" alt="Artist : koulvivek" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/DSC08485.jpg" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Blue Forest' by Aparna.ajesh"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/4.jpg" width="160" alt="Artist : aparna.ajesh" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/Misty.jpg" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Village hues' by Anchal"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/5.jpg" width="160" alt="Artist : Anchal" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/20130322_132149-1.jpg" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Joy' by Serenecompositions"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/6.jpg" width="160" alt="Artist : serenecompositions" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/Joy.JPG" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Abandoned ' by Makandar"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/cache/de/cf/decf7d312ea5018ae676aa8c5c35991b.jpg" width="160" alt="Artist : makandar" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/DSC01367.JPG" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Bridge' by Bijapure"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/cache/28/76/28767a0d69501456f78193e3a28edf14.jpg" width="160" alt="Artist : bijapure" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/DSC01358.JPG" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'My First Bikini shot' by PravinTalan"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/cache/d3/d6/d3d6b3e9482542bfc00a8656686d3325.jpg" width="160" alt="Artist : PravinTalan" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/one_of_my_frst_bikini_shots_and_still_one_of_my_best.jpg" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'abhinay ke praan...' by Kaptan"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/cache/d4/29/d4297c5c675fa0e18705e2963ba92a54.jpg" width="160" alt="Artist : kaptan" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/pran_copy.jpg" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Shades :)' by Apoorvaa"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/cache/b4/d7/b4d72eff80231581a4f7a7c4bacc6451.jpg" width="160" alt="Artist : Apoorvaa" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/315384_150948181708648_733242431_n.jpg" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Secular' by Boqa"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/cache/19/0a/190a5a6afdfee76d3fcde3014eb0e935.jpg" width="160" alt="Artist : boqa" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/1000120_10152070586494447_1037648561_n.jpg" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Varanasi Ganga Ghat' by Sudhir.chalke.73"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/cache/0d/48/0d48d572cb272dee30899402eebb6725.jpg" width="160" alt="Artist : sudhir.chalke.73" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/Varanasi.jpg" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'madhuban' by Shikhapatel"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/cache/d6/21/d621d4172dedef5f9f284cc8eef875e3.jpg" width="160" alt="Artist : shikhapatel" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/080620135900.jpg" alt="" height="95px" width="95px"/> -->
+</a>
+
+<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Couple Face' by Sudhir.chalke.73"	data-trigger="hover"  target="_blank">
+ 	
+
+    <img src="/static/media/cache/29/83/29832d1b8542113de4f1deee7c122884.jpg" width="160" alt="Artist : sudhir.chalke.73" height="160">
+
+<!-- <img id="Pin" src="/static/media/pins/pin/originals/face13.jpg" alt="" height="95px" width="95px"/> -->
+</a>
+
+</div>
+
+<hr style="border: 0;
+ width: 100%;
+ color: #cccac6;
+background-color: #cccac6;
+height: 1px;visibility:visible;"/>
+	<br/>
+	
+	
+<!-- Footer -->
+
+		
+    </div> <!-- /container -->
+	
+	
+	<div  class="footer-container" style="margin-bottom:-20px;"> 
+			<footer class="clearfix" style="background: url(/static/images/top.png) repeat-x top center;">
+		<div class="footer-subcontainer">
+			<section class="footer-left">
+				<h2 style="margin-top:-10px;">DataBeauty:</h2>
+				<ul>
+					<li><a rel="nofollow" href="#" target="_blank">About us</a></li>
+					<li><a rel="nofollow" href="#" target="_blank" >Terms &amp; conditions</a></li>
+					<li><a href="#" target="_blank" >Careers</a></li>
+					<li><a href="#" target="_blank" >Contact</a></li>
+				</ul>
+			</section>
+			<section class="footer-right">
+				<h2 style="margin-top:-10px;">Find us on:</h2>
+				<a href="#" target="_blank" ><img src="/static/images/fb_pinnew.jpg" width="20px" height="20px"/></a>
+				<a href="#" target="_blank" ><img src="/static/images/twitter_pinnew.jpg" width="20px" height="20px"/></a>
+				&nbsp;&nbsp;&copy;2013 DataBeauty. All rights reserved.
+
+		</div>
+
+
+            </footer>
+        </div>
+
+
+<script type="text/javascript">
+$(function(){
+$('#slider1').bxSlider({
+ minSlides: 1,
+  maxSlides: 5,
+  slideWidth: 100,
+  adaptiveHeight:true,
+  slideMargin: 7
+});
+
+});
+</script>
+
+<script type="text/javascript">
+	$(function() {
+    $("a[rel='tooltip']").tooltip();
+});
+$('#most_loved').popover();
+</script>
+
+            <script src="/static/js/bootstrap.js"></script>
+			<script src="/static/js/bootstrap-collapse.js"></script>
+
+            <script src="/static/js/jquery.fancybox.js"></script>
+            <script src="/static/js/jquery.imagesloaded.js"></script>
+            <script src="/static/core/js/pinry.js"></script>
+			
+			<!-- Masonry JQuery Plugin -->
+			<script>window.jQuery || document.write('<script src="/static/js/jquery-1.7.1.min.js"><\/script>')</script>
+			<script src="/static/js/script.js"></script>
+
+			<script src="/static/js/jquery.masonry.min.js"></script>
+			<script src="/static/js/jquery.infinitescroll.min.js"></script>
+			<script src="/static/js/box-maker.js"></script>
+			<script src="/static/js/modernizr-transitions.js"></script>
+
+			<!-- INFINITE SCROLL SCRIPT  -->
+			<script type="text/javascript">
+			$(function(){
+			
+			var $container = $('#content');
+			
+			$container.imagesLoaded(function(){
+			  $container.masonry({
+				itemSelector: '.item',
+				columnWidth: 0,
+				isAnimated: !Modernizr.csstransitions
+			  });
+			});
+			
+			$container.infinitescroll({
+			  navSelector  : '#page-nav',    // selector for the paged navigation 
+			  nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
+			  itemSelector : '.item',     // selector for all items you'll retrieve
+			  loading: {
+				  finishedMsg: 'No more pages to load.',
+				  img: '/static/images/loading.gif'
+				}
+			  },
+			  // trigger Masonry as a callback
+			  function( newElements ) {
+				// hide new items while they are loading
+				var $newElems = $( newElements ).css({ opacity: 0});
+				// ensure that images load before adding to masonry layout
+				$newElems.imagesLoaded(function(){
+				  // show elems now they're ready
+				  $newElems.animate({ opacity: 1 });
+				  $container.masonry( 'appended', $newElems, true ); 
+				  
+				   $('.desc').click(function(e){
+					e.preventDefault();
+					});
+				
+				});
+			  }
+			);
+			
+		  });
+	</script>
+	<script src="/static/js/jquery-ui-1.10.3.custom.js"></script>
+	
+<script>
+
+$(function() {
+var cache= cache || {};
+        $( "#search" ).autocomplete({
+            delay: 500,
+			minLength: 2,
+            source: function( request, response ) {
+                var term = request.term;
+                if ( term in cache ) {
+                    response( cache[ term ] );
+                    return;
+                 }
+
+                $.getJSON( "/pins/search/autocom", request, function( data, status, xhr ) {
+                    if ( data.length > 0){
+                        cache[ term ] = data;
+                        response( data );
+                    }
+                 });
+            },
+			select: function( event, ui ) {
+			     $('#search').val(ui.item.value);
+                 $('#searchform').submit();
+            }
+
+ 
+        })
+    });
+</script>
+ 
+<script type='text/javascript'>
+</script><!--End of ClickDesk -->
+ 	
+	</body>
+</html>
