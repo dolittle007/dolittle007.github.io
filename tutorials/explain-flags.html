@@ -52,21 +52,21 @@
 <body>
 
 This utility explains SAM flags in plain English. <br>
-<br>
+<br />
 
 <form onSubmit="explainFlags(); return false;">
 Flag: &nbsp;
 <input id="tb" type=text size=10 /> &nbsp; &nbsp; &nbsp;
 <input type=submit value="Explain" /><br>
-<br>
-Explanation:<br>
+<br />
+Explanation:<br />
 <script type="text/javascript">
 for(var i = 0; i < lstFlags.length; i++) {
-	document.write("<input type=checkbox name=cb" + i + " id='cb" + i + "' onclick='checkboxClicked();'> &nbsp; " +lstFlags[i][0] + "</input><br>");
+	document.write("<input type=checkbox name=cb" + i + " id='cb" + i + "' onclick='checkboxClicked();'> &nbsp; " +lstFlags[i][0] + "</input><br />");
 }
 </script>
-<br>
-Summary:<br>
+<br />
+Summary:<br />
 <div id="summary">
 
 </form>
