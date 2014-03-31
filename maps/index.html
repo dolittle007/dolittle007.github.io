@@ -11,10 +11,11 @@
        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwFNK8CTdukp4i1LLisM-6dF1ImsYB-oo&sensor=false">
     </script>
     <script type="text/javascript">
+    //Enable the visual refresh
+    google.maps.visualRefresh = true;
     var map;
       function initialize() {
-        //Enabling new cartography and theme
-        google.maps.visualRefresh = true;
+       
         // starting options of map
         var mapOptions = {
           center: new google.maps.LatLng(-34.397, 150.644),
