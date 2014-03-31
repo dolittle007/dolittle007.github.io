@@ -14,6 +14,18 @@
     //Enable the visual refresh
     google.maps.visualRefresh = true;
     var map;
+    
+    if (navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(
+        function(position){
+          var lat = position.coords.latitude;
+          var lng = position.coords.longitude;
+          var devCenter = new google.maps.LatLng(lat, lng);
+          map.setCenter(devCenter);
+          map.setZoom(15);
+        });
+    }
+    
       function initialize() {
        
         // starting options of map
