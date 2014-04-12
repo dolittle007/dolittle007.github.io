@@ -1,297 +1,386 @@
 <!doctype html>
 <html>
-
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>WebGL Presentation</title>
-    <link rel="stylesheet" type="text/css" href="./css/slides.css" />
-    <script type="text/javascript" src="./js/slides.min.js"></script>
-<script type="text/javascript">
-
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title>fhtr + building a brighter future</title>
+		<script>
+			window.DEBUG = true;
+			window.startScript = Date.now();
+			window.legacy = /windows/i.test(navigator.userAgent);
+			window.mobile = /mobile/i.test(navigator.userAgent);
+			if (mobile) {
+				// Use the simple shaders on mobiles
+				window.shaderURLs = ['./frag/bling_dx9.frag', './frag/audiophilia.frag', './frag/atmosphere_distortion.frag'];
+			} else {
+				if (legacy) {
+					window.shaderURLs = ['./frag/audiophilia.frag'];
+				} else {
+					window.shaderURLs = [
+						'./frag/zardoz_1999.frag',
+						'./frag/bling.frag',
+						'./frag/bling_dx9.frag',
+						'./frag/spectral.frag',
+						'./frag/audiophilia.frag',
+						'./frag/zardoz_2001.frag',
+						'./frag/mblur.frag',
+						'./frag/atmosphere_distortion.frag',
+						'./frag/seaglitch.frag'
+					];
+				}
+			}
+			window.Loader = {
+				cache: {},
+				get: function(files, callback) {
+					var results = [];
+					var count = 0;
+					var ondone = function(i){ 
+						return function(data) {
+							results[i] = data;
+							count++;
+							if (count === files.length) {
+								if (callback) {
+									callback.apply(null, results);
+								}
+							}
+						}
+					};
+					var self = this;
+					for (var i=0; i<files.length; i++) {
+						var f = this.cache[files[i]];
+						if (f) {
+							if (f.listeners !== undefined) {
+								f.listeners.push(ondone(i));
+							} else {
+								ondone(i)(f);
+							}
+						} else {
+							f = this.cache[files[i]] = {listeners: [ondone(i)]};
+							(function(i){
+								var xhr = new XMLHttpRequest();
+								xhr.open('GET', files[i], true);
+								xhr.onload = function(ev) {
+									var l = self.cache[files[i]].listeners;
+									var f = self.cache[files[i]] = this.responseText;
+									for (var j=0; j<l.length; j++) {
+										l[j](f);
+									}
+								};
+								xhr.send(null);
+							})(i);
+						}
+					}
+				}
+			};
+			Loader.get(shaderURLs);
+		</script>
+		<style>
+			html,body {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				font-family: 'futura-pt', sans-serif;
+				font-weight: 100;
+				text-align: center;
+				-webkit-perspective: 1200px;
+				width: 100%;
+				height: 100%;
+				background-color: white;
+			}
+			#glcanvas {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				width: 100%;
+				height: 100%;
+			}
+			#about, #contact {
+				z-index: 2;
+				opacity: 0;
+				font-family: 'futura-pt', sans-serif;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 500px;
+				height: 400px;
+				margin-left: -250px;
+				margin-top: -200px;
+				background: rgba(0,0,0,0.5);
+				box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
+				-webkit-transform: translate3D(0px, -40px, 20px) rotateY(90deg);
+				transition: 0.5s;
+				color: white;
+				box-sizing: border-box;
+				padding: 50px;
+			}
+			#about a, #contact a {
+				color: white;
+			}
+			#about.visible, #contact.visible {
+				opacity: 1;
+				-webkit-transform: rotateY(0deg);
+			}
+			#footer {
+				z-index: 1;
+				font-family: 'futura-pt', sans-serif;
+				color: white;
+				position: absolute;
+				right: 16px;
+				bottom: 8px;
+				font-size: 11px;
+				opacity: 0.15;
+			}
+			#footer a {
+				text-decoration: none;
+				color: white;
+			}
+			#title {
+				z-index: 1;
+				position: absolute;
+				left: 0px;
+				top: 40px;
+				font-size: 80px;
+				font-family: 'futura-pt',sans-serif;
+				font-weight: 100;
+				width: 100%;
+				text-align: center;
+				color: black;
+				pointer-events:none;
+			}
+			#portfolio {
+				position: absolute;
+				z-index: 2;
+				right: 10px;
+				font-size: 13px;
+				top: 8px;
+			}
+			#portfolio p {
+				margin: 0;
+				letter-spacing: 1px;
+			}
+			h1 {
+				font-size: 80px;
+				font-weight: 100;
+				margin: 0;
+			}
+			hr {
+				width: 400px;
+				background: black;
+				height: 1px;
+				border: 0px;
+				margin: 15px auto 20px auto;
+				opacity: 0.2;
+			}
+			h3 {
+				font-size: 15px;
+				font-weight: 100;
+				margin: 0;
+				text-transform: uppercase;
+				letter-spacing: 10px;
+				margin-left: 10px;
+			}
+			#shaders {
+				z-index: 2;
+				list-style: none;
+				position: absolute;
+				bottom: 0px;
+				right: 10px;
+				margin: 0;
+				padding: 0;
+				opacity: 0;
+				transition: 1s;
+				vertical-align: top;
+				height: 40px;
+			}
+			#shaders li {
+				vertical-align: top;
+				display: inline-block;
+				margin-left: 4px;
+				padding-top: 6px;
+				margin-bottom: 10px;
+				border-bottom: 4px solid black;
+				color: black;
+				width: 20px;
+				height: 20px;
+				font-size: 11px;
+				text-align: center;
+				cursor: pointer;
+				transition: 0.25s;
+			}
+			#shaders li:hover {
+				background: rgba(255,255,255,0.5);
+				border-bottom: 14px solid black;
+				margin-bottom: 0px;
+			}
+			#music {
+				z-index: 1;
+				opacity: 0;
+				transition: 1s;
+				position: absolute;
+				left: 10px;
+				bottom: 10px;
+				color: white;
+				height: 46px;
+				width: 300px;
+				text-overflow: ellipsis;
+			}
+			#music:hover {
+				opacity: 1 !important;
+			}
+			#music a {
+				text-decoration:none;
+				color: white;
+			}
+			.music-play {
+				font-size: 39px;
+				position: absolute;
+				left: 74px;
+				top: 0px;
+				white-space: nowrap;
+				cursor: pointer;
+				width: 40px;
+			}
+			.music-author {
+				font-size: 12px;
+				position: absolute;
+				left: 124px;
+				top: 7px;
+				white-space: nowrap;
+			}
+			.music-title {
+				font-size: 12px;
+				position: absolute;
+				left: 124px;
+				top: 25px;
+				white-space: nowrap;
+			}
+			.music-link {
+				position: absolute;
+				left: 0px;
+				top: 0px;
+			}
+			.music-pause {
+				display: inline-block;
+				height: 28px;
+				width: 7px;
+				border-left: 10px solid white;
+				border-right: 10px solid white;
+			}
+			@media (max-height: 600px) {
+				h1 {
+					font-size:  40px;
+				}
+				hr {
+					width: 200px;
+				}
+				h3 {
+					font-size: 10px;
+				}
+			}
+			@media (max-height: 400px) {
+				h1,h3,hr {
+					display: inline-block;
+					margin: 0;
+					padding: 0;
+				}
+				#title {
+					top: 0px;
+				}
+				h1 {
+					position: relative;
+					top: -10px;
+				}
+				h3 {
+					position: relative;
+					top: -16px;
+				}
+				hr {
+					width: 1px;
+					height: 40px;
+					margin-left: 10px;
+					margin-right: 10px;
+				}
+			}
+			a {
+				text-decoration: none;
+				color: #000;
+				pointer-events: normal;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="title">
+			<h1>fhtr</h1>
+			<hr>
+			<h3>opus</h3>
+		</div>
+		<div id="portfolio">
+			<p><a href="portfolio.html">PORTFOLIO &rarr;</a></p>
+		</div>
+		<div id="contact">
+			<h3>FHTR Ltd</h3>
+			<hr>
+			<h4>Ilmari Heikkinen</h4>
+			<hr>
+			<p><a href="mailto:contact@fhtr.net">contact@fhtr.net</a><p>
+			<p>Skype: ilmarihe</p>
+			<p>Tel: +447427139588</p>
+			<p><a href="http://twitter.com/ilmarihei">@ilmarihei</a></p>
+		</div>
+		<ul id="shaders">
+		</ul>
+		<div id="music">
+			<div class="music-play">&#9654;</div>
+			<a class="music-author"></a>
+			<a class="music-title"></a>
+			<a class="music-link"><img width="64" height="43" src="data:image/png;base64,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"></a>
+		</div>
+		<div id="footer">
+			<!--<a href="#contact" id="contact-link">Contact</a> -->
+		</div>
+		<script src="zardoz.js" async="true"></script>
+		<script>
+			(function() {
+				// Overlap random texture creation with loading network assets.
+				var t0 = Date.now();
+				var canvas = document.createElement('canvas');
+				var id = new Uint8Array(256*256*4);
+				id.width=256;
+				id.height=256;
+				for (var y=0; y<256; y++) {
+					for (var x=0; x<256; x++) {
+						var off = (y*256 + x) | 0;
+						var off2 = (((y+17) % 256)*256 + ((x+37) % 256)) | 0;
+						var v = (256 * Math.random()) | 0;
+						id[off*4] = id[off2*4+1] = v;
+						id[off*4+2] = (256 * Math.random()) | 0;
+						id[off*4+3] = (256 * Math.random()) | 0;
+					}
+				}
+				window.randomTex = id;
+				if (DEBUG) console.log('Create random texture: '+(Date.now()-t0)+' ms'); t0 = Date.now();
+				var glc = document.createElement('canvas');
+				glc.id = 'glcanvas';
+				var gl;
+				try {
+					gl = glc.getContext('webgl');
+					if (!gl) { gl = glc.getContext('experimental-webgl'); }
+				} catch (e) {
+					gl = glc.getContext('experimental-webgl');
+				}
+				if (!gl) {
+					return; // no WebGL.
+				}
+				window.gl = gl;
+				window.glc = glc;
+				gl.clearColor(1,1,1,1);
+				var ext = gl.getExtension('OES_texture_float');
+				if (DEBUG) console.log('WebGL context creation: '+(Date.now()-t0)+' ms'); t0 = Date.now();
+			})();
+		</script>
+		<script type="text/javascript">
 </script>
-  </head>
-  <body>
-    <div id="slides">
-      <div>
-        <h1>WebGL</h1>
-        <h2></h2>
-        <h3>Press space for next slide.</h3>
-        <h3>Press backspace for previous slide.</h3>
-      </div>
-      <div>
-        <h1>WebGL</h1>
-        <h2>OpenGL ES 2.0 + JavaScript</h2>
-        <h2>&lt;CANVAS&gt;</h2>
-      </div>
-      <div>
-        <h1>How do I get it?</h1>
-        <h2>Firefox 4 beta or Minefield</h2>
-        <h2>WebKit nightly on OS X 10.6</h2>
-        <h2>Chromium</h2>
-        <p>khronos.org/webgl/wiki/Getting_a_WebGL_Implementation</p>
-      </div>
-      <div>
-        <h1>IE9 support?</h1>
-        <h2>No idea whatsoever.</h2>
-        <h2>Chrome Frame?</h2>
-      </div>
-      <div>
-        <h1>In HTML</h1>
-        <h2>The usual &lt;CANVAS&gt;</h2>
-        <h2>Works like an image</h2>
-        <h2>CSS, toDataURL(), etc.</h2>
-      </div>
-      <div>
-        <h1>OpenGL ES 2.0</h1>
-        <h2>OpenGL for mobile phones.</h2>
-        <h2>Also works on computers.</h2>
-        <h2>Accelerated drawing.</h2>
-      </div>
-      <div>
-        <h1>1.1 vs. 2.0</h1>
-        <h2>Fixed vs. programmable.</h2>
-      </div>
-      <div>
-        <h1>Programmable?</h1>
-        <h2>Shaders, baby, yeah!</h2>
-        <h2>Massive performance.</h2>
-      </div>
-      <div>
-        <h1>No kidding?</h1>
-        <h2>1000x faster than JavaScript</h2>
-        <p>(depending on shader)</p>
-      </div>
-      <div>
-        <h1>Yeah?</h1>
-        <model src="walas.binm"></model>
-        <h2>80 000 triangles</h2>
-      </div>
-      <div>
-        <h1>What's it good for?</h1>
-        <h2>Custom 2D drawing.</h2>
-        <h2>Custom 3D drawing.</h2>
-      </div>
-      <div>
-        <h1>Custom?</h1>
-        <h2>Everything requires shaders.</h2>
-        <h2>No shortcuts.</h2>
-      </div>
-      <div>
-        <h1>Drawing pipeline</h1>
-        <h3>Vertex shader</h3>
-        <h3>⇓</h3>
-        <h3>Fragment shader</h3>
-        <h3>⇓</h3>
-        <h3>Render target</h3>
-      </div>
-      <div>
-        <h1>Vertex shader</h1>
-        <ul>
-          <h2>Computes</h2>
-          <li>Where to draw</li>
-          <li>Varyings for the fragment shader</li>
-        </ul>
-      </div>
-      <div>
-        <h1>Vertex shader</h1>
-        <ul>
-          <h2>Parameters</h2>
-          <li>Buffers (vertex arrays)</li>
-          <li>Textures (images)</li>
-          <li>Uniforms (call parameters)</li>
-        </ul>
-      </div>
-      <div>
-        <h1>Fragment shader</h1>
-        <ul>
-          <h2>Computes</h2>
-          <li>Color of the pixel</li>
-        </ul>
-      </div>
-      <div>
-        <h1>Fragment shader</h1>
-        <ul>
-          <h2>Parameters</h2>
-          <li>Varyings from the vertex shader</li>
-          <li>Textures</li>
-          <li>Uniforms</li>
-        </ul>
-      </div>
-      <div>
-        <h1>Render target</h1>
-        <h2>&lt;CANVAS&gt;</h2>
-        <h2>or</h2>
-        <h2>Framebuffer object (FBO)</h2>
-      </div>
-      <div>
-        <h1>FBO</h1>
-        <h2>In GPU memory</h2>
-        <h2>For rendering to textures</h2>
-        <self></self>
-      </div>
-      <div>
-        <h1>Textures</h1>
-        <ul>
-        <h2>WebGL can load:</h2>
-          <li>&lt;CANVAS&gt;</li>
-          <li>&lt;IMG&gt;</li>
-          <li>&lt;VIDEO&gt;</li>
-          <li>And pixel arrays.</li>
-        </ul>
-      </div>
-      <div>
-        <h1>CANVAS</h1>
-        <h2>All the text here.</h2>
-        <p>(CSS 3D would be nicer, but eh.)</p>
-        <edit></edit>
-      </div>
-      <div>
-        <h1>IMG</h1>
-        <img src="./images/tram.jpg" width="360" height="360">
-      </div>
-      <div>
-        <h1>VIDEO</h1>
-        <video oncube="true" preload width="480" height="320" controls="on">
-          <source  src="http://www.html5rocks.com/tutorials/video/basics/Chrome_ImF.webm" type='video/webm; codecs="vp8, vorbis"' />
-          <source  src="http://www.html5rocks.com/tutorials/video/basics/Chrome_ImF.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
-        </video>
-      </div>
-      <div>
-        <h1>Further reading</h1>
-        <p>learningwebgl.com</p>
-        <img src="./images/learningwebgl.jpg">
-      </div>
-      <div>
-        <h1>Isn't that a bit...</h1>
-        <h2>...cumbersome? Yes.</h2>
-        <h2>Overkill for simple drawing.</h2>
-        <h2>Libraries to the rescue!</h2>
-      </div>
-      <div>
-        <h1>Libraries</h1>
-        <h2>Alphabetically:</h2>
-        <h3>C3DL</h3>
-        <h3>CopperLight</h3>
-        <h3>CubicVR</h3>
-        <h3>GLGE</h3>
-        <h3>O3D</h3>
-        <h3>SpiderGL</h3>
-        <h3>X3DOM</h3>
-        <h3>XB PointStream</h3>
-      </div>
-      <div>
-        <h1>GLGE</h1>
-        <img src="./images/glge.jpg">
-        <p>glge.org</p>
-      </div>
-      <div>
-        <h1>SpiderGL</h1>
-        <img src="./images/spidergl.jpg">
-        <p>spidergl.org</p>
-      </div>
-      <div>
-        <h1>Games</h1>
-        <h2>Google's Quake 2 -port</h2>
-        <h2>O3D pool game</h2>
-        <h2>Some Q3 map viewers</h2>
-      </div>
-      <div>
-        <h1>Applications?</h1>
-        <h3>3D model viewers</h3>
-        <h3>ChemDoodle molecule visualizer</h3>
-        <h3>ShaderToy</h3>
-        <h3>WebGL Street View</h3>
-      </div>
-      <div>
-        <h1>ChemDoodle</h1>
-        <p>web.chemdoodle.com</p>
-        <img src="./images/chemdoodle.jpg">
-      </div>
-      <div>
-        <h1>ShaderToy</h1>
-        <p>www.iquilezles.org/apps/shadertoy/</p>
-        <img src="./images/shadertoy.jpg">
-      </div>
-      <div>
-        <h1>Status</h1>
-        <h2>WebGL 1.0 soon.</h2>
-        <h2>Chrome, Safari, Firefox, Opera(?)</h2>
-        <h3>Shader validation with ANGLE.</h3>
-        <p>CPU rendering with OSMESA.</p>
-      </div>
-      <div>
-        <h1>ANGLE?</h1>
-        <h2>Almost Native Graphics Layer Engine</h2>
-        <h3>angleproject.googlecode.com</h3>
-        <h3>OpenGL ES 2.0 interpreter</h3>
-      </div>
-      <div>
-        <h1>Interpreter?</h1>
-        <h2>Converts WebGL shaders to native.</h2>
-        <h2>GLES 2.0 -> OpenGL 2.1</h2>
-        <h2>GLES 2.0 -> DirectX 9</h2>
-      </div>
-      <div>
-        <h1>OSMESA</h1>
-        <h2>Off-Screen MESA GL</h2>
-        <h2>Draws on the CPU.</h2>
-        <h2>Very slow.</h2>
-      </div>
-      <div>
-      	<h1>Future of WebGL</h1>
-      	<h2>Base technology.</h2>
-        <h2>Extensions.</h2>
-      	<h2>Flexible.</h2>
-      </div>
-      <div>
-        <h1>Base for what?</h1>
-      	<h2>More user-friendly 3D.</h2>
-      	<h2>Advanced drawing.</h2>
-      	<h2>Game-like graphics.</h2>
-      	<h2>Faster JS.</h2>
-      </div>
-      <div>
-        <h1>Conclusion</h1>
-        <h2>Fast custom drawing.</h2>
-        <h2>Quite well supported.</h2>
-        <h2>Web-compatible.</h2>
-        <h2>Requires programming.</h2>
-      </div>
-      <div>
-        <h1>Thank You!</h1>
-        <h2>Ting-You Wang</h2>
-        <h3>dolittle007@gmail.com</h3>
-      </div>
-      <div>
-        <h1>File sizes</h1>
-        <p>Javascript 30 kB gzipped</p>
-        <p>Presentation 2 kB gzipped</p>
-        <p>CSS 0.5 kB gzipped</p>
-        <p>Images 250 kB</p>
-        <p>3D model 450 kB gzipped</p>
-        <p>Video 2 MB</p>
-      </div>
-      <div>
-        <h1>Cheats</h1>
-        <p>App.editSlide()</p>
-        <p>App.toggleAllSlidesVisible()</p>
-        <p>App.toggleApp()</p>
-        <p>App.wavyText = false</p>
-        <p>App.cycleColors = true</p>
-        <p>txt = App.scene.getNodesByKlass(Magi.MeshText)[0]</p>
-        <p>txt.alignedNode.material.floats.pitch = 2</p>
-        <p>txt = App.scene.getNodesByKlass(Magi.MeshText)[2]
-        <p>App.addDotShader(txt)</p>
-        <p>txt.alignedNode.material.floats.pitch = 2</p>
-      </div>
-      <div>
-        <h1>The End</h1>
-        <p>Click to return to start.</p>
-      </div>
-    </div>
-    <script type="text/javascript">
-      App = new Slides(byId('slides'));
-    </script>
+		<script type="text/javascript" src="//use.typekit.net/svb7vim.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	</body>
-
 </html>
