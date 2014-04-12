@@ -1,3 +1,0 @@
-
-###Dolittle's homepage
-
