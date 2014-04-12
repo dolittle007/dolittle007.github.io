@@ -320,7 +320,7 @@ var init = function() {
 						iOpen = targetOpen;
 					}
 				}
-				if ('mblur.frag' === shaderURLs[currentShader]) {
+				if ('./frag/mblur.frag' === shaderURLs[currentShader]) {
 					var pick = -2.0;
 					if (down) {
 						getDir(iResolution, cameraPos, cameraTarget, mouse, cdir);
