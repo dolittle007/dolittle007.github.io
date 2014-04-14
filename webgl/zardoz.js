@@ -512,7 +512,7 @@ ticker();
 	var sctick = function() {
 		if (window.SC) {
 			SC.initialize({
-			    client_id: "7edc86ef9d085d9b071f1c1b7199a205"
+			    client_id: "2085fde400a487d4259e1b83de228b7e"
 			});
 			window.scplayer = new SCPlayer("/tracks/77262295", document.getElementById('music'));			
 		} else if (ticks < 100) {
