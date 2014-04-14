@@ -238,7 +238,7 @@ var init = function() {
 			gl.enableVertexAttribArray(pos);
 			gl.vertexAttribPointer(pos, 3, gl.FLOAT, false, 0, 0);
 		};
-		for (var i=0; i<arguments.length; i++) {
+		for (var i=0; i<9; i++) {
 			var el = document.createElement('li');
 			el.innerHTML = i+1;
 			el.onclick = function(ev) {
