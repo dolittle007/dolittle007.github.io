@@ -71,7 +71,7 @@ if you're interested in:
 - Seminars
 - Joint Research
 
-```gaston.stat at gmail.com```
+```dolittle007 at gmail.com```
 
 
 
