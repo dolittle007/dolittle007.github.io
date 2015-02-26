@@ -2,6 +2,7 @@
 layout: post
 title: "Creating HTML5 slides with RStudio, knitr and pandoc"
 date: 2015-02-26
+category: how-to
 tags: [html5, slides, knitr, pandoc]
 ---
 
