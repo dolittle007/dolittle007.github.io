@@ -8,7 +8,7 @@ layout: page
 #### I'm a statistical programmer and data science consultant for non-governmental organizations, small start-ups, academic researchers, and research labs in general.
 
 
-<a class="graybutton" href="/about/TYW_resumecode.pdf">resume</a>
+<a class="graybutton" href="/about/TYW_CV.pdf">resume</a>
 &nbsp;&nbsp;
 <a class="graybutton" href="http://www.linkedin.com/in/dolittle007" target="_blank">linkedin</a>
 &nbsp;&nbsp;
