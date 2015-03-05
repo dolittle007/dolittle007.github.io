@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "When is a z-statistic and when a t-statistic used?"
-date: 2015-03-05
+date: 2015-03-04
 category: how-to
 tags: [linear regression model, analysis, logistic regression model, plot, R]
 ---
@@ -41,7 +41,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Note that the dispersion parameter is fixed at 1 and thus, we get z-values.
 
 ### Normal linear regression (OLS)
-{% highlighter r %}
+
+{% highlight r %}
 summary(lm(Fertility~., data=swiss))
 
 Coefficients:
