@@ -1,38 +1,28 @@
 ---
-title: Categories
+title: Blog
 layout: page
 ---
 
 # Data Analysis Visually EnfoRced
 
-### Categories
+<div id="posts">
 
-<div id='tag_cloud'>
-{% for cat in site.categories %}
-<a href="#{{ cat[0] }}" title="{{ cat[0] }}" rel="{{ cat[1].size }}">{{ cat[0] }} ({{ cat[1].size }})</a>
-{% endfor %}
+    {% for post in site.posts offset: 0 limit: 10 %}
+    	<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+	    <h5>{{ post.date | date: "%B %d, %Y" }}</h5>
+	    {% if post.image %}
+	    <p>
+	    	<a href="{{ post.url }}"><img class="centered" src="/images/blog/{{post.image}}" alt=""></a>
+    	</p>
+    	{% endif %}
+        <p>{{ post.excerpt }} </p>
+        <p>	<a class="graybutton" href="{{ post.url }}">Continue reading</a></p>
+        <br/>
+        <hr/>
+    {% endfor %}
+
+	<p>
+	<a class="greenbutton" href="/blog/archive/" title="an archive of all posts">See all posts &rarr;</a>
+	</p>
+	
 </div>
-
-<ul class="listing">
-{% for cat in site.categories %}
-  <li class="listing-seperator" id="{{ cat[0] }}">{{ cat[0] }}</li>
-{% for post in cat[1] %}
-  <li class="listing-item">
-  <time datetime="{{ post.date | date: "%m-%d-%Y" }}">{{ post.date | date: "%m-%d-%Y" }}</time>
-  <a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-  </li>
-{% endfor %}
-{% endfor %}
-</ul>
-
-<script src="/media/js/jquery.tagcloud.js" type="text/javascript" charset="utf-8"></script> 
-<script language="javascript">
-$.fn.tagcloud.defaults = {
-    size: {start: 1, end: 1, unit: 'em'},
-      color: {start: '#f8e0e6', end: '#ff3333'}
-};
-
-$(function () {
-    $('#tag_cloud a').tagcloud();
-});
-</script>
