@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "When is a z-statistic and when a t-statistic used?"
-date: 2015-03-04
-category: how-to
+date: 2015-03-05
+category: opinion
 tags: [linear regression model, analysis, logistic regression model, plot, R]
 ---
 
