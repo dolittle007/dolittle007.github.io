@@ -5,7 +5,7 @@ date: 2015-03-27
 category: opinion
 ---
 
-*** What is a norm?
+### What is a norm?
 
 Mathematically a norm is a total size or length of all vectors in a vector space  or matrices. For simplicity, we can say that the higher the norm is, the bigger the (value in) matrix or vector is. Norm may come in many forms and many names, including these popular name: Euclidean distance, Mean-squared Error, etc.
 
@@ -27,7 +27,7 @@ The interesting point is even though every ln-norm is all look  very similar to 
 
 
 
-*** l0-norm 
+### l0-norm 
 
 The first norm we are going to discuss is a l0-norm. By definition, l0-norm of x is
 
