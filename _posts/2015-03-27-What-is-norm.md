@@ -31,11 +31,11 @@ The interesting point is even though every ln-norm is all look  very similar to 
 
 The first norm we are going to discuss is a l0-norm. By definition, l0-norm of x is
 
-$\\|x\\|\_0 = \sqrt[0]{\sum\_{i}x_i^0$
+$\\|x\\|\_0 = \sqrt[0]{\sum\_{i}{x_i}^0 $
 
 This norm is a bit tricky because there is a present of zeroth-power and zeroth-root in it. Obviously any x > 0 will become one, but the problems of the definition of zeroth-power and especially zeroth-root is messing things around here. So in reality, most mathematicians and engineers use this definition of l0-norm instead:
 
-$\|x\|\_0 = \#(i | x_i \neq 0)$
+$\|x\|\_0 = \#(i | x_i \neq 0) $
 
 that is a total number of non-zero elements in a vector.
 
