@@ -13,7 +13,7 @@ Most of the time you will see the norm appears in a equation like this:
 
 $\\|x\\|$ where x can be a vector or a matrix.
 
-For example, a Euclidean norm of a vector $a = \begin{bmatrix}  3  \\  -2  \\  1  \end{bmatrix}$ is \left \| a \right \|_2=\sqrt{3^2+(-2)^2+1^2}=3.742 which is the size of vector a
+For example, a Euclidean norm of a vector $a = \begin{bmatrix}  3  \\\\  -2  \\\\  1  \end{bmatrix}$ is \left \| a \right \|_2=\sqrt{3^2+(-2)^2+1^2}=3.742 which is the size of vector a
 
 The above example shows how to compute a Euclidean norm, or formally called an l2-norm. There are many other types of norm that beyond our explanation here, actually for every single real number, there is a norm correspond to it (Notice the emphasised word real number, that means it not limited to only integer.)
 
