@@ -11,7 +11,7 @@ Mathematically a norm is a total size or length of all vectors in a vector space
 
 Most of the time you will see the norm appears in a equation like this:
 
-\\( \|x\| \\) where x can be a vector or a matrix.
+$\|x\|$ where x can be a vector or a matrix.
 
 For example, a Euclidean norm of a vector a = \begin{bmatrix}  3  \\  -2  \\  1  \end{bmatrix} is \left \| a \right \|_2=\sqrt{3^2+(-2)^2+1^2}=3.742 which is the size of vector a
 
