@@ -13,13 +13,13 @@ Most of the time you will see the norm appears in a equation like this:
 
 $\\|x\\|$ where x can be a vector or a matrix.
 
-For example, a Euclidean norm of a vector $a = \begin{bmatrix}  3  \\\\  -2  \\\\  1  \end{bmatrix}$ is $\left \| a \right \|_2=\sqrt{3^2+(-2)^2+1^2}=3.742$ which is the size of vector a
+For example, a Euclidean norm of a vector $a = \begin{bmatrix}  3  \\\\  -2  \\\\  1  \end{bmatrix}$ is $\\|a\\|_2=\sqrt{3^2+(-2)^2+1^2}=3.742$ which is the size of vector a
 
 The above example shows how to compute a Euclidean norm, or formally called an l2-norm. There are many other types of norm that beyond our explanation here, actually for every single real number, there is a norm correspond to it (Notice the emphasised word real number, that means it not limited to only integer.)
 
 Formally the ln-norm of x is defined as:
 
-\left \| x \right \|_n = \sqrt[n]{\sum_{i}\left | x_i \right |^n}  where n \epsilon \mathbb{R}
+$\\|x\\|_n = \sqrt[n]{\sum_{i}|x_i|^n}$  where $n \epsilon \mathbb{R}$
 
 That’s it!  A n-th-root of a summation of all elements to the n-th power is what we call a norm.
 
@@ -31,7 +31,7 @@ The interesting point is even though every ln-norm is all look  very similar to 
 
 The first norm we are going to discuss is a l0-norm. By definition, l0-norm of x is
 
-${\|{x}\|}_0$ = \sqrt[0]{\sum_{i}x_i^0}
+$\\|x\\|_0 = \sqrt[0]{\sum_{i}x_i^0$
 
 This norm is a bit tricky because there is a present of zeroth-power and zeroth-root in it. Obviously any x > 0 will become one, but the problems of the definition of zeroth-power and especially zeroth-root is messing things around here. So in reality, most mathematicians and engineers use this definition of l0-norm instead:
 
