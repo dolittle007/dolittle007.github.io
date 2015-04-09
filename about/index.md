@@ -5,7 +5,7 @@ layout: page
 
 # About Me
 
-#### I'm a statistical programmer and data science consultant for non-governmental organizations, small start-ups, academic researchers, and research labs in general.
+#### I'm a PhD student major in bioinformatics and genomics in the University of Hong Kong.
 
 
 <a class="graybutton" href="/about/TYW_CV.pdf">resume</a>
@@ -37,8 +37,7 @@ computations, graphics, and data analysis. Behind all the stuff that I’ve done
 
 There are 3 major topics that I'm hooked to:
  
-- I really like [working](/work) with analytical tools 
-and methods, especially those designed for very practical applications.
+- I really like [reading](/read) books associated with statistics, Python and JavaScript, especially those involve data visualization.
 - I'm fascinated with the use of graphical displays to understand data with 
 visualization.
 - I'm a passionate R user as well as a 
