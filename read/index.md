@@ -6,7 +6,16 @@ layout: page
 * [Learn python the hard way](http://www.amazon.com/Learn-Python-Hard-Way-Introduction/dp/0321884914 "Learn python the hard way")
 * [Think Python](http://www.amazon.com/Think-Python-Allen-B-Downey/dp/144933072X "Think Python")
 * [Learning Python](http://www.amazon.com/Learning-Python-Edition-Mark-Lutz/dp/1449355730 "learning Python")
+* [JavaScript: The Good Parts](http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742 "JavaScript: The Good Parts")
+
 
 ### The books I am reading
-* [The elements of statistical learning](http://www.amazon.com/Elements-Statistical-Learning-Prediction-Statistics/dp/0387848576 "The elements of statistical learning")
-* [Python for finance](http://www.amazon.com/Python-Finance-Analyze-Financial-Data/dp/1491945281 "Python for Finance")
+* [The Elements of Statistical Learning](http://www.amazon.com/Elements-Statistical-Learning-Prediction-Statistics/dp/0387848576 "The elements of statistical learning")
+* [Python for Finance](http://www.amazon.com/Python-Finance-Analyze-Financial-Data/dp/1491945281 "Python for Finance")
+* [The Elements of Style](http://www.amazon.com/Elements-Style-Fourth-William-Strunk/dp/020530902X/ "The Elements of Style")
+* [Python for Data Analysis](http://www.amazon.com/Python-Data-Analysis-Wrangling-IPython/dp/1449319793/ "Python for Data Analysis")
+* [Statistics In A Nutshell]()
+* [R in A Nutshell]()
+* [Programming Python]()
+* [Graph Analysis and Visualization](http://www.amazon.com/Graph-Analysis-Visualization-Discovering-Opportunity/dp/1118845846/ "Graph Analysis and Visualization")
+* [Data Science for Business](http://www.amazon.com/Data-Science-Business-data-analytic-thinking/dp/1449361323 "Data Science for Business")
