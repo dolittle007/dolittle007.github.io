@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 ---
 
 ### What is a norm?
