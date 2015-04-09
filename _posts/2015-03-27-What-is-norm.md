@@ -19,7 +19,7 @@ The above example shows how to compute a Euclidean norm, or formally called an l
 
 Formally the ln-norm of x is defined as:
 
-$\\|x\\|\_n = \sqrt{n}{\sum\_{i}|x_i|^n}$ where $n \epsilon \mathbb{R}$
+$\\|x\\|\_n = \sqrt[n]{\sum\_{i}|x_i|^n}$ where $n \epsilon \mathbb{R}$
 
 That’s it!  A n-th-root of a summation of all elements to the n-th power is what we call a norm.
 
