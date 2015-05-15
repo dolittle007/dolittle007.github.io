@@ -307,6 +307,10 @@ However, these plots are very messy when you have a large number of variables si
 
 The package grpreg fit paths for group lasso, group bridge, or group MCP at a grid of values of the penalty parameter lambda for linear or logistic regression models. Recall that MCP is similar to the lasso except that its flat tails apply less shrinkage to larger coefficients. First, we need to load the grpreg package into R:
 
+{% highlight r %}
+library(grpreg)
+{% endhighlight %}
+
 We can run grpreg on the same genotype matrix and phenotype vector we used for glmnet: 
 
 {% highlight r%}
@@ -325,3 +329,112 @@ for(i in 1:6){
   abline(v=locus,col=1:5) } 
 dev.off()
 {% endhighlight %}
+
+Note: The grpreg package has an option to select the lambda satisfying the BIC, AIC or GVC criterion using e.g. 
+
+{% highlight r %}
+select(fit_mcp, criterion="BIC")
+{% endhighlight %}
+
+Using BIC, the "best" value of lambda seems to be 0.1862722. This fits with the fact that, visually, it seems as if the second and third plots (lambda=0.219 and lambda=0.174) do quite well at picking out a single marker to represent each true causal variant.
+
+
+####3. Analysis with HyperLasso
+The HyperLasso software requires a genotype file with one row per individual and one column per SNP, along with a header row of snp names. While we are still in R, we can create a genotype file named "HlassoGenotypes.txt" in the appropriate format from our current genotype file stored in the variable "geno". We have made a file of SNP names called "SNP_Names.txt" to add as a header line to the "geno" variable: 
+
+{% highlight r %}
+snp_names<-read.table("SNPNames.txt")
+names(geno)<-snp_names[,1]
+write.table(geno,"HlassoGenotypes.txt",col.names=T,row.names=F,quote=F)
+{% endhighlight %}
+
+If we now look the the first few lines and columns of our "geno" dataframe (e.g. by typing **geno[1:10,1:10]**), we can see that the column names are now our SNP names.
+
+Make sure to leave your R terminal open so that we can use our previous results to compare the methods.  The HyperLasso is a command line software, so we will need to open a new terminal (i.e. open a new connection to the Linux server) and change into the appropriate directory.
+
+Previously, we analyzed the data over a range of lambda values, but how do we know which lambda is appropriate for model selection? One way to select lambda is to choose that value of lambda that gives the appropriate false positive rate for your data set. This can be done by permuting case/control status (so generating data under the null hypothesis) and determining the number of false positives for each value of lambda. We can repeat this process many times and use the mean, median, or maximum lambda to give us the false positive rate we desire. We have already done this for you and selected <tt>lambda=90.0</tt>. In Linux, type:
+
+{% highlight bash %}
+runHLasso -genotypes HlassoGenotypes.txt -target Phenotypes.txt -o HlassoResults.txt -shape 1.0 -lambda 90.0 -std
+{% endhighlight %}
+
+The Hyperlasso has two penalty parameters, the shape and the scale parameter. However, setting the scale parameter is equivalent to setting a value for lambda, as the two are related. We have set the shape parameter to 1.0 as recommended by Vignal et. al. (2011). They use the scale parameter to control for the false positive rate, whereas we have chosen to do the same using lambda. 
+
+The output file has a special format so we need use the R command, <tt>dget</tt>, to read in the file. Then we will need to do a little fiddling to extract the information we require. 
+
+
+First look at the file in Linux:
+
+{% highlight bash %}
+more HlassoResults.txt 
+{% endhighlight %}
+
+Within R, open the file in R using **dget** and look at it:
+
+{% highlight r %}
+hlasso<-dget("HlassoResults.txt")
+hlasso<-as.data.frame(hlasso)
+hlasso<-as.matrix(hlasso)
+hlasso
+{% endhighlight %}
+The first column records the number of cycles required to find the mode, the log-posterior and the log-likelihood of the mode (the final entry of this column is always 0). 
+Subsequent columns describe the covariates selected in the model:
+
+{% highlight r %}
+	row 1 - position (marker) of the variable in each of the input files, starting at zero.
+	row 2 - the variable name supplied in the input files.
+	row 3 - the value of the regression coefficient.
+	row 4 - For genetic variables, the genetic model:
+
+			  0 - additive (genotypes coded 0,1,2),
+			  1 - recessive (genotypes coded 0,0,1),
+			  2 - dominant (genotypes coded 0,1,1),
+			  3 - heterozygous (genotypes coded 0,1,0).
+{% endhighlight %}
+
+The last column contains the information for the intercept. We want to exclude the first and the last column by creating a vector "exclude" that contains the number 1 and the number of the last column. To extract the information we need, type:
+
+{% highlight r %}
+exclude<-c(1,dim(hlasso)[2])
+coeff<-as.numeric(hlasso[3,-exclude])
+
+#Remember that the indexing for the first row of marker indexes begins with zero so we must add one to the marker variable "hloci":
+
+hloci<-as.numeric(hlasso[1,-exclude])+1  #INDEXING STARTS AT ZERO 
+
+#Finally, we can plot our results:
+
+pdf("HLasso.pdf")
+par(mfrow=c(1,1))
+plot(hloci,abs(coeff),xlim=c(1,228),xlab="Abs(Coeff)",ylab="Marker")
+abline(v=locus,col=1:5)
+dev.off()
+{% endhighlight %}
+
+The HyperLasso appears to have similar sparsity to the lasso and the MCP. To see any subtle difference between all the methods, we can plot them together, trying to use the "best" value of lambda for each method:
+
+{% highlight r %}
+pdf("AllMethods.pdf")
+par(mfrow=c(3,2))
+
+plot(1:228,-log10(single[,1]),main="ATT",xlab="Marker",ylab="-log10(pvalues)")
+abline(v=locus,col=1:5)
+
+plot(abs(fit_lasso$beta[,10]),main="Lasso",xlab="Marker",ylab="Abs(Coeff)")
+abline(v=locus,col=1:5)
+
+plot(abs(fit_en$beta[,10]),main="Elastic Net",xlab="Marker",ylab="Abs(Coeff)")
+abline(v=locus,col=1:5)
+
+plot(abs(fit_ridge$beta[,10]),main="Ridge",xlab="Marker",ylab="Abs(Coeff)")
+abline(v=locus,col=1:5)
+
+plot(abs(fit_mcp$beta[-c(1),36]),main="MCP",xlab="Marker",ylab="Abs(Coeff)")
+abline(v=locus,col=1:5)
+
+plot(hloci,coeff,xlim=c(1,228),main="HyperLasso",xlab="Abs(Coeff)",ylab="Marker")
+abline(v=locus,col=1:5)
+dev.off() 
+{% endhighlight %}
+
+We can see quite strong similarity between the ATT and the ridge, and between the lasso, MCP, and HyperLasso. The elastic net falls in the middle of these 2 groups.
