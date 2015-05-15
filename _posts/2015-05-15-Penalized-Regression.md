@@ -7,7 +7,6 @@ tags: [linear regression model, analysis, logistic regression model, plot, R]
 image: density-plot-post.png
 ---
 
-![](/blog/images/density-plot-post.png)
 
 ### Computer Practical Exercise on Penalized Regression Methods for Association Studies
 
