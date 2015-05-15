@@ -1,173 +1,115 @@
-<!DOCTYPE html>
-<html><head>
-     <title>Computer Practical Exercise</title>
-	
-  <style type="text/css">
+---
+layout: post
+title: "Computer Practical Exercise on Penalized Regression Methods for Association Studies"
+date: 2015-05-15
+category: tutorial
+tags: [linear regression model, analysis, logistic regression model, plot, R]
+---
  
-  </style>
-  </head>
 
-<body alink="#00ff00" bgcolor="#ffffff" link="#0000ff" vlink="#ff00ff">
+### Computer Practical Exercise on Penalized Regression Methods for Association Studies
 
+### Overview 
 
-
-<hr>
-<h1>Computer Practical Exercise on Penalized Regression Methods for Association Studies </h1>
-<p>
-
-<h1>Overview </h1>
-
-</p>
-<h2>Purpose</h2>
-<p>
+### Purpose
 
 In this exercise you will be carrying out case/control association analysis on a gene region assumed to have previously shown association with disease. 
 The purpose is to determine which of the associated loci in the region are likely to be the variants causing disease (or be most associated with those variants causing the disease) using penalized regression methods to perform model selection.
  
-
-</p>
-<h2>Methodology</h2>
-<p>
+### Methodology
 
 We will use penalized regression analysis as implemented in the R package glmnet and grpreg, and the command line software HyperLasso. The glmnet package can perform lasso penalized regression, ridge regression, and the elastic net. The lasso (L1) penalty encourages sparsity while the ridge (L2) penalty encourages highly correlated variables to have similar coefficients. The elastic net is a linear combination of these two penalties. 
 
-<br>
-<br>
 The grpreg package allows the user to group variables that are to be encouraged in and out of the model together. However, we will not use this functionality in this tutorial. Instead, we will use the minimax-concave penalty (MCP) provided by the package, which is a penalty that provides similar penalization as the lasso but has flat tails to give constant penalization after a user defined threshold. The HyperLasso uses a Bayesian inspired NEG penalty, which imposes heavy shrinkage on small coefficients, and relatively less shrinkage on large coefficients.
 
-</p>
 
 
-	<h2>Program documentation</h2>
-<p>
+### Program documentation
 
-</p>
-	<h3>glmnet:</h3>
-<p>
+####glmnet:
+
 The R package glmnet has R documentation including a pdf manual, and can be downloaded at:
-<br> <br>
-<a href="http://cran.r-project.org/web/packages/glmnet/index.html" target="mainwindow"> http://cran.r-project.org/web/packages/glmnet/index.html </a><br> <br>
+[http://cran.r-project.org/web/packages/glmnet/index.html](http://cran.r-project.org/web/packages/glmnet/index.html)
 
-</p>
-	<h3>grpreg:</h3>
-<p>
+#### grpreg
 The R package grpreg has R documentation including a pdf manual, and can be downloaded at:
-<br> <br>
-<a href="http://cran.r-project.org/web/packages/grpreg/index.html" target="mainwindow"> http://cran.r-project.org/web/packages/grpreg/index.html </a><br> <br>
+[http://cran.r-project.org/web/packages/grpreg/index.html](http://cran.r-project.org/web/packages/grpreg/index.html)
 
 
-</p>
-	<h3>R documentation:</h3>
-<p>
+#### R documentation:
 
 The R website is at
-<a href="http://www.r-project.org/" target="mainwindow"> http://www.r-project.org/ </a><br> <br>
+[http://www.r-project.org/](http://www.r-project.org/) 
 
-From within R, one can obtain help on any command <tt>xxxx</tt> by typing `<tt>help(xxxx)</tt>' <br><br>
+From within R, one can obtain help on any command **xxxx** by typing '**help(xxxx)**'
 
-</p>
 
-        <h3>HyperLasso:</h2>
-<p>
+####HyperLasso:
 Full documentation can be found at:
-<br>
-<br>
 
-<a href="http://www.ebi.ac.uk/projects/BARGEN/" target="mainwindow"> http://www.ebi.ac.uk/projects/BARGEN/ </a><br> <br>
+[http://www.ebi.ac.uk/projects/BARGEN/] (http://www.ebi.ac.uk/projects/BARGEN/)
 
 
-</p>
 
+      #### PUMA
 
-        <h3>PUMA:</h2>
-<p>
 The PUMA software can be found at:
-<br>
-<br>
-
-<a href="http://mezeylab.cb.bscb.cornell.edu/Software.aspx" target="mainwindow"> http://mezeylab.cb.bscb.cornell.edu/Software.aspx</a><br> <br>
+ [http://mezeylab.cb.bscb.cornell.edu/Software.aspx](http://mezeylab.cb.bscb.cornell.edu/Software.aspx)
 
 
-</p>
+### Data overview
 
-
-	<h2>Data overview</h2>
-<p>
 
 We will be analyzing simulated data consisting of 228 SNP markers from the CTLA4 gene region. We have 1000 cases and 1000 controls. Since this is simulated data, we know where the true causal loci are located.
 
 
 
 
-</p>
-	<h2>Appropriate data</h2>
-<p>
+### Appropriate data
 
 Appropriate data for this exercise is genotype data from 
 a region of interest, such as fine mapping, re-sequencing, or imputation data, typed in a number of unrelated individuals. These analyses can be done for either a dichotomous or a quantitative trait. Here we will consider case/control data.
-<br>
-<br>
-</p>
 
-<hr>
-<h1>Instructions</h1>
+***
+## Instructions
 
 
-	<h2>Data files</h2>
-<p>
+### Data files
 
 You should ensure you have the following files saved to an appropriate directory (folder) on your machine:
 
-<br><br>
+[Genotypes.txt](/data/Genotypes.txt)
 
+[Phenotypes.txt](/data/Phenotypes.txt)
 
-<a href="/data/Genotypes.txt" target="mainwindow">Genotypes.txt</a>
+[SingleMarkerPvalues.txt](/data/SingleMarkerPvalues.txt)
 
-<br>
+[SNPNames.txt](/data/SNPNames.txt)
 
-<a href="/data/Phenotypes.txt" target="mainwindow">Phenotypes.txt</a>
+[pumadata.tfam](/data/pumadata.tfam)
 
-<br>
+<a href="/data/pumadata.tped" target="mainwindow">pumadata.tped</a>
 
-<a href="SingleMarkerPvalues.txt" target="mainwindow">SingleMarkerPvalues.txt</a>
-
-<br>
-
-<a href="SNPNames.txt" target="mainwindow">SNPNames.txt</a>
-
-<br>
-
-<a href="pumadata.tfam" target="mainwindow">pumadata.tfam</a>
-
-<br>
-
-<a href="pumadata.tped" target="mainwindow">pumadata.tped</a>
-
-<br> <br>
 
 
 Within Linux, open a terminal window, and move into the directory where the data files are e.g. by typing 
 
-<br> <br>
-<tt> cd xxxxx  </tt>
-<br> <br> 
+{% highlight linux %} 
+cd xxxxx
+{% endhighlight %} 
 
-(where <tt> xxxxx </tt> is replaced by the name of the appropriate folder).
-
-</p>
+(where **xxxxx** is replaced by the name of the appropriate folder).
 
 
-
-	<h2>Data format</h2>
-<p>
+### Data format
 
 We will need to reformat the data into the format each particular software requires. Currently, the genotype file contains one row per individual and one column per marker. The genotypes are coded as 0/1/2 to refer to the number of reference alleles. The phenotype file contains one row per individual, with controls coded as 0 and cases coded as 1.
 
-<br> <br>
-Take a look at the data files <tt> Genotypes.txt </tt> and  <tt> Phenotypes.txt  </tt> (e.g. using the <tt> more  </tt> command), and check that you understand how the data is coded.
+
+Take a look at the data files **Genotypes.txt** and  **Phenotypes.txt** (e.g. using the **more** command), and check that you understand how the data is coded.
 
 
-</p>
+
 
 
 
