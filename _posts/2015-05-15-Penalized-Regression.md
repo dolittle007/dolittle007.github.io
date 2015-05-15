@@ -438,3 +438,91 @@ dev.off()
 {% endhighlight %}
 
 We can see quite strong similarity between the ATT and the ridge, and between the lasso, MCP, and HyperLasso. The elastic net falls in the middle of these 2 groups.
+
+#### 4. Analysis with PUMA 
+
+WARNING: This last part of the exercise is very slow to run! I've included instructions 
+in case you want to try it out at home, but I don't recommend running it during the course.
+The most computationally intensive part is the calculation using the NEG penalty (which involves
+a 2-dimensional search over penalty parameter values). If you want to implement 
+a faster analysis, just use the lasso penalty (i.e. omit the word "NEG" at the end of the
+puma command line  below).
+
+The PUMA software requires input files in PLINK's transposed  (.tfam and .tped) format. See 
+
+[http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml#tr](http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml#tr)
+
+for details. We have prepared these files (**pumadata.tfam** and  **pumadata.tped**) for you, as this file format is quite different from the format we have been using for the other programs.
+
+To run (penalized) logistic regression in PUMA, assuming lasso and NEG penalties, from the linux command line type:
+
+{% highlight bash %}
+puma --tped pumadata.tped --tfam pumadata.tfam --name pumaresults --regression LOGISTIC --penalty LASSO NEG
+{% endhighlight %}
+
+Once this has finished running, the lasso results should be in the file **results_pumaresults_LASSO.R** and the NEG results should be 
+in the file **results_pumaresults_NEG.R**
+
+
+To read in and visualise the  lasso results (for example), use the following R script:
+
+{% highlight r %}
+# Read R file
+result = dget("results_pumaresults_LASSO.R")
+
+# Use AIC information criterion to pick penalty parameter value
+criterion = "AIC"
+
+# Evalaute the number of features selected by each model
+modelSize = unlist(sapply(1:length(result), function(i){ncol(result[[i]]$features)}))
+
+# Specify the sample size and apply the 1.5 sqrt(n) rule
+n=2000
+index = which(modelSize < 1.5 * sqrt(n))
+
+# Identify model with the smallest AIC, and which satisfies the 1.5 sqrt(n) rule
+j = which(names(result[[1]]$criteria) == criterion)
+criteria = unlist(sapply(1:length(result), function(i){result[[i]]$criteria[j]}))
+i = which.min(criteria[index])
+
+# Display P-values and coefficients for best model 
+result[[i]]
+
+# Convert into dataframe and merge in SNP numbers 
+coeffs<-t(result[[i]]$features)
+newcoeffs<-data.frame(row.names(coeffs),coeffs)
+names(newcoeffs)<-c("snpname", "beta", "pval") 
+snp_names<-read.table("SNPNames.txt")
+snps<-data.frame(1:228,snp_names)
+names(snps)<-c("snpno","snpname")
+final<-merge(newcoeffs,snps, by="snpname", all.x=T, sort=F)
+
+# Display final results
+final
+
+# Plot final results 
+locus<-c(14,46,98,164,176)
+plot(final$snpno, final$beta)
+abline(v=locus,col=1:5)
+{% endhighlight %}
+
+You can use a similar sequence of commands to read in and visualise the results from PUMA using the
+NEG penalty.
+
+### Other Methods
+
+A variety of other methods and software packages exist for performing penalized regression with various different penalty functions.
+ Model selection can be done by either cross validation, permutation, goodness of fit or parsimony. 
+Other related methods include stepwise regression, forward/backward regression, and subset selection.
+
+
+***
+##References
+
+* Ayers KL, and Cordell HJ (2010) SNP Selection in Genome-Wide and Candidate Gene Studies via Penalized Logistic Regression. Genet Epidemiology 34:879-891.
+* Breheny P, Huang J (2009) Penalized methods for bi-level variable selection. Statistics and its interface 2:369-380.
+* Friedman J, Hastie T and Tibshirani R (2008) Regularization Paths for Generalized Linear Models via Coordinate Descent. J Statist Software 33:1-22.
+* Hoffman GE, Logsdon BA, Mezey JG (2013) PUMA: A unified framework for penalized multiple regression analysis of GWAS data. PLOS Computational Biology in press.
+* Hoggart CJ, Whittaker JC, De Iorio M, and Balding DJ (2008) Simultaneous analysis of all SNPs in genome-wide and re-sequencing studies. PLoS Genet 4(7):e10000130.
+* Vignal CM, Bansal AT, and Balding DJ (2011) Using Penalised Logistic Regression to Fine Map HLA Variants for Rheumatoid Arthritis. Annals of Human Genet 75:655-664.
+
