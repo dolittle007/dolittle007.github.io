@@ -309,6 +309,7 @@ The package grpreg fit paths for group lasso, group bridge, or group MCP at a gr
 
 #We can run grpreg on the same genotype matrix and phenotype vector we used for glmnet: 
 
+{% highlight r%}
 fit_mcp<-grpreg(geno1, pheno1, family="binomial", penalty="gMCP", nlambda=100, lambda.min=.1)
 
 #(This may take some time).
