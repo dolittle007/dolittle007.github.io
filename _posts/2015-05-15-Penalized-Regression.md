@@ -307,7 +307,7 @@ However, these plots are very messy when you have a large number of variables si
 
 The package grpreg fit paths for group lasso, group bridge, or group MCP at a grid of values of the penalty parameter lambda for linear or logistic regression models. Recall that MCP is similar to the lasso except that its flat tails apply less shrinkage to larger coefficients. First, we need to load the grpreg package into R:
 
-#We can run grpreg on the same genotype matrix and phenotype vector we used for glmnet: 
+We can run grpreg on the same genotype matrix and phenotype vector we used for glmnet: 
 
 {% highlight r%}
 fit_mcp<-grpreg(geno1, pheno1, family="binomial", penalty="gMCP", nlambda=100, lambda.min=.1)
