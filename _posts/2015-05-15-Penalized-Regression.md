@@ -460,8 +460,8 @@ To run (penalized) logistic regression in PUMA, assuming lasso and NEG penalties
 puma --tped pumadata.tped --tfam pumadata.tfam --name pumaresults --regression LOGISTIC --penalty LASSO NEG
 {% endhighlight %}
 
-Once this has finished running, the lasso results should be in the file **results_pumaresults_LASSO.R** and the NEG results should be 
-in the file **results_pumaresults_NEG.R**
+Once this has finished running, the lasso results should be in the file **results\_pumaresults\_LASSO.R** and the NEG results should be 
+in the file **results\_pumaresults\_NEG.R**
 
 
 To read in and visualise the  lasso results (for example), use the following R script:
