@@ -200,7 +200,7 @@ To run glmnet, we first need to open the R library:
 
 {% highlight r %} 
 library(glmnet)
-
+{% endhighlight %}
 
 First, we need to convert our genotype data from a dataframe into a matrix by typing:
 
@@ -208,13 +208,12 @@ First, we need to convert our genotype data from a dataframe into a matrix by ty
 geno1=as.matrix(geno)
 #and convert our phenotype data into a vector:
 pheno1=pheno[,1]
-
+{% endhighlight %}
 
 We can run the lasso, elastic net, and ridge regression in glmnet. Recall that the elastic net penalty is: lambda*{(1-alpha)/2 ||beta||22 + alpha ||beta||1. To run the lasso, we set **alpha=1**. To analyze a dichotomous outcome such as case/control status we use **family="binomial"**. We will attempt to run the lasso at 100 different values of lambda (the penalty strength) by setting **nlambda=100**. The glmnet default is to standardize the genotypes. We can store our results in the variable "fit_lasso":
 
 {% highlight r %} 
 fit_lasso <- glmnet(geno1,pheno1,family="binomial",alpha=1,nlambda=100)
-{% endhighlight %} 
 
 # (This may take a little while to run).
 #Once it is finished, to see the headers for the information stored in the dataframe "fit_lasso", type:
