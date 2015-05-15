@@ -7,7 +7,9 @@ tags: [linear regression model, analysis, logistic regression model, plot, R]
 image: density-plot-post.png
 ---
 
+The default graphical display of most plotting functions in R is very limited (and usually not very pretty). But that doesn’t mean that we should conform with those crude figures.
 
+<!--more-->
 ### Computer Practical Exercise on Penalized Regression Methods for Association Studies
 
 ### Overview 
