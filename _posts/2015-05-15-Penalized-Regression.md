@@ -4,8 +4,10 @@ title: "Computer Practical Exercise on Penalized Regression Methods for Associat
 date: 2015-05-15
 category: tutorial
 tags: [linear regression model, analysis, logistic regression model, plot, R]
+image: density-plot-post.png
 ---
- 
+
+![](/blog/images/density-plot-post.png)
 
 ### Computer Practical Exercise on Penalized Regression Methods for Association Studies
 
