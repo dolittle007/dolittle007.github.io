@@ -210,7 +210,8 @@ geno1=as.matrix(geno)
 pheno1=pheno[,1]
 {% endhighlight %}
 
-We can run the lasso, elastic net, and ridge regression in glmnet. Recall that the elastic net penalty is: lambda*{(1-alpha)/2 ||beta||22 + alpha ||beta||1. To run the lasso, we set **alpha=1**. To analyze a dichotomous outcome such as case/control status we use **family="binomial"**. We will attempt to run the lasso at 100 different values of lambda (the penalty strength) by setting **nlambda=100**. The glmnet default is to standardize the genotypes. We can store our results in the variable "fit_lasso":
+We can run the lasso, elastic net, and ridge regression in glmnet. Recall that the elastic net penalty is: lambda*{(1-alpha)/2 ||beta||22 + alpha ||beta||1. To run the lasso, we set **alpha=1**.
+To analyze a dichotomous outcome such as case/control status we use **family="binomial"**. We will attempt to run the lasso at 100 different values of lambda (the penalty strength) by setting **nlambda=100**. The glmnet default is to standardize the genotypes. We can store our results in the variable "fit_lasso":
 
 {% highlight r %} 
 fit_lasso <- glmnet(geno1,pheno1,family="binomial",alpha=1,nlambda=100)
@@ -301,8 +302,25 @@ dev.off()
 
 However, these plots are very messy when you have a large number of variables since the path is plotted for each variable.
 
-      ####2. Analysis with grpreg
+####2. Analysis with grpreg
 
 
 The package grpreg fit paths for group lasso, group bridge, or group MCP at a grid of values of the penalty parameter lambda for linear or logistic regression models. Recall that MCP is similar to the lasso except that its flat tails apply less shrinkage to larger coefficients. First, we need to load the grpreg package into R:
 
+#We can run grpreg on the same genotype matrix and phenotype vector we used for glmnet: 
+
+fit_mcp<-grpreg(geno1, pheno1, family="binomial", penalty="gMCP", nlambda=100, lambda.min=.1)
+
+#(This may take some time).
+
+#Again, we can plot our results for selected lambda values:
+
+select_m<-c(2,10,20,30,50,100)
+
+pdf("MCP.pdf")
+par(mfrow=c(3,2))
+for(i in 1:6){ 
+  plot(abs(fit_mcp$beta[-c(1),select_m[i]]),main=paste("Lambda=",fit_mcp$lambda[select_m[i]],sep=""),xlab="Marker",ylab="Abs(Coeff)") 
+  abline(v=locus,col=1:5) } 
+dev.off()
+{% endhighlight %}
