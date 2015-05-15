@@ -529,3 +529,4 @@ Other related methods include stepwise regression, forward/backward regression, 
 * Hoggart CJ, Whittaker JC, De Iorio M, and Balding DJ (2008) Simultaneous analysis of all SNPs in genome-wide and re-sequencing studies. PLoS Genet 4(7):e10000130.
 * Vignal CM, Bansal AT, and Balding DJ (2011) Using Penalised Logistic Regression to Fine Map HLA Variants for Rheumatoid Arthritis. Annals of Human Genet 75:655-664.
 
+[Source](https://www.staff.ncl.ac.uk/heather.cordell/PenalizedRegressionTutorial3.html)
