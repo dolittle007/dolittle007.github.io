@@ -5,6 +5,8 @@ date: 2015-03-27
 category: opinion
 ---
 
+What's a norm?
+<!--more-->
 ### What is a norm?
 
 Mathematically a norm is a total size or length of all vectors in a vector space  or matrices. For simplicity, we can say that the higher the norm is, the bigger the (value in) matrix or vector is. Norm may come in many forms and many names, including these popular name: Euclidean distance, Mean-squared Error, etc.
