@@ -99,3 +99,97 @@ cd xxxxx
 {% endhighlight %} 
 
 (where **xxxxx** is replaced by the name of the appropriate folder).
+
+
+### Data format
+
+We will need to reformat the data into the format each particular software requires. Currently, the genotype file contains one row per individual and one column per marker. The genotypes are coded as 0/1/2 to refer to the number of reference alleles. The phenotype file contains one row per individual, with controls coded as 0 and cases coded as 1.
+
+
+Take a look at the data files **Genotypes.txt** and  **Phenotypes.txt** (e.g. using the **more** command), and check that you understand how the data is coded.
+
+
+
+
+
+
+###Step-by-step instructions
+
+####1. Analysis with glmnet
+
+
+To perform the analysis, we will need to open an R terminal.  Open up a new terminal window, move to the directory where your files are located, and start R (by typing **R**). To exit R at anytime type ** quit()**.
+
+
+Now (within R) read in the genotype data by typing:
+{% highlight r %} 
+geno<-read.table("Genotypes.txt")
+{% endhighlight %} 
+
+This command reads the genotypes into a dataframe named "geno". To see the size of the data frame, type:
+
+{% highlight r %} 
+dim(geno)
+{% endhighlight %} 
+
+The data frame has 2000 rows, one for each individual, and 228 columns, one for each marker. To see the top five lines and first ten columns of this dataframe, type:
+
+{% highlight r %} 
+geno[1:5,1:10]
+{% endhighlight %} 
+
+Next, we can read in the phenotype file into the dataframe "pheno":
+
+{% highlight r %} 
+pheno<-read.table("Phenotypes.txt")
+{% endhighlight %} 
+To look at the first few lines of the file, type:
+
+{% highlight r %} 
+ head(pheno) 
+{% endhighlight %} 
+
+This file should have 2000 rows. Before we use penalized regression methods to analyze our data, let\'s look at why these methods may be beneficial. We have previously run single marker analysis (the Armitage Trend test) on our data and saved the p-values in the file "SingleMarkerPvalues.txt". We can open the file in R and plot the -log10 p-values. Since the data were simulated, we know at which marker the causal loci are located.
+
+To read the single marker results into R, type:
+
+{% highlight r %} 
+single<-read.table("SingleMarkerPvalues.txt")
+{% endhighlight %} 
+
+To plot these, type:
+
+{% highlight r %} 
+plot(1:228,-log10(single[,1]))
+{% endhighlight %} 
+
+This command will work provided you have an X-windows connection to the Linux server (or if you are running R on your own laptop). Otherwise, to see this plot you will have to save it as a file and transfer it back to your own laptop to view. To save the plot as a pdf file in R (rather than plotting it on the screen), type:
+
+{% highlight r %} 
+pdf("TrendTest.pdf")
+plot(1:228,-log10(single[,1]))
+dev.off()
+{% endhighlight %} 
+
+
+You will have to use a similar set of commands (<tt>pdf("file.pdf")</tt> and <tt>dev.off() </tt>) before and after each plot command,
+if you need to save the plot as a file in order to transfer it over to your laptop. To make things easier, we have included these commands before and after each plot command below. If you have an X-windows connection to the Linux server, you can just miss out the commands
+
+{% highlight r %} 
+pdf("file.pdf")
+dev.off()
+{% endhighlight %} 
+
+
+Is the number and location of the causal loci obvious? We can store the known location of each causal locus in the vector "locus" and draw vertical lines at each causal locus:
+
+{% highlight r %} 
+locus<-c(14,46,98,164,176)
+
+pdf("TrendTest2.pdf")
+plot(1:228,-log10(single[,1]))
+abline(v=locus,col=1:5)
+dev.off()
+{% endhighlight %} 
+
+The entire region is very significant and it is difficult not only to distinguish which loci are the causal loci but to see that there are 5 different causal loci. Hopefully, our penalized regression methods will select a group of markers that can explain most of the signal.
