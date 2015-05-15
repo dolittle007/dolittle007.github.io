@@ -51,7 +51,7 @@ Full documentation can be found at:
 
 
 
-      #### PUMA
+ #### PUMA
 
 The PUMA software can be found at:
  [http://mezeylab.cb.bscb.cornell.edu/Software.aspx](http://mezeylab.cb.bscb.cornell.edu/Software.aspx)
@@ -88,7 +88,7 @@ You should ensure you have the following files saved to an appropriate directory
 
 [pumadata.tfam](/data/pumadata.tfam)
 
-<a href="/data/pumadata.tped" target="mainwindow">pumadata.tped</a>
+[pumadata.tped](/data/pumadata.tped)
 
 
 
