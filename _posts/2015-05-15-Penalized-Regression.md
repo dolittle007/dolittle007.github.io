@@ -193,3 +193,116 @@ dev.off()
 {% endhighlight %} 
 
 The entire region is very significant and it is difficult not only to distinguish which loci are the causal loci but to see that there are 5 different causal loci. Hopefully, our penalized regression methods will select a group of markers that can explain most of the signal.
+
+
+
+To run glmnet, we first need to open the R library:
+
+{% highlight r %} 
+library(glmnet)
+{% endhighlight %}
+
+First, we need to convert our genotype data from a dataframe into a matrix by typing:
+
+{% highlight r %} 
+geno1=as.matrix(geno)
+#and convert our phenotype data into a vector:
+pheno1=pheno[,1]
+{% endhighlight %}
+
+We can run the lasso, elastic net, and ridge regression in glmnet. Recall that the elastic net penalty is: lambda*{(1-alpha)/2 ||beta||22 + alpha ||beta||1. To run the lasso, we set **alpha=1**. To analyze a dichotomous outcome such as case/control status we use **family="binomial"**. We will attempt to run the lasso at 100 different values of lambda (the penalty strength) by setting **nlambda=100**. The glmnet default is to standardize the genotypes. We can store our results in the variable "fit_lasso":
+
+{% highlight r %} 
+fit_lasso <- glmnet(geno1,pheno1,family="binomial",alpha=1,nlambda=100)
+
+# (This may take a little while to run).
+#Once it is finished, to see the headers for the information stored in the dataframe "fit_lasso", type:
+names(fit_lasso)
+{% endhighlight %} 
+
+This lists all the different pieces of information that are stored in the dataframe "fit_lasso".
+We are interested in the coefficients stored in "fit_lasso$beta". To see these, and the values of lambda to which they correspond, type:
+
+{% highlight r %} 
+fit_lasso$beta
+fit_lasso$lambda
+{% endhighlight %} 
+
+Although we asked the program to try 100 different values of lambda, in fact only 99 values were evaluated. This is because glmnet sometimes terminates before nlambda values of lambda have been used, because of numerical instabilities near a saturated fit.
+
+
+The information in  "fit_lasso$beta" is hard to see as it corresponds to 228 coefficients (one for each marker) at each of 99 values of lambda. You can check this by typing:
+
+{% highlight r %} 
+dim(fit_lasso$beta)
+{% endhighlight %} 
+
+To plot the coefficents for several (six) different values of lambda indexed by "select_l", adding lines at each causal variant, we type:
+
+{% highlight r %} 
+select_l<-c(5,10,20,30,50,90)
+
+pdf("Lasso.pdf")
+par(mfrow=c(3,2))
+for(i in 1:6){ 
+plot(abs(fit_lasso$beta[,select_l[i]]),main=paste("Lambda=",fit_lasso$lambda[select_l[i]],sep=""),xlab="Marker",ylab="Abs(Coeff)") 
+abline(v=locus,col=1:5) } 
+dev.off()
+{% endhighlight %} 
+
+In the lasso, the coefficents of many variables are driven to zero. As you can see, as lambda becomes smaller (our penalty becomes weaker), not only do more variables enter the model, the coefficients become larger (further from zero). It looks as if, for these data, a value of lambda of around 0.02-0.05 does quite well at picking out a single marker to represent each true causal variant.
+
+
+Next, we can run ridge regression by setting <tt>alpha=0</tt> and plot our results:
+{% highlight r %}
+fit_ridge<-glmnet(geno1,pheno1,family="binomial",alpha=0,nlambda=100)
+select_r<-c(5,10,20,30,50,100)
+
+pdf("Ridge.pdf")
+par(mfrow=c(3,2))
+for(i in 1:6){ 
+  plot(abs(fit_ridge$beta[,select_r[i]]),main=paste("Lambda=",fit_ridge$lambda[select_r[i]],sep=""),xlab="Marker",ylab="Abs(Coeff)")
+  abline(v=locus,col=1:5)
+}
+dev.off()
+{% endhighlight %} 
+
+
+Although ridge regression does not perform model selection, for large values of lambda, some of the coefficients have so much shrinkage that we cannot distinguish them from zero. (Note that the y axes in these plots have very different ranges). Notice that as lambda is relaxed, most variables have non-zero coefficients, although they still may be small! Additionally, ridge regression assigns similar coefficients to highly correlated variables rather than selecting one of the group as the lasso does.
+
+
+We can combine sparsity of lasso regression and the grouping effect of ridge regression by using the elastic net. If we set the mixing parameter **alpha=0.4** and plot:
+
+{% highlight r %}
+fit_en<-glmnet(geno1,pheno1,family="binomial",alpha=0.4,nlambda=100)
+select_e<-c(2,10,20,35,50,100)
+
+ 
+pdf("EN.pdf")
+par(mfrow=c(3,2))
+for(i in 1:6){ 
+  plot(abs(fit_en$beta[,select_e[i]]),main=paste("Lambda=",fit_en$lambda[select_e[i]],sep=""),xlab="Marker",ylab="Abs(Coeff)")
+  abline(v=locus,col=1:5) 
+} 
+dev.off()
+{% endhighlight %} 
+
+We can see that test elastic net allows for clustering, but the clusters are not as dense as the ridge. The second and third plots (lambda=0.1258 and 0.0496)
+ give us the clearest idea of the number of independent signals and their approximate locations.
+Additionally, one can produce a coefficient profile plot of the coefficient paths for a fitted glmnet object using plot, eg. 
+
+
+{% highlight r %}
+pdf("path.pdf")
+par(mfrow=c(1,1))
+plot(fit_lasso)
+dev.off()
+{% endhighlight %} 
+
+However, these plots are very messy when you have a large number of variables since the path is plotted for each variable.
+
+      ####2. Analysis with grpreg
+
+
+The package grpreg fit paths for group lasso, group bridge, or group MCP at a grid of values of the penalty parameter lambda for linear or logistic regression models. Recall that MCP is similar to the lasso except that its flat tails apply less shrinkage to larger coefficients. First, we need to load the grpreg package into R:
+
