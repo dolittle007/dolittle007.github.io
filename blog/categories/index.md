@@ -3,7 +3,7 @@ title: Categories
 layout: page
 ---
 
-# Data Analysis Visually EnfoRced
+# Data Beauty
 
 ### Categories
 
