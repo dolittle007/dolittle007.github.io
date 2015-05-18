@@ -3,7 +3,7 @@ title: Blog
 layout: page
 ---
 
-# Data Analysis Visually EnfoRced
+# Data Beauty
 
 <div id="posts">
 
