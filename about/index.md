@@ -47,7 +47,7 @@ visualization.
 ## Blog
 
 Occasionally, I like to talk about data analysis, visualization, statistics, R and 
-related stuff in my blog [Data Analysis Visually EnfoRced](/blog).
+related stuff in my blog [Data Beauty](/blog).
 
 
 ## Trifecta
