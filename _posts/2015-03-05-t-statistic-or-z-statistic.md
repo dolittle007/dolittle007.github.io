@@ -6,6 +6,8 @@ category: opinion
 tags: [linear regression model, analysis, logistic regression model, plot, R]
 ---
 
+When is a z-statistic and when a t-statistic used?
+<!--more-->
 ### When is a z-statistic and when a t-statistic used?
 
 The choice between a z-value or a t-value depends on how the standard error of the coefficients has been calculated. Because the Wald statistic is asymptotically distributed as a standard normal distribution, we can use the z-score to calculate the p-value. When we, in addition to the coefficients, also have to estimate the residual variance, a t-value is used instead of the z-value. In ordinary least squares (OLS, normal linear regression), the variance-covariance matrix of the coefficients is \\( Var[\hat{\beta}|X]=\sigma^2(X^{\prime}X)^{-1} \\) where \\( \sigma^2 \\) is the variance of the residuals (which is unknown and has to be estimated from the data) and \\( X \\) is the design matrix. The standard errors of the coefficients are the square roots of the diagonal elements of the variance-covariance matrix. Because we don't know σ2, we have to replace it by its estimate \\( \hat{\sigma}^2=s^2 \\), so, $\widehat{\operatorname{se}}(\hat{\beta_{j}})=\sqrt{s^2(X'X)_{jj}^{-1}}$. Now that's the point: Because we have to estimate the variance of the residuals to calculate the standard error of the coefficients, we need to use a t-value and the t-distribution.
