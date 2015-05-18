@@ -5,7 +5,7 @@ date: 2015-03-27
 category: opinion
 ---
 
-What's a norm?
+All about norm in statistics.
 <!--more-->
 ### What is a norm?
 
