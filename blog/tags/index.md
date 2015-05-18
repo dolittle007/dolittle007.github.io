@@ -3,7 +3,7 @@ title: Tags
 layout: page
 ---
 
-# Data Analysis Visually EnfoRced
+# Data Beauty
 
 ### Tags
 
