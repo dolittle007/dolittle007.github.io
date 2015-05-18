@@ -1,10 +1,9 @@
 ---
 layout: post
-title: "Computer Practical Exercise on Penalized Regression Methods for Association Studies"
+title: "Penalized Regression Methods for Association Studies"
 date: 2015-05-15
 category: tutorial
 tags: [linear regression model, analysis, logistic regression model, plot, R]
-image: density-plot-post.png
 ---
 
 The default graphical display of most plotting functions in R is very limited (and usually not very pretty). But that doesn’t mean that we should conform with those crude figures.
