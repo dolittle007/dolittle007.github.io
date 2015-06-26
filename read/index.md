@@ -9,7 +9,7 @@ layout: page
 * [JavaScript: The Good Parts](http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742 "JavaScript: The Good Parts")
 * [Maintainable JavaScript](http://www.amazon.com/Maintainable-JavaScript-Nicholas-C-Zakas/dp/1449327680 "Maintainable JavaScript")
 * [R in Action]()
-<!-- * [Machine Leaning in Action]() -->
+ ##############[Machine Leaning in Action]##################
 * [The Art of R Programming]()
 
 ### The books I am reading
