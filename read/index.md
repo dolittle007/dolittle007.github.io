@@ -22,3 +22,5 @@ layout: page
 * [Programming Python]()
 * [Graph Analysis and Visualization](http://www.amazon.com/Graph-Analysis-Visualization-Discovering-Opportunity/dp/1118845846/ "Graph Analysis and Visualization")
 * [Data Science for Business](http://www.amazon.com/Data-Science-Business-data-analytic-thinking/dp/1449361323 "Data Science for Business")
+* [Machine Learning in Python](http://www.amazon.com/Machine-Learning-Python-Techniques-Predictive/dp/1118961749 "Machine Learning in Python")
+* [Machine Learning in Action](http://www.amazon.com/Machine-Learning-Python-Techniques-Predictive/dp/1118961749 "Machine Learning in Action")
