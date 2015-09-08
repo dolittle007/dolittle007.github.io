@@ -24,3 +24,5 @@ layout: page
 * [Machine Learning in Python](http://www.amazon.com/Machine-Learning-Python-Techniques-Predictive/dp/1118961749 "Machine Learning in Python")
 * [Machine Learning in Action](http://www.amazon.com/Machine-Learning-Python-Techniques-Predictive/dp/1118961749 "Machine Learning in Action")
 * [15-Minute Spanish](http://www.amazon.com/15-Minute-Spanish-Eyewitness-Travel-Language/dp/1409381692 "15-Minute Spanish")
+* [Doing Data Science](http://www.amazon.com/Doing-Data-Science-Straight-Frontline/dp/1449358659 "Doing Data Science")
+* [Data Science from Scratch](http://www.amazon.com/Data-Science-Scratch-Principles-Python/dp/149190142X "Data Science from Scratch")
