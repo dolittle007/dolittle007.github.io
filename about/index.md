@@ -5,7 +5,7 @@ layout: page
 
 # About Me
 
-#### I'm a PhD student major in bioinformatics and genomics in the University of Hong Kong.
+#### I'm a data enthusiast and also a PhD student major in bioinformatics and genomics in the University of Hong Kong.
 
 
 <a class="graybutton" href="/about/TYW_CV.pdf">resume</a>
@@ -19,7 +19,7 @@ layout: page
 
 ## Summary
 
-In the last 9+ years I've been spending my time working on a number of projects, 
+In the last 6+ years I've been spending my time working on a number of projects, 
 most of them with the central theme of exploring, analyzing and visualizing data 
 in a context of multiple variables and high dimensionality. 
 
@@ -40,7 +40,7 @@ There are 3 major topics that I'm hooked to:
 - I really like [reading](/read) books associated with statistics, Python and JavaScript, especially those involve data visualization.
 - I'm fascinated with the use of graphical displays to understand data with 
 visualization.
-- I'm a passionate R user as well as a 
+- I'm a passionate Python user as well as a 
 [developer](/software) of statistical software in R.
 
 
