@@ -353,7 +353,7 @@ background-position: 200px -8px;
 	#999;
 	padding: 6px;
 	height: 150px;
-	width: 226px;
+	width: 130px; /*width: 226px; */
 	overflow-y: scroll;
 	overflow-x: hidden;
 	background-color: #999;
