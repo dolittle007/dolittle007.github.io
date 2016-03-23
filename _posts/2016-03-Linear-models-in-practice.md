@@ -1,10 +1,13 @@
 ---
 layout: post
-title: linear models in practice
+title: "linear models in practice"
 date: 2016-03-23
 category: how-to
 ---
 
+Linear models in practice
+
+<!--more-->
 
 #### The mouse diet example
 
