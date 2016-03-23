@@ -96,9 +96,9 @@ You should ensure you have the following files saved to an appropriate directory
 
 Within Linux, open a terminal window, and move into the directory where the data files are e.g. by typing 
 
-{% highlight bash %} 
+```bash 
 cd xxxxx
-{% endhighlight %} 
+``` 
 
 (where **xxxxx** is replaced by the name of the appropriate folder).
 
@@ -124,15 +124,15 @@ To perform the analysis, we will need to open an R terminal.  Open up a new term
 
 
 Now (within R) read in the genotype data by typing:
-{% highlight r %} 
+```r
 geno<-read.table("Genotypes.txt")
-{% endhighlight %} 
+``` 
 
 This command reads the genotypes into a dataframe named "geno". To see the size of the data frame, type:
 
-{% highlight r %} 
+```r 
 dim(geno)
-{% endhighlight %} 
+```
 
 The data frame has 2000 rows, one for each individual, and 228 columns, one for each marker. To see the top five lines and first ten columns of this dataframe, type:
 
@@ -257,7 +257,7 @@ In the lasso, the coefficents of many variables are driven to zero. As you can s
 
 
 Next, we can run ridge regression by setting <tt>alpha=0</tt> and plot our results:
-{% highlight r %}
+```r
 fit_ridge<-glmnet(geno1,pheno1,family="binomial",alpha=0,nlambda=100)
 select_r<-c(5,10,20,30,50,100)
 
@@ -268,7 +268,7 @@ for(i in 1:6){
   abline(v=locus,col=1:5)
 }
 dev.off()
-{% endhighlight %} 
+``` 
 
 
 Although ridge regression does not perform model selection, for large values of lambda, some of the coefficients have so much shrinkage that we cannot distinguish them from zero. (Note that the y axes in these plots have very different ranges). Notice that as lambda is relaxed, most variables have non-zero coefficients, although they still may be small! Additionally, ridge regression assigns similar coefficients to highly correlated variables rather than selecting one of the group as the lasso does.
