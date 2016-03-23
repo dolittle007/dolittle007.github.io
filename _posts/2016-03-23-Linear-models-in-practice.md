@@ -105,8 +105,8 @@ summary(fit)$coefficients
 
 And the t-statistic  is the same:
 
-{% highlighter r %}
+```r
 ttest <- t.test(s[["hf"]], s[["chow"]], var.equal=TRUE)
 summary(fit)$coefficients[2,3]
 ttest$statistic
-{% endhighlighter %}
+```
