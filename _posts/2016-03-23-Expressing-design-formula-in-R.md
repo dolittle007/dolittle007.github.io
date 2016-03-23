@@ -1,9 +1,16 @@
 ---
-layout: page
+layout: post
 title: Expressing design formula in R
+date: 2016-03-23
+category: opinion
+tags: [linear regression model, analysis, logistic regression model, plot, R]
 ---
 
-# Expressing experimental designs using R formula
+ Expressing experimental designs using R formula.
+
+<!--more-->
+
+### Expressing experimental designs using R formula
 
 In this module, we will show how to use the two base R functions
 
@@ -23,19 +30,19 @@ We encode this experimental design in R by first specifying a variable which tel
 Suppose we have two groups, 1 and 2, with two samples each. We might start to encode this experimental design like so:
 
 
-```{r}
+{% highlight r %}
 x <- c(1,1,2,2)
 f <- formula(~ x)
 f
-```
+{% end highlight %}
 
 Note that an intercept will be included by default, so the formula could equivalently be written: `~ x + 1`.
 
 We can then inspect the design matrix which is formed by this:
 
-```{r}
+{% highlight r %}
 model.matrix(f)
-```
+{% end highlight %}
 
 Note, this is not the design matrix we wanted, and the reason is that we provided a numeric variable to the `formula` and `model.matrix` functions, without saying that these numbers actually referred to different groups.
 
