@@ -6,127 +6,240 @@ category: opinion
 tags: [linear regression model, analysis, logistic regression model, plot, R]
 ---
 
- Expressing experimental designs using R formula.
+
+Expressing experimental designs using R formula.
+
 
 <!--more-->
 
-### Expressing experimental designs using R formula
 
-In this module, we will show how to use the two base R functions
+### The Design Matrix
 
-- `formula`
-- `model.matrix`
+Here we will show how to use the two R functions, `formula`
+and `model.matrix`, in order to produce *design matrices* (also known as *model matrices*) for a variety of linear models. For example, in the mouse diet examples we wrote the model as
 
-in order to produce *design matrices* (also known as *model matrices*) for a variety of linear models. 
+$$ 
+Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, i=1,\dots,N 
+$$
 
-The choice of design matrix is a critical step in linear modeling as it encodes which coefficients will be fit in the model, and the inter-relationship between the samples. 
+with $Y_i$ the weights 
+and $x_i$ equal to 1 only when mouse $i$ receives the high fat diet. We use the term _experimental unit_ to $N$ different entities from which we obtain a measurement. In this case, the mice are the experimental units. 
 
-The very simplest design matrix is a column of 1's, where a single coefficient is fit for all the samples, called the *Intercept*. For standard linear modeling, this fitted coefficient will just be the average of the `y` values, e.g., the log expression values for all samples.
+This is the type of variable we will focus on in this chapter. We call them _indicator variables_ since they simply indicate if the experimental unit had a certain characteristic or not. As we described earlier, we can use linear algebra to represent this model:
 
-However, the design matrices we typically work with have at least two columns: an intercept column as before which consists of a column of 1's, and a second column which species which samples are in a second group. In this case, two coefficients are fit in the linear model: the intercept, which captures the base level of the first group, and a second coefficient which captures the difference between the second group and the first group. This is typically the coefficient we are interested in for performing statistical testing: we want to know if difference between the two groups is zero or not. 
+$$
+\mathbf{Y} = \begin{pmatrix}
+Y_1\\
+Y_2\\
+\vdots\\
+Y_N
+\end{pmatrix}
+,
+\mathbf{X} = \begin{pmatrix}
+1&x_1\\
+1&x_2\\
+\vdots\\
+1&x_N
+\end{pmatrix}
+,
+\boldsymbol{\beta} = \begin{pmatrix}
+\beta_0\\
+\beta_1
+\end{pmatrix} \mbox{ and }
+\boldsymbol{\varepsilon} = \begin{pmatrix}
+\varepsilon_1\\
+\varepsilon_2\\
+\vdots\\
+\varepsilon_N
+\end{pmatrix}
+$$
 
-We encode this experimental design in R by first specifying a variable which tells us which samples are in which group, and then using the 'tilde' symbol, `~`, to say that the y values should be modeled using this variable.
-
-Suppose we have two groups, 1 and 2, with two samples each. We might start to encode this experimental design like so:
 
 
-{% highlight r %}
-x <- c(1,1,2,2)
-f <- formula(~ x)
-f
-{% end highlight %}
+as: 
 
-Note that an intercept will be included by default, so the formula could equivalently be written: `~ x + 1`.
 
-We can then inspect the design matrix which is formed by this:
+$$
+\,
+\begin{pmatrix}
+Y_1\\
+Y_2\\
+\vdots\\
+Y_N
+\end{pmatrix} = 
+\begin{pmatrix}
+1&x_1\\
+1&x_2\\
+\vdots\\
+1&x_N
+\end{pmatrix}
+\begin{pmatrix}
+\beta_0\\
+\beta_1
+\end{pmatrix} +
+\begin{pmatrix}
+\varepsilon_1\\
+\varepsilon_2\\
+\vdots\\
+\varepsilon_N
+\end{pmatrix}
+$$
 
-{% highlight r %}
-model.matrix(f)
-{% end highlight %}
+or simply: 
 
-Note, this is not the design matrix we wanted, and the reason is that we provided a numeric variable to the `formula` and `model.matrix` functions, without saying that these numbers actually referred to different groups.
+$$
+\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}
+$$
 
-We should instead first tell R that these values should not be interpreted numerically, but as different levels of a factor variable:
+The design matrix is the matrix $\mathbf{X}$.
+
+Once we define a design matrix, we are ready to find the least squares estimates. We refer to this as _fitting the model_. For fitting linear models in R, we will directly provide a _formula_ to the `lm` function. In this script, we will use the `model.matrix` function, which is used internally by the `lm` function. This will help us to connect the R `formula` with the matrix $\mathbf{X}$. It will therefore help us interpret the results from `lm`.
+
+#### Choice of design
+
+The choice of design matrix is a critical step in linear modeling since it encodes which coefficients will be fit in the model, as well as the inter-relationship between the samples. 
+A common misunderstanding is that the choice of design follows straightforward from a description of which samples were included in the experiment. This is not the case. The basic information about each sample (whether control or treatment group, experimental batch, etc.) does not imply a single 'correct' design matrix. The design matrix additionally encodes various assumptions about how the variables in $\mathbf{X}$ explain the observed values in $\mathbf{Y}$, on which the investigator must decide.
+
+For the examples we cover here, we use linear models to make comparisons between different groups. Hence, the design matrices that we ultimately work with will have at least two columns: an _intercept_ column, which consists of a column of 1's, and a second column, which specifies which samples are in a second group. In this case, two coefficients are fit in the linear model: the intercept, which represents the population average of the first group, and a second coefficient, which represents the difference between the population averages of the second group and the first group. The latter is typically the coefficient we are interested in when we are performing statistical tests: we want to know if there is a difference between the two groups.
+
+We encode this experimental design in R with two pieces. We start with a formula with the tilde symbol `~`. This means that we want to model the observations using the variables to the right of the tilde. Then we put the name of a variable, which tells us which samples are in which group.
+
+Let's try an example. Suppose we have two groups, control and high fat diet, with two samples each. For illustrative purposes, we will code these with 1 and 2 respectively. We should first tell R that these values should not be interpreted numerically, but as different levels of a *factor*. We can then use the paradigm `~ group` to, say, model on the variable `group`.
 
 ```{r}
-x <- factor(c(1,1,2,2))
-model.matrix(~ x)
+group <- factor( c(1,1,2,2) )
+model.matrix(~ group)
 ```
 
-Now we have achieved the correct design matrix.
+(Don't worry about the `attr` lines printed beneath the matrix. We won't be using this information.)
 
-## More groups
-
-Here we show the design matrix for an experiment with three groups:
+What about the `formula` function? We don't have to include this. By starting an expression with `~`, it is equivalent to telling R that the expression is a formula:
 
 ```{r}
-x <- factor(c(1,1,2,2,3,3))
-model.matrix(~ x)
+model.matrix(formula(~ group))
+```
+
+What happens if we don't tell R that `group` should be interpreted as a factor?
+
+```{r}
+group <- c(1,1,2,2)
+model.matrix(~ group)
+```
+
+This is **not** the design matrix we wanted, and the reason is that we provided a numeric variable as opposed to an _indicator_ to the `formula` and `model.matrix` functions, without saying that these numbers actually referred to different groups. We want the second column to have only 0 and 1, indicating group membership.
+
+A note about factors: the names of the levels are irrelevant to `model.matrix` and `lm`. All that matters is the order. For example:
+
+```{r}
+group <- factor(c("control","control","highfat","highfat"))
+model.matrix(~ group)
+```
+
+produces the same design matrix as our first code chunk.
+
+#### More groups
+
+Using the same formula, we can accommodate modeling more groups. Suppose we have a third diet:
+
+```{r}
+group <- factor(c(1,1,2,2,3,3))
+model.matrix(~ group)
 ```
 
 Now we have a third column which specifies which samples belong to the third group.
 
-An alternate formulation of design matrix is possible by specifying `+ 0` in the  formula:
+An alternate formulation of design matrix is possible by specifying `+ 0` in the formula:
 
 ```{r}
-x <- factor(c(1,1,2,2,3,3))
-model.matrix(~ x + 0)
+group <- factor(c(1,1,2,2,3,3))
+model.matrix(~ group + 0)
 ```
 
-This group now fits a separate coefficient for each group. In order to compare the levels to each other, we need to use some additional steps, which is called the construction of contrasts. These are covered in the `limma` package vignette for microarray analysis with multiple groups.
+This group now fits a separate coefficient for each group. We will explore this design in more depth later on.
 
-## More variables
+#### More variables
 
-We can simply add additional variables with a `+` sign, in order to build a design matrix which fits based on the information in additional variables:
+We have been using a simple case with just one variable (diet) as an example. In the life sciences, it is quite common to perform experiments with more than one variable. For example, we may be interested in the effect of diet and the difference in sexes. In this case, we have four possible groups:
 
 ```{r}
-x <- factor(c(1,1,1,1,2,2,2,2))
-y <- factor(c("a","a","b","b","a","a","b","b"))
-model.matrix(~ x + y)
+diet <- factor(c(1,1,1,1,2,2,2,2))
+sex <- factor(c("f","f","m","m","f","f","m","m"))
+table(diet,sex)
 ```
 
-We could say that this linear model accounts for differences in both the x and y variables.
+If we assume that the diet effect is the same for males and females (this is an assumption), then our linear model is:
 
-We assume in the above model specification, that the effect of the x and y variables are simply additive. Being in group 2 and group b is equal to the difference between 2 and 1 and the difference between b and a. 
+$$
+Y_{i}= \beta_0 + \beta_1 x_{i,1} + \beta_2 x_{i,2} + \varepsilon_i 
+$$
 
-Another model is possible which fits and additional term, which encodes the potential interaction of x and y variables. This can be written in either of the following two formula:
+To fit this model in R, we can simply add the additional variable with a `+` sign in order to build a design matrix which fits based on the information in additional variables:
 
 ```{r}
-model.matrix(~ x + y + x:y)
-model.matrix(~ x*y)
+diet <- factor(c(1,1,1,1,2,2,2,2))
+sex <- factor(c("f","f","m","m","f","f","m","m"))
+model.matrix(~ diet + sex)
 ```
 
-## Releveling
+The design matrix includes an intercept, a term for `diet` and a term for `sex`. We would say that this linear model accounts for differences in both the group and condition variables. However, as mentioned above, the model assumes that the diet effect is the same for both males and females. We say these are an _additive_ effect. For each variable, we add an effect regardless of what the other is. Another model is possible here, which fits an additional term and which encodes the potential interaction of group and condition variables. We will cover interaction terms in depth in a later script.
 
-The level which is chosen for the *base level*, i.e., the level which is contrasted against, is simply the first level alphabetically. We can specify that we want group 2 to be the base level by either using the `relevel` function, or by providing the levels explicitly in the `factor` call:
+The interaction model can be written in either of the following two formulas:
+
+```{r,eval=FALSE}
+model.matrix(~ diet + sex + diet:sex)
+```
+
+or 
 
 ```{r}
-x <- factor(c(1,1,2,2))
-model.matrix(~ x)
-x <- relevel(x,"2")
-model.matrix(~ x)
-x <- factor(x, levels=c("1","2"))
+model.matrix(~ diet*sex)
 ```
 
-## Numeric variables
+#### Releveling
 
-In the beginning of this lab, we assumed that we didn't want to encode the  variable as a numeric, but in certain designs we might be interested in using numeric variables in the design formula, not converting them to a factor first. For example, we could be interested in testing various dosage of a treatment, where we expect a  specific relationship between log gene expression and the dosage, e.g. 0 mg, 10mg, 20mg. Here we show how to encode a numeric variable: a linear model with an intercept, without an intercept, and additionally as a quadratic relationship.
+The level which is chosen for the *reference level* is the level which is contrasted against.  By default, this is simply the first level alphabetically. We can specify that we want group 2 to be the reference level by either using the `relevel` function:
 
 ```{r}
-z <- 1:4
-model.matrix(~ z)
-model.matrix(~ 0 + z)
-model.matrix(~ z + I(z^2))
+group <- factor(c(1,1,2,2))
+group <- relevel(group, "2")
+model.matrix(~ group)
 ```
 
-The `I` function above is necessary to specify a mathematical transformation of a variable. See `?I` for more information.
+or by providing the levels explicitly in the `factor` call:
+```{r}
+group <- factor(group, levels=c("1","2"))
+model.matrix(~ group)
+```
 
-## Where does model.matrix look for the data
+#### Where does model.matrix look for the data?
 
-Finally, notice that the `model.matrix` function will grab the variable from the R environment, unless the data is explicitly provided in the `data` argument:
+The `model.matrix` function will grab the variable from the R global environment, unless the data is explicitly provided as a data frame to the `data` argument:
 
 ```{r}
-x <- 1:4
-model.matrix(~ x)
-model.matrix(~ x, data=data.frame(x=5:8))
+group <- 1:4
+model.matrix(~ group, data=data.frame(group=5:8))
 ```
+
+Note how the R global environment variable `group` is ignored.
+
+#### Continuous variables
+
+In this chapter, we focus on models based on indicator values. In certain designs, however, we will be interested in using numeric variables in the design formula, as opposed to converting them to factors first. For example, in the falling object example, time was a continuous variable in the model and time squared was also included:
+
+
+```{r}
+tt <- seq(0,3.4,len=4) 
+model.matrix(~ tt + I(tt^2))
+```
+
+The `I` function above is necessary to specify a mathematical
+transformation of a variable. For more details, see the manual page
+for the `I` function by typing `?I`.
+
+In the life sciences, we could be interested in testing various
+dosages of a treatment, where we expect a specific relationship
+between a measured quantity and the dosage, e.g. 0 mg, 10 mg, 20 mg. 
+
+The assumptions imposed by including continuous data as variables are typically hard to defend and motivate than the indicator function variables. Whereas the indicator variables simply assume a different mean between two groups, continuous variables assume a very specific relationship between the outcome and predictor variables. 
+
+In cases like the falling object, we have the theory of gravitation supporting the model. In the father-son height example, because the data is bivariate normal, it follows that there is a linear relationship if we condition. However, we find that continuous variables are included in linear models without justification to "adjust" for variables such as age. We highly discourage this practice unless the data support the model being used.
