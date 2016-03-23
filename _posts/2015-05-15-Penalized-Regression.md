@@ -9,6 +9,8 @@ tags: [linear regression model, analysis, logistic regression model, plot, R]
 The default graphical display of most plotting functions in R is very limited (and usually not very pretty). But that doesn’t mean that we should conform with those crude figures.
 
 <!--more-->
+
+
 ### Computer Practical Exercise on Penalized Regression Methods for Association Studies
 
 ### Overview 
@@ -257,7 +259,7 @@ In the lasso, the coefficents of many variables are driven to zero. As you can s
 
 
 Next, we can run ridge regression by setting <tt>alpha=0</tt> and plot our results:
-```{r}
+{% highlight r %} 
 fit_ridge<-glmnet(geno1,pheno1,family="binomial",alpha=0,nlambda=100)
 select_r<-c(5,10,20,30,50,100)
 
@@ -268,7 +270,7 @@ for(i in 1:6){
   abline(v=locus,col=1:5)
 }
 dev.off()
-```
+{% endhighlight %} 
 
 
 Although ridge regression does not perform model selection, for large values of lambda, some of the coefficients have so much shrinkage that we cannot distinguish them from zero. (Note that the y axes in these plots have very different ranges). Notice that as lambda is relaxed, most variables have non-zero coefficients, although they still may be small! Additionally, ridge regression assigns similar coefficients to highly correlated variables rather than selecting one of the group as the lasso does.
