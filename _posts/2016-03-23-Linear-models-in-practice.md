@@ -15,18 +15,18 @@ We will demonstrate how to analyze the high fat diet data using linear models in
 
 We start by reading in the data and creating a quick stripchart:
 
-```{r}
+```r
 url <- "http://databeauty.com/data/femaleMiceWeights.csv"
 filename <- "femaleMiceWeights.csv"
 library(downloader)
 if (!file.exists(filename)) download(url, filename)
 ```
 
-```{r}
+```r
 set.seed(1) #same jitter in stripchart
 ```
 
-```{r}
+```r
 dat <- read.csv("femaleMiceWeights.csv") ##previously downloaded
 stripchart(dat$Bodyweight ~ dat$Diet, vertical=TRUE, method="jitter",
            main="Bodyweight over Diet")
@@ -36,7 +36,7 @@ We can see that the high fat diet group appears to have higher weights on averag
 
 For demonstration purposes, we will build the design matrix $\mathbf{X}$ using the formula `~ Diet`. The group with the 1's in the second column is determined by the level of `Diet` which comes second; that is, the non-reference level. 
 
-```{r}
+```r
 levels(dat$Diet)
 X <- model.matrix(~ Diet, data=dat)
 head(X)
@@ -51,7 +51,7 @@ $$ \hat{\boldsymbol{\beta}} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top 
 We can calculate this in R using our matrix multiplication operator `%*%`, the inverse function `solve`, and the transpose function `t`.
 
 
-```{r}
+```r
 Y <- dat$Bodyweight
 X <- model.matrix(~ Diet, data=dat)
 solve(t(X) %*% X) %*% t(X) %*% Y
@@ -60,7 +60,7 @@ solve(t(X) %*% X) %*% t(X) %*% Y
 These coefficients are the average of the control group and the difference of the averages:
 
 
-```{r}
+```r
 s <- split(dat$Bodyweight, dat$Diet)
 mean(s[["chow"]])
 mean(s[["hf"]]) - mean(s[["chow"]])
@@ -68,7 +68,7 @@ mean(s[["hf"]]) - mean(s[["chow"]])
 
 Finally, we use our shortcut, `lm`, to run the linear model:
 
-```{r}
+```r
 fit <- lm(Bodyweight ~ Diet, data=dat)
 summary(fit)
 (coefs <- coef(fit))
