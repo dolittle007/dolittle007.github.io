@@ -15,18 +15,18 @@ We will demonstrate how to analyze the high fat diet data using linear models in
 
 We start by reading in the data and creating a quick stripchart:
 
-```{r,echo=FALSE}
+```{r}
 url <- "http://databeauty.com/data/femaleMiceWeights.csv"
 filename <- "femaleMiceWeights.csv"
 library(downloader)
 if (!file.exists(filename)) download(url, filename)
 ```
 
-```{r,echo=FALSE}
+```{r}
 set.seed(1) #same jitter in stripchart
 ```
 
-```{r bodyweight_by_diet_stripchart, fig.cap="Mice bodyweights stratified by diet."}
+```{r}
 dat <- read.csv("femaleMiceWeights.csv") ##previously downloaded
 stripchart(dat$Bodyweight ~ dat$Diet, vertical=TRUE, method="jitter",
            main="Bodyweight over Diet")
@@ -78,7 +78,7 @@ summary(fit)
 
 The following plot provides a visualization of the meaning of the coefficients with colored arrows (code not shown):
 
-```{r parameter_estimate_illustration, fig.cap="Estimated linear model coefficients for bodyweight data illustrated with arrows.",echo=FALSE}
+```{r}
 stripchart(dat$Bodyweight ~ dat$Diet, vertical=TRUE, method="jitter",
            main="Bodyweight over Diet", ylim=c(0,40), xlim=c(0,3))
 a <- -0.25
