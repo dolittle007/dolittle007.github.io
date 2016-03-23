@@ -106,7 +106,7 @@ We encode this experimental design in R with two pieces. We start with a formula
 
 Let's try an example. Suppose we have two groups, control and high fat diet, with two samples each. For illustrative purposes, we will code these with 1 and 2 respectively. We should first tell R that these values should not be interpreted numerically, but as different levels of a *factor*. We can then use the paradigm `~ group` to, say, model on the variable `group`.
 
-```{r}
+```r
 group <- factor( c(1,1,2,2) )
 model.matrix(~ group)
 ```
@@ -115,13 +115,13 @@ model.matrix(~ group)
 
 What about the `formula` function? We don't have to include this. By starting an expression with `~`, it is equivalent to telling R that the expression is a formula:
 
-```{r}
+```r
 model.matrix(formula(~ group))
 ```
 
 What happens if we don't tell R that `group` should be interpreted as a factor?
 
-```{r}
+```r
 group <- c(1,1,2,2)
 model.matrix(~ group)
 ```
@@ -130,7 +130,7 @@ This is **not** the design matrix we wanted, and the reason is that we provided 
 
 A note about factors: the names of the levels are irrelevant to `model.matrix` and `lm`. All that matters is the order. For example:
 
-```{r}
+```r
 group <- factor(c("control","control","highfat","highfat"))
 model.matrix(~ group)
 ```
@@ -141,7 +141,7 @@ produces the same design matrix as our first code chunk.
 
 Using the same formula, we can accommodate modeling more groups. Suppose we have a third diet:
 
-```{r}
+```r
 group <- factor(c(1,1,2,2,3,3))
 model.matrix(~ group)
 ```
@@ -150,7 +150,7 @@ Now we have a third column which specifies which samples belong to the third gro
 
 An alternate formulation of design matrix is possible by specifying `+ 0` in the formula:
 
-```{r}
+```r
 group <- factor(c(1,1,2,2,3,3))
 model.matrix(~ group + 0)
 ```
@@ -161,7 +161,7 @@ This group now fits a separate coefficient for each group. We will explore this 
 
 We have been using a simple case with just one variable (diet) as an example. In the life sciences, it is quite common to perform experiments with more than one variable. For example, we may be interested in the effect of diet and the difference in sexes. In this case, we have four possible groups:
 
-```{r}
+```r
 diet <- factor(c(1,1,1,1,2,2,2,2))
 sex <- factor(c("f","f","m","m","f","f","m","m"))
 table(diet,sex)
@@ -175,7 +175,7 @@ $$
 
 To fit this model in R, we can simply add the additional variable with a `+` sign in order to build a design matrix which fits based on the information in additional variables:
 
-```{r}
+```r
 diet <- factor(c(1,1,1,1,2,2,2,2))
 sex <- factor(c("f","f","m","m","f","f","m","m"))
 model.matrix(~ diet + sex)
@@ -185,13 +185,13 @@ The design matrix includes an intercept, a term for `diet` and a term for `sex`.
 
 The interaction model can be written in either of the following two formulas:
 
-```{r,eval=FALSE}
+```r
 model.matrix(~ diet + sex + diet:sex)
 ```
 
 or 
 
-```{r}
+```r
 model.matrix(~ diet*sex)
 ```
 
@@ -199,14 +199,14 @@ model.matrix(~ diet*sex)
 
 The level which is chosen for the *reference level* is the level which is contrasted against.  By default, this is simply the first level alphabetically. We can specify that we want group 2 to be the reference level by either using the `relevel` function:
 
-```{r}
+```r
 group <- factor(c(1,1,2,2))
 group <- relevel(group, "2")
 model.matrix(~ group)
 ```
 
 or by providing the levels explicitly in the `factor` call:
-```{r}
+```r
 group <- factor(group, levels=c("1","2"))
 model.matrix(~ group)
 ```
@@ -215,7 +215,7 @@ model.matrix(~ group)
 
 The `model.matrix` function will grab the variable from the R global environment, unless the data is explicitly provided as a data frame to the `data` argument:
 
-```{r}
+```r
 group <- 1:4
 model.matrix(~ group, data=data.frame(group=5:8))
 ```
@@ -227,7 +227,7 @@ Note how the R global environment variable `group` is ignored.
 In this chapter, we focus on models based on indicator values. In certain designs, however, we will be interested in using numeric variables in the design formula, as opposed to converting them to factors first. For example, in the falling object example, time was a continuous variable in the model and time squared was also included:
 
 
-```{r}
+```r
 tt <- seq(0,3.4,len=4) 
 model.matrix(~ tt + I(tt^2))
 ```
