@@ -99,7 +99,7 @@ Although in this case the linear model is equivalent to a t-test, we will soon e
 
 Our `lm` estimates were:
 
-```{r}
+```r
 summary(fit)$coefficients
 ```
 
