@@ -78,7 +78,7 @@ summary(fit)
 
 The following plot provides a visualization of the meaning of the coefficients with colored arrows (code not shown):
 
-```{r}
+```r
 stripchart(dat$Bodyweight ~ dat$Diet, vertical=TRUE, method="jitter",
            main="Bodyweight over Diet", ylim=c(0,40), xlim=c(0,3))
 a <- -0.25
