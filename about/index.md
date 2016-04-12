@@ -19,18 +19,18 @@ layout: page
 
 ## Summary
 
-In the last 6+ years I've been spending my time working on a number of projects, 
-most of them with the central theme of exploring, analyzing and visualizing data 
-in a context of multiple variables and high dimensionality. 
+In the last 8+ years I've been spending my time working on a number of projects, 
+most of them with the central theme of exploring, analyzing and visualizing biological data 
+in a context of complicated biology. 
 
 This means that I've been revisiting the core concepts behind methods for 
-association-relationship between multiple sets of variables (i.e. multiblock data) 
-using different approaches from a broad range of disciplines (e.g. psychometrics, 
-chemometrics, sensometrics, econometrics, ecology and biometrics).
+association-relationship between biological data and biological stories. 
+using different approaches from a broad range of disciplines (e.g. statistics, 
+epidemiology and bioinformatics).
 
-In particular, I've done a lot of programming and development of software for statistical 
-computations, graphics, and data analysis. Behind all the stuff that I’ve done there is a single idea and goal: 
-**to build a succinct summary of the data I'm analyzing**.
+In particular, I've done a lot of programming and reading for genetics, genomics and data analysis.  
+Behind all the stuff that I’ve done there is a single idea and goal: 
+**to make all the biological data talk the beauty of life**.
 
 
 ## Overall Interests
@@ -40,13 +40,12 @@ There are 3 major topics that I'm hooked to:
 - I really like [reading](/read) books associated with statistics, Python and JavaScript, especially those involve data visualization.
 - I'm fascinated with the use of graphical displays to understand data with 
 visualization.
-- I'm a passionate Python user as well as a 
-[developer](/software) of statistical software in R.
+- I'm a passionate Python user.
 
 
 ## Blog
 
-Occasionally, I like to talk about data analysis, visualization, statistics, R and 
+Occasionally, I like to talk about data analysis, genetics, genomics, data visualization, statistics, R and 
 related stuff in my blog [Data Beauty](/blog).
 
 
