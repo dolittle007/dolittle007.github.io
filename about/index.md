@@ -44,7 +44,7 @@ There are 3 major topics that I'm hooked to:
 
 ## Blog
 
-Occasionally, I like to talk about data analysis, genetics, genomics, data visualization, statistics, Python and 
+Occasionally, I like to talk about data analysis, genetics, genomics, data visualization, statistics, Python, R and 
 related stuff in my blog [Data Beauty](/blog).
 
 
