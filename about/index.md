@@ -38,14 +38,13 @@ Behind all the stuff that I’ve done there is a single idea and goal:
 There are 3 major topics that I'm hooked to:
  
 - I really like [reading](/read) books associated with statistics, Python and JavaScript, especially those involve data visualization.
-- I'm fascinated with the use of graphical displays to understand data with 
-visualization.
+- I'm fascinated with the use of biological data to understand biology.
 - I'm a passionate Python user.
 
 
 ## Blog
 
-Occasionally, I like to talk about data analysis, genetics, genomics, data visualization, statistics, R and 
+Occasionally, I like to talk about data analysis, genetics, genomics, data visualization, statistics, Python and 
 related stuff in my blog [Data Beauty](/blog).
 
 
@@ -53,8 +52,8 @@ related stuff in my blog [Data Beauty](/blog).
 
 What I like about my "job" is that:
 
-1. It can be applied to practically all sciences and disciplines;
-2. Consequently, it has allowed me to open the doors of many different fields;
+1. It can be applied to practically life sciences and relevant disciplines;
+2. Consequently, it has allowed me to open the doors of the beauty of life;
 3. But most important, it has given me the fortune to work with very smart and talented 
 people from all over the world (from whom I've learned so much).
 
