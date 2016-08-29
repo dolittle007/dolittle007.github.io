@@ -19,4 +19,4 @@ Throughout this post “read” refers to both single-end or paired-end reads. T
 
 When saying “feature”, I’m referring to an expression feature, by which I mean a genomic region containing a sequence that can normally appear in an RNA-Seq experiment (e.g. gene, isoform, exon).
 
-Finally, I use the random variable X_i to denote the counts you observe from a feature of interest i. Unfortunately, with alternative splicing you do not directly observe X_i, so often \mathbb E[X_i] is used, which is estimated using the EM algorithm by a method like eXpress, RSEM, Sailfish, Cufflinks, or one of many other tools.
+Finally, I use the random variable X_i to denote the counts you observe from a feature of interest i. Unfortunately, with alternative splicing you do not directly observe X_i, so often \mathbb E[X_i] is used, which is estimated using the EM algorithm by a method like [eXpress](http://bio.math.berkeley.edu/express/), [RSEM](http://deweylab.biostat.wisc.edu/rsem/), [Sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish/), [Cufflinks](http://cufflinks.cbcb.umd.edu/), or one of many other tools.
