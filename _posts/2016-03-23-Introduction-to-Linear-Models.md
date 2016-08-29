@@ -2,7 +2,7 @@
 layout: post
 title: Introduction to Linear Models
 date: 2016-03-23
-category: option
+category: opinion
 ---
 
 What is linear model?
