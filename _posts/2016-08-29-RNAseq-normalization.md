@@ -24,7 +24,7 @@ Finally, I use the random variable \\(X_i\\) to denote the counts you observe fr
 ### Counts
 “Counts” usually refers to the number of reads that align to a particular feature. I’ll refer to counts by the random variable X_i. These numbers are heavily dependent on two things: (1) the amount of fragments you sequenced (this is related to relative abundances) and (2) the length of the feature, or more appropriately, the effective length. Effective length refers to the number of possible start sites a feature could have generated a fragment of that particular length. In practice, the effective length is usually computed as:
 
-$\widetilde{l}_i =$ l_i - \mu_{FLD} + 1,
+${\widetilde{l}_i} = l_i - \mu_{FLD} + 1,
 
 where $\mu_{FLD}$ is the mean of the fragment length distribution which was learned from the aligned read. If the abundance estimation method you’re using incorporates sequence bias modeling (such as eXpress or Cufflinks), the bias is often incorporated into the effective length by making the feature shorter or longer depending on the effect of the bias.
 
