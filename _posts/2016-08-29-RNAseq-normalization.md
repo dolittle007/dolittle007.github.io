@@ -13,6 +13,10 @@ RNA-seq Normalization
 From a data analysis standpoint, PCA is used for studying one table of observations and variables with the main idea of transforming the observed variables into a set of new variables, the principal components, which are uncorrelated and explain the variation in the data. For this reason, PCA allows to reduce a “complex” data set to a lower dimension in order to reveal the structures or the dominant types of variations in both the observations and the variables.
 
 
-### PCA in R
+### Preliminaries
 
-In R, there are several functions from different packages that allow us to perform PCA. In this post I'll show you 5 different ways to do a PCA using the following functions (with their corresponding packages in parentheses):
+Throughout this post “read” refers to both single-end or paired-end reads. The concept of counting is the same with either type of read, as each read represents a fragment that was sequenced.
+
+When saying “feature”, I’m referring to an expression feature, by which I mean a genomic region containing a sequence that can normally appear in an RNA-Seq experiment (e.g. gene, isoform, exon).
+
+Finally, I use the random variable X_i to denote the counts you observe from a feature of interest i. Unfortunately, with alternative splicing you do not directly observe X_i, so often \mathbb E[X_i] is used, which is estimated using the EM algorithm by a method like eXpress, RSEM, Sailfish, Cufflinks, or one of many other tools.
