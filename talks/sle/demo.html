@@ -53,12 +53,35 @@
 						<small><a href="http://databeauty.com/blog">Ting-You Wang</a> / <a href="http://twitter.com/dolittle007">@dolittle007</a></small>
 					</p>
 				</section>
-
-				<section>
-					<h2>Hello There</h2>
+                                <section>
+                                	<h2>Themes</h2>
 					<p>
-						reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
+						Choose an appropriate theme from built in themes: <br>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/black.css'); return false;">Black (default)</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/solarized.css'); return false;">Solarized</a>
 					</p>
+                                	
+                                </section>
+				<section>
+					<h2>Introduction</h2>
+					<p>In recent years, genome-wide association studies (GWAS) have significantly advanced our understanding of the genetic architecture of systemic lupus erythematosus(SLE), identifying more than 60 susceptibility loci associated with the disease.
+					</p>
+                            <p>However, the identified variants so far only explain approximately 20% of disease heritability for SLE.
+                            </p>
+                            <p>Due to the complexity of linkage disequilibrium (LD), it remains challenging to identify the true causal variant for a risk locus.
+                            </p>
+                            <p>It is noteworthy that the majority of common risk variants are located outside of protein coding regions, which highlights their potential roles in gene expression regulation, a major mechanism in disease association.
+			     </p>
 				</section>
 
 				<!-- Example of nested vertical slides -->
@@ -167,7 +190,7 @@
 				<section id="themes">
 					<h2>Themes</h2>
 					<p>
-						reveal.js comes with a few themes built in: <br>
+						Choose an appropriate theme from built in themes: <br>
 						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
 						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/black.css'); return false;">Black (default)</a> -
 						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/white.css'); return false;">White</a> -
