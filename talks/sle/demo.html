@@ -14,18 +14,18 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="talks/css/reveal.css">
-		<link rel="stylesheet" href="talks/css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="/talks/css/reveal.css">
+		<link rel="stylesheet" href="/talks/css/theme/black.css" id="theme">
 
 		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="talks/lib/css/zenburn.css">
+		<link rel="stylesheet" href="/talks/lib/css/zenburn.css">
 
 		<!-- Printing and PDF exports -->
 		<script>
 			var link = document.createElement( 'link' );
 			link.rel = 'stylesheet';
 			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'talks/css/print/pdf.css' : 'talks/css/print/paper.css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '/talks/css/print/pdf.css' : '/talks/css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
 
@@ -163,17 +163,17 @@
 					<p>
 						reveal.js comes with a few themes built in: <br>
 						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','talks/css/theme/black.css'); return false;">Black (default)</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','talks/css/theme/white.css'); return false;">White</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','talks/css/theme/league.css'); return false;">League</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','talks/css/theme/sky.css'); return false;">Sky</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','talks/css/theme/beige.css'); return false;">Beige</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','talks/css/theme/simple.css'); return false;">Simple</a> <br>
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','talks/css/theme/serif.css'); return false;">Serif</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','talks/css/theme/blood.css'); return false;">Blood</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','talks/css/theme/night.css'); return false;">Night</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','talks/css/theme/moon.css'); return false;">Moon</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','talks/css/theme/solarized.css'); return false;">Solarized</a>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/black.css'); return false;">Black (default)</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/solarized.css'); return false;">Solarized</a>
 					</p>
 				</section>
 
@@ -379,8 +379,8 @@ Reveal.addEventListener( 'customevent', function() {
 
 		</div>
 
-		<script src="talks/lib/js/head.min.js"></script>
-		<script src="talks/js/reveal.js"></script>
+		<script src="/talks/lib/js/head.min.js"></script>
+		<script src="/talks/js/reveal.js"></script>
 
 		<script>
 			// More info https://github.com/hakimel/reveal.js#configuration
@@ -392,12 +392,12 @@ Reveal.addEventListener( 'customevent', function() {
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
-					{ src: 'talks/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'talks/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'talks/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'talks/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'talks/plugin/zoom-js/zoom.js', async: true },
-					{ src: 'talks/plugin/notes/notes.js', async: true }
+					{ src: '/talks/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '/talks/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '/talks/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '/talks/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '/talks/plugin/zoom-js/zoom.js', async: true },
+					{ src: '/talks/plugin/notes/notes.js', async: true }
 				]
 			});
 		</script>
