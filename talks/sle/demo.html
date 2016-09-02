@@ -86,63 +86,86 @@
 			     </li>
 			     </ul>
 				</section>
-
+                <section>
+					<h2>Introduction</h2>
+					<ul>
+					<li>In recent years, genome-wide association studies (GWAS) have significantly advanced our understanding of the genetic architecture of systemic lupus erythematosus(SLE), identifying more than 60 susceptibility loci associated with the disease.
+					</li>
+                            <li>However, the identified variants so far only explain approximately 20% of disease heritability for SLE.
+                            </li>
+                            <li>Due to the complexity of linkage disequilibrium (LD), it remains challenging to identify the true causal variant for a risk locus.
+                            </li>
+                            <li>It is noteworthy that the majority of common risk variants are located outside of protein coding regions, which highlights their potential roles in gene expression regulation.
+			     </li>
+			     </ul>
+				</section>
+                 <section>
+					<h3>Workflow</h3>
+					<img width="800" height="600" data-src="/talks/sle/img/workflow.jpg" alt="workflow">
+				</section>
+				<section>
+					<h3>DEGs identification</h3>
+					<img width="800" height="600" data-src="/talks/sle/img/degs.jpg" alt="degs">
+				</section>
+				<section>
+				    <section>
+					    <h3>TF enrichment</h3>
+					    <img width="800" height="600" data-src="/talks/sle/img/tfs.jpg" alt="tfs">
+				     </section>
+					 <section>
+					    <h3>TF clusters</h3>
+					    <img width="800" height="600" data-src="/talks/sle/img/tf_clusters.jpg" alt="tf_clusters">
+				     </section>
+				</section>
 				<!-- Example of nested vertical slides -->
+			
+				<section>
+						<h3>Network construction</h3>
+						<!-- <p></p> -->
+						<p>In order to delineate the cause-effect relationship between genetic associations and gene expression aberrations, 
+						a SLE PPI sub-network was constructed using SLE disease-associated genes (DAGs), enriched TFs and DEGs identified in this study, 
+						as well as proteins interacting with them.</p>
+						<br>
+				</section>
 				<section>
 					<section>
-						<h2>Network modualization</h2>
-						<p>Slides can be nested inside of each other.</p>
-						<p>Use the <em>Space</em> key to navigate through all slides.</p>
-						<ul>
-							<li>1</li>	<li>2</li>	<li>3</li>
-					        </ul>
-						<br>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
+						<h3>SLE PPI sub-network</h3>
+						<img width="800" height="600" data-src="/talks/sle/img/network.jpg" alt="network">
 					</section>
 					<section>
-						<h2>Module #0</h2>
-						<p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
+						<h3>RWR</h3>
+						<img width="800" height="600" data-src="/talks/sle/img/layers.jpg" alt="layers">
 					</section>
-				        <section>
-						<h3>Module #3</h3>
-						<img width="800" height="600" data-src="/talks/sle/img/module3.png" alt="module #1">
+				</section>
+				<section>
+					<section>
+						<h3>Network modulization</h3>
+						<p>Spectral clustering</p>
+						<img width="600" height="400" data-src="/talks/sle/img/network.jpg" alt="network">
 					</section>
 					<section>
-						<h2>Basement Level 2</h2>
-						<p>That's it, time to go back up.</p>
-						<br>
-						<a href="#/2">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="transform: rotate(180deg); -webkit-transform: rotate(180deg);">
-						</a>
+						<h3>Functional module #2</h3>
+						<img width="800" height="600" data-src="/talks/sle/img/module2.jpg" alt="module #2">
+					</section>
+				    <section>
+						<h3>Functional module #3</h3>
+						<img width="800" height="600" data-src="/talks/sle/img/module3.jpg" alt="module #3">
 					</section>
 				</section>
 
 				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? Not a problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slides.com" target="_blank">http://slides.com</a>.
-					</p>
-				</section>
-
-				<section>
-					<h2>Point of View</h2>
+					<h3>Drug discovery</h3>
 					<p>
 						Press <strong>ESC</strong> to enter the slide overview.
 					</p>
 					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
+					    <img width="800" height="600" data-src="/talks/sle/img/drugs.jpg" alt="module #2">
 					</p>
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+					</aside>
 				</section>
-
-				<section>
-					<h2>Touch Optimized</h2>
-					<p>
-						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
-					</p>
-				</section>
-
+                <!--
 				<section data-markdown>
 					<script type="text/template">
 						## Markdown support
@@ -196,12 +219,12 @@
 						<a href="?transition=zoom#/transitions">Zoom</a>
 					</p>
 				</section>
-
+                 -->
+				<!--
 				<section id="themes">
 					<h2>Themes</h2>
 					<p>
-						Choose an appropriate theme from built in themes: <br>
-						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+						Choose an appropriate theme from built in themes: <br />
 						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/black.css'); return false;">Black (default)</a> -
 						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/white.css'); return false;">White</a> -
 						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/league.css'); return false;">League</a> -
@@ -215,74 +238,11 @@
 						<a href="#" onclick="document.getElementById('theme').setAttribute('href','/talks/css/theme/solarized.css'); return false;">Solarized</a>
 					</p>
 				</section>
+				-->
 
-				<section>
-					<section data-background="#dddddd">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code class="hljs">&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Tiled Backgrounds</h2>
-						<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000">
-						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
-							<h2>Video Backgrounds</h2>
-							<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code></pre>
-						</div>
-					</section>
-					<section data-background="http://i.giphy.com/90F8aUepslB84.gif">
-						<h2>... and GIFs!</h2>
-					</section>
-				</section>
 
-				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
-					</p>
-					<pre><code class="hljs">Reveal.configure({ backgroundTransition: 'zoom' })</code></pre>
-				</section>
 
-				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						You can override background transitions per-slide.
-					</p>
-					<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code></pre>
-				</section>
-
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code class="hljs" data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
-
-    var nodes = document.querySelectorAll( selector );
-
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
-
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
-  }
-}
-					</code></pre>
-					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-				</section>
-
-				<section>
+				<!-- <section>
 					<h2>Marvelous List</h2>
 					<ul>
 						<li>No order here</li>
@@ -299,9 +259,9 @@ function linkify( selector ) {
 						<li>Two is smaller than...</li>
 						<li>Three!</li>
 					</ol>
-				</section>
+				</section> -->
 
-				<section>
+				<!--<section>
 					<h2>Tabular Tables</h2>
 					<table>
 						<thead>
@@ -330,19 +290,9 @@ function linkify( selector ) {
 						</tbody>
 					</table>
 				</section>
-
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
-
+                -->
+				
+                <!--
 				<section>
 					<h2>Intergalactic Interconnections</h2>
 					<p>
@@ -350,66 +300,33 @@ function linkify( selector ) {
 						<a href="#/2/3">like this</a>.
 					</p>
 				</section>
+                 -->
+				 
 
-				<section>
-					<h2>Speaker View</h2>
-					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
-					<p>Press the <em>S</em> key to try it out.</p>
-
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
-				</section>
-
+                <!--
 				<section>
 					<h2>Export to PDF</h2>
 					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
 					<iframe data-src="https://www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
 				</section>
-
-				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the page background.
-					</p>
-				</section>
-
-				<section data-state="customevent">
-					<h2>State Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
-
+                 -->
+				
+                <!--
 				<section>
 					<h2>Take a Moment</h2>
 					<p>
 						Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
 					</p>
 				</section>
+				-->
 
-				<section>
-					<h2>Much more</h2>
-					<ul>
-						<li>Right-to-left support</li>
-						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
-					</ul>
-				</section>
+
 
 				<section style="text-align: left;">
 					<h1>THE END</h1>
 					<p>
-						- <a href="http://slides.com">Try the online editor</a> <br>
+						- <! -- <a href="http://slides.com">Try the online editor</a>  --> 
+						<br />
 						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
 					</p>
 				</section>
@@ -428,7 +345,11 @@ Reveal.addEventListener( 'customevent', function() {
 				progress: true,
 				history: true,
 				center: true,
-				transition: 'convex', // none/fade/slide/convex/concave/zoom
+				transition: 'convex', // none/fade/slide/convex/concave/zoom,
+				math: {
+                 mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                 config: 'TeX-AMS_HTML-full' // See http://docs.mathjax.org/en/latest/config-files.html
+                },
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
 					{ src: '/talks/lib/js/classList.js', condition: function() { return !document.body.classList; } },
@@ -436,7 +357,8 @@ Reveal.addEventListener( 'customevent', function() {
 					{ src: '/talks/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: '/talks/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: '/talks/plugin/zoom-js/zoom.js', async: true },
-					{ src: '/talks/plugin/notes/notes.js', async: true }
+					{ src: '/talks/plugin/notes/notes.js', async: true },
+					{src: '/talks/plugin/math/math.js', async: true}
 				]
 			});
 		</script>
