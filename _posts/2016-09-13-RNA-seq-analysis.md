@@ -10,25 +10,26 @@ Below shows a general workflow for carrying out a RNA-Seq experiment. In this gu
 
 <!--more-->
 
-### RNA-Seq Analysis Workflow
+###RNA-Seq Analysis Workflow
 ![center](/figures/2016-09-13-RNA-seq-analysis/rna_seq_workflow.png) 
 
-### Create Mapping Indices
+###Create Mapping Indices
 Before we can perform NGS read mapping, we will create the genome indices using the genome FASTA file as input. You can re-use these indices in all your future short read mapping. However, if you wish to map to a different genome build/assembly, you have to re-run this step using different genome sequences and save the indices in a different directory.
 Here, we will create indices for STAR and RSEM
 
-#### STAR
-#### Usage
+####STAR
+
+####Usage
 {% highlight bash %}
 STAR --runMode genomeGenerate --genomeDir path_to_genomedir --genomeFastaFiles reference_fasta_file(s)
 {% endhighlight %}
-#### Execute
+####Execute
 {% highlight bash %}
 mkdir GENOME_data/star
 STAR --runThreadN 40 --runMode genomeGenerate --genomeDir GENOME_data/star \
 --genomeFastaFiles GENOME_data/Homo_sapiens.GRCh38.dna.primary_assembly.fa
 {% endhighlight %} 
-#### Options
+####Options
 {% highlight bash %}
 --runThreadNdefines  # the number of threads to be used for genome generation.
 --runMode genomeGenerate # directs STAR to run genome indices generation job.
@@ -36,8 +37,9 @@ STAR --runThreadN 40 --runMode genomeGenerate --genomeDir GENOME_data/star \
 --genomeFastaFiles # one or more FASTA files with the genome reference sequences.
 {% endhighlight %}
 
-####RESM 
-#### Usage
+####RESM
+
+####Usage
 {% highlight bash %}
 rsem-prepare-reference [options] reference_fasta_file(s) reference_name
 {% endhighlight %}
@@ -48,12 +50,12 @@ rsem-prepare-reference --gtf /work3/LSLNGS2015/GENOME_data/Homo_sapiens.GRCh38.8
     /work3/LSLNGS2015/GENOME_data/Homo_sapiens.GRCh38.dna.primary_assembly.fa \
     /work3/LSLNGS2015/GENOME_data/rsem/rsem
 {% endhighlight%}
-#### Options
+####Options
 {% highlight bash %}
 --gtf option specifies path to the gene annotations (in GTF format), and RSEM assumes the FASTA file contains sequence of a genome. If this option is off, RSEM will assume the FASTA file contains the reference transcripts. The name of each sequence in the Multi-FASTA files is its transcript_id.
 {% endhighlight %}
-### Mapping with STAR (2-pass mode)
-#### Execute
+###Mapping with STAR (2-pass mode)
+####Execute
 {% highlight bash %}
 STAR --genomeDir GENOME_data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh38.82.gtf \
     --readFilesIn RNASEQ_data/GM12878.rep1.R1.fastq.gz /RNASEQ_data/GM12878.rep1.R2.fastq.gz \
@@ -61,7 +63,7 @@ STAR --genomeDir GENOME_data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh38.
     --outSAMunmapped Within --quantMode TranscriptomeSAM GeneCounts --twopassMode Basic \
     --runThreadN 20 --outFileNamePrefix "RNASEQ_data/star_GM12878_rep1/"
 {% endhighlight %}
-#### Options
+####Options
 {% highlight bash %}
 --genomeDir   # path to the directory where genome files are stored.
 --sjdbGTFfile # path to the GTF file with annotations.
@@ -77,21 +79,21 @@ unmapped。 Default is 10.
 --outFileNamePrefix # output files name prefix.
 {% endhighlight %}
 
-### Quantification with RSEM
+###Quantification with RSEM
 In this tutorial, we use RSEM to quantify the expression of genes ans transcript. In the previous step, we instruct STAR to output genomic alignments in transcriptomic coordinates (i.e. Aligned.toTranscriptome.out.bam). We input this file to RSEM to produce gene and transcript expression levels.
-#### Usage
+####Usage
 {% highlight bash %}
 rsem-calculate-expression [options] upstream_read_file(s) reference_name sample_name
 rsem-calculate-expression [options] --paired-end upstream_read_file(s) downstream_read_file(s) reference_name sample_name
 rsem-calculate-expression [options] --sam/--bam [--paired-end] input reference_name sample_name
 {% endhighlight %}
-#### Execute
+####Execute
 {% highlight bash %}
 rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-prob 1 \ 
     RNASEQ_data/star_GM12878_rep1/Aligned.toTranscriptome.out.bam GENOME_data/rsem/rsem RNASEQ_data/rsem_GM12878_rep1/rsem >& \ 
     RNASEQ_data/rsem_GM12878_rep1/rsem.log
 {% endhighlight %}
-#### Options
+####Options
 {% highlight bash %}
 --bam  # Input file is in BAM format.
 --no-bam-output # Do not output any BAM file.
