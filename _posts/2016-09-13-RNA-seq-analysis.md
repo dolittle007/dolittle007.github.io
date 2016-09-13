@@ -24,8 +24,8 @@ wget ftp://ftp.ensembl.org/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.7
 wget ftp://ftp.ensembl.org/pub/release-75/fasta/homo_sapiens/dna/Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa.gz # genome sequence
 gunzip Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa.gz
 gunzip Homo_sapiens.GRCh37.75.gtf.gz
-mv Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa _Homo_sapiens.GRCh37.primary_assembly.fa_
-mv Homo_sapiens.GRCh37.75.gtf _Homo_sapiens.GRCh37.gtf_
+mv Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa Homo_sapiens.GRCh37.primary_assembly.fa
+mv Homo_sapiens.GRCh37.75.gtf Homo_sapiens.GRCh37.gtf
 {% endhighlight %}
 
 ### Create Mapping Indices
