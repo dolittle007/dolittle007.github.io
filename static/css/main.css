@@ -449,6 +449,7 @@ code {
 pre code {
   border: none;
   font-size: 14px;
+  overflow: auto;
 }
 
 
@@ -641,7 +642,6 @@ figure img {
 
 .post code {
   margin-top: 10px;
-  overflow: auto;
 }
 
 
