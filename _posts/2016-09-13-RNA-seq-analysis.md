@@ -48,7 +48,7 @@ STAR --runThreadN 40 --runMode genomeGenerate --genomeDir GENOME_data/star \
 {% highlight bash %}
 --runThreadNdefines  # the number of threads to be used for genome generation.
 --runMode genomeGenerate # directs STAR to run genome indices generation job.
---genomeDir # path to the directory where the genome indices are stored. This directory has to be created (with mkdir) before STAR run and needs to writing permissions. The file system needs to have at least 100GB of disk space available for a typical mammalian genome.
+--genomeDir # path to the directory where the genome indices are stored. This directory has to be created (with mkdir) before STAR run and needs to writing permissions.The file system needs to have at least 100GB of disk space available for a typical mammalian genome.
 --genomeFastaFiles # one or more FASTA files with the genome reference sequences.
 {% endhighlight %}
 
@@ -61,9 +61,9 @@ rsem-prepare-reference [options] reference_fasta_file(s) reference_name
 #### Execute
 {% highlight bash %}
 mkdir GENOME_data/rsem
-rsem-prepare-reference --gtf /work3/LSLNGS2015/GENOME_data/Homo_sapiens.GRCh38.82.gtf \
-    /work3/LSLNGS2015/GENOME_data/Homo_sapiens.GRCh38.dna.primary_assembly.fa \
-    /work3/LSLNGS2015/GENOME_data/rsem/rsem
+rsem-prepare-reference --gtf ./GENOME_data/Homo_sapiens.GRCh37.gtf \
+    ./GENOME_data/Homo_sapiens.GRCh37.primary_assembly.fa \
+    ./GENOME_data/rsem/rsem
 {% endhighlight%}
 #### Options
 {% highlight bash %}
