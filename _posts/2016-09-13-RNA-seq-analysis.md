@@ -108,8 +108,10 @@ rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-pro
 RSEM generates 2 result files:
 1. rsem.genes.results
 2. rsem.isoforms.results.
-### Prepare input matrix(rows = mRNAs, columns = samples)
-prepare input matrix to programs such as EBSeq, DESeq, or edgeR to identify differentially expressed genes
+
+
+#### Prepare input matrix
+prepare input matrix (rows = mRNAs, columns = samples) to programs such as EBSeq, DESeq, or edgeR to identify differentially expressed genes
 
 We use paste command to join the rsem.genes.results files side-by-side, then use cut to select the columns containing the expected_count information, and place them into a final output file. Repeat the same step for isoforms.+
 
