@@ -14,6 +14,7 @@ Below shows a general workflow for carrying out a RNA-Seq experiment. In this gu
 ![center](/figures/2016-09-13-RNA-seq-analysis/rna_seq_workflow.png) 
 
 ***
+
 ### Prepare data and software
 
 #### Genome sequence and annotation (GRCh37)
@@ -23,8 +24,8 @@ wget ftp://ftp.ensembl.org/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.7
 wget ftp://ftp.ensembl.org/pub/release-75/fasta/homo_sapiens/dna/Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa.gz # genome sequence
 gunzip Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa.gz
 gunzip Homo_sapiens.GRCh37.75.gtf.gz
-mv Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa **Homo_sapiens.GRCh37.primary_assembly.fa**
-mv Homo_sapiens.GRCh37.75.gtf **Homo_sapiens.GRCh37.gtf**
+mv Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa _Homo_sapiens.GRCh37.primary_assembly.fa_
+mv Homo_sapiens.GRCh37.75.gtf _Homo_sapiens.GRCh37.gtf_
 {% endhighlight %}
 
 ### Create Mapping Indices
