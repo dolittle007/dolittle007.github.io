@@ -14,12 +14,24 @@ Below shows a general workflow for carrying out a RNA-Seq experiment. In this gu
 ![center](/figures/2016-09-13-RNA-seq-analysis/rna_seq_workflow.png) 
 
 ***
+### Prepare data and software
+
+#### Genome sequence and annotation (GRCh37)
+We download the human genome FASTA sequences and annotation GTF file from the Ensembl FTP.
+{% highlight bash %}
+wget ftp://ftp.ensembl.org/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.gtf.gz # genome annotation
+wget ftp://ftp.ensembl.org/pub/release-75/fasta/homo_sapiens/dna/Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa.gz # genome sequence
+gunzip Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa.gz
+gunzip Homo_sapiens.GRCh37.75.gtf.gz
+mv Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa **Homo_sapiens.GRCh37.primary_assembly.fa**
+mv Homo_sapiens.GRCh37.75.gtf **Homo_sapiens.GRCh37.gtf**
+{% endhighlight %}
 
 ### Create Mapping Indices
 Before we can perform NGS read mapping, we will create the genome indices using the genome FASTA file as input. You can re-use these indices in all your future short read mapping. However, if you wish to map to a different genome build/assembly, you have to re-run this step using different genome sequences and save the indices in a different directory.
-Here, we will create indices for [**STAR**](https://github.com/alexdobin/STAR "STAR") and [**RSEM**](http://deweylab.github.io/RSEM/ "RSEM")
+Here, we will create indices for [**STAR**](https://github.com/alexdobin/STAR "Spliced Transcripts Alignment to a Reference") and [**RSEM**](http://deweylab.github.io/RSEM/ "RNA-Seq by Expectation-Maximization")
 
-#### STAR
+#### STAR (Spliced Transcripts Alignment to a Reference)
 
 #### Usage
 {% highlight bash %}
@@ -29,7 +41,7 @@ STAR --runMode genomeGenerate --genomeDir path_to_genomedir --genomeFastaFiles r
 {% highlight bash %}
 mkdir GENOME_data/star
 STAR --runThreadN 40 --runMode genomeGenerate --genomeDir GENOME_data/star \
-    --genomeFastaFiles GENOME_data/Homo_sapiens.GRCh38.dna.primary_assembly.fa
+    --genomeFastaFiles GENOME_data/Homo_sapiens.GRCh37.primary_assembly.fa
 {% endhighlight %} 
 #### Options
 {% highlight bash %}
