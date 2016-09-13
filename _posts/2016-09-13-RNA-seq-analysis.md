@@ -27,7 +27,7 @@ STAR --runMode genomeGenerate --genomeDir path_to_genomedir --genomeFastaFiles r
 {% highlight bash %}
 mkdir GENOME_data/star
 STAR --runThreadN 40 --runMode genomeGenerate --genomeDir GENOME_data/star \
---genomeFastaFiles GENOME_data/Homo_sapiens.GRCh38.dna.primary_assembly.fa
+    --genomeFastaFiles GENOME_data/Homo_sapiens.GRCh38.dna.primary_assembly.fa
 {% endhighlight %} 
 #### Options
 {% highlight bash %}
@@ -52,7 +52,7 @@ rsem-prepare-reference --gtf /work3/LSLNGS2015/GENOME_data/Homo_sapiens.GRCh38.8
 {% endhighlight%}
 #### Options
 {% highlight bash %}
---gtf option specifies path to the gene annotations (in GTF format), and RSEM assumes the FASTA file contains sequence of a genome. If this option is off, RSEM will assume the FASTA file contains the reference transcripts. The name of each sequence in the Multi-FASTA files is its transcript_id.
+--gtf # option specifies path to the gene annotations (in GTF format), and RSEM assumes the FASTA file contains sequence of a genome. If this option is off, RSEM will assume the FASTA file contains the reference transcripts. The name of each sequence in the Multi-FASTA files is its transcript_id.
 {% endhighlight %}
 ### Mapping with STAR (2-pass mode)
 
