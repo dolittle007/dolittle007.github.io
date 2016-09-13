@@ -15,7 +15,7 @@ Below shows a general workflow for carrying out a RNA-Seq experiment. In this gu
 
 ### Create Mapping Indices
 Before we can perform NGS read mapping, we will create the genome indices using the genome FASTA file as input. You can re-use these indices in all your future short read mapping. However, if you wish to map to a different genome build/assembly, you have to re-run this step using different genome sequences and save the indices in a different directory.
-Here, we will create indices for STAR and RSEM
+Here, we will create indices for [**STAR**](https://github.com/alexdobin/STAR "STAR") and [**RSEM**](http://deweylab.github.io/RSEM/ "RSEM")
 
 #### STAR
 
@@ -73,7 +73,7 @@ STAR --genomeDir GENOME_data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh38.
 --outSAMtype # type of output, i.e. SAM or BAM.
 --outFilterMultimapNmax # max number of multiple alignments allowed for a read: if exceeded, the read is considered unmapped。 Default is 10.
 --outSAMunmapped # output of unmapped reads in the SAM format, None or Within SAM file.
---quantMode # types of quantification requested, i.e. GeneCounts(output ReadsPerGene.out.tab) or TranscriptomeSAM(output Aligned.toTranscriptome.out.bam). The counts from 'GeneCounts' coincide with those produced by htseq-count with default parameters.
+--quantMode # types of quantification requested, i.e. GeneCounts(output ReadsPerGene.out.tab) or TranscriptomeSAM(output Aligned.toTranscriptome.out.bam). The counts from **'GeneCounts'** coincide with those produced by htseq-count with default parameters.
 --twopassMode # 2-pass mapping mode. In the first pass, the novel junctions are detected and inserted into the genome indices. In the second pass, all reads will be re-mapped using annotated (from the GTF file) and novel (detected in the first pass) junctions. While this doubles the run time, it significantly increases sensitivity to novel splice junctions.
 --runThreadN # number of threads to run STAR.
 --outFileNamePrefix # output files name prefix.
@@ -99,7 +99,7 @@ rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-pro
 --bam  # Input file is in BAM format.
 --no-bam-output # Do not output any BAM file.
 -p # Number of threads to use.
---paired-end # Input reads are paired-end reads.
+--paired-end # Input reads are _paired-end_ reads.
 --forward-prob # Probability of generating a read from the forward strand of a transcript. 1: strand-specific protocol where all (upstream) reads are derived from the forward strand; 0: strand-specific protocol where all (upstream) read are derived from the reverse strand; 0.5: non-strand-specific protocol.
 {% endhighlight%}
 
@@ -111,7 +111,7 @@ RSEM generates 2 result files:
 
 
 #### Prepare input matrix
-prepare input matrix (rows = mRNAs, columns = samples) to programs such as EBSeq, DESeq, or edgeR to identify differentially expressed genes
+prepare input matrix (rows = mRNAs, columns = samples) to programs such as [**EBSeq**](http://bioconductor.org/packages/release/bioc/html/EBSeq.html "EBSeq"), [**DESeq**](http://bioconductor.org/packages/release/bioc/html/DESeq.html "DESeq"), or [**edgeR**](https://bioconductor.org/packages/release/bioc/html/edgeR.html "edgeR") to identify differentially expressed genes
 
 We use paste command to join the rsem.genes.results files side-by-side, then use cut to select the columns containing the expected_count information, and place them into a final output file. Repeat the same step for isoforms.+
 
@@ -121,8 +121,8 @@ paste rsem.genes.results | tail -n+2 | cut -f1,5,12,19,26 > edgeR.genes.rsem.txt
 paste rsem.isoforms.results | tail -n+2 | cut -f1,5,13,21,29 > edgeR.isoforms.rsem.txt
 {% endhighlight %}
 
-#### Why we use expected_count provided by RSEM?
-The problem with using raw read counts is that the origin of some reads cannot always be uniquely determined. If two or more distinct transcripts in a particular sample share some common sequence (for example, if they are alternatively spliced mRNAs or mRNAs derived from paralogous genes), then sequence alignment may not be sufficient to discriminate the true origin of reads mapping to these transcripts. One approach to addressing this issue involves discarding these multiple-mapped reads (multireads for short) entirely. Another involves partitioning and distributing portions of a multiread’s expression value between all of the transcripts to which it maps. So-called “rescue” methods implement this second approach in a naive fashion. RSEM improves upon this approach, utilizing an Expectation-Maximization (EM) algorithm to estimate maximum likelihood expression levels. These “expected counts” can then be provided as a matrix (rows = mRNAs, columns = samples) to programs such as EBSeq, DESeq, or edgeR to identify differentially expressed genes.
+#### Why we use **expected_count** provided by RSEM?
+The problem with using raw read counts is that the origin of some reads cannot always be uniquely determined. If two or more distinct transcripts in a particular sample share some common sequence (for example, if they are alternatively spliced mRNAs or mRNAs derived from paralogous genes), then sequence alignment may not be sufficient to discriminate the true origin of reads mapping to these transcripts. One approach to addressing this issue involves discarding these multiple-mapped reads entirely. Another involves partitioning and distributing portions of a multiple-mapped read’s expression value between all of the transcripts to which it maps. So-called “rescue” methods implement this second approach in a naive fashion. RSEM improves upon this approach, utilizing an Expectation-Maximization (EM) algorithm to estimate maximum likelihood expression levels. These “expected counts” can then be provided as a matrix (rows = mRNAs, columns = samples) to programs such as EBSeq, DESeq, or edgeR to identify differentially expressed genes.
 
 ### Quantification with HTSeq
 
@@ -135,3 +135,5 @@ htseq-count [options] <alignment_file> <gff_file>
 {% highlight bash %}
 htseq-count -f bam -r pos 
 {% endhighlight%}
+
+_**ok**_
