@@ -73,11 +73,20 @@ rsem-prepare-reference --gtf GENOME_data/Homo_sapiens.GRCh37.gtf \
 
 #### Execute
 {% highlight bash %}
+
+read1="G001C_1.fastq.gz"
+read2="G001C_2.fastq.gz"
+sample="G001C"
+mkdir RNASEQ_data
+mkdir RNASEQ_data/star_$sample
+
 STAR --genomeDir GENOME_data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh37.gtf \
- --readFilesIn RNASEQ_data/GM12878.rep1.R1.fastq.gz /RNASEQ_data/GM12878.rep1.R2.fastq.gz \
-    --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --outFilterMultimapNmax 1 \
+    --readFilesIn RNASEQ_data/$read1 RNASEQ_data/$read2 \
+    --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --outFilterMultimapNmax 10 \
     --outSAMunmapped Within --quantMode TranscriptomeSAM GeneCounts --twopassMode Basic \
-    --runThreadN 20 --outFileNamePrefix RNASEQ_data/star_GM12878_rep1/ --sjdbOverhang 100
+    --runThreadN 20 --outFileNamePrefix RNASEQ_data/star_$sample/ --sjdbOverhang 100 \
+    --outSAMattrRGline ID:$sample PL:illumina PU:CCD LIB:KAPA SM:Cancer
+    
 {% endhighlight %}
 #### Options
 {% highlight bash %}
@@ -92,7 +101,7 @@ STAR --genomeDir GENOME_data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh37.
 --twopassMode # 2-pass mapping mode. In the first pass, the novel junctions are detected and inserted into the genome indices. In the second pass, all reads will be re-mapped using annotated (from the GTF file) and novel (detected in the first pass) junctions. While this doubles the run time, it significantly increases sensitivity to novel splice junctions.
 --runThreadN # number of threads to run STAR.
 --outFileNamePrefix # output files name prefix.
---sjdbOverhang 100
+--sjdbOverhang 100 # read length - 1
 {% endhighlight %}
 
 ### Quantification with RSEM
