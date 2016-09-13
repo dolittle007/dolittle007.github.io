@@ -61,9 +61,9 @@ rsem-prepare-reference [options] reference_fasta_file(s) reference_name
 #### Execute
 {% highlight bash %}
 mkdir GENOME_data/rsem
-rsem-prepare-reference --gtf ./GENOME_data/Homo_sapiens.GRCh37.gtf \
-    ./GENOME_data/Homo_sapiens.GRCh37.primary_assembly.fa \
-    ./GENOME_data/rsem/rsem
+rsem-prepare-reference --gtf GENOME_data/Homo_sapiens.GRCh37.gtf \
+     GENOME_data/Homo_sapiens.GRCh37.primary_assembly.fa \
+     GENOME_data/rsem/rsem
 {% endhighlight%}
 #### Options
 {% highlight bash %}
