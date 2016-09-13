@@ -12,7 +12,9 @@ Below shows a general workflow for carrying out a RNA-Seq experiment. In this gu
 
 ### RNA-Seq Analysis Workflow
 ![center](/figures/2016-09-13-RNA-seq-analysis/rna_seq_workflow.png) 
+
 ***
+
 ### Create Mapping Indices
 Before we can perform NGS read mapping, we will create the genome indices using the genome FASTA file as input. You can re-use these indices in all your future short read mapping. However, if you wish to map to a different genome build/assembly, you have to re-run this step using different genome sequences and save the indices in a different directory.
 Here, we will create indices for [**STAR**](https://github.com/alexdobin/STAR "STAR") and [**RSEM**](http://deweylab.github.io/RSEM/ "RSEM")
