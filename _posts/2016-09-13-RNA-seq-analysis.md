@@ -62,7 +62,7 @@ STAR --genomeDir GENOME_data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh38.
  --readFilesIn RNASEQ_data/GM12878.rep1.R1.fastq.gz /RNASEQ_data/GM12878.rep1.R2.fastq.gz \
     --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --outFilterMultimapNmax 1 \
     --outSAMunmapped Within --quantMode TranscriptomeSAM GeneCounts --twopassMode Basic \
-    --runThreadN 20 --outFileNamePrefix "RNASEQ_data/star_GM12878_rep1/"
+    --runThreadN 20 --outFileNamePrefix "RNASEQ\_data/star\_GM12878_rep1/"
 {% endhighlight %}
 #### Options
 {% highlight bash %}
