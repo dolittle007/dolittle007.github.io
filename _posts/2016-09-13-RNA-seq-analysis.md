@@ -11,7 +11,7 @@ Below shows a general workflow for carrying out a RNA-Seq experiment. In this gu
 <!--more-->
 
 ### RNA-Seq Analysis Workflow
-
+![center](/figures/2016-09-13-RNA-seq-analysis/rna_seq_workflow.png) 
 
 
 {% highlight bash %} 
