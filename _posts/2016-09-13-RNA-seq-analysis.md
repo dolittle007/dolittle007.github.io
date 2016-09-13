@@ -82,6 +82,7 @@ unmapped。 Default is 10.
 
 ### Quantification with RSEM
 In this tutorial, we use RSEM to quantify the expression of genes ans transcript. In the previous step, we instruct STAR to output genomic alignments in transcriptomic coordinates (i.e. Aligned.toTranscriptome.out.bam). We input this file to RSEM to produce gene and transcript expression levels.
+
 #### Usage
 {% highlight bash %}
 rsem-calculate-expression [options] upstream_read_file(s) reference_name sample_name
