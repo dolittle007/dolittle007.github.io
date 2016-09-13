@@ -71,8 +71,7 @@ STAR --genomeDir GENOME_data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh38.
 --readFilesIn # paths to files that contain input read1 (and read2 if PE sequencing).
 --readFilesCommand # command line to execute for each of the input file. For example: zcat to uncompress .gz files.
 --outSAMtype # type of output, i.e. SAM or BAM.
---outFilterMultimapNmax # max number of multiple alignments allowed for a read: if exceeded, the read is considered
-unmapped。 Default is 10.
+--outFilterMultimapNmax # max number of multiple alignments allowed for a read: if exceeded, the read is considered unmapped。 Default is 10.
 --outSAMunmapped # output of unmapped reads in the SAM format, None or Within SAM file.
 --quantMode # types of quantification requested, i.e. GeneCounts(output ReadsPerGene.out.tab) or TranscriptomeSAM(output Aligned.toTranscriptome.out.bam)
 --twopassMode # 2-pass mapping mode. In the first pass, the novel junctions are detected and inserted into the genome indices. In the second pass, all reads will be re-mapped using annotated (from the GTF file) and novel (detected in the first pass) junctions. While this doubles the run time, it significantly increases sensitivity to novel splice junctions.
