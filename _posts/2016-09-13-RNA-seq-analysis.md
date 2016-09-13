@@ -133,7 +133,31 @@ htseq-count [options] <alignment_file> <gff_file>
 
 #### Execute
 {% highlight bash %}
-htseq-count -f bam -r pos 
+htseq-count --format=bam --order=pos --stranded=yes --type=gene --idattr=gene_id --mode=union Aligned.toTranscriptome.out.bam Homo_sapiens.GRCh38.82.gtf
 {% endhighlight%}
 
-_**ok**_
+####Options
+
+{% highlight bash %}--format=<format>{% endhighlight %} Format of the input data. Possible values are sam (for text SAM files) and bam (for binary BAM files). Default is sam.
+
+{% highlight bash %}--order=<order>{% endhighlight %}
+For paired-end data, the alignment have to be sorted either by read name or by alignment position. If your data is not sorted, use the samtools sort function of samtools to sort it. Use this option, with name or pos for <order> to indicate how the input data has been sorted. The default is name.
+
+If name is indicated, htseq-count expects all the alignments for the reads of a given read pair to appear in adjacent records in the input data. For pos, this is not expected; rather, read alignments whose mate alignment have not yet been seen are kept in a buffer in memory until the mate is found. While, strictly speaking, the latter will also work with unsorted data, sorting ensures that most alignment mates appear close to each other in the data and hence the buffer is much less likely to overflow.
+
+{% highlight bash %}--stranded=<yes/no/reverse>{% endhighlight %}
+whether the data is from a strand-specific assay (default: yes)
+
+For stranded=no, a read is considered overlapping with a feature regardless of whether it is mapped to the same or the opposite strand as the feature. For stranded=yes and single-end reads, the read has to be mapped to the same strand as the feature. For paired-end reads, the first read has to be on the same strand and the second read on the opposite strand. For stranded=reverse, these rules are reversed.
+
+{% highlight bash %}--a=<minaqual>{% endhighlight %}
+skip all reads with alignment quality lower than the given minimum value (default: 10 — Note: the default used to be 0 until version 0.5.4.)
+
+{% highlight bash %}--type=<feature type>{% endhighlight %}
+feature type (3rd column in GFF file) to be used, all features of other type are ignored (default, suitable for RNA-Seq analysis using an Ensembl GTF file: exon)
+
+{% highlight bash %}--idattr=<id attribute>{% endhighlight %}
+GFF attribute to be used as feature ID. Several GFF lines with the same feature ID will be considered as parts of the same feature. The feature ID is used to identity the counts in the output table. The default, suitable for RNA-Seq analysis using an Ensembl GTF file, is gene_id.
+
+{% highlight bash %}--mode=<mode>{% endhighlight %}
+Mode to handle reads overlapping more than one feature. Possible values for <mode> are union, intersection-strict and intersection-nonempty (default: union)
