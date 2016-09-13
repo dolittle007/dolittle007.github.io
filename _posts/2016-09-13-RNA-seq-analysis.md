@@ -12,7 +12,7 @@ Below shows a general workflow for carrying out a RNA-Seq experiment. In this gu
 
 ### RNA-Seq Analysis Workflow
 ![center](/figures/2016-09-13-RNA-seq-analysis/rna_seq_workflow.png) 
-
+***
 ### Create Mapping Indices
 Before we can perform NGS read mapping, we will create the genome indices using the genome FASTA file as input. You can re-use these indices in all your future short read mapping. However, if you wish to map to a different genome build/assembly, you have to re-run this step using different genome sequences and save the indices in a different directory.
 Here, we will create indices for [**STAR**](https://github.com/alexdobin/STAR "STAR") and [**RSEM**](http://deweylab.github.io/RSEM/ "RSEM")
@@ -62,7 +62,7 @@ STAR --genomeDir GENOME_data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh38.
  --readFilesIn RNASEQ_data/GM12878.rep1.R1.fastq.gz /RNASEQ_data/GM12878.rep1.R2.fastq.gz \
     --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --outFilterMultimapNmax 1 \
     --outSAMunmapped Within --quantMode TranscriptomeSAM GeneCounts --twopassMode Basic \
-    --runThreadN 20 --outFileNamePrefix "RNASEQ\_data/star\_GM12878_rep1/"
+    --runThreadN 20 --outFileNamePrefix RNASEQ_data/star_GM12878_rep1/
 {% endhighlight %}
 #### Options
 {% highlight bash %}
@@ -123,7 +123,7 @@ paste rsem.isoforms.results | tail -n+2 | cut -f1,5,13,21,29 > edgeR.isoforms.rs
 
 #### Why we use **expected_count** provided by RSEM?
 The problem with using raw read counts is that the origin of some reads cannot always be uniquely determined. If two or more distinct transcripts in a particular sample share some common sequence (for example, if they are alternatively spliced mRNAs or mRNAs derived from paralogous genes), then sequence alignment may not be sufficient to discriminate the true origin of reads mapping to these transcripts. One approach to addressing this issue involves discarding these multiple-mapped reads entirely. Another involves partitioning and distributing portions of a multiple-mapped read’s expression value between all of the transcripts to which it maps. So-called “rescue” methods implement this second approach in a naive fashion. RSEM improves upon this approach, utilizing an Expectation-Maximization (EM) algorithm to estimate maximum likelihood expression levels. These “expected counts” can then be provided as a matrix (rows = mRNAs, columns = samples) to programs such as EBSeq, DESeq, or edgeR to identify differentially expressed genes.
-
+***
 ### Quantification with HTSeq
 
 #### Usage
