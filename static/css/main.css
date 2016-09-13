@@ -641,6 +641,7 @@ figure img {
 
 .post code {
   margin-top: 10px;
+  overflow: auto;
 }
 
 
