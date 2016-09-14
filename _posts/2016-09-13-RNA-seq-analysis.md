@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "RNA-seq data analysis"
+title: "RNA-seq data analysis (differential expression analysis)"
 date: 2016-09-13
 category: tutorial
 tags: [RNA-seq, analysis, STAR, plot, R]
