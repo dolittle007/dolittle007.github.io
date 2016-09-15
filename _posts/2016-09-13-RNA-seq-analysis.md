@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "RNA-seq data analysis (differential expression analysis)"
+title: "RNA-seq data analysis (differential expression analysis for known transcripts)"
 date: 2016-09-13
 category: tutorial
 tags: [RNA-seq, analysis, STAR, plot, R]
@@ -102,6 +102,15 @@ STAR --genomeDir GENOME_data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh37.
 --runThreadN # number of threads to run STAR.
 --outFileNamePrefix # output files name prefix.
 --sjdbOverhang 100 # read length - 1
+{% endhighlight %}
+
+#### Issues in using STAR
+If you encount error **"terminate called after throwing an instance of 'std::bad_alloc'"** you have adjust some parameters to downsize the memory you are using. 
+
+{% highlight bash %}
+--genomeSAindexNbases 10 # default: 14 int: length (bases) of the SA pre-indexing string. Typically between 10 and 15. Longer strings will use much more memory, but allow faster searches.
+--genomeSAsparseD 2 # default: 1 int>0: suffix array sparsity, i.e. distance between indices: use bigger numbers to decrease needed RAM at the cost of mapping speed reduction
+
 {% endhighlight %}
 
 ### Quantification with RSEM
