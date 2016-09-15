@@ -154,8 +154,11 @@ We use paste command to join the rsem.genes.results files side-by-side, then use
 
 This one-line command assumes the genes (and transcripts) in each files are in the same order. If they are not, you will have to sort the files before joining them together.
 {% highlight bash %}
-paste rsem.genes.results | tail -n+2 | cut -f1,5,12,19,26 > edgeR.genes.rsem.txt
-paste rsem.isoforms.results | tail -n+2 | cut -f1,5,13,21,29 > edgeR.isoforms.rsem.txt
+mkdir sample="G001C"
+mkdir RNASEQ_data/edgeR_$sample
+
+paste RNASEQ_data/rsem_$sample/rsem.genes.results | tail -n+2 | cut -f1,5,12,19,26 > RNASEQ_data/edgeR_$sample/edgeR.genes.rsem.txt
+paste RNASEQ_data/rsem_$sample/rsem.isoforms.results | tail -n+2 | cut -f1,5,13,21,29 > RNASEQ_data/edgeR_$sample/edgeR.isoforms.rsem.txt
 {% endhighlight %}
 
 #### Why we use **expected_count** provided by RSEM?
