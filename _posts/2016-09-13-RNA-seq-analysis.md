@@ -124,9 +124,12 @@ rsem-calculate-expression [options] --sam/--bam [--paired-end] input reference_n
 {% endhighlight %}
 #### Execute
 {% highlight bash %}
+sample="G001C"
+mkdir RNASEQ_data/rsem_$sample
+
 rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-prob 1 \ 
-    RNASEQ_data/star_GM12878_rep1/Aligned.toTranscriptome.out.bam GENOME_data/rsem/rsem RNASEQ_data/rsem_GM12878_rep1/rsem >& \ 
-    RNASEQ_data/rsem_GM12878_rep1/rsem.log
+    RNASEQ_data/star_$sample/Aligned.toTranscriptome.out.bam GENOME_data/rsem/rsem RNASEQ_data/rsem_$sample/rsem >& \ 
+    RNASEQ_data/rsem_$sample/rsem.log
 {% endhighlight %}
 #### Options
 {% highlight bash %}
