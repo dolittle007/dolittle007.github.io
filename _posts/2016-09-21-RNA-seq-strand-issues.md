@@ -23,3 +23,6 @@ Tophat uses --fr-firststrand for a library created by the dUTP method. This is s
 
 ***
 [**RSEM**](http://likit.github.io/running-bowtiebowtie2-rsem-and-tophat-on-dutp-strand-specific-reads.html "RNA-Seq by Expectation-Maximization")
+
+To your actual question, dUTP-based libraries convey strand with read #2, so htseq-count --stranded=reverse will produce sense counts for such datasets. Using --stranded=yes would then yield anti-sense counts. Htseq-count was unfortunately designed at a time when non-dUTP methods were still popular, so its default stranded option is opposite of what's now common
+
