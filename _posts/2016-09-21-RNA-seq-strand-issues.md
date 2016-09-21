@@ -9,7 +9,9 @@ tags: [RNA-seq, analysis, strand, dUTP]
 I had been working on strand-specific paired-end reads from HiSeq lately and I had trouble mapping reads back to assembled transcripts using STAR as well as using RSEM to estimate transcript abundance. 
 
 <!--more-->
+
 ### Bowtie and Tophat flags for strand-specific reads
+
 Tophat uses --fr-firststrand for a library created by the dUTP method. This is stated clearly in the manual, so it is easy to understand. In contrast, Bowtie/Bowtie2 uses --fr, --rf, --ff to specify the orientation of paired-end reads.
 
 --fr means the upstream read (/1) is from a forward strand and the downstream read (/2) is from a reverse strand.
