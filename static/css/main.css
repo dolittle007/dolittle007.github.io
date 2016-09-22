@@ -791,7 +791,7 @@ figure img {
 table {
   font-family: Monaco, Menlo, "Courier New", monospace;
   /* display: inline; */
-  font-size: 60%;
+  font-size: 80%;
   /* line-height: 22px; */
   text-align: left;
 }
