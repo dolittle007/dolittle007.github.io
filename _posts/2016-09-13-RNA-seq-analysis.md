@@ -163,6 +163,7 @@ paste RNASEQ_data/rsem_$sample/rsem.isoforms.results | tail -n+2 | cut -f1,5,13,
 
 #### Why we use **expected_count** provided by RSEM?
 The problem with using raw read counts is that the origin of some reads cannot always be uniquely determined. If two or more distinct transcripts in a particular sample share some common sequence (for example, if they are alternatively spliced mRNAs or mRNAs derived from paralogous genes), then sequence alignment may not be sufficient to discriminate the true origin of reads mapping to these transcripts. One approach to addressing this issue involves discarding these multiple-mapped reads entirely. Another involves partitioning and distributing portions of a multiple-mapped read’s expression value between all of the transcripts to which it maps. So-called “rescue” methods implement this second approach in a naive fashion. RSEM improves upon this approach, utilizing an Expectation-Maximization (EM) algorithm to estimate maximum likelihood expression levels. These “expected counts” can then be provided as a matrix (rows = mRNAs, columns = samples) to programs such as EBSeq, DESeq, or edgeR to identify differentially expressed genes.
+In terms of "expected counts" in paired-end data, RSEM treats each pair of reads as a single unit.
 
 ***
 
