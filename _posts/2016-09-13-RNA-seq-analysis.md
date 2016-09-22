@@ -28,6 +28,11 @@ mv Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa Homo_sapiens.GRCh37.primary
 mv Homo_sapiens.GRCh37.75.gtf Homo_sapiens.GRCh37.gtf
 {% endhighlight %}
 
+
+It is strongly recommended to include major chromosomes (e.g., for human chr1-22,chrX,chrY,chrM,) as well as un-placed and un-localized scaffolds. Typically, un-placed/un-localized scaffolds add just a few MegaBases to the genome length, however, a substantial number of reads may map to ribosomal RNA (rRNA) repeats on these scaffolds. These reads would be reported as unmapped if the scaffolds are not included in the genome, or, even worse, may be aligned to wrong loci on the chromosomes.
+Generally, patches and alternative haplotypes should not be included in the genome.
+
+
 ### Create Mapping Indices
 Before we can perform NGS read mapping, we will create the genome indices using the genome FASTA file as input. You can re-use these indices in all your future short read mapping. However, if you wish to map to a different genome build/assembly, you have to re-run this step using different genome sequences and save the indices in a different directory.
 Here, we will create indices for [**STAR**](https://github.com/alexdobin/STAR "Spliced Transcripts Alignment to a Reference") and [**RSEM**](http://deweylab.github.io/RSEM/ "RNA-Seq by Expectation-Maximization")
