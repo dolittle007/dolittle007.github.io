@@ -43,7 +43,7 @@ Therefore, to run Bowtie on dUTP reads, the command should look something like t
 
 `bowtie -S -X 1000 --fr --nofw bowtie-index -1 reads_R1.fastq -2 reads_R2.fastq > output.sam`
 
-To compare the results, I ran Bowtie/1.0.0 on the same dataset (1M reads) with different flags specified.
+To compare the results, I ran Bowtie on the same dataset (1M reads) with different flags specified.
 
 | __Flag__  | __Mapped Reads__ | __Unmapped Reads__ |
 |:--------------|:-------------|:----------------|
@@ -128,6 +128,7 @@ Fraction of reads failed to determine: 0.0072
 Fraction of reads explained by "1++,1--,2+-,2-+": 0.0487
 Fraction of reads explained by "1+-,1-+,2++,2--": 0.9441
 {% endhighlight %}
+So it is a strand-specific pair-end RNA-seq data using dUTP protocol.
 
 ### In a nutshell
 pass
