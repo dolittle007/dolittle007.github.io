@@ -1323,3 +1323,7 @@ body {
 
 .zoomed .reveal .roll span:after {
   visibility: hidden; }
+  
+p .title{
+    font-size: 55px;
+  }
