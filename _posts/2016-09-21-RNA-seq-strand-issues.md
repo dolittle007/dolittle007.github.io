@@ -14,7 +14,7 @@ I had been working on strand-specific paired-end reads from HiSeq lately and I h
 
 
 | __Library Type__  | __Examples__ | __Description__ |
-|:------------------|:------------:|:----------------|
+|:------------------|:-------------|:----------------|
 |fr-unstranded |Standard Illumina|Reads from the left-most end of the fragment (in transcript coordinates) map to the transcript strand, and the right-most end maps to the opposite strand.|
 | fr-firststrand | dUTP, NSR, NNSR | Same as above except we enforce the rule that the right-most end of the fragment (in transcript coordinates) is the first sequenced (or only sequenced for single-end reads). Equivalently, it is assumed that only the strand generated during first strand synthesis is sequenced.|
 | fr-secondstrand | Ligation, Standard SOLiD |Same as above except we enforce the rule that the left-most end of the fragment (in transcript coordinates) is the first sequenced (or only sequenced for single-end reads). Equivalently, it is assumed that only the strand generated during second strand synthesis is sequenced.|
