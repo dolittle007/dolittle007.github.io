@@ -790,19 +790,18 @@ figure img {
 /***********************************************************************/
 .option {
   font-family: Monaco, Menlo, "Courier New", monospace;
-  font-size: 16px;
+  font-size: 22px;
   color: #333;
   display: inline;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 22px;
+  /* line-height: 22px; */
   background-color: #f5f5f5;
   border: 1px solid rgba(0,0,0,0.15);
-  -webkit-border-radius:4px;
-  -moz-border-radius:4px;
-  border-radius: 4px;
+  -webkit-border-radius:2px;
+  -moz-border-radius:2px;
   white-space: pre-wrap;
   word-break: break-all;
-  margin: 0 0 15px;
-  padding: 10px;
+  margin: 0 0 2px;
+  padding: 2px;
   box-sizing: border-box;
 }
