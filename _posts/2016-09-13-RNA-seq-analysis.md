@@ -66,9 +66,9 @@ rsem-prepare-reference --gtf GENOME_data/Homo_sapiens.GRCh37.gtf \
      GENOME_data/rsem/rsem
 {% endhighlight%}
 #### Options
-{% highlight bash %}
---gtf # option specifies path to the gene annotations (in GTF format), and RSEM assumes the FASTA file contains sequence of a genome. If this option is off, RSEM will assume the FASTA file contains the reference transcripts. The name of each sequence in the Multi-FASTA files is its transcript_id.
-{% endhighlight %}
+
+`--gtf` option specifies path to the gene annotations (in GTF format), and RSEM assumes the FASTA file contains sequence of a genome. If this option is off, RSEM will assume the FASTA file contains the reference transcripts. The name of each sequence in the Multi-FASTA files is its transcript_id.
+
 ### Mapping with STAR (2-pass mode)
 
 #### Execute
@@ -107,11 +107,8 @@ STAR --genomeDir GENOME_data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh37.
 #### Issues in using STAR
 If you encount error **"terminate called after throwing an instance of 'std::bad_alloc'"** you have adjust some parameters to downsize the memory you are using. 
 
-{% highlight bash %}
 `--genomeSAindexNbases 10`  default: 14 int: length (bases) of the SA pre-indexing string. Typically between 10 and 15. Longer strings will use much more memory, but allow faster searches.
 `--genomeSAsparseD 2`  default: 1 int>0: suffix array sparsity, i.e. distance between indices: use bigger numbers to decrease needed RAM at the cost of mapping speed reduction
-
-{% endhighlight %}
 
 ### Quantification with RSEM
 In this tutorial, we use RSEM to quantify the expression of genes and transcript. In the previous step, we instruct STAR to output genomic alignments in transcriptomic coordinates (i.e. Aligned.toTranscriptome.out.bam). We input this file to RSEM to produce gene and transcript expression levels.
