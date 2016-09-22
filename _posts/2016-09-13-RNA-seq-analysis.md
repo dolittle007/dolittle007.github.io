@@ -130,6 +130,7 @@ mkdir RNASEQ_data/rsem_$sample
 rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-prob 1 \ 
     RNASEQ_data/star_$sample/Aligned.toTranscriptome.out.bam GENOME_data/rsem/rsem RNASEQ_data/rsem_$sample/rsem >& \ 
     RNASEQ_data/rsem_$sample/rsem.log
+    This \`is not a code\` span!
 {% endhighlight %}
 #### Options
 {:.option} --bam
