@@ -20,6 +20,18 @@ I had been working on strand-specific paired-end reads from HiSeq lately and I h
 {: rules="groups"}
 
 
+| Header1 | Header2 | Header3 |
+|:--------|:-------:|--------:|
+| cell1   | cell2   | cell3   |
+| cell4   | cell5   | cell6   |
+|----
+| cell1   | cell2   | cell3   |
+| cell4   | cell5   | cell6   |
+|=====
+| Foot1   | Foot2   | Foot3
+{: rules="groups"}
+
+
 ### Bowtie and Tophat flags for strand-specific reads
 
 Tophat uses --fr-firststrand for a library created by the dUTP method. This is stated clearly in the manual, so it is easy to understand. In contrast, Bowtie/Bowtie2 uses --fr, --rf, --ff to specify the orientation of paired-end reads.
