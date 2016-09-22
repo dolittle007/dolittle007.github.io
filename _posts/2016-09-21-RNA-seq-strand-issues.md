@@ -86,6 +86,11 @@ For example, the command should look something like this:
 
 `htseq-count --format=bam --order=pos --stranded=reverse --type=gene --idattr=gene_id --mode=union Aligned.toTranscriptome.out.bam Homo_sapiens.GRCh38.82.gtf`
 
+### Trinity Assembly
+
+To run Trinity with dUTP reads, you need to use RF for --SS_lib_type flag, which means the /1 reads are from the reverse strand and the /2 reads are from the forward strand. Note that, RF flag in Trinity is not the same as --rf in Bowtie
+
+
 ### Infer strand infomation 
 
 Actually we can use infer_experiment.py from [**RSeQC**](http://rseqc.sourceforge.net/ "RSeQC") to infer how RNA-seq sequencing were configured, particulary how reads were stranded for strand-specific RNA-seq data, through comparing the “strandness of reads” with the “standness of transcripts”.
