@@ -132,12 +132,10 @@ rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-pro
     RNASEQ_data/rsem_$sample/rsem.log
 {% endhighlight %}
 #### Options
---bam  # Input file is in BAM format.
-
-
---no-bam-output # Do not output any BAM file.
-
-
+{:.option}--bam
+# Input file is in BAM format.
+{:.option}--no-bam-output
+# Do not output any BAM file.
 -p  # Number of threads to use.
 
 
