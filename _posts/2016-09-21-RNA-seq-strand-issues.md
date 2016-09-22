@@ -25,15 +25,38 @@ I had been working on strand-specific paired-end reads from HiSeq lately and I h
 
 Tophat uses --fr-firststrand for a library created by the dUTP method. This is stated clearly in the manual, so it is easy to understand. In contrast, Bowtie/Bowtie2 uses --fr, --rf, --ff to specify the orientation of paired-end reads.
 
---fr means the upstream read (/1) is from a forward strand and the downstream read (/2) is from a reverse strand.
+`--fr` means the upstream read (/1) is from a forward strand and the downstream read (/2) is from a reverse strand.
 
---rf means the upstream read (/1) is from a reverse strand and the downstream read (/2) is from a forward strand.
+`--rf` means the upstream read (/1) is from a reverse strand and the downstream read (/2) is from a forward strand.
 
---ff means both reads are from a forward strand.
+`--ff` means both reads are from a forward strand.
+
+But regarding to which strand the RNA fragment is synthesized from, this involves different strand-specific protocols. Thanks to the illustration figure (see below) from Zhao Zhang, we could see that for example dUTP method is to only sequence the strand from the first strand synthesis (the original RNA strand is  degradated due to the dUTP incorporated), so the **/2 read** is from the original RNA strand.
 ![center](/figures/2016-09-21-RNA-seq-strand-issue/pe-orient.png) 
 {:refdef: style="text-align: center"}
 Summary of library type protocols (for Tophat/Bowtie)
 {: refdef}
+
+With --fr flag, the upstream reads could be either /1 and /2, which is valid for unstranded reads. However, as you can see from the figure, the /1 reads from dUTP are from the reverse strand only. So, we need to tell Bowtie not to map the /1 reads to the forward strand. This behavior can be achieved by specifying --nofw flag.
+
+Therefore, to run Bowtie on dUTP reads, the command should look something like this:
+
+`bowtie -S -X 1000 --fr --nofw bowtie-index -1 reads_R1.fastq -2 reads_R2.fastq > output.sam`
+To compare the results, I ran Bowtie/1.0.0 on the same dataset (1M reads) with different flags specified.
+
+| __Flag__  | __Mapped Reads__ | __Unmapped Reads__ |
+|:--------------|:-------------|:----------------|
+|--fr (default) | 82.57%	     | 17.43%          |
+|--rf           | 0.17%	       | 99.83%          |
+|--ff           | 0.00%        | 100.00%         |
+|--fr --nofw    |	82.18%       |  17.82%         |
+|--fr --norc    | 1.99%	       | 98.01%          |
+
+
+The number of reads mapped with --fr and --nofw is a bit lower than that from --fr alone. This is due to the fact that without --nofw flag, Bowtie maps /1 reads to both strands.
+
+Note, with --norc flag, Bowtie will not attempt to map the /1 reads to the reverse strand.
+
 
 But regarding to which strand the RNA fragment is synthesized from, this involves different strand-specific protocols. Thanks to the illustration figure (see below) from Zhao Zhang, we could see that for example dUTP method is to only sequence the strand from the first strand synthesis (the original RNA strand is  degradated due to the dUTP incorporated), so the **/2 read** is from the original RNA strand.
 ![center](/figures/2016-09-21-RNA-seq-strand-issue/strand.png) 
@@ -63,3 +86,32 @@ dUTP-based libraries convey strand with read #2, so htseq-count --stranded=rever
 For example, the command should look something like this:
 
 `htseq-count --format=bam --order=pos --stranded=reverse --type=gene --idattr=gene_id --mode=union Aligned.toTranscriptome.out.bam Homo_sapiens.GRCh38.82.gtf`
+
+### Infer strand infomation 
+
+Actually we can use infer_experiment.py from [**RSeQC**](http://rseqc.sourceforge.net/ "RSeQC") to infer how RNA-seq sequencing were configured, particulary how reads were stranded for strand-specific RNA-seq data, through comparing the “strandness of reads” with the “standness of transcripts”.
+
+You don’t need to know the RNA sequencing protocol before mapping your reads to the reference genome. Mapping your RNA-seq reads as if they were non-strand specific, this script can “guess” how RNA-seq reads were stranded.
+
+For pair-end RNA-seq, there are two different ways to strand reads:
+
+1. 1++,1–,2+-,2-+ (Ligation method)
+* read1 mapped to ‘+’ strand indicates parental gene on ‘+’ strand
+* read1 mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
+* read2 mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
+* read2 mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
+2. 1+-,1-+,2++,2– (dUTP method)
+* read1 mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
+* read1 mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
+* read2 mapped to ‘+’ strand indicates parental gene on ‘+’ strand
+* read2 mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
+
+For single-end RNA-seq, there are also two different ways to strand reads:
+
+1. ++,-- (Ligation method)
+* read mapped to ‘+’ strand indicates parental gene on ‘+’ strand
+* read mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
+2. +-,-+ (dUTP method)
+* read mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
+* read mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
+
