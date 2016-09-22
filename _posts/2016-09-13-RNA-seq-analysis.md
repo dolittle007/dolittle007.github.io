@@ -138,7 +138,7 @@ rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-pro
 --no-bam-output # Do not output any BAM file.
 
 
-{% highlight %}-p {% endhighlight %} # Number of threads to use.
+-p  # Number of threads to use.
 
 
 --paired-end # Input reads are _paired-end_ reads.
