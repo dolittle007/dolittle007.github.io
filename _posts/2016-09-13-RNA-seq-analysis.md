@@ -55,9 +55,9 @@ STAR --runThreadN 40 --runMode genomeGenerate --genomeDir GENOME_data/star \
 #### RESM
 
 #### Usage
-{% highlight bash %}
-rsem-prepare-reference [options] reference_fasta_file(s) reference_name
-{% endhighlight %}
+
+`rsem-prepare-reference [options] reference_fasta_file(s) reference_name`
+
 #### Execute
 {% highlight bash %}
 mkdir GENOME_data/rsem
