@@ -77,7 +77,6 @@ For example, the command should look something like this:
 
 `rsem-calculate-expression -p 8 --forward-prob 0 --paired-end sample_r1.fastq sample_r2.fastq index sample_output`
 
-[**RSEM**](http://likit.github.io/running-bowtiebowtie2-rsem-and-tophat-on-dutp-strand-specific-reads.html "RNA-Seq by Expectation-Maximization")
 
 ### Running HTseq-count on dUTP reads
 
@@ -132,3 +131,5 @@ So it is a strand-specific pair-end RNA-seq data using dUTP protocol.
 
 ### In a nutshell
 pass
+
+Thanks to [Likit Preeyanon](http://likit.github.io/running-bowtiebowtie2-rsem-and-tophat-on-dutp-strand-specific-reads.html "RNA-Seq by Expectation-Maximization") and [Xianjun Dong](http://onetipperday.sterding.com/2012/07/how-to-tell-which-library-type-to-use.html) for generously sharing ideas.
