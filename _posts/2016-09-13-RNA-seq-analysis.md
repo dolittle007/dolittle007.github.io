@@ -108,8 +108,8 @@ STAR --genomeDir GENOME_data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh37.
 If you encount error **"terminate called after throwing an instance of 'std::bad_alloc'"** you have adjust some parameters to downsize the memory you are using. 
 
 {% highlight bash %}
---genomeSAindexNbases 10 # default: 14 int: length (bases) of the SA pre-indexing string. Typically between 10 and 15. Longer strings will use much more memory, but allow faster searches.
---genomeSAsparseD 2 # default: 1 int>0: suffix array sparsity, i.e. distance between indices: use bigger numbers to decrease needed RAM at the cost of mapping speed reduction
+`--genomeSAindexNbases 10`  default: 14 int: length (bases) of the SA pre-indexing string. Typically between 10 and 15. Longer strings will use much more memory, but allow faster searches.
+`--genomeSAsparseD 2`  default: 1 int>0: suffix array sparsity, i.e. distance between indices: use bigger numbers to decrease needed RAM at the cost of mapping speed reduction
 
 {% endhighlight %}
 
@@ -133,13 +133,14 @@ rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-pro
 {% endhighlight %}
 #### Options
 `--bam` Input file is in BAM format.
+
 `--no-bam-output` Do not output any BAM file.
+
 `-p`  Number of threads to use.
 
 `--paired-end` Input reads are _paired-end_ reads.
 
-
-`--forward-prob` Probability of generating a read from the forward strand of a transcript. 1: strand-specific protocol where all (upstream) reads are derived from the forward strand **(Ligation method)**; 0: strand-specific protocol where all (upstream) read are derived from the reverse strand **(dUTP method)**; 0.5: non-strand-specific protocol.[For strand issues discussion]({% post_url 2016-09-21-RNA-seq-strand-issues %} "RNA-seq strand issues")
+`--forward-prob` Probability of generating a read from the forward strand of a transcript. 1: strand-specific protocol where all (upstream) reads are derived from the forward strand **(Ligation method)**; 0: strand-specific protocol where all (upstream) read are derived from the reverse strand **(dUTP method)**; 0.5: non-strand-specific protocol. [For strand issues discussion]({% post_url 2016-09-21-RNA-seq-strand-issues %} "RNA-seq strand issues")
 
 
 #### Output
@@ -183,22 +184,20 @@ htseq-count --format=bam --order=pos --stranded=yes --type=gene --idattr=gene_id
 
 #### Options
 
-{% highlight bash %}
---format=<format> # Format of the input data. Possible values are sam (for text SAM files) and bam (for binary BAM files). Default is sam.
 
---order=<order> # For paired-end data, the alignment have to be sorted either by read name or by alignment position. If your data is not sorted, use the samtools sort function of samtools to sort it. Use this option, with name or pos for <order> to indicate how the input data has been sorted. The default is name.
-{% endhighlight %}
-If name is indicated, htseq-count expects all the alignments for the reads of a given read pair to appear in adjacent records in the input data. For pos, this is not expected; rather, read alignments whose mate alignment have not yet been seen are kept in a buffer {%  raw %}in{% endraw%} memory until the mate is found. While, strictly speaking, the latter will also work with unsorted data, sorting ensures that most alignment mates appear close to each other in the data and hence the buffer is much less likely to overflow.
-{% highlight bash %}
---stranded=<yes/no/reverse> # whether the data is from a strand-specific assay (default: yes)
+`--format=<format>`  Format of the input data. Possible values are sam (for text SAM files) and bam (for binary BAM files). Default is sam.
 
-# For stranded=no, a read is considered overlapping with a feature regardless of whether it is mapped to the same or the opposite strand as the feature. For stranded=yes and single-end reads, the read has to be mapped to the same strand as the feature. For paired-end reads, the first read has to be on the same strand and the second read on the opposite strand **(Ligation method)**. For stranded=reverse, these rules are reversed **(dUTP method)**. [For strand issues discussion](http://databeauty.com/blog/opinion/2016/09/21/RNA-seq-strand-issues.html "RNA-seq strand issues")
+`--order=<order>`  For paired-end data, the alignment have to be sorted either by read name or by alignment position. If your data is not sorted, use the samtools sort function of samtools to sort it. Use this option, with name or pos for <order> to indicate how the input data has been sorted. The default is name.
+If name is indicated, htseq-count expects all the alignments for the reads of a given read pair to appear in adjacent records in the input data. For pos, this is not expected; rather, read alignments whose mate alignment have not yet been seen are kept in a buffer in memory until the mate is found. While, strictly speaking, the latter will also work with unsorted data, sorting ensures that most alignment mates appear close to each other in the data and hence the buffer is much less likely to overflow.
 
---a=<minaqual> # skip all reads with alignment quality lower than the given minimum value (default: 10 — Note: the default used to be 0 until version 0.5.4.)
+`--stranded=<yes/no/reverse>` whether the data is from a strand-specific assay (default: yes) 
+For stranded=no, a read is considered overlapping with a feature regardless of whether it is mapped to the same or the opposite strand as the feature. For stranded=yes and single-end reads, the read has to be mapped to the same strand as the feature. For paired-end reads, the first read has to be on the same strand and the second read on the opposite strand **(Ligation method)**. For stranded=reverse, these rules are reversed **(dUTP method)**. [For strand issues discussion](http://databeauty.com/blog/opinion/2016/09/21/RNA-seq-strand-issues.html "RNA-seq strand issues")
 
---type=<feature type> # feature type (3rd column in GFF file) to be used, all features of other type are ignored (default, suitable for RNA-Seq analysis using an Ensembl GTF file: exon)
+`--a=<minaqual>`  skip all reads with alignment quality lower than the given minimum value (default: 10 — Note: the default used to be 0 until version 0.5.4.)
 
---idattr=<id attribute> # GFF attribute to be used as feature ID. Several GFF lines with the same feature ID will be considered as parts of the same feature. The feature ID is used to identity the counts in the output table. The default, suitable for RNA-Seq analysis using an Ensembl GTF file, is gene_id.
+`--type=<feature type>` feature type (3rd column in GFF file) to be used, all features of other type are ignored (default, suitable for RNA-Seq analysis using an Ensembl GTF file: exon)
 
---mode=<mode> # Mode to handle reads overlapping more than one feature. Possible values for <mode> are union, intersection-strict and intersection-nonempty (default: union)
-{% endhighlight %}
+`--idattr=<id attribute>` GFF attribute to be used as feature ID. Several GFF lines with the same feature ID will be considered as parts of the same feature. The feature ID is used to identity the counts in the output table. The default, suitable for RNA-Seq analysis using an Ensembl GTF file, is gene_id.
+
+`--mode=<mode>` Mode to handle reads overlapping more than one feature. Possible values for <mode> are union, intersection-strict and intersection-nonempty (default: union)
+
