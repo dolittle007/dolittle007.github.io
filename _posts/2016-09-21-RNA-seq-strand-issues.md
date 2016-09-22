@@ -10,6 +10,17 @@ I had been working on strand-specific paired-end reads from HiSeq lately and I h
 
 <!--more-->
 
+### Strand-specific protocol
+| __Library Type__  | __Examples__ | __Description__ |
+|:------------------|:------------:|----------------:|
+| fr-unstranded |Standard Illumina|Reads from the left-most end of the fragment (in transcript coordinates) map to the transcript strand, and the right-most end maps to the opposite strand.|
+| fr-firststrand | dUTP, NSR, NNSR | Same as above except we enforce the rule that the right-most end of the fragment (in transcript coordinates) is the first sequenced (or only sequenced for single-end reads). Equivalently, it is assumed that only the strand generated during first strand synthesis is sequenced.|
+|----
+| fr-secondstrand | Ligation, Standard SOLiD | Same as above except we enforce the rule that the left-most end of the fragment (in transcript coordinates) is the first sequenced (or only sequenced for single-end reads). Equivalently, it is assumed that only the strand generated during second strand synthesis is sequenced.|
+|====
+{: rules="groups"}
+
+
 ### Bowtie and Tophat flags for strand-specific reads
 
 Tophat uses --fr-firststrand for a library created by the dUTP method. This is stated clearly in the manual, so it is easy to understand. In contrast, Bowtie/Bowtie2 uses --fr, --rf, --ff to specify the orientation of paired-end reads.
