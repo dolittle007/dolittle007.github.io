@@ -140,6 +140,10 @@ rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-pro
 paragraph
 {: refdef}
 
+Use `Kramdown::Document.new(text).to_html`
+to convert the `text` in kramdown
+syntax to HTML.
+
 --paired-end # Input reads are _paired-end_ reads.
 
 
