@@ -12,13 +12,13 @@ I had been working on strand-specific paired-end reads from HiSeq lately and I h
 
 ### Strand-specific protocol
 
-{:refdef: style="font-size: 60%"}
+
 | __Library Type__  | __Examples__ | __Description__ |
 |:------------------|:------------:|----------------:|
-| fr-unstranded |Standard Illumina|Reads from the left-most end of the fragment (in transcript coordinates) map to the transcript strand, and the right-most end maps to the opposite strand.|
+| {:refdef: style="font-size: 60%"}fr-unstranded{: refdef} |Standard Illumina|Reads from the left-most end of the fragment (in transcript coordinates) map to the transcript strand, and the right-most end maps to the opposite strand.|
 | fr-firststrand | dUTP, NSR, NNSR | Same as above except we enforce the rule that the right-most end of the fragment (in transcript coordinates) is the first sequenced (or only sequenced for single-end reads). Equivalently, it is assumed that only the strand generated during first strand synthesis is sequenced.|
-| fr-secondstrand | Ligation, Standard SOLiD | Same as above except we enforce the rule that the left-most end of the fragment (in transcript coordinates) is the first sequenced (or only sequenced for single-end reads). Equivalently, it is assumed that only the strand generated during second strand synthesis is sequenced.|
-{: refdef}
+| fr-secondstrand | Ligation, Standard SOLiD | {:refdef: style="font-size: 60%"}Same as above except we enforce the rule that the left-most end of the fragment (in transcript coordinates) is the first sequenced (or only sequenced for single-end reads). Equivalently, it is assumed that only the strand generated during second strand synthesis is sequenced.{: refdef}|
+
 
 
 ### Bowtie and Tophat flags for strand-specific reads
