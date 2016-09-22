@@ -12,7 +12,7 @@ I had been working on strand-specific paired-end reads from HiSeq lately and I h
 
 ### Strand-specific protocol
 
-{:refdef: style="text-align: left; font-size: 60%"}
+{:refdef: style="font-size: 60%"}
 | __Library Type__  | __Examples__ | __Description__ |
 |:------------------|:------------:|----------------:|
 | fr-unstranded |Standard Illumina|Reads from the left-most end of the fragment (in transcript coordinates) map to the transcript strand, and the right-most end maps to the opposite strand.|
