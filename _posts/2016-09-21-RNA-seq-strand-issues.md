@@ -42,6 +42,7 @@ With --fr flag, the upstream reads could be either /1 and /2, which is valid for
 Therefore, to run Bowtie on dUTP reads, the command should look something like this:
 
 `bowtie -S -X 1000 --fr --nofw bowtie-index -1 reads_R1.fastq -2 reads_R2.fastq > output.sam`
+
 To compare the results, I ran Bowtie/1.0.0 on the same dataset (1M reads) with different flags specified.
 
 | __Flag__  | __Mapped Reads__ | __Unmapped Reads__ |
@@ -63,7 +64,6 @@ But regarding to which strand the RNA fragment is synthesized from, this involve
 {:refdef: style="text-align: center"}
 Strand-specific library protocols (Credit: Zhao Zhang)
 {: refdef}
-
 
 ***
 
@@ -91,27 +91,43 @@ For example, the command should look something like this:
 
 Actually we can use infer_experiment.py from [**RSeQC**](http://rseqc.sourceforge.net/ "RSeQC") to infer how RNA-seq sequencing were configured, particulary how reads were stranded for strand-specific RNA-seq data, through comparing the “strandness of reads” with the “standness of transcripts”.
 
-You don’t need to know the RNA sequencing protocol before mapping your reads to the reference genome. Mapping your RNA-seq reads as if they were non-strand specific, this script can “guess” how RNA-seq reads were stranded.
+You don’t need to know the RNA sequencing protocol before mapping your reads to the reference genome. Mapping your RNA-seq reads as if they were non-strand specific, this script can “__guess__” how RNA-seq reads were stranded.
 
-For pair-end RNA-seq, there are two different ways to strand reads:
+#### For pair-end RNA-seq, there are two different ways to strand reads:
 
-1. 1++,1–,2+-,2-+ (Ligation method)
+1. 1++,1–,2+-,2-+ (**Ligation method**)
 * read1 mapped to ‘+’ strand indicates parental gene on ‘+’ strand
 * read1 mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
 * read2 mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
 * read2 mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
-2. 1+-,1-+,2++,2– (dUTP method)
+2. 1+-,1-+,2++,2– (**dUTP method**)
 * read1 mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
 * read1 mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
 * read2 mapped to ‘+’ strand indicates parental gene on ‘+’ strand
 * read2 mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
 
-For single-end RNA-seq, there are also two different ways to strand reads:
+#### For single-end RNA-seq, there are also two different ways to strand reads:
 
-1. ++,-- (Ligation method)
+1. ++,-- (**Ligation method**)
 * read mapped to ‘+’ strand indicates parental gene on ‘+’ strand
 * read mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
-2. +-,-+ (dUTP method)
+2. +-,-+ (**dUTP method**)
 * read mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
 * read mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
 
+
+#### For example : Pair-end strand specific:
+
+{% highlight bash %}
+infer_experiment.py -r hg19.refseq.bed12 -i Pairend_StrandSpecific_Human.bam
+
+#Output::
+
+This is PairEnd Data
+Fraction of reads failed to determine: 0.0072
+Fraction of reads explained by "1++,1--,2+-,2-+": 0.0487
+Fraction of reads explained by "1+-,1-+,2++,2--": 0.9441
+{% endhighlight %}
+
+### In a nutshell
+pass
