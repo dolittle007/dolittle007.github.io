@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "RNA-seq data analysis (differential expression analysis for known transcripts)"
+title: "RNA-seq data analysis"
 date: 2016-09-13
 category: tutorial
 tags: [RNA-seq, analysis, STAR, plot, R]
@@ -137,7 +137,7 @@ rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-pro
 --no-bam-output # Do not output any BAM file.
 -p # Number of threads to use.
 --paired-end # Input reads are _paired-end_ reads.
---forward-prob # Probability of generating a read from the forward strand of a transcript. 1: strand-specific protocol where all (upstream) reads are derived from the forward strand; 0: strand-specific protocol where all (upstream) read are derived from the reverse strand; 0.5: non-strand-specific protocol.
+--forward-prob # Probability of generating a read from the forward strand of a transcript. 1: strand-specific protocol where all (upstream) reads are derived from the forward strand **(Ligation method)**; 0: strand-specific protocol where all (upstream) read are derived from the reverse strand **(dUTP method)**; 0.5: non-strand-specific protocol.[For strand issues discussion](http://databeauty.com/blog/opinion/2016/09/21/RNA-seq-strand-issues.html "RNA-seq strand issues")
 {% endhighlight%}
 
 #### Output
@@ -190,7 +190,7 @@ If name is indicated, htseq-count expects all the alignments for the reads of a 
 {% highlight bash %}
 --stranded=<yes/no/reverse> # whether the data is from a strand-specific assay (default: yes)
 
-# For stranded=no, a read is considered overlapping with a feature regardless of whether it is mapped to the same or the opposite strand as the feature. For stranded=yes and single-end reads, the read has to be mapped to the same strand as the feature. For paired-end reads, the first read has to be on the same strand and the second read on the opposite strand. For stranded=reverse, these rules are reversed.
+# For stranded=no, a read is considered overlapping with a feature regardless of whether it is mapped to the same or the opposite strand as the feature. For stranded=yes and single-end reads, the read has to be mapped to the same strand as the feature. For paired-end reads, the first read has to be on the same strand and the second read on the opposite strand **(Ligation method)**. For stranded=reverse, these rules are reversed **(dUTP method)**. [For strand issues discussion](http://databeauty.com/blog/opinion/2016/09/21/RNA-seq-strand-issues.html "RNA-seq strand issues")
 
 --a=<minaqual> # skip all reads with alignment quality lower than the given minimum value (default: 10 — Note: the default used to be 0 until version 0.5.4.)
 
