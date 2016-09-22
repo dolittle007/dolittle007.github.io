@@ -1324,6 +1324,6 @@ body {
 .zoomed .reveal .roll span:after {
   visibility: hidden; }
   
-p .title{
+section > p .title{
     font-size: 55px;
   }
