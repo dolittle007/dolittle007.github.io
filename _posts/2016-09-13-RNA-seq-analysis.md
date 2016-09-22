@@ -132,11 +132,11 @@ rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-pro
     RNASEQ_data/rsem_$sample/rsem.log
 {% endhighlight %}
 #### Options
-{% highlight bash %}--bam {% endhighlight%} Input file is in BAM format.
-{% highlight bash %}--no-bam-output{% endhighlight%} Do not output any BAM file.
-{% highlight bash %}-p {% endhighlight%} Number of threads to use.
-{% highlight bash %}--paired-end{% endhighlight%}  Input reads are _paired-end_ reads.
-{% highlight bash %}--forward-prob {% endhighlight%}  Probability of generating a read from the forward strand of a transcript. 1: strand-specific protocol where all (upstream) reads are derived from the forward strand **(Ligation method)**; 0: strand-specific protocol where all (upstream) read are derived from the reverse strand **(dUTP method)**; 0.5: non-strand-specific protocol.[For strand issues discussion]({% post_url 2016-09-21-RNA-seq-strand-issues %} "RNA-seq strand issues")
+--bam  # Input file is in BAM format.
+--no-bam-output # Do not output any BAM file.
+-p  # Number of threads to use.
+--paired-end # Input reads are _paired-end_ reads.
+--forward-prob # Probability of generating a read from the forward strand of a transcript. 1: strand-specific protocol where all (upstream) reads are derived from the forward strand **(Ligation method)**; 0: strand-specific protocol where all (upstream) read are derived from the reverse strand **(dUTP method)**; 0.5: non-strand-specific protocol.[For strand issues discussion]({% post_url 2016-09-21-RNA-seq-strand-issues %} "RNA-seq strand issues")
 
 
 #### Output
