@@ -133,10 +133,12 @@ rsem-calculate-expression --bam --no-bam-output -p 20 --paired-end --forward-pro
 {% endhighlight %}
 #### Options
 <span class="option"> --bam </span> # Input file is in BAM format.
-{:.option} --no-bam-output
+{: .option } --no-bam-output
 # Do not output any BAM file.
 -p  # Number of threads to use.
-
+{:refdef: .option}
+paragraph
+{: refdef}
 
 --paired-end # Input reads are _paired-end_ reads.
 
