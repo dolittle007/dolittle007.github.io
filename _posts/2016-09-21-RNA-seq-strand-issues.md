@@ -20,11 +20,11 @@ Tophat uses --fr-firststrand for a library created by the dUTP method. This is s
 
 --ff means both reads are from a forward strand.
 ![center](/figures/2016-09-21-RNA-seq-strand-issue/pe-orient.png) 
--> Summary of library type protocols (for Tophat/Bowtie) <-
+Summary of library type protocols (for Tophat/Bowtie){: style="text-align: center"}
 
 But regarding to which strand the RNA fragment is synthesized from, this involves different strand-specific protocols. Thanks to the illustration figure (see below) from Zhao Zhang, we could see that for example dUTP method is to only sequence the strand from the first strand synthesis (the original RNA strand is  degradated due to the dUTP incorporated), so the **/2 read** is from the original RNA strand.
 ![center](/figures/2016-09-21-RNA-seq-strand-issue/strand.png) 
--> Strand-specific library protocols (Credit: Zhao Zhang) <-
+Strand-specific library protocols (Credit: Zhao Zhang){: style="text-align: center"}
 
 ***
 
