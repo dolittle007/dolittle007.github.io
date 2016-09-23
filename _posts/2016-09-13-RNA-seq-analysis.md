@@ -15,7 +15,7 @@ Below shows a general workflow for carrying out a RNA-Seq experiment. In this gu
 
 ***
 
-## Annotation-base genome-guide assembly
+## Annotation-based genome-guide assembly
 
 ***
 
@@ -210,7 +210,7 @@ For stranded=no, a read is considered overlapping with a feature regardless of w
 
 ***
 
-## __De novo__ assembly
+## _De novo_ assembly
 
 ***
 
