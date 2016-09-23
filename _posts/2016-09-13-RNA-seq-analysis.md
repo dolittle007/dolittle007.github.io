@@ -15,6 +15,10 @@ Below shows a general workflow for carrying out a RNA-Seq experiment. In this gu
 
 ***
 
+## Annotation-base genome-guide assembly
+
+***
+
 ### Prepare data and software
 
 #### Genome sequence and annotation (GRCh37)
@@ -203,4 +207,11 @@ For stranded=no, a read is considered overlapping with a feature regardless of w
 `--idattr=<id attribute>` GFF attribute to be used as feature ID. Several GFF lines with the same feature ID will be considered as parts of the same feature. The feature ID is used to identity the counts in the output table. The default, suitable for RNA-Seq analysis using an Ensembl GTF file, is gene_id.
 
 `--mode=<mode>` Mode to handle reads overlapping more than one feature. Possible values for <mode> are union, intersection-strict and intersection-nonempty (default: union)
+
+***
+
+## __De novo__ assembly
+
+***
+
 
