@@ -1,6 +1,6 @@
 ## About
 
-Carlos Dolittle Wang [personal site](http://databeauty.com) using [Jekyll](http://github.com/mojombo/jekyll)
+Ting-You Wang [personal site](http://databeauty.com) using [Jekyll](http://github.com/mojombo/jekyll)
 
 
 ## License
