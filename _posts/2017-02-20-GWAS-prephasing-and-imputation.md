@@ -25,12 +25,10 @@ In this guide, I will focus on the pre-processing of NGS raw reads, mapping, qua
 #### Genome sequence and annotation (GRCh37)
 We download the human genome FASTA sequences and annotation GTF file from the Ensembl FTP.
 {% highlight bash %}
-wget ftp://ftp.ensembl.org/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.gtf.gz # genome annotation
-wget ftp://ftp.ensembl.org/pub/release-75/fasta/homo_sapiens/dna/Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa.gz # genome sequence
-gunzip Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa.gz
-gunzip Homo_sapiens.GRCh37.75.gtf.gz
-mv Homo_sapiens.GRCh37.75.dna_sm.primary_assembly.fa Homo_sapiens.GRCh37.primary_assembly.fa
-mv Homo_sapiens.GRCh37.75.gtf Homo_sapiens.GRCh37.gtf
+wget http://mathgen.stats.ox.ac.uk/genetics_software/shapeit/old_versions/shapeit.v2.r790.Ubuntu_12.04.4.static.tar.gz # download shapeit2 executable file
+wget https://mathgen.stats.ox.ac.uk/impute/impute_v2.3.2_x86_64_static.tgz # download impute2 executable file
+wget https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.tgz # download reference haplotypes
+wget https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3_chrX.tgz # download reference haplotypes
 {% endhighlight %}
 
 
