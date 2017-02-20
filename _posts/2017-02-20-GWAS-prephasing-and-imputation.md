@@ -11,7 +11,7 @@ In this guide, I will focus on the pre-processing of NGS raw reads, mapping, qua
 
 <!--more-->
 
-### RNA-Seq Analysis Workflow
+### GWAS prephaseing & imputation Workflow
 ![center](/figures/2016-09-13-RNA-seq-analysis/rna_seq_workflow.png) 
 
 ***
