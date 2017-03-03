@@ -14,7 +14,7 @@ From a data analysis standpoint, PCA is used for studying one table of observati
 
 
 ### Challenge: Recreate This Economist Graph
-Graph source: [http://www.economist.com/node/21541178] (http://www.economist.com/node/21541178 "economist")
+Graph source: [http://www.economist.com/node/21541178](http://www.economist.com/node/21541178 "economist")
 
 Building off of the graphics you created in the previous exercises, put the finishing touches to make it as close as possible to the original economist graph.
 
