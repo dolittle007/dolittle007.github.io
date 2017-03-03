@@ -130,6 +130,57 @@ library("ggrepel")
  {% endhighlight %}  
 ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc4-ggrel.png) 
 
+### Change the region labels and order
+Thinkgs are starting to come together. There are just a couple more things we need to add, and then all that will be left are themeing changes.
+
+Comparing our graph to the original we notice that the labels and order of the Regions in the color legend differ. To correct this we need to change both the labels and order of the Region variable. We can do this with the factor function.
+
+{% highlight r %}
+dat$Region <- factor(dat$Region,
+                       levels = c("EU W. Europe",
+                                  "Americas",
+                                  "Asia Pacific",
+                                  "East EU Cemt Asia",
+                                  "MENA",
+                                  "SSA"),
+                       labels = c("OECD",
+                                  "Americas",
+                                  "Asia &\nOceania",
+                                  "Central &\nEastern Europe",
+                                  "Middle East &\nnorth Africa",
+                                  "Sub-Saharan\nAfrica"))
+ {% endhighlight %}  
+Now when we construct the plot using these data the order should appear as it does in the original.
+
+{% highlight r %}
+pc4$data <- dat
+  pc4
+{% endhighlight %} 
+![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc4-relabel.png) 
+
+Add title and format axes
+The next step is to add the title and format the axes. We do that using the scales system in ggplot2.
+
+{% highlight r %}
+library(grid)
+  (pc5 <- pc4 +
+    scale_x_continuous(name = "Corruption Perceptions Index, 2011 (10=least corrupt)",
+                       limits = c(.9, 10.5),
+                       breaks = 1:10) +
+    scale_y_continuous(name = "Human Development Index, 2011 (1=Best)",
+                       limits = c(0.2, 1.0),
+                       breaks = seq(0.2, 1.0, by = 0.1)) +
+    scale_color_manual(name = "",
+                       values = c("#24576D",
+                                  "#099DD7",
+                                  "#28AADC",
+                                  "#248E84",
+                                  "#F2583F",
+                                  "#96503F")) +
+    ggtitle("Corruption and Human development"))
+ {% endhighlight %} 
+ ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc5.png) 
+ 
 #### Reference
 [R graphics tutorials](http://www.grroups.com/blog/r-graphics-tutorial-series-part-6-ggplot2) from Ankit Agarwal
 
