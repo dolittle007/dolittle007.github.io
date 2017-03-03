@@ -6,11 +6,9 @@ category: tutorial
 tags: [ggplot, Economist, plot, R]
 ---
 
-Principal Component Analysis ([PCA](http://en.wikipedia.org/wiki/Principal_component)) is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. 
+In this blog we would use some of those techniques to reproduce a graphic from the [Economist](http://www.economist.com/) ( Most of the part of this blog has been taken from the Harvard Labs class of Introduction to R Graphics ) 
 
 <!--more-->
-
-From a data analysis standpoint, PCA is used for studying one table of observations and variables with the main idea of transforming the observed variables into a set of new variables, the principal components, which are uncorrelated and explain the variation in the data. For this reason, PCA allows to reduce a “complex” data set to a lower dimension in order to reveal the structures or the dominant types of variations in both the observations and the variables.
 
 
 ### Challenge: Recreate This Economist Graph
