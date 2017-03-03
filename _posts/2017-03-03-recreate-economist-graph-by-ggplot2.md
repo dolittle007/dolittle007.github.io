@@ -243,7 +243,8 @@ library(grid)
 ### Modification by Adobe Illustrator
 Comparing it to the original suggests that we've got most of the important elements, though of course the two graphs are not identical.
  ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/final.png)
- 
+ Comparing it to the original suggests that we've got most of the important elements, though of course the two graphs are not identical.
+ ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/Economist1.png) 
 #### Reference
 [R graphics tutorials](http://www.grroups.com/blog/r-graphics-tutorial-series-part-6-ggplot2) from Ankit Agarwal
 
