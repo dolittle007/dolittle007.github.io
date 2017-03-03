@@ -180,6 +180,68 @@ library(grid)
     ggtitle("Corruption and Human development"))
  {% endhighlight %} 
  ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc5.png) 
+
+### Theme tweaks
+Our graph is almost there. To finish up, we need to adjust some of the theme elements, and label the axes and legends. This part usually involves some trial and error as you figure out where things need to be positioned. To see what these various theme settings do you can change them and observe the results.
+
+{% highlight r %}
+(pc6 <- pc5 +
+    theme_minimal() + # start with a minimal theme and add what we need
+    theme(text = element_text(color = "gray20"),
+          legend.position = "top", # position the legend in the upper left 
+          legend.direction = "horizontal",
+          legend.justification = c(0.1,0), # anchor point for legend.position.
+          legend.text = element_text(size = 11, color = "gray10"),
+          axis.text = element_text(face = "italic"),
+          axis.title.x = element_text(vjust = -1), # move title away from axis
+          axis.title.y = element_text(vjust = 2), # move away for axis
+          axis.ticks.y = element_blank(), # element_blank() is how we remove elements
+          axis.line = element_line(color = "gray40", size = 0.5),
+          axis.line.y = element_blank(),
+          panel.grid.major = element_line(color = "gray50", size = 0.5),
+          panel.grid.major.x = element_blank()
+    ) + guides(colour = guide_legend(nrow = 1))) # forces legend to be in a single line
+  {% endhighlight %} 
+  
+ ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc6.png) 
+ 
+### Add model R2 and source note
+The last bit of information that we want to have on the graph is the variance explained by the model represented by the trend line. Lets fit that model and pull out the R2 first, then think about how to get it onto the graph.
+
+{% highlight r %}
+(mR2 <- summary(lm(HDI ~ log(CPI), data = dat))$r.squared)
+{% endhighlight %}   
+
+OK, now that we've calculated the values, let's think about how to get them on the graph. ggplot2 has an annotate function, but this is not convenient for adding elements outside the plot area. The grid package has nice functions for doing this, so we'll use those.
+
+And here it is, our final version!
+
+{% highlight r %}
+library(grid)
+  png(file = "economist.png", width = 800, height = 600)
+  pc6 
+  grid.text("Sources: Transparency International; UN Human Development Report",
+           x = .02, y = .03,
+           just = "left",
+           draw = TRUE)
+  grid.segments(x0 = 0.81, x1 = 0.825,
+                y0 = 0.90, y1 = 0.90,
+                gp = gpar(col = "red"),
+                draw = TRUE)
+  grid.text(paste0("R² = ",
+                   as.integer(mR2*100),
+                   "%"),
+            x = 0.835, y = 0.90,
+            gp = gpar(col = "gray20"),
+            draw = TRUE,
+            just = "left")
+
+  dev.off()
+{% endhighlight %}  
+ ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc7.png)
+ 
+### Modification by Adobe Illustrator
+ ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/final.png)
  
 #### Reference
 [R graphics tutorials](http://www.grroups.com/blog/r-graphics-tutorial-series-part-6-ggplot2) from Ankit Agarwal
