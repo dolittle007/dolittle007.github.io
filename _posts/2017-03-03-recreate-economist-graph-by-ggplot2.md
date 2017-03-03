@@ -98,6 +98,39 @@ That is better, but unfortunately the size of the line around the points is much
 {% endhighlight %}
 ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc3.png) 
 
+### Labelling points
+This one is tricky in a couple of ways. First, there is no attribute in the data that separates points that should be labelled from points that should not be. So the first step is to identify those points.
+
+{% highlight r %}
+pointsToLabel <- c("Russia", "Venezuela", "Iraq", "Myanmar", "Sudan",
+                     "Afghanistan", "Congo", "Greece", "Argentina", "Brazil",
+                     "India", "Italy", "China", "South Africa", "Spane",
+                     "Botswana", "Cape Verde", "Bhutan", "Rwanda", "France",
+                     "United States", "Germany", "Britain", "Barbados", "Norway", "Japan",
+                     "New Zealand", "Singapore")
+ {% endhighlight %}                    
+Now we can label these points using geom_text, like this:
+{% highlight r %}
+(pc4 <- pc3 +
+    geom_text(aes(label = Country),
+              color = "gray20",
+              data = subset(dat, Country %in% pointsToLabel)))
+ {% endhighlight %}  
+ 
+![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc4.png) 
+This more or less gets the information across, but the labels overlap in a most unpleasing fashion. We can use the ggrepel package to make things better, but if you want perfection you will probably have to do some hand-adjustment.
+
+{% highlight r %}
+library("ggrepel")
+  pc3 +
+    geom_text_repel(aes(label = Country),
+              color = "gray20",
+              data = subset(dat, Country %in% pointsToLabel),
+              force = 10)
+ {% endhighlight %}  
+![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc4-ggrel.png) 
+
 #### Reference
 [R graphics tutorials](http://www.grroups.com/blog/r-graphics-tutorial-series-part-6-ggplot2) from Ankit Agarwal
+
 [R graphics ipython notebook](tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.ipynb#Putting-It-All-Together)
