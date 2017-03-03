@@ -14,32 +14,53 @@ From a data analysis standpoint, PCA is used for studying one table of observati
 
 
 ### Challenge: Recreate This Economist Graph
-Graph source: http://www.economist.com/node/21541178
+Graph source: http://www.economist.com/node/21541178 (http://www.economist.com/node/21541178 "economist")
 
+Building off of the graphics you created in the previous exercises, put the finishing touches to make it as close as possible to the original economist graph.
 
-Brief note: It is no coincidence that the three external packages (```"FactoMineR"```, ```"ade4"```, and ```"amap"```) have been developed by French data analysts, which have a long tradition and preference for PCA and other related exploratory techniques.
+![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/Economist1.png) 
 
-No matter what function you decide to use, the typical PCA results should consist of a set of eigenvalues, a table with the scores or Principal Components (PCs), and a table of loadings (or correlations between variables and PCs). The eigenvalues provide information of the variability in the data. The scores provide information about the structure of the observations. The loadings (or correlations) allow you to get a sense of the relationships between variables, as well as their associations with the extracted PCs.
+### Challenge Solution
 
+Lets start by creating the basic scatter plot, then we can make a list of things that need to be added or changed. The basic plot loogs like this:
+{% highlight r %}
 
-### The Data
+dat <- read.csv("/data/EconomistData.csv")
 
-To make things easier, we'll use the dataset ```USArrests``` that already comes with R. It's a data frame with 50 rows (USA states) and 4 columns containing information about violent crime rates by US State. Since most of the times the variables are measured in different scales, the PCA must be performed with standardized data (mean = 0, variance = 1). The good news is that all of the functions that perform PCA come with parameters to specify that the analysis must be applied on standardized data.
+  pc1 <- ggplot(dat, aes(x = CPI, y = HDI, color = Region))
+  pc1 + geom_point()
+  
+{% endhighlight %}
+![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc1.png) 
 
+To complete this graph we need to:
 
-### Option 1: using prcomp()
+* add a trend line
+* change the point shape to open circle
+* change the order and labels of Region
+* label select points
+* fix up the tick marks and labels
+* move color legend to the top
+* title, label axes, remove legend title
+* theme the graph with no vertical guides
+* add model R2 (hard)
+* add sources note (hard)
+* final touches to make it perfect (use image editor for this)
 
-The function ```prcomp()``` comes with the default ```"stats"``` package, which means that you don't have to install anything. It is perhaps the quickest way to do a PCA if you don't want to install other packages.
+### Adding the trend line
 
+Adding the trend line is not too difficult, though we need to guess at the model being displyed on the graph. A little bit of trial and error leds to
 
 {% highlight r %}
-# PCA with function prcomp
-pca1 = prcomp(USArrests, scale. = TRUE)
-
-# sqrt of eigenvalues
-pca1$sdev
+(pc2 <- pc1 +
+     geom_smooth(aes(group = 1),
+                 method = "lm",
+                 formula = y ~ log(x),
+                 se = FALSE,
+                 color = "red")) +
+     geom_point()
 {% endhighlight %}
-
+![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc2.png) 
 
 
 {% highlight text %}
