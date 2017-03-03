@@ -79,7 +79,7 @@ This one is a little tricky. We know that we can change the shape with the shape
   s + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black") +
     scale_shape_identity()
  {% endhighlight %}
-![center](/figures/2015-02-25-PCA-in-R/shapes.png) 
+![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/shapes.png) 
 
 This shows us that shape 1 is an open circle, so
 
@@ -87,7 +87,7 @@ This shows us that shape 1 is an open circle, so
 pc2 +
     geom_point(shape = 1, size = 4)
 {% endhighlight %}
-![center](/figures/2015-02-25-PCA-in-R/pc2.png) 
+![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2//pc2-3.png) 
 That is better, but unfortunately the size of the line around the points is much narrower than on the original. This is a frustrating aspect of ggplot2, and we will have to hack around it. One way to do that is to multiple point layers of slightly different sizes.
 
 {% highlight r %}
@@ -96,7 +96,7 @@ That is better, but unfortunately the size of the line around the points is much
      geom_point(size = 4, shape = 1) +
      geom_point(size = 3.5, shape = 1))
 {% endhighlight %}
-![center](/figures/2015-02-25-PCA-in-R/pc3.png) 
+![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc3.png) 
 
 #### Reference
 [R graphics tutorials](http://www.grroups.com/blog/r-graphics-tutorial-series-part-6-ggplot2) from Ankit Agarwal
