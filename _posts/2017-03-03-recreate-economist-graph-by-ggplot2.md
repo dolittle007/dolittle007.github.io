@@ -245,6 +245,105 @@ Comparing it to the original suggests that we've got most of the important eleme
  ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/final.png)
  Comparing it to the original suggests that we've got most of the important elements, though of course the two graphs are not identical.
  ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/Economist1.png) 
+ 
+ ### all code in a file
+ 
+
+{% highlight r %}
+library(ggplot2)
+library(ggrepel)
+library(grid)
+
+dat <- read.csv("data/EconomistData.csv")
+
+pointsToLabel <- c("Russia", "Venezuela", "Iraq", "Myanmar", "Sudan",
+                   "Afghanistan", "Congo", "Greece", "Argentina", "Brazil",
+                   "India", "Italy", "China", "South Africa", "Spane",
+                   "Botswana", "Cape Verde", "Bhutan", "Rwanda", "France",
+                   "United States", "Germany", "Britain", "Barbados", "Norway", "Japan",
+                   "New Zealand", "Singapore")
+
+dat$Region <- factor(dat$Region,
+                     levels = c("EU W. Europe",
+                                "Americas",
+                                "Asia Pacific",
+                                "East EU Cemt Asia",
+                                "MENA",
+                                "SSA"),
+                     labels = c("OECD",
+                                "Americas",
+                                "Asia &\nOceania",
+                                "Central &\nEastern Europe",
+                                "Middle East &\nnorth Africa",
+                                "Sub-Saharan\nAfrica"))
+                                
+pdf("pc7.pdf", width=10, height=6, paper = "a4r")
+
+ggplot(dat, aes(x = CPI, y = HDI, color = Region)) + 
+  geom_smooth(aes(group = 1),
+                method = "lm",
+                formula = y ~ log(x),
+                se = FALSE,
+                color = "red") +
+  geom_point(size = 4.5, shape = 1) +
+  geom_point(size = 4.25, shape = 1) +
+  geom_point(size = 4.0, shape = 1) +
+  geom_point(size = 3.75, shape = 1) +
+  geom_point(size = 3.5, shape = 1) +
+  geom_text_repel(aes(label = Country),
+                color = "gray20",
+                data = subset(dat, Country %in% pointsToLabel),
+                force = 10) +
+  scale_x_continuous(name = "Corruption Perceptions Index, 2011 (10=least corrupt)",
+                     limits = c(.9, 10.5),
+                     breaks = 1:10) +
+  scale_y_continuous(name = "Human Development Index, 2011 (1=Best)",
+                     limits = c(0.2, 1.0),
+                     breaks = seq(0.2, 1.0, by = 0.1)) +
+  scale_color_manual(name = "",
+                     values = c("#24576D",
+                                "#099DD7",
+                                "#28AADC",
+                                "#248E84",
+                                "#F2583F",
+                                "#96503F")) +
+  ggtitle("Corruption and Human development") +
+  theme_minimal() + # start with a minimal theme and add what we need
+  theme(text = element_text(color = "gray20"),
+        legend.position = "top", # position the legend in the upper left 
+        legend.direction = "horizontal",
+        legend.justification = c(0.1,0), # anchor point for legend.position.
+        legend.text = element_text(size = 11, color = "gray10"),
+        axis.text = element_text(face = "italic"),
+        axis.title.x = element_text(vjust = -1), # move title away from axis
+        axis.title.y = element_text(vjust = 2), # move away for axis
+        axis.ticks.y = element_blank(), # element_blank() is how we remove elements
+        axis.line = element_line(color = "gray40", size = 0.5),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_line(color = "gray50", size = 0.5),
+        panel.grid.major.x = element_blank()
+  ) + guides(colour = guide_legend(nrow = 1))
+
+mR2 <- summary(lm(HDI ~ log(CPI), data = dat))$r.squared
+
+grid.text("Sources: Transparency International; UN Human Development Report",
+          x = .02, y = .03,
+          just = "left",
+          draw = TRUE)
+grid.segments(x0 = 0.81, x1 = 0.825,
+              y0 = 0.90, y1 = 0.90,
+              gp = gpar(col = "red"),
+              draw = TRUE)
+grid.text(paste0("R² = ",
+                 as.integer(mR2*100),
+                 "%"),
+          x = 0.835, y = 0.90,
+          gp = gpar(col = "gray20"),
+          draw = TRUE,
+          just = "left")
+dev.off()
+{% endhighlight %} 
+
 #### Reference
 [R graphics tutorials](http://www.grroups.com/blog/r-graphics-tutorial-series-part-6-ggplot2) from Ankit Agarwal
 
