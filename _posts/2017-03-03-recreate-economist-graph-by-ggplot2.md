@@ -164,10 +164,10 @@ The next step is to add the title and format the axes. We do that using the scal
 {% highlight r %}
 library(grid)
   (pc5 <- pc4 +
-    scale_x_continuous(name = "Corruption Perceptions Index, 2011 (10=least corrupt)",
+    scale_x_continuous(name = expression(italic("Corruption Perceptions Index, 2011 (10=least corrupt)")),
                        limits = c(.9, 10.5),
                        breaks = 1:10) +
-    scale_y_continuous(name = "Human Development Index, 2011 (1=Best)",
+    scale_y_continuous(name = expression(italic("Human Development Index, 2011 (1=Best)")),
                        limits = c(0.2, 1.0),
                        breaks = seq(0.2, 1.0, by = 0.1)) +
     scale_color_manual(name = "",
