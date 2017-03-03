@@ -292,12 +292,12 @@ ggplot(dat, aes(x = CPI, y = HDI, color = Region)) +
                 color = "gray20",
                 data = subset(dat, Country %in% pointsToLabel),
                 force = 10) +
-  scale_x_continuous(name = "Corruption Perceptions Index, 2011 (10=least corrupt)",
-                     limits = c(.9, 10.5),
-                     breaks = 1:10) +
-  scale_y_continuous(name = "Human Development Index, 2011 (1=Best)",
-                     limits = c(0.2, 1.0),
-                     breaks = seq(0.2, 1.0, by = 0.1)) +
+ scale_x_continuous(name = expression(italic("Corruption Perceptions Index, 2011 (10=least corrupt)")),
+                       limits = c(.9, 10.5),
+                       breaks = 1:10) +
+ scale_y_continuous(name = expression(italic("Human Development Index, 2011 (1=Best)")),
+                       limits = c(0.2, 1.0),
+                       breaks = seq(0.2, 1.0, by = 0.1)) +
   scale_color_manual(name = "",
                      values = c("#24576D",
                                 "#099DD7",
