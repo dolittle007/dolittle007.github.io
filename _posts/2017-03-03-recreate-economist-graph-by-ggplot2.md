@@ -21,6 +21,7 @@ Building off of the graphics you created in the previous exercises, put the fini
 ### Challenge Solution
 
 Lets start by creating the basic scatter plot, then we can make a list of things that need to be added or changed. The basic plot loogs like this:
+[Economist Data](/data/EconomistData.csv)
 {% highlight r %}
 
 dat <- read.csv("/data/EconomistData.csv")
