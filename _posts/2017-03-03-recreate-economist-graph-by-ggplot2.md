@@ -241,6 +241,7 @@ library(grid)
  ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc7.png)
  
 ### Modification by Adobe Illustrator
+Comparing it to the original suggests that we've got most of the important elements, though of course the two graphs are not identical.
  ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/final.png)
  
 #### Reference
