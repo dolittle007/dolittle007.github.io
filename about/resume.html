@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Eric J. Ma Resume</title>
+        <!-- jQuery for Bootstrap plugins -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Custom highlighting -->
+        <link rel="stylesheet" href="./custom.css">
+        <!-- FontAwesome -->
+        <script src="https://use.fontawesome.com/cb9dbe8e41.js"></script>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+        </script>
+    </head>
+    <body>
+        <div class="container" id="name">
+            <h1 align="center">Eric J. Ma</h1>
+        </div>
+        <div class="container" id="resume-content">
+            <div class="col-md-8" id="left panel">
+                <div class="row" id="summary">
+                    <h2><i class="fa fa-list" aria-hidden="true"></i>Summary</h2>
+                    <div class="col-md-12" id="summary-text">
+                        I use code to solve big biological data problems. tools: deep learning, network analysis, non-parametric and Bayesian statistics. domain expertise in life sciences: molecular biology, microbiology, genetics and genomics, and a bit of ecology.
+                    </div>
+                </div>
+                <div class="row" id="spacer"><hr></div>
+                <div class="row" id="education-highlights">
+                    <h2 align="center"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Education Highlights</h2>
+                    <div class="col-md-12" id="break">
+                        <br>
+                    </div>
+                    <br>
+                    <div class="col-md-12" id="highlights-details">
+                        <div class="row" id="highlights-details">
+                            <div class="col-md-3" id="peer-reviewed papers">
+                                <div class="row">
+                                    <a href="#" data-toggle="modal" data-target="#modalPapers">
+                                        <div class="col-md-12">
+                                            <span class="num-highlight num-highlight-success">6</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p align="center" data-toggle="tooltip" data-placement="bottom" title="Click to see more information.">
+                                                    peer reviewed papers
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalPapers" tabindex="-1" role="dialog" aria-labelledby="modalPapers">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="modalPapers">Papers</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ol>
+                                                        <li>Ma, E. J. et. al. Reticulate evolution is favored in influenza niche switching. PNAS (2016) (1st author) [<a href="http://www.pnas.org/content/113/19/5335.full">Link</a>]</li>
+                                                        <li>Hill, N. J. et al. Switching transmission strategies is key to infecting a mobile host: Influenza A virus across the annual cycle of wild birds. Ecology Letters (2016) (2nd author) [<a href="https://www.ncbi.nlm.nih.gov/pubmed/27324078">Link</a>]</li>
+                                                        <li>Hussein, I. T. M. et al. New England harbor seal H3N8 influenza virus retains avian-like receptor specificity and replicates in human lung cells. Scientific Reports (2016) (3rd author)</li>
+                                                        <li>Bahl, J et. al. Ecosystem interactions and reassortment dynamics underlie the emergence of influenza A viruses with pandemic potential. PLoS Pathogens (2016) (5th author)</li>
+                                                        <li>Hussein, I. T. M. et. al. A point mutation in the polymerase protein PB2 alleviates the restriction on a wild reassortant H9N2 influenza isolate, enabling replication in human cells. Infection, Genetics & Evolution (2016) (2nd author)</li>
+                                                        <li>Bui, V. N. et al. Genetic characterization of a rare H12N3 avian influenza virus isolated from a green-winged teal in Japan. Virus Genes (2015). (8th author)</li>
+                                                    </ol>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3" id="grants won">
+                                <div class="row">
+                                    <a href="#" data-toggle="modal" data-target="#modalGrants">
+                                        <div class="col-md-12">
+                                            <span class="num-highlight num-highlight-success">86</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p align="center" data-toggle="tooltip" data-placement="bottom" title="Click to see more information.">
+                                                    thousand dollars won in research grants
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <div class="modal fade" id="modalGrants" tabindex="-1" role="dialog" aria-labelledby="modalGrants">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="modalGrants">Grants</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ol>
+                                                        <li>Broad Next10, 1 Jan 2017 - 1 Jan 2018. PI. Title: Data science for genomic surveillance: predicting and evaluating pathogen risk from genomic data. $40,000</li>
+                                                        <li>Broad Next10, 1 Jun 2016 - 1 Jun 2017. Co-PI. Title: Scalable mapping of viral polymerase genotype to phenotype. $40,000</li>
+                                                        <li>CIHR/MSFHR Training Program in Transplantation, 1 June 2009 - 31 August 2009. Rapid whole cell biosensors for sensitive transplantation diagnostics. $6,000</li>
+                                                    </ol>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3" id="workshops taught">
+                                <a href="#" data-toggle="modal" data-target="#modalWorkshops">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <span class="num-highlight num-highlight-success">10</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p align="center" data-toggle="tooltip" data-placement="bottom" title="Click to see more information.">
+                                                data science workshops taught
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <div class="modal fade" id="modalWorkshops" tabindex="-1" role="dialog" aria-labelledby="modalWorkshops">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="modalWorkshops">Workshops</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ol>
+                                                        <li>PyCon 2017 @ Portland, OR. Tutorial Leader: Network Analysis Made Simple</li>
+                                                        <li>PyCon 2017 @ Portland, OR. Tutorial Leader: Best Testing Practices for Data Science</li>
+                                                        <li>SciPy 2016 @ Austin, TX. Tutorial Leader: Network Science and Statistics: Fundamentals and Applications</li>
+                                                        <li>PyCon 2016 @ Portland, OR. Tutorial Leader: Practical Network Analysis Made Simple</li>
+                                                        <li>Open Data Science Conference 2016 @ Boston, MA. Workshop Leader: Network Analysis Fundamentals</li>
+                                                        <li>Broad Institute NextGen Workshops 2016 @ Cambridge, MA. Tutorial Leader: Machine Learning with scikit-learn</li>
+                                                        <li>PyData 2015 @ New York, NY. Tutorial Leader: Network Analysis Fundamentals</li>
+                                                        <li>Data Science for Social Good Conference 2015 @ Boston, MA. Tutorial Leader: Network Analysis Fundamentals</li>
+                                                        <li>PyCon 2015 @ Montreal, QC. Tutorial Leader: Practical Network/Graph Analysis Made Simple</li>
+                                                        <li>PyCon 2014 @ Montreal, QC. Tutorial Leader: How to formulate a (science) problem and analyze it using Python code</li>
+                                                    </ol>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3" id="mentored students">
+                                <div class="row">
+                                    <a href="#" data-toggle="modal" data-target="#modalMentorship">
+                                    <div class="col-md-12">
+                                        <span class="num-highlight num-highlight-success">3</span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p align="center" data-toggle="tooltip" data-placement="bottom" title="Click to see more information.">
+                                            mentored students
+                                        </p>
+                                    </a>
+                                    </div>
+                                    <div class="modal fade" id="modalMentorship" tabindex="-1" role="dialog" aria-labelledby="modalMentorship">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="modalMentorship">Mentorship</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ol>
+                                                        <li>Vivian Zhong, Department of Biological Engineering, MIT.</li>
+                                                        <li>Justin Zabilansky, Department of Biological Engineering, MIT. Now at Aerofarms.</li>
+                                                        <li>Andrea Nickerson, Department of Biological Engineering, MIT. Now at Silver Creek Pharmaceuticals.</li>
+                                                    </ol>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="break">
+                        <div class="row" id="break">
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="education">
+                        <div class="row" id="education-row">
+                            <div class="col-md-6" id="ubc-logo-and-text" align="center">
+                                <div class="row" id="ubc-logo">
+                                    <div class="col-md-12">
+                                        <a href="http://www.ubc.ca/"><img class="edu-logo" src="./ubc-logo.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="row" id="break">
+                                    <div class="col-md-12">
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row" id="ubc-text" align="left">
+                                    <div class="col-md-12">
+                                        <p>I graduated in 2010 from UBC Vancouver in the <a href="https://intsci.ubc.ca">Integrated Sciences</a> program with Distinction. Areas of concentration were Microbiology & Biochemistry. Founding member of the UBC iGEM Team.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="mit-logo-and-text" align="center">
+                                <div class="row">
+                                    <div class="col-md-12" id="mit-logo">
+                                        <a href="http://web.mit.edu/"><img class="edu-logo" src="./mit-logo.svg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="break">
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="mit-text" align="left">
+                                        <p>I will defend my doctoral thesis in the <a href="https://be.mit.edu">Department of Biological Engineering</a> at MIT in April 2017. Areas of work: network science, ecology & evolution, deep learning and biochemistry. Served as a peer reviewer for PLOS Computational Biology.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="spacer"><hr></div>
+
+                <div class="row" id="research interests">
+                    <h2><i class="fa fa-flask" aria-hidden="true"></i>Research Interests</h2>
+                    <div class="col-md-12" id="research-interests-details">
+                        <div class="row" id="research-interests-row">
+                            <div class="col-md-6" id="network-statistics-description">
+                                <div class="row" id="network-statistics-title">
+                                    <div class="col-md-12" id="network-statistics-title">
+                                        <h3>Network Statistics</h3>
+                                    </div>
+                                </div>
+                                <div class="row" id="break">
+                                    <div class="col-md-12" id="break">
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row" id="network-statistics-text">
+                                    <div class="col-md-12" id="network-statistics-text">
+                                        I developed a network-based algorithm for finding “reassortant” (mixed lineage) influenza viruses, and used it to show that gene shuffling is over-represented in influenza host switches, leading to a 1st author publication in <a href="http://www.pnas.org/content/113/19/5335.abstract">PNAS</a>.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="deep-learning-description">
+                                <div class="row" id="deep-learning-title">
+                                    <div class="col-md-12" id="deep-learning-title">
+                                        <h3>Deep Learning</h3>
+                                    </div>
+                                </div>
+                                <div class="row" id="break">
+                                    <div class="col-md-12" id="break">
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row" id="deep-learning-text">
+                                    <div class="col-md-12" id="deep-learning-text">
+                                        I am currently applying graph convolutional neural networks on protein structures to learn drug resistance from structure. Future work include learning evolutionary embeddings on which virus sequences evolve, to map and predict viral evolutionary trajectories.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="spacer"><hr></div>
+
+                <div class="row" id="open source">
+                    <h2><i class="fa fa-code" aria-hiden="true"></i>Open Source Contributions</h2>
+                    <br>
+                    <div class="col-md-12" id="open-source-contributions">
+                        <div class="row" id="open-source-contributions-detail">
+                            <div class="col-md-4" id="nxviz" align="center">
+                                <div class="row" id="nxviz-img">
+                                    <div class="col-md-12 img-container" id="nxviz-img">
+                                        <img class="os-logo" src="https://github.com/ericmjl/nxviz/raw/master/logo.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="row" id="break">
+                                    <div class="col-md-12" id="break">
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row" id="nxviz-text">
+                                    <div class="col-md-12" align="center" id="nxviz-text">
+                                        <p>
+                                            I released <a href="http://github.com/ericmjl/nxviz"><code>nxviz</code></a>, a <i>rational</i> network visualization library based on <code>matplotlib</code>.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="matplotlib" align="center">
+                                <div class="row" id="matplotlib-img">
+                                    <div class="col-md-12 img-container" id="matplotlib-img">
+                                        <img class="os-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Created_with_Matplotlib-logo.svg/2000px-Created_with_Matplotlib-logo.svg.png" alt=""></img>
+                                    </div>
+                                </div>
+                                <div class="row" id="break">
+                                    <div class="col-md-12" id="break">
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row" id="matplotlib-text">
+                                    <div class="col-md-12" align="center" id="matplotlib-text">
+                                        <p>
+                                            I contributed <a href="https://github.com/matplotlib/matplotlib/pulls?q=is%3Apr+author%3Aericmjl+is%3Aclosed">documentation fixes</a> to the <code>matplotlib</code> plotting library.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="bokeh" align="center">
+                                <div class="row" id="bokeh-img">
+                                    <div class="col-md-12 img-container" id="bokeh-img">
+                                        <img class="os-logo" src="https://www.continuum.io/sites/default/files/logo_bokeh.png" alt="" height="100px">
+                                    </div>
+                                </div>
+                                <div class="row" id="break">
+                                    <div class="col-md-12" id="break">
+                                        <br>
+                                    </div>
+
+                                </div>
+                                <div class="row" id="nxviz-text">
+                                    <div class="col-md-12" align="center" id="nxviz-text">
+                                        <p>
+                                            I <a href="https://github.com/bokeh/bokeh/pull/4815">contributed</a> the VBar and HBar glyphs to the <code>bokeh</code> plotting library.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="spacer"><hr></div>
+
+                <div class="row" id="teaching">
+                    <h2><i class="fa fa-book" aria-hiden="true"></i>Teaching</h2>
+                    <div class="col-md-12" id="teaching-detail">
+                        <div class="row" id="teaching-detail">
+                            <div class="col-md-6" id="network analysis made simple">
+                                <div class="row" id="nams-title">
+                                    <div class="col-md-12" id="NAMS title">
+                                        <h3>Network Analysis Made Simple</h3>
+                                    </div>
+                                </div>
+                                <div class="row" id="break">
+                                    <div class="col-md-12" id="break">
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row" id="nams-text">
+                                    <div class="col-md-12" id="NAMS text">
+                                        I have taught <a href="https://github.com/ericmjl/Network-Analysis-Made-Simple">network analysis fundamentals workshops</a> at <a href="https://www.youtube.com/watch?v=jdvlZJKK4F0">PyCon</a>, <a href="https://www.youtube.com/watch?v=ZsvlVpSCb0Y">SciPy</a>, and <a href="https://www.youtube.com/watch?v=wcrwASR5DCQ">PyData</a>. Topics covered include the use of the NetworkX API, basic graph characterization, visualization, and graph traversal algorithms.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="data-testing">
+                                <div class="row" id="data-testing-title">
+                                    <div class="col-md-12" id="data testing title">
+                                        <h3>Data Testing</h3>
+                                    </div>
+                                </div>
+                                <div class="row" id="break">
+                                    <div class="col-md-12" id="break">
+                                        <br>
+                                    </div>
+
+                                </div>
+                                <div class="row" id="data-testing-text">
+                                    <div class="col-md-12" id="data-testing-text">
+                                        I will teach <a href="https://github.com/ericmjl/data-testing-tutorial">data testing practices</a> at <a href="https://us.pycon.org/2017/schedule/presentation/182/">PyCon 2017</a>. Topics include using property-based testing, visual diagnostics for data completeness, detection of outliers, and automated testing frameworks.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" id="right panel">
+                <div class="row" id="contact">
+                    <h2><i class="fa fa-address-card-o" aria-visible="true"></i>Contact</h2>
+                    <div class="col-md-12" id="contact-table">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
+                                </td>
+                                <td>
+                                    <a href="http://www.twitter.com/ericmjl">ericmjl</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-globe fa-lg" aria-hidden="true"></i>
+                                </td>
+                                <td>
+                                    <a href="http://www.ericmjl.com/">ericmjl.com</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-linkedin-square fa-lg" aria-hidden="true"></i></td>
+                                <td><a href="http://www.linkedin.com/in/ericmjl">Eric J. Ma</a></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></td>
+                                <td><a href="http://www.shortwhale.com/ericmjl">Email via Shortwhale</a></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-github fa-lg" aria-hidden="true"></i></td>
+                                <td><a href="http://www.github.com/ericmjl">ericmjl</a></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-phone fa-lg" aria-hidden="true"></i></td>
+                                <td>857-209-1375</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" id="skills">
+                    <h2><i class="fa fa-laptop aria-hidden="true""></i>Skills Snapshot</h2>
+                    <div class="col-md-12" id="skills-table">
+                        <table class="table table-striped table-hover">
+                            <tr>
+                                <th>skill</th>
+                                <th>beginner</th>
+                                <th>intermediate</th>
+                                <th>advanced</th>
+                            </tr>
+                            <tr id="python" class="success">
+                                <td>python</td>
+                                <td></td>
+                                <td></td>
+                                <td><span class="num-highlight-table num-highlight-success">4</span></td>
+                            </tr>
+                            <tr id="scipy stack" class="success">
+                                <td>scipy stack</td>
+                                <td></td>
+                                <td></td>
+                                <td><span class="num-highlight-table num-highlight-success">4</span></td>
+                            </tr>
+                            <tr id="data viz" class="success">
+                                <td>data viz</td>
+                                <td></td>
+                                <td></td>
+                                <td><span class="num-highlight-table num-highlight-success">3</span></td>
+                            </tr>
+                            <tr id="network science" class="success">
+                                <td>network science</td>
+                                <td></td>
+                                <td></td>
+                                <td><span class="num-highlight-table num-highlight-success">4</span></td>
+                            </tr>
+                            <tr id="machine learning" class="info">
+                                <td>machine learning</td>
+                                <td></td>
+                                <td><span class="num-highlight-table num-highlight-info">2</span></td>
+                                <td></td>
+                            </tr>
+                            <tr id="deep learning" class="info">
+                                <td>deep learning</td>
+                                <td></td>
+                                <td><span class="num-highlight-table num-highlight-info">1</span></td>
+                                <td></td>
+                            </tr>
+                            <tr id="bayesian statistics" class="info">
+                                <td>bayesian statistics</td>
+                                <td></td>
+                                <td><span class="num-highlight-table num-highlight-info">2</span></td>
+                                <td></td>
+                            </tr>
+                            <tr id="probabilistic programming" class="info">
+                                <td>probabilistic programming</td>
+                                <td></td>
+                                <td><span class="num-highlight-table num-highlight-info">2</span></td>
+                                <td></td>
+                            </tr>
+                            <tr id="javascript" class="warning">
+                                <td>javascript</td>
+                                <td><span class="num-highlight-table num-highlight-warning">1</span></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr id="html/css" class="warning">
+                                <td>html/css</td>
+                                <td><span class="num-highlight-table num-highlight-warning">1</span></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-12" id="skills-table-caption">
+                        <span class="caption">
+                            Skill level indicated ordinally as "beginner", "intermediate" and "advanced". Number of years of experience rounded off to the nearest integer in years.
+                        </span>
+                    </div>
+                </div>
+                <div class="row" id="languages">
+                    <h2><i class="fa fa-language" aria-visible="true"></i>Languages</h2>
+                    <div class="col-md-12" id="languages-table">
+                        <table class="table">
+                            <tr>
+                                <th>Language</th>
+                                <th>Proficiency</th>
+                            </tr>
+                            <tr>
+                                <td>English</td>
+                                <td>Native</td>
+                            </tr>
+                            <tr>
+                                <td>Mandarin</td>
+                                <td>Proficient</td>
+                            </tr>
+                            <tr>
+                                <td>Korean</td>
+                                <td>Beginner</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <footer>
+        <div class="col-md-12">
+            Hand-crafted with <a href="http://getbootstrap.com">Bootstrap</a> and <a href="http://fontawesome.io">FontAwesome</a>. &copy Eric J. Ma, 2017-. The source and full commit history for this resume can be found at <a href="https://github.com/ericmjl/cv/blob/master/resume.html">this repository</a>.
+        </div>
+    </footer>
+</html>
