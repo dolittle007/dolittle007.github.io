@@ -1,0 +1,16 @@
+title: ECE521 Inference Algorithms and Machine Learning (Winter 2017)
+description: ECE521 course website
+sitename: ECE521
+baseurl: ''
+sass:
+  sass_dir: /assets/_sass
+  style: :compressed
+collections:
+  - contents
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE.txt
+  - CNAME
+markdown: kramdown
