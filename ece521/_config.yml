@@ -3,7 +3,7 @@ description: ECE521 course website
 sitename: ECE521
 baseurl: ''
 sass:
-  sass_dir: /assets/_sass
+  sass_dir: ./assets/_sass
   style: :compressed
 collections:
   - contents
