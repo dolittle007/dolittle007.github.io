@@ -11,8 +11,13 @@ In this guide, I will focus on the pre-processing of NGS raw reads, mapping, qua
 
 <!--more-->
 
-### GWAS prephaseing & imputation Workflow
-![center](/figures/2016-09-13-RNA-seq-analysis/rna_seq_workflow.png) 
+### Background
+A major use of phasing is haplotype estimation of GWAS samples in order to speed up imputation from large reference panel of haplotypes such as 1000 Genomes. The current recommendation is that GWAS samples are first 'pre-phased' using the most accurate method available. The subsequent imputation step (which involves imputing alleles from one set of haplotypes into another set) is fast. As new haplotype reference sets become available imputation can be re-run much more efficiently. The approach we recommend is:
+
+1. Phase the GWAS samples with [**SHAPEIT**](https://mathgen.stats.ox.ac.uk/genetics_software/shapeit/shapeit.html "SHAPEIT")
+2. Impute non-typed SNPs into SHAPEIT haplotypes with [**IMPUTE2**](https://mathgen.stats.ox.ac.uk/impute/impute_v2.html "IMPUTE2")
+
+![center](/figures/2017-02-20-GWAS-prephasing-and-imputation/workflow.png) 
 
 ***
 
