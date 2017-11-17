@@ -24,7 +24,7 @@ A major use of phasing is haplotype estimation of GWAS samples in order to speed
 ### Step1: Alignment of the SNPs
 
 #### SNP positions in build 37
-The most recent 1,000 genomes haplotypes are defined at SNPs that use build37 coordinates. You have thus to make sure that your GWAS SNPs use also the same version. If it is not the case, you can use the UCSC **liftOver**(http://genome.ucsc.edu/cgi-bin/hgLiftOver "liftOver") tool to perform the conversion to build37 coordinates
+The most recent 1,000 genomes haplotypes are defined at SNPs that use build37 coordinates. You have thus to make sure that your GWAS SNPs use also the same version. If it is not the case, you can use the UCSC [**liftOver**](http://genome.ucsc.edu/cgi-bin/hgLiftOver "liftOver") tool to perform the conversion to build37 coordinates
 
 #### Strand alignment
 This is a crucial step of prephasing/imputation to make sure that the GWAS dataset is well aligned with the reference panel of haplotypes. Correcting strand A/T and G/C SNPs is a big concern.
