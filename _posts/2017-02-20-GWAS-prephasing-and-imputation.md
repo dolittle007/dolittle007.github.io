@@ -110,11 +110,11 @@ cat chr22.chunk1.gz chr22.chunk2.gz  chr22.chunk3.gz > chr22_chunkAll.gen.gz
 ***
 #### Step 1: Prephasing using SHAPEIT
 {% highlight bash %}
-shapeit -B chrX.unphased -M chrX.gmap.gz -O chrX.phased {% endhighlight %}__--chrX__
-
+shapeit -B chrX.unphased -M chrX.gmap.gz -O chrX.phased --chrX
+{% endhighlight %}
 #### Step 2: Imputation using IMPUTE2
 {% highlight bash %}
-impute2 {% endhighlight %} __-chrX__ {% highlight bash %} -use_prephased_g -known_haps_g chrX.phased.haps -sample_known_haps_g chrX.phased.sample -h chrX.reference.hap.gz -l chrX.reference.legend.gz -m chrX.gmap.gz -o chrX.imputed -int 10e6 11e6
+impute2 -chrX -use_prephased_g -known_haps_g chrX.phased.haps -sample_known_haps_g chrX.phased.sample -h chrX.reference.hap.gz -l chrX.reference.legend.gz -m chrX.gmap.gz -o chrX.imputed -int 10e6 11e6
 {% endhighlight %}
 Two comments:
 1. You must use the __-chrX__ flag for IMPUTE2 to proceed with X chromosome imputation
