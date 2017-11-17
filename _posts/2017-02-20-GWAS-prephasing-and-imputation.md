@@ -92,9 +92,9 @@ impute2 -use_prephased_g -Ne 20000 -iter 30 -align_by_maf_g -os 0 1 2 3 -seed 10
 impute2 -use_prephased_g -Ne 20000 -iter 30 -align_by_maf_g -os 0 1 2 3 -seed 1000000 -o_gz -int 5000001 10000001 -h 1000GP_Phase3_chr22.hap.gz -l 1000GP_Phase3_chr22.legend.gz -m genetic_map_chr22_combined_b37.txt -known_haps_g phased_chr22.haps -o chr22.chunk2  # chr22.chunk2.gz generated
 {% endhighlight %} 
 Several comments on the previous command line:
-1. Prephased GWAS haplotypes are specified using -known_haps_g
-2. The flag -use_prephased_g is used to set IMPUTE2 in the prephasing mode
-3. The option -int 5000001 10000001 is used to specify the region to be imputed.
+1. Prephased GWAS haplotypes are specified using __-known_haps_g__
+2. The flag __-use_prephased_g__ is used to set IMPUTE2 in the prephasing mode
+3. The option __-int 5000001 10000001__ is used to specify the region to be imputed.
 Combine all the chunks
 {% highlight bash %}
 cat chr22.chunk1.gz chr22.chunk2.gz  chr22.chunk3.gz > chr22_chunkAll.gen.gz
