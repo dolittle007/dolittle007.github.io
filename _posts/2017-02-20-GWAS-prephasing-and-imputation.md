@@ -44,7 +44,7 @@ java -Xmx40g -jar /user/path/to/GenotypeHarmonizer.jar \
     --refType PLINK_BED \
     --ref path_to_reference  # PLINK file prefix only
 {% endhighlight %}
-It will generate harmonized all_chrs.bed all_chrs.bim and all_chrs.fam in the alignment folder. Genotype Harmonizer uses Linkage disequilibrium (LD) patterns to determine the correct strand G/C and A/T SNPs.
+It will generate harmonized _all_chrs.bed_ _all_chrs.bim_ and _all_chrs.fam_ in the alignment folder. Genotype Harmonizer uses Linkage disequilibrium (LD) patterns to determine the correct strand G/C and A/T SNPs.
 
 
 ### Step2: Phasing the GWAS samples
