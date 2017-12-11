@@ -5,7 +5,7 @@ layout: page
 
 # About Me
 
-#### I'm a data enthusiast and also a PhD student major in bioinformatics and genomics in the University of Hong Kong.
+#### I'm a data enthusiast and also a PhD graduated from the University of Hong Kong.
 
 
 <a class="graybutton" href="/about/TYW_CV.pdf">resume</a>
