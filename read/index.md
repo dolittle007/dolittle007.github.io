@@ -28,5 +28,5 @@ layout: page
 * [R for Data Science](https://www.amazon.com/R-Data-Science-Hadley-Wickham/dp/1491910399/ "R for Data Science") ([Read online](http://r4ds.had.co.nz/))
 * [Fluent Python](http://www.amazon.com/Fluent-Python-Concise-Effective-Programming/dp/1491946008 "Fluent Python")
 * [Python Data Science Handbook](https://www.amazon.com/Python-Data-Science-Handbook-Essential/dp/1491912057 "Python Data Science Handbook") ([Read online](https://jakevdp.github.io/PythonDataScienceHandbook/))
-* [Hands-On Machine Learning with Scikit-Learn and TensorFlow] (https://www.amazon.com/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1491962291 "Hands-On Machine Learning with Scikit-Learn and TensorFlow")
-* [Deep Learning with Python] (https://www.amazon.com/Deep-Learning-Python-Francois-Chollet/dp/1617294438 "Deep Learning with Python")
+* [Hands-On Machine Learning with Scikit-Learn and TensorFlow](https://www.amazon.com/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1491962291 "Hands-On Machine Learning with Scikit-Learn and TensorFlow")
+* [Deep Learning with Python](https://www.amazon.com/Deep-Learning-Python-Francois-Chollet/dp/1617294438 "Deep Learning with Python")
