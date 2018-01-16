@@ -1,6 +1,6 @@
 ---
 layout: post
-title: From Perceptron to Deep Neural Nets
+title: From Perceptron to Deep Learning
 tags: [Deep Learning, AI]
 ---
 *****
