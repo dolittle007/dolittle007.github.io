@@ -62,7 +62,7 @@ def plot_data(data, labels):
 {% endhighlight %}
 
 {:refdef: style="text-align: center;"}
-![XOR Problem](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/xor-plot.png){:height="300px" width="300px"}{:class="img-responsive "}
+![XOR Problem](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/xor-plot.png){:height="300px" width="300px"}{:class="img-responsive "}
 {: refdef}
 
 Maybe after seeing the figure above, we might want to rethink whether this xor
@@ -73,7 +73,7 @@ clearer understanding, below I plot some decision boundaries that I built using
 a very simple linear model:
 
 {:refdef: style="text-align: center;"}
-![Linear Model Decision Boundaries](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/linear-model-decision-boundaries.png){:height="250px" width="600px"}{:class="img-responsive "}
+![Linear Model Decision Boundaries](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/linear-model-decision-boundaries.png){:height="250px" width="600px"}{:class="img-responsive "}
 {: refdef}
 
 Having seen the figure above, it is clear that we need a classifier that works
@@ -90,7 +90,7 @@ work. Figure 1 below shows the analogy between the human biological neuron and
 an artificial neural network.
 
 {:refdef: style="text-align: center;"}
-![Linear Model Decision Boundaries](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/biological-neuron.png){:height="250px" width="600px"}{:class="img-responsive "}
+![Linear Model Decision Boundaries](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/biological-neuron.png){:height="250px" width="600px"}{:class="img-responsive "}
 {: refdef}
 
 {:refdef: style="text-align: center;"}
@@ -136,7 +136,7 @@ So how does a perceptron works? We’ll use a picture represented in Figure 2 as
 the starting point of our discussion.
 
 {:refdef: style="text-align: center;"}
-![Perceptron](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/perceptron.png){:height="150px" width="300px"}{:class="img-responsive "}
+![Perceptron](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/perceptron.png){:height="150px" width="300px"}{:class="img-responsive "}
 {: refdef}
 
 {:refdef: style="text-align: center;"}
@@ -176,7 +176,7 @@ Now, when we put all together back to our perceptron architecture, we’ll have 
 complete architecture for a single perceptron as depicted below:
 
 {:refdef: style="text-align: center;"}
-![Single Perceptron](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/single-perceptron.png){:height="300px" width="460px"}{:class="img-responsive "}
+![Single Perceptron](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/single-perceptron.png){:height="300px" width="460px"}{:class="img-responsive "}
 {: refdef}
 
 {:refdef: style="text-align: center;"}
@@ -191,7 +191,7 @@ step function will output zero for negative argument and one for positive
 argument.
 
 {:refdef: style="text-align: center;"}
-![Heaviside step function](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/heaviside.png){:height="300px" width="360px"}{:class="img-responsive "}
+![Heaviside step function](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/heaviside.png){:height="300px" width="360px"}{:class="img-responsive "}
 {: refdef}
 
 {:refdef: style="text-align: center;"}
@@ -250,7 +250,7 @@ given an input, it will generate an output in range (0,1). The sigmoid function
 is written as:
 
 {:refdef: style="text-align: center;"}
-![sigmoid activation function](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/sigmoid.png){:height="350px" width="350px"}{:class="img-responsive "}
+![sigmoid activation function](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/sigmoid.png){:height="350px" width="350px"}{:class="img-responsive "}
 {: refdef}
 
 {:refdef: style="text-align: center;"}
@@ -294,7 +294,7 @@ Specifically, given a value, tanh will generate an output value between -1 and
 1.
 
 {:refdef: style="text-align: center;"}
-![tanh activation function](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/tanh.png){:height="350px" width="350px"}{:class="img-responsive "}
+![tanh activation function](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/tanh.png){:height="350px" width="350px"}{:class="img-responsive "}
 {: refdef}
 
 {:refdef: style="text-align: center;"}
@@ -322,7 +322,7 @@ the input is less than 0, otherwise the output will be the same as the input.
 Mathematically speaking, this is the form of the ReLu function
 
 {:refdef: style="text-align: center;"}
-![relu activation function](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/relu.png){:height="350px" width="350px"}{:class="img-responsive "}
+![relu activation function](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/relu.png){:height="350px" width="350px"}{:class="img-responsive "}
 {: refdef}
 
 {:refdef: style="text-align: center;"}
@@ -381,7 +381,7 @@ next blog post, hopefully :)
 ### How does a Neural Network Predicts and Learns?
 
 {:refdef: style="text-align: center;"}
-![Feedforward](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/feedforward.png){:height="400px" width="550px"}{:class="img-responsive "}
+![Feedforward](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/feedforward.png){:height="400px" width="550px"}{:class="img-responsive "}
 {: refdef}
 
 {:refdef: style="text-align: center;"}
@@ -440,7 +440,7 @@ makes our cost function become non-convex.
 To give a better intuition, let us assume that our cost function is a convex
 function (a big one bowl) as depicted in Figure 9 below:
 {:refdef: style="text-align: center;"}
-![Gradient Descent](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/GD.png){:height="300px" width="450px"}{:class="img-responsive "}
+![Gradient Descent](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/GD.png){:height="300px" width="450px"}{:class="img-responsive "}
 {: refdef}
 
 {:refdef: style="text-align: center;"}
@@ -467,7 +467,7 @@ Now, Let us simplify things by just looking the cost w.r.t the weights as
 depicted in Figure 10 below:
 
 {:refdef: style="text-align: center;"}
-![Gradient Descent](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/GD2.png){:height="300px" width="500px"}{:class="img-responsive "}
+![Gradient Descent](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/GD2.png){:height="300px" width="500px"}{:class="img-responsive "}
 {: refdef}
 {:refdef: style="text-align: center;"}
 ![](https://cdn-images-1.medium.com/max/1600/1*zGIwokdMizPsUYfzqpEclQ.png)
@@ -486,7 +486,7 @@ our weights in the opposite direction of the gradient of the cost function. This
 update procedure can be written as follow:
 
 {:refdef: style="text-align: center;"}
-![Parameter Update](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/updateGD.png){:height="100px" width="200px"}{:class="img-responsive "}
+![Parameter Update](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/updateGD.png){:height="100px" width="200px"}{:class="img-responsive "}
 {: refdef}
 {:refdef: style="text-align: center;"}
 Figure 11. Parameters update — Gradient Descent
@@ -534,7 +534,7 @@ way to the input layer, we’ll see that **J** has an indirect relation with bot
 **w** and **b**, as shown in Figure 13 below:
 
 {:refdef: style="text-align: center;"}
-![Backpropagation](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/backprop.png){:height="350px" width="550px"}{:class="img-responsive "}
+![Backpropagation](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/backprop.png){:height="350px" width="550px"}{:class="img-responsive "}
 {: refdef}
 {:refdef: style="text-align: center;"}
 Figure 13. The schematic of the backpropagation
@@ -556,14 +556,14 @@ simplicity, we’ll use the architecture shown in Figure 8, where we have one
 hidden layer with three hidden neurons.
 
 {:refdef: style="text-align: center;"}
-![Backpropagation1](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/backprop_1.png){:height="200px" width="300px"}{:class="img-responsive "}
+![Backpropagation1](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/backprop_1.png){:height="200px" width="300px"}{:class="img-responsive "}
 {: refdef}
 
 To find the rate of change of __y_hat__ w.r.t __z2__, we need to differentiate our
 sigmoid activation function with respect to __z__. Assuming we use a sigmoid activation function, we can then compute it as: 
 
 {:refdef: style="text-align: center;"}
-![Backpropagation2](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/backprop_2.png){:height="200px" width="300px"}{:class="img-responsive "}
+![Backpropagation2](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/backprop_2.png){:height="200px" width="300px"}{:class="img-responsive "}
 {: refdef}
 
 Now, once we have the value of our partial derivative J w.r.t W2, we can update
@@ -585,7 +585,7 @@ see later, we can say that having more neurons will make our model become more
 complex, hence creating a more complex decision boundary.
 
 {:refdef: style="text-align: center;"}
-![Two Layers Arch](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/two-layers.png){:height="350px" width="350px"}{:class="img-responsive "}
+![Two Layers Arch](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/two-layers.png){:height="350px" width="350px"}{:class="img-responsive "}
 {: refdef}
 {:refdef: style="text-align: center;"}
 Figure 14. A two layers neural net with 3 hidden Neurons
@@ -593,7 +593,7 @@ Figure 14. A two layers neural net with 3 hidden Neurons
 
 
 {:refdef: style="text-align: center;"}
-![Decision Boundaries](/assets/posts/2017-12-25-From-Perceptron-to-Deep-Neural-Nets/solution.png){:height="350px" width="550px"}{:class="img-responsive "}
+![Decision Boundaries](/figures/2018-01-16-From-Perceptron-to-Deep-Learning/solution.png){:height="350px" width="550px"}{:class="img-responsive "}
 {: refdef}
 {:refdef: style="text-align: center;"}
 Figure 15. Decision boundaries generated by one hidden layer with several hidden neurons
