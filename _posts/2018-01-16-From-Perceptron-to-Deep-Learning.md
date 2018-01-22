@@ -12,6 +12,8 @@ field into a blog post. I found writing things down is an efficient way in
 subduing a topic. In addition, I hope that this post might be useful to those
 who want to get started into Deep Learning.
 
+<!--more-->
+
 <br>
 Alright, so let us talk about deep learning. Oh, wait, before I jump directly
 talking about what a Deep Learning or a Deep Neural Network (DNN) is, I would
