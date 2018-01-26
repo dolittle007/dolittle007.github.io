@@ -3,4 +3,4 @@ layout: page
 ---
 
 ### The tools I am working on
-* [TF enrichment tool (TF STAR)](https://github.com/dolittle007/tf_star "TF STAR")
+* [TF enrichment tool (Gene2TF)](https://github.com/dolittle007/Gene2TF "Gene2TF")
