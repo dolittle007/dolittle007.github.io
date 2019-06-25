@@ -91,7 +91,7 @@ projects in order. This is easier said than done.
 - Sometimes listening to music, sometimes in silence
 
 <p>
-<img class="centered" src="http://farm4.staticflickr.com/3765/11406802826_77d023acc1_o.jpg" alt="colophon"/> 
+<img class="centered" src="http://databeauty.com/static/images/blog.jpg" alt="colophon"/> 
 </p>
 
 ## Colophon
