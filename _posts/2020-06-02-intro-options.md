@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "An Introduction Options"
 author: "Mick Cooney <mickcooney@gmail.com>"
 date: 2020-06-02
