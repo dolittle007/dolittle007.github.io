@@ -2265,121 +2265,52 @@ so understanding the basics is very useful in insurance.
 
 
 
-[^futures]: A futures contract (*future*) is a simple type of derivative
-that allows your to buy or sell an asset today and take delivery of
-the asset at a future point in time. Futures differ from options in
-that entering into a futures contract obligates you to trade and so
-function in many ways like stock. I will not really discuss futures
-much in this article but a lot of the idiosyncratic nature of options
-contracts seems related to the fact that the first options exchanges
-were offshoots of futures exchanges. Please let me know if I am wrong
-about this.
+[^futures]: A futures contract (*future*) is a simple type of derivative that allows your to buy or sell an asset today and take delivery of the asset at a future point in time. Futures differ from options in that entering into a futures contract obligates you to trade and so function in many ways like stock. I will not really discuss futures much in this article but a lot of the idiosyncratic nature of options contracts seems related to the fact that the first options exchanges were offshoots of futures exchanges. Please let me know if I am wrong about this.
 
-[^longshort]: This term does make sense, and should be understood by the end
-of this series.
+[^longshort]: This term does make sense, and should be understood by the end of this series.
 
-[^europeopt]: American options will always be at least as valuable as the
-European equivalent as you can always decide to hold the option to
-expiration. Thus, it is sometimes useful to price an option as if it
-were European purely to obtain a lower bound on the price.
+[^europeopt]: American options will always be at least as valuable as the European equivalent as you can always decide to hold the option to expiration. Thus, it is sometimes useful to price an option as if it were European purely to obtain a lower bound on the price.
 
-[^risktypes]: My inner cynic also insists that the consequent erection of
-competitive barriers to entry plays a non-trivial role too.
+[^risktypes]: My inner cynic also insists that the consequent erection of competitive barriers to entry plays a non-trivial role too.
 
-[^liquidity]: I've tried a few times and have never been wholly satisfied - it
-is a concept that tends to mean different things in different
-contexts, but you can usually determine some measure that is close to
-what you are after.
+[^liquidity]: I've tried a few times and have never been wholly satisfied - it is a concept that tends to mean different things in different contexts, but you can usually determine some measure that is close to what you are after.
 
-[^property]: If this surprises you, think about the expense in time and fees
-involved in the buying or selling of a house or piece of commercial
-property. It is not something you can do in a few minutes or even
-days, and the price is always prone to uncertainty. In contrast, you
-can trade a few billion USD or EUR in the currency markets in seconds
-or minutes without much problem.
+[^property]: If this surprises you, think about the expense in time and fees involved in the buying or selling of a house or piece of commercial property. It is not something you can do in a few minutes or even days, and the price is always prone to uncertainty. In contrast, you can trade a few billion USD or EUR in the currency markets in seconds or minutes without much problem.
 
-[^earlyfinance]: There are stories of traders on the New York Stock Exchange in
-the 1800s carrying revolvers with them when they went to settle trades
-with counterparties. Similarly, in the early days of poker-playing in
-US a lot of players were armed to ensure they left the card-rooms with
-their winnings.
+[^earlyfinance]: There are stories of traders on the New York Stock Exchange in the 1800s carrying revolvers with them when they went to settle trades with counterparties. Similarly, in the early days of poker-playing in US a lot of players were armed to ensure they left the card-rooms with their winnings.
 
-[^counterparty]: Of course, like all risk mitigation strategies, this means
-there is now a massive systemic risk of the clearing system
-failing. However, were that to occur, it is likely you are looking for
-a shotgun, a stock of canned food, and are not thinking about
-collecting those call options you bought.
+[^counterparty]: Of course, like all risk mitigation strategies, this means there is now a massive systemic risk of the clearing system failing. However, were that to occur, it is likely you are looking for a shotgun, a stock of canned food, and are not thinking about collecting those call options you bought.
 
-[^contractprice]: Back in the days of floor trading, order sizes of 10
-contracts or less were often met with a derisive "would you like a lollipop
-with that?"
+[^contractprice]: Back in the days of floor trading, order sizes of 10 contracts or less were often met with a derisive "would you like a lollipop with that?"
 
-[^optionpricing]: Wilmott on Quantitative Finance is an excellent resource for
-this.
+[^optionpricing]: Wilmott on Quantitative Finance is an excellent resource for this.
 
-[^moneyness]: An option that is *in-the-money* is an option contract where the
-the exercise value of the option is positive. If the exercise value is
-negative, the option is *out-of-the-money*.
+[^moneyness]: An option that is *in-the-money* is an option contract where the the exercise value of the option is positive. If the exercise value is negative, the option is *out-of-the-money*.
 
-[^callspread]: The options can also have different expirations, though this is
-generally termed a *calendar spread*.
+[^callspread]: The options can also have different expirations, though this is generally termed a *calendar spread*.
 
-[^expireprice]: Even then, it is probably more fair to say that the 'true'
-value stays latent, instead observing a realization of it.
+[^expireprice]: Even then, it is probably more fair to say that the 'true' value stays latent, instead observing a realization of it.
 
-[^priceimplieds]: Some traders at the desks of the larger banks had a
-reputation for trying to get you to honour dollar prices on trades, even when
-based on stale stock prices. A common response was "why don't I just
-write you a cheque right now and save us all the time?"
+[^priceimplieds]: Some traders at the desks of the larger banks had a reputation for trying to get you to honour dollar prices on trades, even when based on stale stock prices. A common response was "why don't I just write you a cheque right now and save us all the time?"
 
-[^volsqrtime]: It is probably no surprise to learn this is a large
-simplification: asset volatility does not scale smoothly across
-time. Intra-day volatility is often higher than that measured at
-longer time scales.
+[^volsqrtime]: It is probably no surprise to learn this is a large simplification: asset volatility does not scale smoothly across time. Intra-day volatility is often higher than that measured at longer time scales.
 
-[^dailyvol]: A common misinterpretation of this is that the 'average move' of
-the asset is then 1%, which is false. It is more like 0.80%. The
-correct interpretation is that you expect the movement to be 1% or
-less two-thirds of the time.
+[^dailyvol]: A common misinterpretation of this is that the 'average move' of the asset is then 1%, which is false. It is more like 0.80%. The correct interpretation is that you expect the movement to be 1% or less two-thirds of the time.
 
-[^calcpricing]: Not to mention that I would probably get some technical details
-wrong and look stupid...
+[^calcpricing]: Not to mention that I would probably get some technical details wrong and look stupid...
 
-[^priceskew]: At first glance, this may seem to only apply to calls, as the
-value of a put has a negative relationship to the underlying but that
-is not the case due to parity. This will be discussed more in the
-third article.
+[^priceskew]: At first glance, this may seem to only apply to calls, as the value of a put has a negative relationship to the underlying but that is not the case due to parity. This will be discussed more in the third article.
 
-[^pricechange]: This is approximate as vega will have a second derivative, but
-for small changes in vol it is close enough. 
+[^pricechange]: This is approximate as vega will have a second derivative, but for small changes in vol it is close enough. 
 
-[^priceparity]: If the market moves out of line on this, trading arbitrage
-will force it back. I heard a story (which I believe) that the first person
-to figure out that puts were the same as calls quietly made a huge fortune on
-the Chicago option floor with no risk
+[^priceparity]: If the market moves out of line on this, trading arbitrage will force it back. I heard a story (which I believe) that the first person to figure out that puts were the same as calls quietly made a huge fortune on the Chicago option floor with no risk
 
-[^memoryaid]: To aid memory, moneyness describes the intrinsic value of the
-option. In-the-money options have positive intrinsic value. Out-of-the-money
-options have no intrinsic value. At-the-money options have strike prices very
-close to the current underlying price. Recall that delta for calls ranges from
-0 to 100, and puts from -100 to 0. In terms of approaching the strike, we
-should technically say approach 50 (or -50) delta.
+[^memoryaid]: To aid memory, moneyness describes the intrinsic value of the option. In-the-money options have positive intrinsic value. Out-of-the-money options have no intrinsic value. At-the-money options have strike prices very close to the current underlying price. Recall that delta for calls ranges from 0 to 100, and puts from -100 to 0. In terms of approaching the strike, we should technically say approach 50 (or -50) delta.
 
-[^priceincrease]: If the price had gone through the strike and kept going,
-it would start to lose pace, as the gamma would start to decrease, but the
-options would also have intrinsic value.
+[^priceincrease]: If the price had gone through the strike and kept going, it would start to lose pace, as the gamma would start to decrease, but the options would also have intrinsic value.
 
-[^pnlquickly]: Or make it. One of my favourite trading stories which I have
-been unable to verify is that one of the larger trading firms today largely
-owes its existence to Black Monday in 1987. A market-maker in options,
-through pure chance they owned a huge amount of put options that were way
-below the market level when the crash happened. Those options, which had cost
-them pennies, ended up being worth 50 or 60 USD each and made the firm
-millions. This provided them with the capital base to grow their operations
-and they admitted themselves it was pure luck.
+[^pnlquickly]: Or make it. One of my favourite trading stories which I have been unable to verify is that one of the larger trading firms today largely owes its existence to Black Monday in 1987. A market-maker in options, through pure chance they owned a huge amount of put options that were way below the market level when the crash happened. Those options, which had cost them pennies, ended up being worth 50 or 60 USD each and made the firm millions. This provided them with the capital base to grow their operations and they admitted themselves it was pure luck.
 
 
 
-[^readerexercise]: As a quick spot test for the reader, can you think of a
-scenario where this happens? If you can, I will be pleased. It means I have
-managed to successfully convey the core concepts to at least one other person! 
+[^readerexercise]: As a quick spot test for the reader, can you think of a scenario where this happens? If you can, I will be pleased. It means I have managed to successfully convey the core concepts to at least one other person! 
