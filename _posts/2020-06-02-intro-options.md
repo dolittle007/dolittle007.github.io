@@ -8,6 +8,7 @@ tags: [options, R]
 ---
 
 An Introduction Options.
+
 <!--more-->
 
 
@@ -455,7 +456,7 @@ right to sell at 100 USD. When the stock is at 90 USD, we can buy the
 shares for 90, exercise the put and sell them for 100, netting 10 USD
 profit. Thus, the put is worth 10 USD.
 
-```{r longputoption_payoff, echo=TRUE}
+```r
 put_payoff  <- pmax(K - S, 0);
 
 put_plot <- ggplot() +
@@ -480,7 +481,7 @@ tend to be used to trade volatility - the trader is betting on the size
 of the movement of the underlying rather than on the direction of the
 movement.
 
-```{r straddlespread_payoff, echo=TRUE}
+```r
 ggplot() +
     geom_line(aes(x = S, y = call_payoff + put_payoff)) +
     xlab('Stock Price, S') +
@@ -495,7 +496,7 @@ price. If the short strike is lower, it is a *bearish* spread. In
 either case, the maximum profit is capped at the difference between
 the strikes.
 
-```{r callspread_payoff, echo=TRUE}
+```r
 call1_payoff <- pmax(S - 100, 0)
 call2_payoff <- pmax(S - 110, 0)
 
@@ -618,7 +619,7 @@ Suppose we have an American call option on a stock XYZ at price level
 100 USD with a month to expiry (20 trading days) with 24% annualised
 volatility. How do we calculate a price for this option?
 
-```{r american_option_price, echo=TRUE}
+```r
 interest_rate <- 0.01;
 
 implied_vol <- 0.24
@@ -646,7 +647,7 @@ For some reason, QuantLib does not calculate the Greeks using the
 American option routines, so let us check what we get for European
 options:
 
-```{r european_option_price, echo=TRUE}
+```r
 EuropeanOption(type          = 'call'
               ,underlying    = 100
               ,strike        = K
@@ -667,7 +668,7 @@ check this by calculation this price for a sequence of prices and
 plotting the output. We plot this against the payoffs to get a sense
 of perspective for the price.
 
-```{r option_price_plot, echo=TRUE}
+```r
 S_seq <- seq(50, 150, by = 0.1)
 
 call_payoff <- pmax(S_seq - K, 0)
@@ -707,7 +708,7 @@ If we look at a zoomed-in version of the previous plot, we can see how
 the premium behaves as the underlying changes. We will discuss this
 further when we talk about the Greeks, but visuals will work for now.
 
-```{r option_focus_plot, echo=FALSE, results='show'}
+```r
 S_focus_seq <- seq(85, 115, by = 0.01)
 
 call_payoff <- pmax(S_focus_seq - K, 0)
@@ -748,7 +749,7 @@ $$ C = P + S - K e^{-rt} $$
 Let us investigate this by calculating calls and puts with strike
 price $K = 100$, for $S = 90, 100, 110$, starting with $S = 90$:
 
-```{r callput_price_comparison, echo=TRUE}
+```r
 ### Comparison of call and put prices
 
 interest.rate <- 0.01
@@ -808,7 +809,7 @@ put_110 <- EuropeanOption(type = 'put'
                          ,volatility    = implied.vol)
 ```
 
-```{r option_price_S090, echo=FALSE, results='show'}
+```r
 ### Output prices for S = 90
 cat("Put price for S = 90\n")
 print(put_090)
@@ -830,7 +831,7 @@ premium compared to $0.1747$ in the call.
 
 Moving on to $S = 100$:
 
-```{r option_price_S100, echo=FALSE, results='show'}
+```r
 ### Output prices for S = 100
 cat("Put price for S = 100\n")
 print(put_100)
@@ -852,7 +853,7 @@ surprising to see a similar result for $S = 90$ but with calls and
 puts switched:
 
 
-```{r option_price_S110, echo=FALSE, results='show'}
+```r
 ### Output prices for S = 110
 cat("Put price for S = 110\n")
 print(put_110)
@@ -1091,7 +1092,7 @@ This seems quite the claim so let us at least check this. We will take a series
 of values for stock price, strike price, volatility etc, calculate the various
 option prices, and see how they compare.
 
-```{r option_price_compare, echo=TRUE}
+```r
 S_vals    <- seq(25, 100, by = 25)
 K_vals    <- seq(25, 100, by = 25)
 vol_vals  <- seq(0.1, 0.5, by = 0.1)
@@ -1201,7 +1202,7 @@ value: it has more value to decay.
 
 We can quickly check this data for differences:
 
-```{r option_callput_diffs, echo=TRUE}
+```r
 compare_dt[abs(d_delta - 100) > 1 | abs(d_gamma) > 1 | abs(d_vega) > 0.01]
 ```
 
@@ -1225,7 +1226,7 @@ the stock instead?
 
 If our previous assertion is correct, they are the same.
 
-```{r callputparity_pnlplot_setup, echo=TRUE}
+```r
 create_line_pricer <- function(K, r, vol) {
     calc_prices <- function(S, t) {
         call_price <- AmericanOption(type          = 'call'
@@ -1261,7 +1262,7 @@ I have created a little utility function `option_pricer` which calculates the
 call and put price with the above parameters for a given underlying price and
 time.
 
-```{r callputparity_pnlplot_show, echo=TRUE}
+```r
 op_day1 <- option_pricer(S = 95,  t = 40/252)
 op_day2 <- option_pricer(S = 100, t = 39/252)
 
@@ -1326,7 +1327,7 @@ For the long call we have a negative cash balance of 1.25 USD and so pay
 interest for one day on this. For the long put and stock, it is negative
 101.11, so we check the difference in these charges.
 
-```{r callputparity_pnlplot_intrate, echo=TRUE}
+```r
 intrate_call     <- (op_day1['c']     ) * (exp(-r * 1/252) - 1)
 intrate_putstock <- (op_day1['p'] + 95) * (exp(-r * 1/252) - 1)
 
@@ -1342,7 +1343,7 @@ scenario, and then replace the call with the put and stock. Recall that a
 straddle spread is a call and a put on the same line. We compare this to a
 having two puts and being long a share.
 
-```{r callputparity_pnlplot_spread, echo=TRUE}
+```r
 ### The straddle is the sum of the prices
 pnl_straddle <- sum(op_day2) - sum(op_day1)
 
@@ -1381,7 +1382,7 @@ do a plot from 40 days out to expiration, and hold all other inputs constant.
 The intrinsic value of the option is zero throughout, so the price decreases
 to zero at expiration.
 
-```{r premdecay_atm_plot, echo=TRUE}
+```r
 days_remaining <- seq(40, 0, by = -1)
 
 S <- 100
@@ -1414,7 +1415,7 @@ OTM options also have zero intrinsic value throughout its lifetime, but also
 have a distance to cross before they are in the money. We would expect the
 option prices to be lower than at-the-money options.
 
-```{r premdecay_otm_plot, echo=TRUE}
+```r
 S <- 100
 K <- 105
 
@@ -1443,7 +1444,7 @@ expiration.
 For ITM options, the intrinsic value of the option is positive, so the price
 decays to this value at expiration, as we see in the plot.
 
-```{r premdecay_itm_plot, echo=TRUE}
+```r
 S <- 100
 K <-  95
 
@@ -1465,7 +1466,7 @@ If we remove the intrinsic value and focus solely on the premium in the ITM
 option, how does this behave? We will draw all three plots together.
 
 
-```{r premdecay_prem_plot, echo=FALSE, results='show'}
+```r
 plot_dt <- rbind(data.table(contract = '095 Call', days = -days_remaining, premium = decay_itm_price - 5)
                 ,data.table(contract = '100 Call', days = -days_remaining, premium = decay_atm_price)
                 ,data.table(contract = '105 Call', days = -days_remaining, premium = decay_otm_price)
@@ -1488,7 +1489,7 @@ When viewed in terms of put-call parity, it makes sense: the premium in the
 ITM call is similar to the premium in the put from the same line. The 105 Put
 will decay in a very similar way to the 95 Call. We can check this:
 
-```{r premdecay_prem_put_plot, echo=TRUE}
+```r
 S <- 100
 K <-  95
 
@@ -1544,7 +1545,7 @@ volatility is 20%. We will use European options for this, purely because
 QuantLib gives use the Greeks automatically. The price and Greeks for this
 options is as follows:
 
-```{r gvnl_price, echo=TRUE}
+```r
 calc_price_greeks <- function(...) {
     option_price <- EuropeanOption(...)
 
@@ -1597,7 +1598,7 @@ and expect the new value of the option to be worth about 0.79 USD.
 
 Let us see how accurate we are:
 
-```{r gvnl_pricechange_up, echo=TRUE}
+```r
 price_greeks_up <- calc_price_greeks(type          = 'call'
                                     ,underlying    = 96
                                     ,strike        = 100
@@ -1626,7 +1627,7 @@ new price to be about $0.57 - 0.19 = 0.38$. Accounting for the gamma, the new
 delta is about 14, so that price is $0.57 - 0.14 = 0.43$. Overall, we guess a
 new price of about 0.40 USD.
 
-```{r gvnl_pricechange_dn, echo=TRUE}
+```r
 price_greeks_dn <- calc_price_greeks(type          = 'call'
                                     ,underlying    = 94
                                     ,strike        = 100
@@ -1648,7 +1649,7 @@ we expect the price after 1 trading day to be about $0.787 - 0.037 = 0.75$ USD.
 It is easy to check (showing the values at the original price level for ease
 of reference)
 
-```{r gvnl_pricechange_time, echo=TRUE}
+```r
 price_greeks_time <- calc_price_greeks(type          = 'call'
                                       ,underlying    = 96
                                       ,strike        = 100
@@ -1691,7 +1692,7 @@ In our example with the 100 call, 96 is still close to the strike at a vol
 level of 20% and so the gamma increases. We expect this to reverse at some
 point before expiration, so let us check that:
 
-```{r gvnl_gamma_plot, echo=TRUE}
+```r
 days_remaining <- seq(40, 0, by = -1)
 
 gamma_value <- sapply(days_remaining, function(iterday) {
@@ -1731,7 +1732,7 @@ option. Suppose we buy the option, and the price opens at 99 on Friday morning
 (1 day left), then moves up to 100 at lunchtime, a lifetime of 0.5 days. What
 does the option price do?
 
-```{r gvnl_leverage, echo=TRUE}
+```r
 leverage_pricer <- create_line_pricer(K = 100, r = 0.01, vol = 0.20)
 
 price1 <- leverage_pricer(S = 97,  t = 2.0 / 252)
@@ -1872,7 +1873,7 @@ of the strike price of the option. A plot of volatility against strike price
 should be a flat, horizontal line. I have SPY option data from May 25, 2015
 for the June 26, 2015 expiration.
 
-```{r load_spy_option_data, echo=TRUE}
+```r
 spy_option_dt <- read_rds("data/spy_options_20150526.rds")
 
 head(spy_option_dt)
@@ -1882,7 +1883,7 @@ Now we do a plot for the strike against the implied volatility and see what
 we get (we plot calls and puts separately). Note that the closing price for SPY
 on that date was 210.70 USD
 
-```{r skew_data_plot, echo=TRUE}
+```r
 ggplot(data = spy_option_dt) +
     geom_line(aes(x = strike, y = impliedvol, colour = callput)) +
     expand_limits(y = 0) +
@@ -1896,7 +1897,7 @@ no liquidity that far away from the money so we zoom in closer: we look at
 strikes from 190 to 230 as these options will be more liquid and hence their
 prices are more trustworthy:
 
-```{r skew_data_zoom_plot, echo=TRUE}
+```r
 ggplot(data = spy_option_dt[strike >= 190 & strike <= 230]) +
     geom_line(aes(x = strike, y = impliedvol, colour = callput)) +
     expand_limits(y = 0) +
@@ -1973,7 +1974,7 @@ around 20% and the stock is at 100. We are approached by a broker to sell 90
 strike puts that expire in a month - put options deep out of the money
 (often called 'deep puts' for short).
 
-```{r calc_deep_puts, echo=TRUE}
+```r
 AmericanOption(type          = 'put'
               ,underlying    = 100
               ,strike        = 90
@@ -1991,7 +1992,7 @@ lose a lot, lot more than the 6c we earned by selling it.
 There is a price for every risk though, so suppose we decide to quote 15c. What
 is the implied vol at this price?
 
-```{r calc_deep_puts_impliedvol, echo=TRUE}
+```r
 AmericanOptionImpliedVolatility(type          = 'put'
                                ,value         = 0.15
                                ,underlying    = 100
@@ -2015,7 +2016,7 @@ One final contributor to this behaviour is human nature and natural responses
 to asymmetric risk. In our previous example we priced at option at a strike of
 90. What if the strike were 80?
 
-```{r calc_80deep_puts, echo=TRUE}
+```r
 print(AmericanOption(type          = 'put'
                     ,underlying    = 100
                     ,strike        = 80
@@ -2032,7 +2033,7 @@ nature of the risk means it is not a sensible thing to do. At a very minimum,
 a trader may be willing to sell it for 1c, but will probably want to do it for
 more. We can see what vols are implied by these prices:
 
-```{r calc_80deep_puts_impliedvol, echo=TRUE}
+```r
 AmericanOptionImpliedVolatility(type          = 'put'
                                ,value         = 0.01
                                ,underlying    = 100
@@ -2073,7 +2074,7 @@ stock price movements are skewed: the tendency is to have a large number of
 smaller positive price moves and a smaller number of large negative moves. When
 the market falls, it tends to be in larger drops that happen quickly.
 
-```{r show_spy_returns, echo=TRUE}
+```r
 spy_data_xts <- getSymbols("SPY"
                           ,start       = '1990-01-01'
                           ,end         = '2015-12-31'
@@ -2261,24 +2262,6 @@ further questions or comments or would like access to the code.
 
 Quantative finance is a huge topic, and one closely tied to actuarial studies
 so understanding the basics is very useful in insurance.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
