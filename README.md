@@ -9,4 +9,4 @@ Unless otherwise noted, all content under a
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](http://creativecommons.org/licenses/by-nc-sa/4.0/) 
 license.
 
-If you do use something, a link back to http://databeauty.com would be highly appreciated.
+If you do use something, a link back to https://databeauty.com would be highly appreciated.
