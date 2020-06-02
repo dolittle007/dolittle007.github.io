@@ -1,17 +1,10 @@
 ---
+layout: post
 title: "An Introduction Options"
 author: "Mick Cooney <mickcooney@gmail.com>"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    theme: spacelab #sandstone #spacelab #flatly
-    highlight: pygments
-    number_sections: TRUE
-    toc: TRUE
-    toc_depth: 3
-    toc_float:
-      smooth_scroll: FALSE
-  pdf_document: default
+date: 2020-06-02
+category: tutorial
+tags: [options, R]
 ---
 
 
