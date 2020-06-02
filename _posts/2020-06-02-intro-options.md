@@ -1,4 +1,5 @@
 ---
+layout: post
 title: "An Introduction Options"
 author: "Mick Cooney <mickcooney@gmail.com>"
 date: 2020-06-02
@@ -6,8 +7,11 @@ category: tutorial
 tags: [options, R]
 ---
 
+An Introduction Options.
+<!--more-->
 
-```{r knit_opts, include = FALSE}
+
+```r
 library(tidyverse)
 library(cowplot)
 library(data.table)
@@ -52,7 +56,6 @@ options(width = 80L
 theme_set(theme_cowplot())
 
 set.seed(42)
-
 ```
 
 
@@ -429,7 +432,7 @@ of 0.
 
 The payoff chart for this particular option is shown in the chart below:
 
-```{r longcalloption_payoff, echo=TRUE}
+```r
 S <- seq(50, 150, by = 0.1)
 K <- 100
 
