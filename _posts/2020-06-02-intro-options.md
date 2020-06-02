@@ -7,7 +7,7 @@ category: tutorial
 tags: [options, R]
 ---
 
-An Introduction Options.
+An Introduction to Options.
 
 <!--more-->
 
@@ -2314,3 +2314,6 @@ so understanding the basics is very useful in insurance.
 
 
 [^readerexercise]: As a quick spot test for the reader, can you think of a scenario where this happens? If you can, I will be pleased. It means I have managed to successfully convey the core concepts to at least one other person! 
+
+
+Thanks to [Mick Cooney](https://github.com/kaybenleroll "Mick Cooney" for generously sharing ideas.
