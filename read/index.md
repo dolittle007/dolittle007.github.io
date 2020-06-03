@@ -17,7 +17,7 @@ layout: page
 * [Data Science from Scratch](http://www.amazon.com/Data-Science-Scratch-Principles-Python/dp/149190142X "Data Science from Scratch")
 * [Data Science for Business](http://www.amazon.com/Data-Science-Business-data-analytic-thinking/dp/1449361323 "Data Science for Business")
 * [Machine Learning in Action](http://www.amazon.com/Machine-Learning-Python-Techniques-Predictive/dp/1118961749 "Machine Learning in Action")
-* [Hands-On Machine Learning with Scikit-Learn and TensorFlow](https://www.amazon.com/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1491962291 "Hands-On Machine Learning with Scikit-Learn and TensorFlow")
+* [Hands-On Machine Learning with Scikit-Learn and TensorFlow](https://www.amazon.com/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1492032646/ "Hands-On Machine Learning with Scikit-Learn and TensorFlow")
 * [Deep Learning with Python](https://www.amazon.com/Deep-Learning-Python-Francois-Chollet/dp/1617294438 "Deep Learning with Python")
 * [Python Data Science Handbook](https://www.amazon.com/Python-Data-Science-Handbook-Essential/dp/1491912057 "Python Data Science Handbook") ([Read online](https://jakevdp.github.io/PythonDataScienceHandbook/))
 
