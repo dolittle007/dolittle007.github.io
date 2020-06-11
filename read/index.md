@@ -32,4 +32,4 @@ layout: page
 * [Fundamentals of Data Visualization]( https://www.amazon.com/Fundamentals-Data-Visualization-Informative-Compelling/dp/1492031089 "Fundamentals of Data Visualization") ([Read online](https://serialmentor.com/dataviz/))
 * [Modern Statistics for Modern Biology](https://www.amazon.com/Modern-Statistics-Biology-Susan-Holmes/dp/1108705294 "Modern Statistics for Modern Biology") ([Read online](http://web.stanford.edu/class/bios221/book/))
 * [Interpretable Machine Learning](https://leanpub.com/interpretable-machine-learning "Interpretable Machine Learning") ([Read online](https://christophm.github.io/interpretable-ml-book/))
-* [Data Visualization with R]("Data Visualization with R") ([Read online](https://rkabacoff.github.io/datavis/))
+* [Data Visualization with R](https://rkabacoff.github.io/datavis/)
