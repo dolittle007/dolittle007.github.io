@@ -310,3 +310,314 @@ In this first article I introduced Bayesian networks, illustrated the concepts u
 
 [^4]: Mutually exclusive events are when we have different possibilities for the same observation. By conditioning on different values of the variable the outcomes are no longer comparable and so adding their probabilities does not make sense. 
 
+---
+
+*We continue our series on Bayesian networks by discussing their suitability for fraud detection in complex processes: for example assessing medical non-disclosure in life insurance applications.*
+
+The previous article in this series introduced the concept of Probabilistic Graphical Models (PGMs) and Bayesian networks. They can be very useful tools for probabilistically computing the interdependencies and outcomes of real-world systems given limited information.
+
+We created a very simple model, the Sprinkler system, and showed how we can use Conditional Probability Tables (CPTs) to break down relationships into tractable parts and then combine them to calculate likely ranges for unknown values in a system.
+
+With the basics established, we will now introduce an application for Bayesian networks that I have been thinking about for a while: medical non-disclosure in the underwriting process.
+
+---
+# Medical Non-Disclosure
+## Background
+When applying for a life insurance policy, the insurer will ask a series of health-related questions regarding the insured person. The answers to these questions allow the insurer to properly assess the risk associated with the policy and price it accordingly.
+
+In the event of the disclosure of serious prior or current medical conditions, the insurer may ask the individuals to submit to a medical exam for underwriting purposes.
+
+In the event of non-disclosure, then an exam may be nevertheless randomly assigned to applicants to discourage fraudulent applications, and cover the event that the applicant has medical conditions of which they're unaware.[^5]
+
+Medical exams are expensive: incurring a financial cost, and the time delay may result in a desirable applicant going elsewhere. Thus we might want focus medical exams for non-disclosure more towards the riskiest applications.
+
+## How do we predict medical non-disclosure?
+A large problem in modelling medical non-disclosure is the lack of full information in the existing data. We can only know the true medical status of an application if a medical exam was undertaken. As mentioned above, it's rare that an applicant non-discloses AND is selected for a medical exam AND has a medical issue.
+
+This is a form of classification problem, but it is one with a severe class imbalance: we are trying to detect cases with a very low incidence rate. False positives are extremely likely. Similar issues exist in areas like fraud detection in financial transactions and in claims management for car insurance or personal injury insurance.
+
+Interestingly, there is also a sequential business process encoded into the the data, which we can use. A Bayesian network can encode an if-then-else web of processes and can naturally handle low-incidence probabilities. If there is a no-incidence issue we can use smoothing to ensure zero probabilities never occur.[^6]
+
+## Try a Bayesian network
+To get started, we introduce a simple Bayesian network for modelling non-disclosure in underwriting. The network has 11 variables, with each variable taking only 2 or 3 values.
+
+I appreciate this is a clear incidence of Bad Teacher Syndrome - start with a simple example in class (the Sprinkler Network) and immediately jump to a harder problem for homework - but bear with me. The jump is not as huge as it might first appear. The principles are the same, just more variables and CPTs to deal with.
+
+---
+
+## The Medical Exam Network Model
+## Preamble
+It is tempting to just dive into some modelling, getting something down on paper or on screen, and worrying about details later. Despite all my advice to the contrary, I am as guilty of this as the next person. At times this approach may even be beneficial. Playing with a basic model is a good way to develop intuition for what you are doing.
+
+I would not recommend acting on any outputs of your work at this stage, however. It is most likely to prove a poor idea, as the initial outputs of the model will bear out.
+
+Alas, try as we might to avoid it, deep thought will be required if we want something useful.
+
+I should also point out that I have no data at all, as I am unaware of any available datasets to play with in this area. This is one big thought experiment. In such circumstances, my preference is to first generate the data, but doing that in this case involves building the model, bringing us full circle. Instead, we will build a simple model and focus on the approach we take, possibly generating data from it later, finally considering how real-world issues can be dealt with.
+
+Before we can do any of this, we need to resolve a very important issue: what exactly is it we are trying to do, not generally, but specifically? "Improve the underwriting process" is vague, and could mean a lot of different things.
+
+Also, different ideas of what our goals are may result in different ways of both approaching the problem and interpreting model results, so we should nail down exactly what the goal is now. If necessary, we can always adjust it later as issues arise.[^7]
+
+## Building the Model
+Let's start with this statement:
+
+We want a model which, given the data observed in the policy application, allows us to estimate the probability of a subsequent medical exam changing the underwriting decision of the policy. This model should incorporate our assumptions of the process and not be too complicated.
+
+So, while certainly trying to assess the likelihood of fraudulent applications, we also want:
+
+to allow for the applicant being unaware of a condition, and
+to consider the degree of risk posed by the non-disclosure: if the impact on the underwriting outcome is minimal it may prove more cost-effective to accept this rather than incur the cost of more frequent medical exams.
+Our model will have a binary 'outcome' variable $M$, set to $True$ if the result of a medical exam will have a significant effect on the underwriting decision, and $False$ if not.
+
+The implicit assumption of only having a single medical exam - or the grouping of different types together - is something we are likely to revisit in future, using multiple levels for the medical exam, or multiple variables representing different medical tests.
+
+We consider three different medical conditions:
+
+- **(S)moker**: has 3 levels 'Smoker', 'Quitter', or 'Nonsmoker'
+- **(B)MI**: has 3 levels 'Normal', 'Overweight' or 'Obese'
+- **Family (H)istory**: has 2 levels 'None' or 'HeartDisease'
+Each medical condition will have three aspects: the true underlying condition (prefix $T$), what was declared on the application (prefix $D$), and the size of the effect of the non-disclosure on the underwriting decision (prefix $S$). The aspect variable will be a binary variable with levels 'Serious' and 'NotSerious'; the other two will have the same levels as determined by the condition.
+
+So we have 9 variables in the model representing the 3 different medical conditions, each condition having 3 aspects. We have already discussed $M$, the binary variable depicting the necessity of a medical exam.
+
+Finally, we have an 'honesty' variable $HN$, a binary variable with levels 'Honest' and 'Dishonest', affecting the propensity for an applicant to declare a more favourable medical condition than the true value.
+
+A little overwhelming when described in words, so lets visualise the resulting Bayesian network:
+
+![center](/figures/2020-09-15-Probabilistic-Graphical-Models-for-Fraud-Detection/underwriting_network.png)
+
+To reiterate, this model is hugely simplified - I cannot imagine ever putting such a model into production in its current form. This is still perfectly acceptable, the purpose of this work is to explore the idea and determine how such a model could be used. The network in its current form is more than adequate.
+
+Now we have the structure of the model, we need to specify the CPTs. Four variables have no dependencies, $HN$, $TS$, $TB$ and $TH$. The CPTs for these variables are very simple: a discrete proportion for each level. $HN$ can be set from prior beliefs on the frequency of applications found to have issues. In our setup, we will use $HN(Honest) = 0.99, \; HN(Dishonest) = 0.01$.
+
+The proportions for the other three can be determined from public health data, for example we set the proportion for smoking as:
+
+$$ TS(Smoker) = 0.2 \;\; TS(Quitter) = 0.2 \;\; TS(Nonsmoker) = 0.6. $$
+
+The rest of the variables all have conditional probabilities that depend on other variables in the system. The three 'declared' variables depend on the 'True' level and the honesty $HN$ of the application.
+
+We will not show all the code to create the network here, it is a little long and unwieldy. It is available in a BitBucket repository, please get in touch if you would like access.
+```r
+hn <- cptable(~HN  
+             ,values = c(0.01, 0.99)
+             ,levels = c("Dishonest", "Honest"));
+
+ts <- cptable(~TS  
+             ,values = c(0.60, 0.20, 0.20)
+             ,levels = c("Nonsmoker", "Quitter", "Smoker"));
+
+tb <- cptable(~TB  
+             ,values = c(0.75, 0.20, 0.05)
+             ,levels = c("None", "Overweight", "Obese"));
+
+th <- cptable(~TH  
+             ,values = c(0.95, 0.05)
+             ,levels = c("None", "HeartDisease"));
+
+ds <- cptable(~DS | HN + TS  
+             ,values = c(1.00, 0.00, 0.00  # (HN = D, TS = N)
+                        ,1.00, 0.00, 0.00  # (HN = H, TS = N)
+                        ,0.50, 0.40, 0.10  # (HN = D, TS = Q)
+                        ,0.05, 0.80, 0.15  # (HN = H, TS = Q)
+                        ,0.30, 0.40, 0.30  # (HN = D, TS = S)
+                        ,0.00, 0.10, 0.90  # (HN = H, TS = S)
+                         )
+             ,levels = c("Nonsmoker", "Quitter", "Smoker"));
+
+m  <- cptable(~ M | SS + SB + SH  
+              ,values = c(0.99, 0.01        # (SS = S, SB = S, SH = S)
+                         ,0.90, 0.10        # (SS = N, SB = S, SH = S)
+                         ,0.95, 0.05        # (SS = S, SB = N, SH = S)
+                         ,0.85, 0.15        # (SS = N, SB = N, SH = S)
+                         ,0.85, 0.15        # (SS = S, SB = S, SH = N)
+                         ,0.60, 0.40        # (SS = N, SB = S, SH = N)
+                         ,0.60, 0.40        # (SS = S, SB = N, SH = N)
+                         ,0.10, 0.90        # (SS = N, SB = N, SH = N)
+                          )
+              ,levels = c("Medical", "NoMedical"));
+
+underwriting.grain <- grain(compileCPT(list(hn  
+                                           ,ts, tb, th
+                                           ,ds, db, dh
+                                           ,ss, sb, sh
+                                           ,m)));
+```
+Thoroughly discussing the CPTs above is tedious, but it is worth spending a little time explaining the ds table. Probabilities cycle through variables from left to right in variable level order.
+
+As you may infer from the comments, probabilities group in threes as $DS$ has three levels. $HN$ has two levels and $TS$ has three, so there are six combinations of the conditioning variables - meaning we need 18 numbers to specify this CPT, and the totals of every group of three should add to 1.
+
+The first set of three values are the conditional probabilities for the three levels of $DS$ when the conditioning variables are all that their first levels, $HN = \text{Dishonest}$ and $TS = \text{Nonsmoker}$.
+
+The three values are $1.00$, $0.00$, and $0.00$ respectively, meaning that a dishonest application from a non-smoker will always declare as a non-smoker. Recall that the level order is Nonsmoker, Quitter, Smoker.
+
+Justifying the values in the CPTs is a topic we will discuss in the next article.
+
+---
+## Using the Model
+Now our basic model is in place we can start to ask questions:
+
+For example: "What is the unconditional probability of a medical exam changing the underwriting decision?"
+```r
+### What is the unconditional probability of a Medical exam changing
+### the underwriting decision?
+> querygrain(underwriting.grain, nodes = 'M')
+ $M
+ M
+   Medical NoMedical
+  0.187249  0.812751
+```
+According to our model, with no information on the application, we expect almost $19\%$ of applications to have their underwriting decisions changed based upon the results of a medical exam. This seems high, and suggests problems with the model as it is currently configured.
+
+This is not necessarily a flaw in the approach, none of the above is based on any data and the CPTs were chosen by myself. I chose conditional probabilities that seem reasonable, but may well need modification. Considering the simplicity of the model, I would expect a more accurate model to have a lower unconditional probability.
+
+This is an excellent illustration of why precise definitions are so crucial. Remember how we have defined $M$: it is the likelihood of a medical exam changing the underwriting decision. Implicit in this definition is that the underwriting process is properly assessing and pricing the risk given correct information.
+
+In practice, insurers will also factor risk in the decision for a medical exam - it is common for all policies above a certain amount to automatically require a medical exam. While certainly prudent, our model ignores this, focusing solely on non-disclosure and whether or not taking a medical exam will reveal something significant.
+
+If we ignore this precise definition, $19\%$ may not appear so bad, being superficially similar to calculating the overall proportion of policies that get requests for medical exams. However that proportion includes policies which automatically require a medical, and so is biased high.
+
+All of this suggests the current model and its CPTs are not a good representation of reality, and we will need to fix this. The current CPT numbers may prove reasonable, but the flow of conditional probability is tricky to get right. Were this not the case, we would not need a Bayesian network!
+
+## Choosing CPTs is difficult
+When getting unexpected outputs that appear wrong, we need to focus on the CPTs and make sure those are correct. It is the CPTs that determine the outputs, so if we get those right the outputs take care of themselves.
+
+Furthermore, the non-linear nature of the calculations in the network makes the proposition of trying to control the output difficult. It is prudent to not strike that hornet nest for the moment unless we cannot avoid it.
+
+For now, we stick with our current model and allow for a potential high bias in our estimations. We will deal with issues of altering CPT values in future articles.
+
+---
+
+## Model Validation
+Given we have a flawed model, but one we can work with, what other questions can we ask of it?
+
+Our primary interest is the necessity for a medical exam, so we start with questions mirroring our desired use: add declared medical conditions and observe the effect on the $M$ variable.
+
+For example, if an application declares a clean bill of health: Non-smoker $(DS = \text{Nonsmoker})$, normal weight $(DB = \text{Normal})$ and no family history of heart disease $(DH = \text{None})$, how does this effect the necessity for an exam?
+```r
+### What is the probability of an exam changing the decision if a
+### person declares himself a Nonsmoker, Normal weight and no
+### family history of heart disease.
+ > querygrain(underwriting.grain
+          ,nodes = 'M'
+          ,evidence = list(DS = 'Nonsmoker'
+                          ,DB = 'Normal'
+                          ,DH = 'None'));
+$M
+ M
+   Medical NoMedical
+   0.14649   0.85351
+```
+It seems the declaration of a clean bill of health reduces the likelihood of needing a medical.
+
+What about applications that do not have a clean bill of health? Will the likelihood of requesting a medical increase or decrease?
+
+As well-behaved statisticians, we will mind our manners and do as the teachers told us, we alter the declared variables one at a time and see what happens.
+
+### Declaration of Smoking $DS$
+First we try the smoking variables:
+```r
+ > querygrain(underwriting.grain
+           ,nodes = 'M'
+           ,evidence = list(DS = 'Quitter'
+                           ,DB = 'Normal'
+                           ,DH = 'None'));
+$M
+ M
+   Medical NoMedical
+  0.184824  0.815176
+```
+This seems counter-intuitive. Declaring as having quit smoking increases the necessity of a taking a medical exam?
+
+Before you quit reading this in digust, cursing my name for wasting your time reading this drivel, look at the CPT for $DH$ in the code listed above.
+
+Close observation shows applicants tell a lot of fibs about their smoking status. Even honest application claim to have quit 10% of the time when they are actually still considered smokers. The Bayesian network propagates this, resulting in a higher likelihood of needing a medical.
+
+How about declaring as a smoker?
+```r
+ > querygrain(underwriting.grain
+           ,nodes = 'M'
+           ,evidence = list(DS = 'Smoker'
+                           ,DB = 'Normal'
+                           ,DH = 'None'));
+$M
+ M
+   Medical NoMedical
+  0.164652  0.835348
+```
+The probability is now $0.164$, as non-disclosure is less likely in that case, so the probability of a $True$ value for $M$ is reduced.
+
+### Declaration of BMI $DB$
+We inspect BMI in a similar way:
+```r
+ > querygrain(underwriting.grain
+           ,nodes = 'M'
+           ,evidence = list(DS = 'Nonsmoker'
+                           ,DB = 'Overweight'
+                           ,DH = 'None'));
+$M
+ M
+   Medical NoMedical
+  0.157997  0.842003
+```
+Much like the smoking condition, declaring as being overweight increases the likelihood of an exam being relevant.
+
+In a similar situation as for the smoking status, one way to explain this is that such declarations are more common in dishonest applications, and this affects the likelihood of $M$.
+
+What about being declaring yourself obese? If the above pattern holds, we would expect this probability to drop.
+```r
+ > querygrain(underwriting.grain
+           ,nodes = 'M'
+           ,evidence = list(DS = 'Nonsmoker'
+                           ,DB = 'Obese'
+                           ,DH = 'None'));
+$M
+ M
+   Medical NoMedical
+  0.178348  0.821652
+```
+What is happening here? For smoking, the middle condition, Quitter, resulted in the highest likelihood for $M$, but for BMI it is the worst condition.
+
+Why is this?
+
+The answer lies in the values of the CPTs. As we have configured our network, being obese increases likelihood that a medical exam will uncover something. This is being reflected in the calculation for $M$.
+
+### Declaration of Family History $DH$
+Finally we check family history. This is simpler as we only have two levels:
+```r
+ > querygrain(underwriting.grain
+           ,nodes = 'M'
+           ,evidence = list(DS = 'Nonsmoker'
+                           ,DB = 'Normal'
+                           ,DH = 'HeartDisease'));
+$M
+ M
+   Medical NoMedical
+  0.260385  0.739615
+```
+The probability of an exam having an underwriting impact jumps to $0.260$ if you declare a history of heart disease.
+
+In case you were wondering, I expected none of the above results when I first ran the queries and had no intuition for what might occur.
+
+In some cases, I was forced to recheck the code where I set the CPTs, fearing a mistake, but found they were exactly as I wanted them to be.
+
+This is why Bayesian networks are so useful. Each of the pieces make sense, but combine in ways that makes predicting the output difficult.
+
+---
+
+## Conclusion
+In this article we introduced a simple model for medical non-disclosure, implemented it and looked at some basic outputs of the model.
+
+In the next article we will continue this work, analyse other outputs of the model, attempt to properly discern why we see the results we see, look at how we might improve these results and discuss other methods we might use to refine our approach.
+
+We will also deal with the issue of missing data, a major concern in many scenarios.
+
+
+
+---
+
+[^5]: A non-zero probability of asking for a medical prevents bad actors from gaming your procedures, but not all applications should be equally likely for an examination request. There are professional criminal gangs who focus entirely on exploiting the poorly designed business policies of insurance companies.
+
+[^6]: Zero probabilities are bad because of the multiplicative effect. Once you calculate anything involving a zero probability it forces everything else to be zero too. Zero multiplied by anything is zero too. Instead, we replace all zero probabilities with a small number, preventing this zero propagation.
+
+[^7]: We need to be aware that this kind of iteration poses risks. You need to ensure that the consequences of changes of definition propagates fully through your model. Inconsistencies across different areas of your model can result in hard to find 'bugs' in your model, and the non-intuitive nature of the outputs can hide this. Another reason to be initially cautious in how this model is used.
