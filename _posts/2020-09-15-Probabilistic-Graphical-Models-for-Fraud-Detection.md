@@ -30,7 +30,7 @@ Before we can discuss Bayesian Networks, we first need to introduce the concepts
 
 This is simply the probability of observing an event given that we already know the realisation of some other event.
 
-For example, suppose we want to know the probability of seeing a total of $11$ from the roll of two 6-sided dice. There are two ways to score $11$1, so absent any other information, the probability of this event is:
+For example, suppose we want to know the probability of seeing a total of $11$ from the roll of two 6-sided dice. There are two ways to score $11[^1], so absent any other information, the probability of this event is:
 
 $$ P(T = 11) = \frac{2}{36} = 0.0555 $$
 
@@ -42,7 +42,7 @@ $$ P(T = 11 \; | \; D_{1} = 5) = \frac{1}{6} = 0.1667 $$
 
 Knowledge of the outcome of the first die roll $D_{1}$ means we now have a different expectation for the final total $T$.
 
-This concept can be expanded further: instead of having complete information about $D_{1}$, we might have incomplete information and only know that $D_{1}$ is either a $4$ or $5$, with a $50\%$ probability of each. With a PGM we can propagate this knowledge forward to adjust the probabilities for $T$.2
+This concept can be expanded further: instead of having complete information about $D_{1}$, we might have incomplete information and only know that $D_{1}$ is either a $4$ or $5$, with a $50\%$ probability of each. With a PGM we can propagate this knowledge forward to adjust the probabilities for $T[^2].
 
 ## Conditional Dependence
 
@@ -210,7 +210,7 @@ $rain
      rain   norain
  0.182875 0.817125
  ```
-What about the probability of rain given that the grass is not dry (thus either damp or wet)? We cannot calculate the two probabilities and add them, that quantity is not a probability as they are not mutually exclusive events.4
+What about the probability of rain given that the grass is not dry (thus either damp or wet)? We cannot calculate the two probabilities and add them, that quantity is not a probability as they are not mutually exclusive events[^4].
 
 Instead, we need to calculate:
 
@@ -300,5 +300,12 @@ We will return to these issues later in the series.
 ## Summary
 In this first article I introduced Bayesian networks, illustrated the concepts using the simple Sprinkler system, and performed some conditional probability calculations using different levels of evidence.
 
-Now that we are comfortable with the basics, we can move on to the primary model I want to discuss in this series: attempting to model medical non-disclosure in underwriting life insurance. This is where customers can fail to disclose pre-existing medical conditions and lifestyle choices when applying for life insurance products. Such non-disclosure is not necessarily fraud (quite often it can be a simple, honest mistake), but insurers are very well-advised to spot it as soon as possible to minimise portfolio risk.
+
+[^1] Now that we are comfortable with the basics, we can move on to the primary model I want to discuss in this series: attempting to model medical non-disclosure in underwriting life insurance. This is where customers can fail to disclose pre-existing medical conditions and lifestyle choices when applying for life insurance products. Such non-disclosure is not necessarily fraud (quite often it can be a simple, honest mistake), but insurers are very well-advised to spot it as soon as possible to minimise portfolio risk. With two six-sided dice there are $6 \times 6 = 36$ different outcomes. To get a total of 11, we need a 5 on one die and a 6 on the other. There are two ways this can happen - (5,6) or (6,5). Thus, the probability of getting an 11 is $\frac{2}{36}$.
+
+[^2] Calculating the distribution for $T$ is a little involved, so I will not go into all the details here, merely offering guidance. We break the calculation into two parts: one for the $D_1 = 4$ and one for $D_1 = 5$. If $D_1 = 4$, $T$ can take values from 5 to 10, with each outcome being equally likely. We do the same for $D_1 = 5$. Finally, we combine all the possible outcomes to get our distribution for $T$, which I will leave to the reader.
+
+[^3] We only need a binomial probability, that is, one probability value, as we have already stated that the variables are binary valued: yes or no. Should we have multiple possible outcomes for the variables we will need multinomial probabilities.
+
+[^4] Mutually exclusive events are when we have different possibilities for the same observation. By conditioning on different values of the variable the outcomes are no longer comparable and so adding their probabilities does not make sense. 
 
