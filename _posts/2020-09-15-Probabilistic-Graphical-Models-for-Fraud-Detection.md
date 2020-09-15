@@ -9,7 +9,7 @@ tags: [Probabilistic Graphical Models, R]
 Probabilistic Graphical Models for Fraud Detection.
 
 <!--more-->
-> Editor’s note: this post is from [The Sampler archives] (http://blog.applied.ai) in 2015.
+> Editor’s note: this post is from [The Sampler archives](http://blog.applied.ai "The Sampler archives") in 2015.
 
 
 Bayesian networks are useful tools for probabilistically computing the interdependencies and outcomes of real-world systems given limited information. Here we describe their use in fraud detection.
