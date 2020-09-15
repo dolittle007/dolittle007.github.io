@@ -301,15 +301,6 @@ We will return to these issues later in the series.
 ## Summary
 In this first article I introduced Bayesian networks, illustrated the concepts using the simple Sprinkler system, and performed some conditional probability calculations using different levels of evidence.
 
-
-[^1]: Now that we are comfortable with the basics, we can move on to the primary model I want to discuss in this series: attempting to model medical non-disclosure in underwriting life insurance. This is where customers can fail to disclose pre-existing medical conditions and lifestyle choices when applying for life insurance products. Such non-disclosure is not necessarily fraud (quite often it can be a simple, honest mistake), but insurers are very well-advised to spot it as soon as possible to minimise portfolio risk. With two six-sided dice there are $6 \times 6 = 36$ different outcomes. To get a total of 11, we need a 5 on one die and a 6 on the other. There are two ways this can happen - (5,6) or (6,5). Thus, the probability of getting an 11 is $\frac{2}{36}$.
-
-[^2]: Calculating the distribution for $T$ is a little involved, so I will not go into all the details here, merely offering guidance. We break the calculation into two parts: one for the $D_1 = 4$ and one for $D_1 = 5$. If $D_1 = 4$, $T$ can take values from 5 to 10, with each outcome being equally likely. We do the same for $D_1 = 5$. Finally, we combine all the possible outcomes to get our distribution for $T$, which I will leave to the reader.
-
-[^3]: We only need a binomial probability, that is, one probability value, as we have already stated that the variables are binary valued: yes or no. Should we have multiple possible outcomes for the variables we will need multinomial probabilities.
-
-[^4]: Mutually exclusive events are when we have different possibilities for the same observation. By conditioning on different values of the variable the outcomes are no longer comparable and so adding their probabilities does not make sense. 
-
 ---
 
 *We continue our series on Bayesian networks by discussing their suitability for fraud detection in complex processes: for example assessing medical non-disclosure in life insurance applications.*
@@ -616,6 +607,15 @@ We will also deal with the issue of missing data, a major concern in many scenar
 
 
 ---
+
+
+[^1]: Now that we are comfortable with the basics, we can move on to the primary model I want to discuss in this series: attempting to model medical non-disclosure in underwriting life insurance. This is where customers can fail to disclose pre-existing medical conditions and lifestyle choices when applying for life insurance products. Such non-disclosure is not necessarily fraud (quite often it can be a simple, honest mistake), but insurers are very well-advised to spot it as soon as possible to minimise portfolio risk. With two six-sided dice there are $6 \times 6 = 36$ different outcomes. To get a total of 11, we need a 5 on one die and a 6 on the other. There are two ways this can happen - (5,6) or (6,5). Thus, the probability of getting an 11 is $\frac{2}{36}$.
+
+[^2]: Calculating the distribution for $T$ is a little involved, so I will not go into all the details here, merely offering guidance. We break the calculation into two parts: one for the $D_1 = 4$ and one for $D_1 = 5$. If $D_1 = 4$, $T$ can take values from 5 to 10, with each outcome being equally likely. We do the same for $D_1 = 5$. Finally, we combine all the possible outcomes to get our distribution for $T$, which I will leave to the reader.
+
+[^3]: We only need a binomial probability, that is, one probability value, as we have already stated that the variables are binary valued: yes or no. Should we have multiple possible outcomes for the variables we will need multinomial probabilities.
+
+[^4]: Mutually exclusive events are when we have different possibilities for the same observation. By conditioning on different values of the variable the outcomes are no longer comparable and so adding their probabilities does not make sense. 
 
 [^5]: A non-zero probability of asking for a medical prevents bad actors from gaming your procedures, but not all applications should be equally likely for an examination request. There are professional criminal gangs who focus entirely on exploiting the poorly designed business policies of insurance companies.
 
