@@ -55,8 +55,8 @@ If our friend rolls the dice and tells us only the value of $T = 4$ we intuitive
 We could make a dependency table based on $T=4$ about the viable combinations (marked X):
 
 |      | D2         |
-|      |  1 | 2 | 3 |...
-|------|--------------
+|      |  1 | 2 | 3 |
+|------|----|---|---|
 |D1  1 |  o | o | X |
 |    2 |  o | X | o |
 |    3 |  X | o | o |
