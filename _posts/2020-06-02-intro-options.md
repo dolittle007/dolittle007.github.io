@@ -9,7 +9,7 @@ tags: [options, R]
 An Introduction to Options.
 
 <!--more-->
-
+> Editor’s note: this post is from [The Sampler archives] (http://blog.applied.ai) in 2015.
 
 ```r
 library(tidyverse)
