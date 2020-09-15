@@ -377,6 +377,7 @@ We consider three different medical conditions:
 - **(S)moker**: has 3 levels 'Smoker', 'Quitter', or 'Nonsmoker'
 - **(B)MI**: has 3 levels 'Normal', 'Overweight' or 'Obese'
 - **Family (H)istory**: has 2 levels 'None' or 'HeartDisease'
+
 Each medical condition will have three aspects: the true underlying condition (prefix $T$), what was declared on the application (prefix $D$), and the size of the effect of the non-disclosure on the underwriting decision (prefix $S$). The aspect variable will be a binary variable with levels 'Serious' and 'NotSerious'; the other two will have the same levels as determined by the condition.
 
 So we have 9 variables in the model representing the 3 different medical conditions, each condition having 3 aspects. We have already discussed $M$, the binary variable depicting the necessity of a medical exam.
