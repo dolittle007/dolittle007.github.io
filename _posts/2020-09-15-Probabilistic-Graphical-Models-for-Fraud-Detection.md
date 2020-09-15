@@ -93,7 +93,8 @@ We can't control the rain, but if it is raining we are less likely to need to us
 
 We can represent all of the above as a DAG:
 
-sprinkler_network
+![center](/figures/2020-09-15-Probabilistic-Graphical-Models-for-Fraud-Detection/Sprinkler_network.png) 
+
 
 Now that we have the structure in place, we need to think about probabilities. This is generally done by specifying conditional probability tables (CPTs). Each variable has its own CPT, specifying different probabilities for outcomes given the different values of the conditional variables.
 
