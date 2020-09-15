@@ -69,19 +69,20 @@ More formally, the joint distribution of $A$, $B$, and $C$ can be factorised int
 
 $$ P(A, B, C) = f(A, C) \; g(B, C) $$
 
-Conditional Independence
+## Conditional Independence
 We see above how 2 independent variables can become conditionally dependent from knowing the value of a 3rd, mutually dependent variable.
 
 Lets say we also have a deck of cards $C$ and draw a single card $C_1$ based on nothing but blind chance. Our friend is interested in the values $T$ and $C_1$ so we report them separately as separate systems, nothing more. I.e. $T$ and $C_1$ are independent, and our primary variables $D_1 + D_{2}$ and $C_1$ are conditionally independent.
 
 If we created a final, super, overarching total $S = D_{1} + D_{2} + C_{1}$ then that would change the graph, and $D_{1}$, $D_{2}$, $C_{1}$ would become conditionally dependent on $S$.
 
-Bayesian Networks and the Sprinkler Network
+---
+## Bayesian Networks and the Sprinkler Network
 Now suppose we are trying to create a model with lots of variables. Rather than try to consider all the variables at once, we try to model the system by building up chains of dependency. This allows us to break up the modelling process into smaller chunks, making the whole system much more manageable.
 
 Our Bayesian network or PGM is a directed acyclic graph (DAG). Each variable is a node on the graph, and an edge or vertex represents the conditional relationship between the variables, with the edge pointing towards the dependent variable.
 
-The Sprinkler Network
+## The Sprinkler Network
 One of the simplest Bayesian networks is the Sprinkler network. In this network we have three binary-valued variables:
 
 $R(ain)$, representing whether or not it is raining;
@@ -130,9 +131,9 @@ This is not conceptually complex but can be a laborious accounting exercise, mak
 
 The package I am going to use from now on is the gRain package, available on CRAN.
 
-Computing the PGM
+## Computing the PGM
 We specify the network by first specifying the CPTs using the function cptable(). You may notice dependencies are described using R's formula notation, aiding familiarity. The code used to create this Sprinkler network is shown below, please get in touch if you would like access to the full code repository.
-
+```r
 r <- cptable(~rain  
             ,levels = c("yes", "no")
             ,values = c(0.2, 0.8));
@@ -145,28 +146,33 @@ g <- cptable(~grass | sprinkler + rain
             ,levels = c("yes", "no")
             ,values = c(0.99, 0.01, 0.9, 0.1, 0.8, 0.2, 0, 1));
 
-sprinkler.grain <- grain(compileCPT(list(r, s, g)));  
+sprinkler.grain <- grain(compileCPT(list(r, s, g)));
+```
 Once we have the network, it is very straightforward to ask questions:
-
+```r
 > ### Q1: What is the likelihood of the grass being wet?
 > querygrain(sprinkler.grain, nodes = 'grass')
 $grass
  grass
      yes      no
  0.43618 0.56382
+ ```
 The probability of the grass being wet is $0.436$.
-
+```r
  > ### Q2: If the grass is wet, how likely is it to be raining?
  querygrain(sprinkler.grain, nodes = 'rain', evidence = list(grass = 'yes'))
  $rain
  rain
       yes       no
  0.413086 0.586914
+ ```
 If the grass is wet, the probability that it is raining is $0.413$.
 
 I will leave answering the third question as an exercise for the reader.
 
-Expanding the Model
+---
+## Expanding the Model
+
 Now that we have a simple and working model for the Sprinkler system, we can move on to building a little more complexity. Rather than adding nodes to the system, how do we add additional outcomes to the variables we have?
 
 It makes sense to keep the sprinkler as a binary variable. On/Off is intuitive. Instead, how about we add three levels to the Grass variable, denoted three levels of 'wetness' - 'Dry', 'Damp' and 'Wet'. How does this affect our system?
@@ -174,7 +180,7 @@ It makes sense to keep the sprinkler as a binary variable. On/Off is intuitive. 
 In terms of specifying conditional probability, we do not need to change a whole lot with our network. $R$ and $S$ remain the same, we still have 4 combinations with which to condition upon, but we now need to specify three values for $G$, one for each of the three levels of $G$.
 
 The code to do this is shown below:
-
+```r
 r <- cptable(~rain  
             ,levels = c("rain", "norain")
             ,values = c(0.2, 0.8));
@@ -190,9 +196,10 @@ g <- cptable(~grass | sprinkler + rain
                        ,0.10, 0.70, 0.20  ## ON, NoRain
                        ,0.90, 0.09, 0.01  ## OFF, NoRain
 
-expandedsprinkler1.grain <- grain(compileCPT(list(r, s, g)));  
+expandedsprinkler1.grain <- grain(compileCPT(list(r, s, g)));
+```
 We can now ask slightly more interesting questions:
-
+```r
  > ### What is the likelihood that it is raining given that the grass is damp?
 querygrain(expandedsprinkler1.grain  
            ,nodes='rain'                                   
@@ -201,6 +208,7 @@ $rain
  rain
      rain   norain
  0.182875 0.817125
+ ```
 What about the probability of rain given that the grass is not dry (thus either damp or wet)? We cannot calculate the two probabilities and add them, that quantity is not a probability as they are not mutually exclusive events.4
 
 Instead, we need to calculate:
@@ -208,7 +216,7 @@ Instead, we need to calculate:
 $$ P(R = \text{rain} \; | \; G = \text{damp}) \; P(G = \text{damp}) + P(R = \text{rain} \; | \; G = \text{wet}) \; P(G = \text{wet}) $$
 
 An alternative method - one that is probably easier in this case - is to inspect the joint distribution and add the probabilities.
-
+```r
 ### What is the likelihood that is raining given that the grass is either
 ### damp or wet?
  > ftable(querygrain(expandedsprinkler1.grain
@@ -221,20 +229,22 @@ An alternative method - one that is probably easier in this case - is to inspect
  dry             0.00002 0.00990 0.03200 0.43200
  damp            0.00040 0.05940 0.22400 0.04320
  wet             0.00158 0.12870 0.06400 0.00480
+ ```
 So, to calculate those probabilities we add up the probabilities where $G$ is either "damp" or "wet" and $R$ is "rain":
-
+```r
        rain         rain          norain
        sprinkler      on     off      on     off
  grass
  dry                   .       .       .       .
  damp            0.00040 0.05940       .       .
  wet             0.00158 0.12870       .       .
+ ```
 Thus our probability is
 
-$$ P(R | G \neg dry) = 0.00040 + 0.00158 + 0.05940 + 0.12870 = 0.19008 $$
+$$P(R | G \neg dry) = 0.00040 + 0.00158 + 0.05940 + 0.12870 = 0.19008$$
 
 Finally, what if we also have three levels of $R$? Instead of 'rain' and 'norain', we have 'norain', 'light', and 'heavy'. We need to expand the CPTs, but otherwise the network is unchanged.
-
+```r
 ### Create the network with three levels for R:
 r <- cptable(~rain  
             ,levels = c("norain", "light", "heavy")
@@ -254,9 +264,12 @@ g <- cptable(~grass | sprinkler + rain
                        ,0.05, 0.25, 0.70  ## OFF, Heavy
                         ));
 
-expandedsprinkler2.grain <- grain(compileCPT(list(r, s, g)));  
+expandedsprinkler2.grain <- grain(compileCPT(list(r, s, g))); 
+```
+
 Given that we have wet grass, what is the probability table for the 3 different levels of rain?
 
+```r
  ### What are the probability values for rain given that the
  ### grass is wet?
  > querygrain(expandedsprinkler2.grain
@@ -266,11 +279,13 @@ $rain
  rain
    norain    light    heavy
  0.328672 0.313872 0.357456
+```
+
 So, according to our CPTs and the network, wet grass means all three levels of rain are roughly equally likely, not something I would have expected! In this case it would be very helpful to gather evidence on the sprinkler, and include that in the computation.
 
 This is an excellent illustration of why PGMs and Bayesian networks are so useful. Once you start bringing in evidence and condition probability, it is unlikely you will have a good intuition on what the effects are. Human brains are rarely wired well for this kind of problem.
 
-Building Bayesian Networks from Data
+## Building Bayesian Networks from Data
 I really like the power of Bayesian networks. Despite being built from simple blocks, the interaction of those probabilities often result in non-intuitive outcomes. They do have limitations, and it is important to consider those.
 
 We will discuss other downsides in the next article, but one big one is probably becoming obvious: constructing the CPTs can be tedious. Bayesian networks often suffer from poor scaling. Creating a CPT for a variable with 5 possible values that depends on three other variables, each with 4 different levels is a nightmare to create. There are $4^{3} = 64$ combinations of conditions and each condition needs a probability for 5 levels.
@@ -280,8 +295,8 @@ We can mitigate this a little if we already have a lot of data. That way, we can
 This saves a lot of time and effort, but has its own issues. Some combinations may not appear in the data, requiring smoothing and introduce errors. More seriously, in many cases Bayesian networks have unobserved, missing, or latent variables, making it much harder to properly estimate the CPTs.
 
 We will return to these issues later in the series.
-
-Summary
+---
+## Summary
 In this first article I introduced Bayesian networks, illustrated the concepts using the simple Sprinkler system, and performed some conditional probability calculations using different levels of evidence.
 
 Now that we are comfortable with the basics, we can move on to the primary model I want to discuss in this series: attempting to model medical non-disclosure in underwriting life insurance. This is where customers can fail to disclose pre-existing medical conditions and lifestyle choices when applying for life insurance products. Such non-disclosure is not necessarily fraud (quite often it can be a simple, honest mistake), but insurers are very well-advised to spot it as soon as possible to minimise portfolio risk.
