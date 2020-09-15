@@ -2262,6 +2262,9 @@ further questions or comments or would like access to the code.
 Quantative finance is a huge topic, and one closely tied to actuarial studies
 so understanding the basics is very useful in insurance.
 
+### Acknowledgements
+
+Thanks to [Mick Cooney](https://github.com/kaybenleroll "Mick Cooney") for generously sharing ideas.
 
 
 [^futures]: A futures contract (*future*) is a simple type of derivative that allows your to buy or sell an asset today and take delivery of the asset at a future point in time. Futures differ from options in that entering into a futures contract obligates you to trade and so function in many ways like stock. I will not really discuss futures much in this article but a lot of the idiosyncratic nature of options contracts seems related to the fact that the first options exchanges were offshoots of futures exchanges. Please let me know if I am wrong about this.
@@ -2314,6 +2317,4 @@ so understanding the basics is very useful in insurance.
 
 [^readerexercise]: As a quick spot test for the reader, can you think of a scenario where this happens? If you can, I will be pleased. It means I have managed to successfully convey the core concepts to at least one other person! 
 
-### Acknowledgements
 
-Thanks to [Mick Cooney](https://github.com/kaybenleroll "Mick Cooney") for generously sharing ideas.
