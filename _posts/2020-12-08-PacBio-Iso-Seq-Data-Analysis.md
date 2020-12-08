@@ -9,3 +9,7 @@ tags: [PacBio, Long-reads]
 An Introduction to PacBio Iso-Seq data analysis.
 
 <!--more-->
+
+# First Post
+
+PacBio Sequel Systems (Sequel I and Sequel II) have two modes, Continuous Long Reas (CLR) and Circular Consensus Sequencing (CCS).
