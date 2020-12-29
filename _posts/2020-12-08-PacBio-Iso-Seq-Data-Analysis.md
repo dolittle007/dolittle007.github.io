@@ -41,7 +41,7 @@ ccs [movie].subreads.bam [movie].ccs.bam
 --skip-polish  # Only output the initial draft template (faster, less accurate)
 ```
 
-Note that _ccs_ run polish by default unless you don't want it (use --skip-polish ), so additional polishing step (__isoseq3 polish__) is no longer needed.
+Note that _ccs_ run polish by default unless you don't want it (use `--skip-polish` ), so additional polishing step (__isoseq3 polish__) is no longer needed.
 
 A typical command to run ccs will be like this, as followed.
 ```bash
@@ -51,7 +51,7 @@ OR
 ```bash
 ccs [movie].subreadset.bam [movie].ccs.bam --log-level INFO --report-json [movie].report.json --hifi-summary-json [movie].hifi_summary.json --log-file [movie].ccs.log --report-file [movie].report.txt --metrics-json [movie].zmw_metrics.json.gz -j 64
 ```
-One important changes for _ccs_ (>=v5.0.0) is that it has the --all mode. In this mode, _ccs_ outputs one representative sequence per productive ZMW, irrespective of quality and passes. 
+One important changes for _ccs_ (>=v5.0.0) is that it has the `--all` mode. In this mode, _ccs_ outputs one representative sequence per productive ZMW, irrespective of quality and passes. 
 
 Note that _ccs_ is now running on the Sequel IIe instrument, transferring HiFi reads directly off the instrument.
 The on-instrument ccs version and also SMRT Link ≥v10 run in the [__--all__](https://ccs.how/faq/mode-all.html) mode by default. 
