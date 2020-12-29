@@ -18,19 +18,29 @@ PacBio Sequel Systems (Sequel I and Sequel II) have two modes, Continuous Long R
 
 ### Software preparation
 
-
 ```bash
 conda install -c bioconda pbccs # install CCS version 5.0 or above
 conda install -c bioconda lima
 conda install -c bioconda isoseq3 # install isoseq v3.4.0 or above
+conda install -c bioconda pbcoretools # install dataset command
+conda install -c bioconda bamtools
+conda install -c bioconda minimap2
 ```
-#### Generate CCS
-If you don't already have CCS reads, run
+
+### Step1: Generate CCS (CCS reads)
+If you don't already have CCS reads, run [__ccs__](https://ccs.how/).
 
 ```bash
 ccs [movie].subreads.bam [movie].ccs.bam 
 ```
-Note that _ccs_ run polish by dedault unless you don't want it ( --skip-polish ), so __isoseq3 polish__ is no longer needed.
+#### Options 
+```bash
+--all  # Emit all ZMWs
+--min-rq # Minimum predicted accuracy in [0, 1]. using 0.99 by default.
+--skip-polish  # Only output the initial draft template (faster, less accurate)
+```
+
+Note that _ccs_ run polish by default unless you don't want it (use --skip-polish ), so additional polishing step (__isoseq3 polish__) is no longer needed.
 
 A typical command to run ccs will be like this, as followed.
 ```bash
@@ -50,9 +60,19 @@ But don't worry, if you want to only use HiFi reads, _ccs_ automatically generat
 * hifi_reads.fasta.gz
 * hifi_reads.bam
 
-### Barcode demultiplexer using LIMA
+### Step2: Barcode demultiplexer using LIMA (Full-length reads [FL reads])
+
+We use the [__lima__](https://github.com/pacificbiosciences/barcoding) tool to remove the 5' and 3' cDNA primers
+
 ```bash
-lima --isoseq --dump-clips [movie].ccs.bam primers.fasta [movie].fl.bam --log-file lima.log
+lima --isoseq --dump-clips [movie].ccs.bam primers.fasta [movie].fl.bam --peek-guess --log-file lima.log
+```
+#### Options
+
+```bash
+--isoseq  # Activate IsoSeq mode
+--dump-clips # Dump clipped regions in a separate output file <prefix>.lima.clips
+--peek-guess # Try to infer the used barcodes subset.
 ```
 
 [__lima__](https://github.com/pacificbiosciences/barcoding) identifies and removes the 5' and 3' cDNA primers. If the sample is barcoded, include the barcode as part of the primer.
@@ -67,3 +87,76 @@ prep, which are the officially recommended protocols:
     AAGCAGTGGTATCAACGCAGAGTACATGGGG
     >NEB_Clontech_3p
     GTACTCTGCGTTGATACCACTGCTT
+
+If there are more than two sequences in your `primer.fasta` file or better said more than one pair of 5' and 3' primers in Example 1, please use lima with __--peek-guess__ to remove spurious false positive signal. If you provided only one pair of 5' and 3' primers in the `primer.fasta`, --peak-guess become unnecessary.
+
+Output files will be called according to their primer pair. Example for
+single sample libraries:
+
+    [movie].fl.NEB_5p--NEB_Clontech_3p.bam
+    
+If multiple 5'/3' pairs of primers are given, lima will output one` <prefix>.<5p>--<3p>.bam` for each pair. If you want to analyze all the demultiplexed FL reads together to increase transcript recovery (Example: Same species, different tissues), you must make a combined data set:
+
+```bash
+    dataset create --type ConsensusReadSet combined_demux.consensusreadset.xml \
+    prefix.5p--barcode1_3p.bam \
+    prefix.5p--barcode2_3p.bam \
+    prefix.5p--barcode3_3p.bam ...
+```
+### Step3: Remove PolyA Tail and Artificial Concatemers (full-length, non-concatemer reads[FLNC reads])
+We use isoseq3 refine to remove polyA tail and artificial concatemers:
+
+```bash
+isoseq3 refine --require-polya [movie].5p--3p.bam primers.fasta [movie].flnc.bam
+```
+#### Options
+
+```bash
+--min-polya-length  # Minimum poly(A) tail length. [20]
+--require-polya     # Require FL reads to have a poly(A) tail and remove it.
+```
+
+Analyze multiple the demultiplexed FL reads together, showed above.
+```bash
+isoseq3 refine --require-polya combined_demux.consensusreadset.xml primers.fasta flnc.bam
+```
+#### Output
+Output The following output files containing full-length non-concatemer reads:
+
+     <movie>.flnc.bam
+     <movie>.flnc.consensusreadset.xml
+     
+An intermediate flnc.bam file is produced which contains the FLNC reads. To convert to FASTA format, run:
+
+```bash
+bamtools convert -format fasta -in flnc.bam > flnc.fasta
+```
+Now, flnc.fasta is the full-length, non-concatemer FASTA file you can use to align back to the genome for analysis!
+
+### Step4: Cluster FLNC reads and generate polished transcripts (HQ Transcript Isoforms)
+```bash
+isoseq3 cluster [movie].flnc.bam [movie].polished.bam --verbose --use-qvs
+```
+#### Options
+
+```bash
+--use-qvs     # Use CCS QVs
+```
+#### Output
+After completion, you will see the following files:
+
+    [movie].polished.hq.bam       
+    [movie].polished.hq.bam.pbi 
+    [movie].polished.lq.bam       
+    [movie].polished.lq.bam.pbi   
+    [movie].polished.hq.fasta.gz
+    [movie].polished.lq.fasta.gz
+    [movie].polished.cluster   
+    [moive].polished.transcriptset.xml
+    
+### Step5: Align to Genome
+We currently recommend using [__minimap2__](https://github.com/lh3/minimap2) to align to the reference genome.
+
+```bash
+minimap2 -t 30 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:PacBio" --MD -ax splice -uf --secondary=no -C5 hg38.fasta polished.hq.fasta > align.sam  
+```    
