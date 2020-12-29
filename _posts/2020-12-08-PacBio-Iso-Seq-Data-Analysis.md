@@ -42,7 +42,8 @@ ccs [movie].subreadset.bam [movie].ccs.bam --log-level INFO --report-json [movie
 ```
 One important changes for _ccs_ (>=v5.0.0) is that it has the --all mode. In this mode, _ccs_ outputs one representative sequence per productive ZMW, irrespective of quality and passes. 
 Note that _ccs_ is now running on the Sequel IIe instrument, transferring HiFi reads directly off the instrument.
-The on-instrument ccs version and also SMRT Link ≥v10 run in the --all mode by default. But don't worry, if you want to only use HiFi reads, _ccs_ automatically generates additional files for your convenience that only contain HiFi reads:
+The on-instrument ccs version and also SMRT Link ≥v10 run in the --all mode by default. 
+But don't worry, if you want to only use HiFi reads, _ccs_ automatically generates additional files for your convenience that only contain HiFi reads:
 * hifi_reads.fastq.gz
 * hifi_reads.fasta.gz
 * hifi_reads.bam
