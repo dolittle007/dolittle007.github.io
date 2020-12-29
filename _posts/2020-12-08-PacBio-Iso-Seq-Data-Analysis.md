@@ -25,6 +25,7 @@ conda install -c bioconda isoseq3 # install isoseq v3.4.0 or above
 conda install -c bioconda pbcoretools # install dataset command
 conda install -c bioconda bamtools
 conda install -c bioconda minimap2
+conda install -c bioconda samtools
 ```
 
 ### Step1: Generate CCS (CCS reads)
@@ -159,8 +160,11 @@ After completion, you will see the following files:
 We currently recommend using [__minimap2__](https://github.com/lh3/minimap2) to align to the reference genome.
 
 ```bash
-minimap2 -t 30 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:PacBio" --MD -ax splice -uf --secondary=no -C5 hg38.fasta polished.hq.fasta > align.sam  
-```    
+minimap2 -t 8 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:PacBio" --MD -ax splice -uf --secondary=no -C5 hg38.fasta polished.hq.fasta > aligned.sam
+samtools sort -@ 8 -O BAM align.sam -o aligned.sort.sam
+samtools index aligned.sort.bam
+```  
+
 ### References
 * [Installing-and-Running-Iso-Seq-3-using-Conda](https://github.com/PacificBiosciences/IsoSeq_SA3nUP/wiki/Tutorial:-Installing-and-Running-Iso-Seq-3-using-Conda)
 * [Iso-Seq-Single-Cell-Analysis:Recommended-Analysis-Guidelines](https://github.com/Magdoll/cDNA_Cupcake/wiki/Iso-Seq-Single-Cell-Analysis:-Recommended-Analysis-Guidelines)
