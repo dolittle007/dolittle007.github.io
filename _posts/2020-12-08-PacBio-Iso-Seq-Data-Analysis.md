@@ -143,6 +143,7 @@ isoseq3 cluster [movie].flnc.bam [movie].polished.bam --verbose --use-qvs
 --use-qvs     # Use CCS QVs
 ```
 #### Output
+Note: Because the ccs was run with Polish, the isoseq3 cluster output is already polished! No additional polishing step is required.
 After completion, you will see the following files:
 
     [movie].polished.hq.bam       
@@ -160,3 +161,10 @@ We currently recommend using [__minimap2__](https://github.com/lh3/minimap2) to 
 ```bash
 minimap2 -t 30 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:PacBio" --MD -ax splice -uf --secondary=no -C5 hg38.fasta polished.hq.fasta > align.sam  
 ```    
+### References
+* [Installing-and-Running-Iso-Seq-3-using-Conda](https://github.com/PacificBiosciences/IsoSeq_SA3nUP/wiki/Tutorial:-Installing-and-Running-Iso-Seq-3-using-Conda)
+* [Iso-Seq-Single-Cell-Analysis:Recommended-Analysis-Guidelines](https://github.com/Magdoll/cDNA_Cupcake/wiki/Iso-Seq-Single-Cell-Analysis:-Recommended-Analysis-Guidelines)
+* [Best practice for aligning Iso Seq to reference genome: minimap2, deSALT, GMAP, STAR, BLAT](https://github.com/Magdoll/cDNA_Cupcake/wiki/Best-practice-for-aligning-Iso-Seq-to-reference-genome:-minimap2,-deSALT,-GMAP,-STAR,-BLAT)
+* [LIMA barcoding](https://github.com/pacificbiosciences/barcoding)
+* [Isoseq3 clustering(Generate transcripts by clustering HiFi reads)](https://github.com/PacificBiosciences/IsoSeq/blob/master/isoseq-clustering.md)
+* [Isoseq3 deduplication (Generate transcripts by PCR deduplication (single-cell and UMIs))](https://github.com/PacificBiosciences/IsoSeq/blob/master/isoseq-deduplication.md)
