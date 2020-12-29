@@ -168,3 +168,4 @@ minimap2 -t 30 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:PacBio" --MD -ax splice -uf 
 * [LIMA barcoding](https://github.com/pacificbiosciences/barcoding)
 * [Isoseq3 clustering(Generate transcripts by clustering HiFi reads)](https://github.com/PacificBiosciences/IsoSeq/blob/master/isoseq-clustering.md)
 * [Isoseq3 deduplication (Generate transcripts by PCR deduplication (single-cell and UMIs))](https://github.com/PacificBiosciences/IsoSeq/blob/master/isoseq-deduplication.md)
+* [minimap2 manual](https://lh3.github.io/minimap2/minimap2.html)
