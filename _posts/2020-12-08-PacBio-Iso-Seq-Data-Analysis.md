@@ -41,9 +41,29 @@ OR
 ccs [movie].subreadset.bam [movie].ccs.bam --log-level INFO --report-json [movie].report.json --hifi-summary-json [movie].hifi_summary.json --log-file [movie].ccs.log --report-file [movie].report.txt --metrics-json [movie].zmw_metrics.json.gz -j 64
 ```
 One important changes for _ccs_ (>=v5.0.0) is that it has the --all mode. In this mode, _ccs_ outputs one representative sequence per productive ZMW, irrespective of quality and passes. 
+
 Note that _ccs_ is now running on the Sequel IIe instrument, transferring HiFi reads directly off the instrument.
-The on-instrument ccs version and also SMRT Link ≥v10 run in the --all mode by default. 
+The on-instrument ccs version and also SMRT Link ≥v10 run in the [__--all__](https://ccs.how/faq/mode-all.html) mode by default. 
+
 But don't worry, if you want to only use HiFi reads, _ccs_ automatically generates additional files for your convenience that only contain HiFi reads:
 * hifi_reads.fastq.gz
 * hifi_reads.fasta.gz
 * hifi_reads.bam
+
+### Barcode demultiplexer using LIMA
+```bash
+lima --isoseq --dump-clips [movie].ccs.bam primers.fasta [movie].fl.bam --log-file lima.log
+```
+
+[__lima__](https://github.com/pacificbiosciences/barcoding) identifies and removes the 5' and 3' cDNA primers. If the sample is barcoded, include the barcode as part of the primer.
+
+**Example 1:**
+Following is the `primer.fasta` for the Clontech SMARTer and NEB cDNA library
+prep, which are the officially recommended protocols:
+
+    >NEB_5p
+    GCAATGAAGTCGCAGGGTTGGG
+    >Clontech_5p
+    AAGCAGTGGTATCAACGCAGAGTACATGGGG
+    >NEB_Clontech_3p
+    GTACTCTGCGTTGATACCACTGCTT
