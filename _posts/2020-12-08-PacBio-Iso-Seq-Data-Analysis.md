@@ -160,8 +160,8 @@ After completion, you will see the following files:
 We currently recommend using [__minimap2__](https://github.com/lh3/minimap2) to align to the reference genome.
 
 ```bash
-minimap2 -t 8 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:PacBio" --MD -ax splice -uf --secondary=no -C5 hg38.fasta polished.hq.fasta > aligned.sam
-samtools sort -@ 8 -O BAM align.sam -o aligned.sort.sam
+minimap2 -t 8 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:PacBio" --MD -ax splice:hq -uf --secondary=no hg38.fasta polished.hq.fasta > aligned.sam
+samtools sort -@ 8 -O BAM align.sam -o aligned.sort.bam
 samtools index aligned.sort.bam
 ```  
 
