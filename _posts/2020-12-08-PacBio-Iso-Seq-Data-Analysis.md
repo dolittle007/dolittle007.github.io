@@ -63,7 +63,7 @@ But don't worry, if you want to only use HiFi reads, _ccs_ automatically generat
 
 ### Step2: Barcode demultiplexer using LIMA (Full-length reads [FL reads])
 
-We use the [__lima__](https://github.com/pacificbiosciences/barcoding) tool to remove the 5' and 3' cDNA primers
+We use the [__lima__](https://lima.how/) tool to remove the 5' and 3' cDNA primers
 
 ```bash
 lima --isoseq --dump-clips [movie].ccs.bam primers.fasta [movie].fl.bam --peek-guess --log-file lima.log
@@ -76,7 +76,7 @@ lima --isoseq --dump-clips [movie].ccs.bam primers.fasta [movie].fl.bam --peek-g
 --peek-guess # Try to infer the used barcodes subset.
 ```
 
-[__lima__](https://github.com/pacificbiosciences/barcoding) identifies and removes the 5' and 3' cDNA primers. If the sample is barcoded, include the barcode as part of the primer.
+[__lima__](https://lima.how/) identifies and removes the 5' and 3' cDNA primers. If the sample is barcoded, include the barcode as part of the primer.
 
 **Example 1:**
 Following is the `primer.fasta` for the Clontech SMARTer and NEB cDNA library
