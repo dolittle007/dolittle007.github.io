@@ -40,6 +40,17 @@ bwOutput.close()
 
 ### Merge bigwig files using average value
 
+Software preparation
+
+```bash
+# install fetchChromSizes
+wget https://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/fetchChromSizes
+# install wigToBigWig
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/wigToBigWig
+# install wiggletools
+conda install -c bioconda wiggletools
+```
+
 ```bash
 fetchChromSizes hg38 > hg38.genome
 wiggletools mean sample1.bw sample2.bw ... sampleN.bw | wigToBigWig stdin hg38.genome mean.bw
