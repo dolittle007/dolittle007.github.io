@@ -21,10 +21,11 @@ layout: page
 * [Deep Learning with Python](https://www.amazon.com/Deep-Learning-Python-Francois-Chollet/dp/1617294438 "Deep Learning with Python")
 * [Python Data Science Handbook](https://www.amazon.com/Python-Data-Science-Handbook-Essential/dp/1491912057 "Python Data Science Handbook") ([Read online](https://jakevdp.github.io/PythonDataScienceHandbook/))
 * [R for Data Science](https://www.amazon.com/R-Data-Science-Hadley-Wickham/dp/1491910399/ "R for Data Science") ([Read online](http://r4ds.had.co.nz/))
+* [R in a Nutshell](http://www.amazon.com/R-Nutshell-OReilly-Joseph-Adler/dp/144931208X/ "R In a Nutshell")
+
 ### The books I am reading
 * [The Elements of Statistical Learning](http://www.amazon.com/Elements-Statistical-Learning-Prediction-Statistics/dp/0387848576 "The elements of statistical learning")
 * [Python for Finance](http://www.amazon.com/Python-Finance-Analyze-Financial-Data/dp/1491945281 "Python for Finance")
-* [Statistics in a Nutshell]()
 * [R in a Nutshell](http://www.amazon.com/R-Nutshell-OReilly-Joseph-Adler/dp/144931208X/ "R In a Nutshell")
 * [Graph Analysis and Visualization](http://www.amazon.com/Graph-Analysis-Visualization-Discovering-Opportunity/dp/1118845846/ "Graph Analysis and Visualization")
 * [15-Minute Spanish](http://www.amazon.com/15-Minute-Spanish-Eyewitness-Travel-Language/dp/1409381692 "15-Minute Spanish")
@@ -33,3 +34,4 @@ layout: page
 * [Modern Statistics for Modern Biology](https://www.amazon.com/Modern-Statistics-Biology-Susan-Holmes/dp/1108705294 "Modern Statistics for Modern Biology") ([Read online](http://web.stanford.edu/class/bios221/book/))
 * [Interpretable Machine Learning](https://leanpub.com/interpretable-machine-learning "Interpretable Machine Learning") ([Read online](https://christophm.github.io/interpretable-ml-book/))
 * [Data Visualization with R](https://rkabacoff.github.io/datavis/)
+* [Bayesian Modeling and Computation in Python](https://www.amazon.com/Bayesian-Modeling-Computation-Chapman-Statistical/dp/036789436X "Bayesian Modeling and Computation in Python") ([Read online](https://bayesiancomputationbook.com/))
