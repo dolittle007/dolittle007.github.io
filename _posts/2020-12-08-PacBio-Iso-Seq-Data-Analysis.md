@@ -28,13 +28,24 @@ conda install -c bioconda minimap2
 conda install -c bioconda samtools
 ```
 
+### Annotation preparation
+```bash
+wget -c https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_39/gencode.v39.annotation.gff3.gz
+gunzip gencode.v39.annotation.gff3.gz
+
+paftools.js gff2bed gencode.v39.annotation.gff3 > hg38.bigbed
+```
+
+
+
+
 ### Step1: Generate CCS (CCS reads)
 If you don't already have CCS reads, run [__ccs__](https://ccs.how/).
 
 ```bash
-ccs [movie].subreads.bam [movie].ccs.bam 
+ccs [movie].subreads.bam [movie].ccs.bam
 ```
-#### Options 
+#### Options
 ```bash
 --all  # Emit all ZMWs
 --min-rq # Minimum predicted accuracy in [0, 1]. using 0.99 by default.
@@ -51,7 +62,7 @@ OR
 ```bash
 ccs [movie].subreadset.bam [movie].ccs.bam --log-level INFO --report-json [movie].report.json --hifi-summary-json [movie].hifi_summary.json --log-file [movie].ccs.log --report-file [movie].report.txt --metrics-json [movie].zmw_metrics.json.gz -j 64
 ```
-One important changes for _ccs_ (>=v5.0.0) is that it has the `--all` mode. In this mode, _ccs_ outputs one representative sequence per productive ZMW, irrespective of quality and passes. 
+One important changes for _ccs_ (>=v5.0.0) is that it has the `--all` mode. In this mode, _ccs_ outputs one representative sequence per productive ZMW, irrespective of quality and passes.
 
 Note that _ccs_ is now running on the Sequel IIe instrument, transferring HiFi reads directly off the instrument.
 The on-instrument ccs version and also SMRT Link ≥v10 run in the [__--all__](https://ccs.how/faq/mode-all.html) mode by default. 
@@ -126,7 +137,7 @@ Output The following output files containing full-length non-concatemer reads:
 
      <movie>.flnc.bam
      <movie>.flnc.consensusreadset.xml
-     
+
 An intermediate flnc.bam file is produced which contains the FLNC reads. To convert to FASTA format, run:
 
 ```bash
@@ -147,23 +158,23 @@ isoseq3 cluster [movie].flnc.bam [movie].polished.bam --verbose --use-qvs
 Note: Because the ccs was run with Polish, the isoseq3 cluster output is already polished! No additional polishing step is required.
 After completion, you will see the following files:
 
-    [movie].polished.hq.bam       
-    [movie].polished.hq.bam.pbi 
-    [movie].polished.lq.bam       
-    [movie].polished.lq.bam.pbi   
+    [movie].polished.hq.bam
+    [movie].polished.hq.bam.pbi
+    [movie].polished.lq.bam
+    [movie].polished.lq.bam.pbi
     [movie].polished.hq.fasta.gz
     [movie].polished.lq.fasta.gz
-    [movie].polished.cluster   
+    [movie].polished.cluster
     [moive].polished.transcriptset.xml
     
 ### Step5: Align to Genome
 We currently recommend using [__minimap2__](https://github.com/lh3/minimap2) to align to the reference genome.
 
 ```bash
-minimap2 -t 8 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:PacBio" --MD -ax splice:hq -uf --secondary=no hg38.fasta polished.hq.fasta > aligned.sam
+minimap2 -t 8 -Y -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:PacBio" --MD -ax splice:hq -uf --secondary=no --junc-bed hg38.bigbed hg38.fasta polished.hq.fasta > aligned.sam
 samtools sort -@ 8 -O BAM align.sam -o aligned.sort.bam
 samtools index aligned.sort.bam
-```  
+```
 
 ### References
 * [Installing-and-Running-Iso-Seq-3-using-Conda](https://github.com/PacificBiosciences/IsoSeq_SA3nUP/wiki/Tutorial:-Installing-and-Running-Iso-Seq-3-using-Conda)
