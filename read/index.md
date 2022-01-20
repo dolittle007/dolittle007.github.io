@@ -35,3 +35,4 @@ layout: page
 * [Interpretable Machine Learning](https://leanpub.com/interpretable-machine-learning "Interpretable Machine Learning") ([Read online](https://christophm.github.io/interpretable-ml-book/))
 * [Data Visualization with R](https://rkabacoff.github.io/datavis/)
 * [Bayesian Modeling and Computation in Python](https://www.amazon.com/Bayesian-Modeling-Computation-Chapman-Statistical/dp/036789436X "Bayesian Modeling and Computation in Python") ([Read online](https://bayesiancomputationbook.com/))
+* [Statistical Rethinking](https://www.amazon.com/Statistical-Rethinking-Bayesian-Examples-Chapman/dp/036713991X/ "Statistical Rethinking") ([Online Course](https://github.com/rmcelreath/stat_rethinking_2022))
