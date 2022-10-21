@@ -54,6 +54,11 @@ guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-
 ### Step2: Identify full-length Nanopore cDNA reads
 In this step, [__Pychopper__](https://github.com/epi2me-labs/pychopper) is used to identify, orient and trim full-length Nanopore cDNA reads. Pychopper can also rescue fused reads ([__chimeric reads__](https://yulijia.net/en/bioinformatics/2015/12/21/Linear-Chimeric-Supplementary-Primary-and-Secondary-Alignments.html)).
 
+![center](/figures/2022-10-20-ONT-direct-cDNA-Data-Analysis/SSP_VNP.png) 
+
+__SSP__: strand-switching primer
+__VNP__: anchored oligo(dT) VN primer
+
 #### Combine called FASTQ files
 ```bash
 cat ./guppy_output/pass/*.gz > raw.fastq.gz
