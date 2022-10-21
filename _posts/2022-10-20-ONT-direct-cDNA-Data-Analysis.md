@@ -52,7 +52,7 @@ guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-
 ```
 
 ### Step2: Identify full-length Nanopore cDNA reads
-In this step, Pychopper v2 is used to identify, orient and trim full-length Nanopore cDNA reads. Pychopper can also rescue fused reads ([__chimeric reads__](https://yulijia.net/en/bioinformatics/2015/12/21/Linear-Chimeric-Supplementary-Primary-and-Secondary-Alignments.html)).
+In this step, [__Pychopper__](https://github.com/epi2me-labs/pychopper) is used to identify, orient and trim full-length Nanopore cDNA reads. Pychopper can also rescue fused reads ([__chimeric reads__](https://yulijia.net/en/bioinformatics/2015/12/21/Linear-Chimeric-Supplementary-Primary-and-Secondary-Alignments.html)).
 
 #### Combine called FASTQ files
 ```bash
@@ -80,3 +80,8 @@ minimap2 -Y -t 8 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:ONT" --MD -ax splice -uf -
 samtools sort -@ 8 -O BAM align.sam -o aligned.sort.bam
 samtools index aligned.sort.bam
 ```
+
+### References
+* [Pychopper](https://github.com/epi2me-labs/pychopper)
+* [Nanopore sequencing of RNA and cDNA molecules in Escherichia coli](https://rnajournal.cshlp.org/content/28/3/400.full)
+* [minimap2 manual](https://lh3.github.io/minimap2/minimap2.html)
