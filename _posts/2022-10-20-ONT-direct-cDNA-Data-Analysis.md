@@ -69,6 +69,11 @@ cat ./guppy_output/pass/*.gz > raw.fastq.gz
 pychopper -r report.pdf -k PCS109 -u unclassified.fq -w rescued.fq raw.fastq.gz full_length_output.fq
 ```
 #### Second round full-length cDNA reads identification applied to the unclassified direct cDNA reads with DCS-specific read rescue enabled (parameter -x).
+
+DCS109 can suffer from a specific reverse transcription artefact, which will lead to 2D-like reads with two VNP primers at the ends.
+
+The -x DCS109 mode should be used on the unclassified reads only (while keeping the classified ones of course). This will classify the -VNP,VNP configurations as full length (also rescuing fused reads with this configuration, though they are not prevalent).
+
 ```bash
 pychopper -r report_2.pdf -k PCS109 -x PCS109 -u unclassified_2.fq -w rescued_2.fq unclassified.fq full_length_output_2.fq
 ```
