@@ -87,6 +87,6 @@ samtools index aligned.sort.bam
 ```
 
 ### References
-* [Pychopper](https://github.com/epi2me-labs/pychopper)
+* [Pychopper manual](https://github.com/epi2me-labs/pychopper)
 * [Nanopore sequencing of RNA and cDNA molecules in Escherichia coli](https://rnajournal.cshlp.org/content/28/3/400.full)
 * [minimap2 manual](https://lh3.github.io/minimap2/minimap2.html)
