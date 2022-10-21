@@ -28,8 +28,16 @@ PATH=/path/to/ont-guppy-cpu/bin:$PATH
 conda install -c bioconda minimap2 # paftools.js will be install automatically.
 conda install -c bioconda samtools
 
-# install pychopper and nhmmscan
-conda install -c epi2melabs -c conda-forge -c bioconda "epi2melabs::pychopper"
+# install pychopper
+conda install -c epi2melabs -c conda-forge -c bioconda "epi2melabs::pychopper" # nhmmscan will be install automatically.
+```
+
+### Annotation preparation
+```bash
+wget -c https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_39/gencode.v39.annotation.gff3.gz
+gunzip gencode.v39.annotation.gff3.gz
+
+paftools.js gff2bed gencode.v39.annotation.gff3 > hg38.bigbed
 ```
 
 ### Step1: Basecalling
@@ -42,5 +50,33 @@ guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-
 ```bash
 guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 ----gpu_runners_per_device 80 -x "cuda:all" --compress_fastq --trim_strategy none
 ```
+
 ### Step2: Identify full-length Nanopore cDNA reads
 In this step, Pychopper v2 is used to identify, orient and trim full-length Nanopore cDNA reads. Pychopper can also rescue fused reads ([__chimeric reads__](https://yulijia.net/en/bioinformatics/2015/12/21/Linear-Chimeric-Supplementary-Primary-and-Secondary-Alignments.html)).
+
+#### Combine called FASTQ files
+```bash
+cat ./guppy_output/pass/*.gz > raw.fastq.gz
+```
+
+#### First round full-length cDNA reads identification with standard parameters using the default pHMM backend and autotuned cutoff parameters estimated from subsampled data:
+```bash
+pychopper -r report.pdf -k PCS109 -u unclassified.fq -w rescued.fq raw.fastq.gz full_length_output.fq
+```
+#### Second round full-length cDNA reads identification applied to the unclassified direct cDNA reads with DCS-specific read rescue enabled (parameter -x).
+```bash
+pychopper -r report_2.pdf -k PCS109 -x PCS109 -u unclassified_2.fq -w rescued_2.fq unclassified.fq full_length_output_2.fq
+```
+#### Full-length and rescued reads are merged and used for subsequent steps.
+```bash
+cat full_length_output.fq full_length_output_2.fq rescued.fq rescued_2.fq > full_length_cdna.fastq
+```
+
+### Step3: Aign to Genome
+We currently recommend using [__minimap2__](https://github.com/lh3/minimap2) to align to the reference genome.
+
+```bash
+minimap2 -Y -t 8 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:ONT" --MD -ax splice -uf -k14 --junc-bed hg38.bigbed hg38.fasta full_length_cdna.fastq > aligned.sam
+samtools sort -@ 8 -O BAM align.sam -o aligned.sort.bam
+samtools index aligned.sort.bam
+```
