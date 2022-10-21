@@ -14,8 +14,13 @@ An Introduction to Nanopore direct RNA data analysis.
 
 ```bash
 # Install Guppy CPU version
-wget -c https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_6.0.1_linux64.tar.gz
-tar zxvf ont-guppy-cpu_6.0.1_linux64.tar.gz
+wget -c https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_6.3.8_linux64.tar.gz
+tar zxvf ont-guppy-cpu_6.3.8_linux64.tar.gz
+
+# Install Guppy GPU version
+wget -c https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_6.3.8_linux64.tar.gz
+tar zxvf ont-guppy_6.3.8_linux64.tar.gz
+
 # add ont-guppy-cpu/bin to $PATH in .bashrc file
 PATH=/path/to/ont-guppy-cpu/bin:$PATH
 
@@ -34,8 +39,13 @@ paftools.js gff2bed gencode.v39.annotation.gff3 > hg38.bigbed
 
 ### Step1: Basecalling
 
+#### CPU-based basecalling
 ```bash
-guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --client_id 300 --compress_fastq
+guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --compress_fastq
+```
+#### GPU-based basecalling
+```bash
+guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 ----gpu_runners_per_device 80 -x "cuda:all" --compress_fastq
 ```
 
 #### Options 
@@ -55,7 +65,7 @@ guppy_basecaller --print_workflows
 Alternatively, you can specific config file
 
 ```bash
-guppy_basecaller --input_path ./fast5 --save_path ./guppy_output -c rna_r9.4.1_70bps_hac --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --client_id 300 --compress_fastq
+guppy_basecaller --input_path ./fast5 --save_path ./guppy_output -c rna_r9.4.1_70bps_hac --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --compress_fastq
 ```
 
 #### What is RNA Calibration Strand (RCS)?
