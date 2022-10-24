@@ -41,18 +41,22 @@ paftools.js gff2bed gencode.v39.annotation.gff3 > hg38.bigbed
 
 #### CPU-based basecalling
 ```bash
-guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --compress_fastq
+guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --compress_fastq --reverse_sequence and --u_substitution
 ```
+
 #### GPU-based basecalling
 ```bash
-guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 ----gpu_runners_per_device 80 -x "cuda:all" --compress_fastq
+guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 ----gpu_runners_per_device 80 -x "cuda:all" --compress_fastq --reverse_sequence and --u_substitution
 ```
+WARNING: Use RNA-specific parameters, --calib_detect, --reverse_sequence, --u_substitution.
 
 #### Options 
 ```bash
 --input_path  # The location of FAST5 files
 --save_path # The location of output FASTQ files. It have three subfolders (pass, fail, and calibration_strands).
 --calib_detect  # Enable RNA calibration strand (RCS) detection and filtering.
+--reverse_sequence # Reverse the called sequence.
+--u_substitution # Substitute 'U' for 'T' in the called sequence.
 --compress_fastq # Compress fastq output files with gzip
 --flowcell # flowcell name
 --kit # kit name
@@ -65,7 +69,7 @@ guppy_basecaller --print_workflows
 Alternatively, you can specific config file
 
 ```bash
-guppy_basecaller --input_path ./fast5 --save_path ./guppy_output -c rna_r9.4.1_70bps_hac --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --compress_fastq
+guppy_basecaller --input_path ./fast5 --save_path ./guppy_output -c rna_r9.4.1_70bps_hac --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --compress_fastq --reverse_sequence and --u_substitution
 ```
 
 #### What is RNA Calibration Strand (RCS)?
