@@ -41,12 +41,12 @@ paftools.js gff2bed gencode.v39.annotation.gff3 > hg38.bigbed
 
 #### CPU-based basecalling
 ```bash
-guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --compress_fastq --reverse_sequence and --u_substitution
+guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --compress_fastq --reverse_sequence --u_substitution
 ```
 
 #### GPU-based basecalling
 ```bash
-guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 ----gpu_runners_per_device 80 -x "cuda:all" --compress_fastq --reverse_sequence and --u_substitution
+guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 ----gpu_runners_per_device 80 -x "cuda:all" --compress_fastq --reverse_sequence --u_substitution
 ```
 WARNING: Use RNA-specific parameters, --calib_detect, --reverse_sequence, --u_substitution.
 
