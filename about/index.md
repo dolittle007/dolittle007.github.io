@@ -5,7 +5,7 @@ layout: page
 
 # About Me
 
-#### I'm a data enthusiast and also a PhD graduated from the University of Hong Kong.
+#### I'm a data enthusiast and also a research associate at Northwestern University.
 
 
 <a class="graybutton" href="/about/TYW_CV.pdf">resume</a>
@@ -19,7 +19,7 @@ layout: page
 
 ## Summary
 
-In the last 8+ years I've been spending my time working on a number of projects, 
+In the last 12+ years I've been spending my time working on a number of projects, 
 most of them with the central theme of exploring, analyzing and visualizing biological data 
 in a context of complicated biology. 
 
