@@ -44,14 +44,14 @@ paftools.js gff2bed gencode.v39.annotation.gff3 > hg38.bigbed
 
 #### CPU-based basecalling
 ```bash
-guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --compress_fastq --trim_strategy none
+guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-DCS109 --num_callers 16 --cpu_threads_per_caller 8 --compress_fastq --trim_strategy none
 ```
 #### GPU-based basecalling
 ```bash
-guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 ----gpu_runners_per_device 80 -x "cuda:all" --compress_fastq --trim_strategy none
+guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-DCS109 --num_callers 16 --gpu_runners_per_device 80 -x "cuda:all" --compress_fastq --trim_strategy none
 ```
 
-:warning: `Do NOT Turn on trimming (setting *--trim_strategy none* ) during basecalling as it will remove the primers needed for classifying the reads!`
+:warning: `Do NOT Turn on trimming (setting --trim_strategy none ) during basecalling as it will remove the primers needed for classifying the reads!`
 
 ### Step2: Identify full-length Nanopore cDNA reads
 In this step, [__Pychopper__](https://github.com/epi2me-labs/pychopper) is used to identify, orient and trim full-length Nanopore cDNA reads. Pychopper can also rescue fused reads ([__chimeric reads__](https://yulijia.net/en/bioinformatics/2015/12/21/Linear-Chimeric-Supplementary-Primary-and-Secondary-Alignments.html)).
