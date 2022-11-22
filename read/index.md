@@ -38,3 +38,4 @@ layout: page
 * [Statistical Rethinking](https://www.amazon.com/Statistical-Rethinking-Bayesian-Examples-Chapman/dp/036713991X/ "Statistical Rethinking") ([Online Course](https://github.com/rmcelreath/stat_rethinking_2022))
 * [Natural Language Processing with Transformers](https://www.amazon.com/Natural-Language-Processing-Transformers-Revised/dp/1098136799/ "Natural Language Processing with Transformers") ([Online Notebook](https://github.com/nlp-with-transformers/notebooks))
 * [Machine Learning with PyTorch and Scikit-Learn](https://www.amazon.com/Machine-Learning-PyTorch-Scikit-Learn-learning/dp/1801819319/ "Machine Learning with PyTorch and Scikit-Learn") ([Online Notebook](https://github.com/rasbt/machine-learning-book))
+* [Programming Rust](https://www.amazon.com/Programming-Rust-Fast-Systems-Development/dp/1492052590/ "Programming Rust") ([Online Code](https://github.com/ProgrammingRust))
