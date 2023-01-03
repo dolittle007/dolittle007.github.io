@@ -22,12 +22,12 @@ layout: page
 * [Python Data Science Handbook](https://www.amazon.com/Python-Data-Science-Handbook-Essential/dp/1491912057 "Python Data Science Handbook") ([Read online](https://jakevdp.github.io/PythonDataScienceHandbook/))
 * [R for Data Science](https://www.amazon.com/R-Data-Science-Hadley-Wickham/dp/1491910399/ "R for Data Science") ([Read online](http://r4ds.had.co.nz/))
 * [R in a Nutshell](http://www.amazon.com/R-Nutshell-OReilly-Joseph-Adler/dp/144931208X/ "R In a Nutshell")
+* [Graph Analysis and Visualization](http://www.amazon.com/Graph-Analysis-Visualization-Discovering-Opportunity/dp/1118845846/ "Graph Analysis and Visualization")
+* [Python for Finance](http://www.amazon.com/Python-Finance-Analyze-Financial-Data/dp/1491945281 "Python for Finance")
+
 
 ### The books I am reading
 * [The Elements of Statistical Learning](http://www.amazon.com/Elements-Statistical-Learning-Prediction-Statistics/dp/0387848576 "The elements of statistical learning")
-* [Python for Finance](http://www.amazon.com/Python-Finance-Analyze-Financial-Data/dp/1491945281 "Python for Finance")
-* [R in a Nutshell](http://www.amazon.com/R-Nutshell-OReilly-Joseph-Adler/dp/144931208X/ "R In a Nutshell")
-* [Graph Analysis and Visualization](http://www.amazon.com/Graph-Analysis-Visualization-Discovering-Opportunity/dp/1118845846/ "Graph Analysis and Visualization")
 * [15-Minute Spanish](http://www.amazon.com/15-Minute-Spanish-Eyewitness-Travel-Language/dp/1409381692 "15-Minute Spanish")
 * [Fluent Python](http://www.amazon.com/Fluent-Python-Concise-Effective-Programming/dp/1491946008 "Fluent Python")
 * [Fundamentals of Data Visualization]( https://www.amazon.com/Fundamentals-Data-Visualization-Informative-Compelling/dp/1492031089 "Fundamentals of Data Visualization") ([Read online](https://serialmentor.com/dataviz/))
@@ -39,3 +39,4 @@ layout: page
 * [Natural Language Processing with Transformers](https://www.amazon.com/Natural-Language-Processing-Transformers-Revised/dp/1098136799/ "Natural Language Processing with Transformers") ([Online Notebook](https://github.com/nlp-with-transformers/notebooks))
 * [Machine Learning with PyTorch and Scikit-Learn](https://www.amazon.com/Machine-Learning-PyTorch-Scikit-Learn-learning/dp/1801819319/ "Machine Learning with PyTorch and Scikit-Learn") ([Online Notebook](https://github.com/rasbt/machine-learning-book))
 * [Programming Rust](https://www.amazon.com/Programming-Rust-Fast-Systems-Development/dp/1492052590/ "Programming Rust") ([Online Code](https://github.com/ProgrammingRust))
+* [Modeling Mindsets](https://www.amazon.com/Modeling-Mindsets-Many-Cultures-Learning/dp/B0BMJH7M9F/ "Modeling Mindsets") 
