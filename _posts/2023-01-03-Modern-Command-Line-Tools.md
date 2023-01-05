@@ -6,7 +6,7 @@ category: how-to
 tags: [command line tools, Rust]
 ---
 
-An Introduction to Modern commnad line tools powered by Rust.
+An introduction to modern command line tools powered by Rust.
 
 <!--more-->
 
@@ -330,4 +330,5 @@ You can find a list of other Rust CLI tools [here](https://gist.github.com/sts10
 ### References
 * [Rust Easy!](https://deepu.tech/rust-terminal-tools-linux-mac-windows-fish-zsh/)
 * [A curated list of command-line utilities written in Rust](https://gist.github.com/sts10/daadbc2f403bdffad1b6d33aff016c0a)
+* [A collection of notable Rust blog posts](https://gist.github.com/brson/a324c83a6af6a8a78dfaa9d33eb9b48e)
 
