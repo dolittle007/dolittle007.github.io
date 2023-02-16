@@ -14,12 +14,12 @@ An Introduction to Nanopore direct cDNA data analysis.
 
 ```bash
 # Install Guppy CPU version
-wget -c https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_6.3.8_linux64.tar.gz
-tar zxvf ont-guppy-cpu_6.3.8_linux64.tar.gz
+wget -c https://cdn.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_6.4.6_linux64.tar.gz
+tar zxvf ont-guppy-cpu_6.4.6_linux64.tar.gz
 
 # Install Guppy GPU version
-wget -c https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_6.3.8_linux64.tar.gz
-tar zxvf ont-guppy_6.3.8_linux64.tar.gz
+wget -c https://cdn.oxfordnanoportal.com/software/analysis/ont-guppy_6.4.6_linux64.tar.gz
+tar zxvf ont-guppy_6.4.6_linux64.tar.gz
 
 # add ont-guppy-cpu/bin to $PATH in .bashrc file
 PATH=/path/to/ont-guppy-cpu/bin:$PATH
