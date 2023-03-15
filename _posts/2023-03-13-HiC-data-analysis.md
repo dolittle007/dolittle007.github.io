@@ -136,16 +136,16 @@ pairtools dedup --nproc-in 8 --nproc-out 8 --mark-dups --output-stats stats.txt 
 ```
 
 #### Step6: Filtering
-Sometimes you may need certain types of pairs based on their properties, such as mapq, pair type, distance or orientation. For all these manipulations, there is pairtools select which requires a file and pythonic condition as an input:
+Sometimes you may need certain types of pairs based on their properties, such as mapq, pair type, distance or orientation. For all these manipulations, there is __pairtools select__ which requires a file and pythonic condition as an input:
 
 Command:
 ```bash
-pairsamtools select <condition> -o <filtered_pairsam> <deduped_pairsam> 
+pairtools select <condition> -o <filtered_pairsam> <deduped_pairsam> 
 ```
 
 Example:
 ```bash
-pairsamtools select '(pair_type == "UU") or (pair_type == "UR") or (pair_type == "RU")' -o filtered.pairsam deduped.pairsam 
+pairtools select '(pair_type == "UU") or (pair_type == "UR") or (pair_type == "RU")' -o filtered.pairsam deduped.pairsam 
 ```
 #### Step7: Generate .pairs and bam files
 
