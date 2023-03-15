@@ -40,4 +40,4 @@ layout: page
 * [Machine Learning with PyTorch and Scikit-Learn](https://www.amazon.com/Machine-Learning-PyTorch-Scikit-Learn-learning/dp/1801819319/ "Machine Learning with PyTorch and Scikit-Learn") ([Online Notebook](https://github.com/rasbt/machine-learning-book))
 * [Programming Rust](https://www.amazon.com/Programming-Rust-Fast-Systems-Development/dp/1492052590/ "Programming Rust") ([Online Code](https://github.com/ProgrammingRust))
 * [Modeling Mindsets](https://www.amazon.com/Modeling-Mindsets-Many-Cultures-Learning/dp/B0BMJH7M9F/ "Modeling Mindsets") 
-* [Rust Atomics and Locks](https://www.amazon.com/Rust-Atomics-Locks-Low-Level-Concurrency/dp/1098119444) ([Online Code](https://github.com/m-ou-se/rust-atomics-and-locks))
+* [Rust Atomics and Locks](https://www.amazon.com/Rust-Atomics-Locks-Low-Level-Concurrency/dp/1098119444) ([Read online](https://marabos.nl/atomics/)) ([Online Code](https://github.com/m-ou-se/rust-atomics-and-locks))
