@@ -31,7 +31,7 @@ wget -c https://s3.amazonaws.com/hicfiles.tc4ga.com/public/juicer/juicer_tools_1
 
 #### Step1: Alignment
 
-Now that you have a genome file, index file and a reference fasta file you are all set to align your Micro-C library to the reference. Please note the specific settings that are needed to map mates independently and for optimal results with our proximity library reads.
+Now that you have a genome file, index file and a reference fasta file you are all set to align your Hi-C library to the reference. Please note the specific settings that are needed to map mates independently and for optimal results with our proximity library reads.
 
 | Parameter   |      Alignment function      |
 |:------------|:-----------------------------|
@@ -60,7 +60,7 @@ bwa mem -5SP -T0 -t16 hg38.fasta <(zcat file1.R1.fastq.gz file2.R1.fastq.gz file
 
 #### Step2: Recording valid ligation events
 
-We use the __parse__ module of the __pairtools__ pipeline to find ligation junctions in Micro-C (and other proximity ligation) libraries. When a ligation event is identified in the alignment file the pairtools pipeline will record the outer-most (5’) aligned base pair and the strand of each one of the paired reads into __.pairsam__ file (pairsam format captures SAM entries together with the Hi-C pair information). In addition, it will also asign a pair type for each event. e.g. if both reads aligned uniquely to only one region in the genome, the type UU (Unique-Unique) will be assigned to the pair. The following steps are necessary to identify the high quality valid pairs over low quality events (e.g. due to low mapping quality):
+We use the __parse__ module of the __pairtools__ pipeline to find ligation junctions in Hi-C (and other proximity ligation) libraries. When a ligation event is identified in the alignment file the pairtools pipeline will record the outer-most (5’) aligned base pair and the strand of each one of the paired reads into __.pairsam__ file (pairsam format captures SAM entries together with the Hi-C pair information). In addition, it will also asign a pair type for each event. e.g. if both reads aligned uniquely to only one region in the genome, the type UU (Unique-Unique) will be assigned to the pair. The following steps are necessary to identify the high quality valid pairs over low quality events (e.g. due to low mapping quality):
 
 __pairtools parse__ options
 
@@ -145,7 +145,7 @@ pairsamtools select <condition> -o <filtered_pairsam> <deduped_pairsam>
 
 Example:
 ```bash
-pairsamtools select '(pair_type == "UU") or (pair_type == "UR") or (pair_type == "RU")' -o filtered.pairsam.gz deduped.pairsam.gz 
+pairsamtools select '(pair_type == "UU") or (pair_type == "UR") or (pair_type == "RU")' -o filtered.pairsam deduped.pairsam 
 ```
 #### Step7: Generate .pairs and bam files
 
@@ -169,6 +169,29 @@ pairtools split --nproc-in 8 --nproc-out 8 --output-pairs mapped.pairs --output-
 ```
 The __.pairs__ file can be used for generating contact matrix.
 
+### Bonus
+I also provide a all-in-one bash script (__sam2pairs.sh__).
+
+```bash
+#!/bin/bash
+# input is sam file from bwa mem -SP5M
+input=$1
+output_prefix=$2
+
+chrom_size=/path/to/hg38.genome
+tmpdir=/path/to/your/tmp/
+cores=16
+
+cat $input | pairtools parse --assembly hg38 --min-mapq 40 --walks-policy all --nproc-in $cores --nproc-out $cores --chroms-path $chrom_size | pairtools sort --nproc $cores --tmpdir=$tmpdir | pairtools dedup --mark-dups --nproc-in $cores --nproc-out $cores --output-stats $output_prefix.stats.txt | pairtools select '(pair_type == "UU") or (pair_type == "UR") or (pair_type == "RU")' | pairtools split --nproc-in $cores --nproc-out $cores --output-pairs $output_prefix.pairs
+
+bgzip --force $output_prefix.pairs
+pairix -f $output_prefix.pairs.gz
+```
+bash```
+sam2pair.sh test.sam test
+
+This script will output test.pairs.gz.
+```
 
 
 ### References
