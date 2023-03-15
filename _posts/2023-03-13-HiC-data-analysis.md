@@ -187,7 +187,7 @@ cat $input | pairtools parse --assembly hg38 --min-mapq 40 --walks-policy all --
 bgzip --force $output_prefix.pairs
 pairix -f $output_prefix.pairs.gz
 ```
-bash```
+```bash
 sam2pair.sh test.sam test
 
 This script will output test.pairs.gz.
