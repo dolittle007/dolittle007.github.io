@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Hi-C data analysis"
-date: 2022-03-13
+title: "Hi-C data analysis (part1)"
+date: 2023-03-13
 category: tutorial
 tags: [Hi-C, juicer, pairtools, mcool, analysis]
 ---
 
-An Introduction to Hi-C data analysis.
+An Introduction to Hi-C data analysis (part1).
 
 <!--more-->
 
