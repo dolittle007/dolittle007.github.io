@@ -32,6 +32,7 @@ wget -c https://s3.amazonaws.com/hicfiles.tc4ga.com/public/juicer/juicer_tools_1
 #### Step1: Alignment
 
 Now that you have a genome file, index file and a reference fasta file you are all set to align your Micro-C library to the reference. Please note the specific settings that are needed to map mates independently and for optimal results with our proximity library reads.
+
 | Parameter   |      Alignment function      |
 |:------------|:----------------------------|
 | mem    | set the bwa to use the BWA-MEM algorithm, a fast and accurate alignment algorithm optimized for sequences in the range of 70bp to 1Mbp |
@@ -82,6 +83,7 @@ At the parsing step, pairs will be flipped such that regardless of read1 and rea
 #### Step3: Sorting the pairsam file
 The parsed pairs are then sorted using pairtools sort
 __pairtools sort__ options:
+
 |Parameter|Function|
 |:--------|:-------|
 |--tmpdir|rovide a full path to a temp directory. A good rule of thumb is to have a space available for this directory at a volume of x3 of the overall volume of the fastq.gz files. Using a temp directory will help avoid memory issues|
@@ -115,7 +117,9 @@ pairtools merge *.sorted.pairsam -o merged.pairsam
 #### Step5: Removig PCR duplicates
 
 __pairtools dedup__ detects molecules that could be formed via PCR duplication and tags them as “DD” pair type. These pairs should be excluded from downstream analysis. Use the pairtools dedup command with the –output-stats option to save the dup stats into a text file.
+
 __pairtools dedup__ options:
+
 |Parameter|Function|
 |:--------|:-------|
 |--mark-dups|If specified, duplicate pairs are marked as DD in “pair_type” and as a duplicate in the sam entries|
