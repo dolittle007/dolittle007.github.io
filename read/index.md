@@ -24,15 +24,14 @@ layout: page
 * [R in a Nutshell](http://www.amazon.com/R-Nutshell-OReilly-Joseph-Adler/dp/144931208X/ "R In a Nutshell")
 * [Graph Analysis and Visualization](http://www.amazon.com/Graph-Analysis-Visualization-Discovering-Opportunity/dp/1118845846/ "Graph Analysis and Visualization")
 * [Python for Finance](http://www.amazon.com/Python-Finance-Analyze-Financial-Data/dp/1491945281 "Python for Finance")
-
+* [Interpretable Machine Learning](https://leanpub.com/interpretable-machine-learning "Interpretable Machine Learning") ([Read online](https://christophm.github.io/interpretable-ml-book/))
+* [Fluent Python](http://www.amazon.com/Fluent-Python-Concise-Effective-Programming/dp/1491946008 "Fluent Python")
+* [Fundamentals of Data Visualization]( https://www.amazon.com/Fundamentals-Data-Visualization-Informative-Compelling/dp/1492031089 "Fundamentals of Data Visualization") ([Read online](https://serialmentor.com/dataviz/))
 
 ### The books I am reading
 * [The Elements of Statistical Learning](http://www.amazon.com/Elements-Statistical-Learning-Prediction-Statistics/dp/0387848576 "The elements of statistical learning")
 * [15-Minute Spanish](http://www.amazon.com/15-Minute-Spanish-Eyewitness-Travel-Language/dp/1409381692 "15-Minute Spanish")
-* [Fluent Python](http://www.amazon.com/Fluent-Python-Concise-Effective-Programming/dp/1491946008 "Fluent Python")
-* [Fundamentals of Data Visualization]( https://www.amazon.com/Fundamentals-Data-Visualization-Informative-Compelling/dp/1492031089 "Fundamentals of Data Visualization") ([Read online](https://serialmentor.com/dataviz/))
 * [Modern Statistics for Modern Biology](https://www.amazon.com/Modern-Statistics-Biology-Susan-Holmes/dp/1108705294 "Modern Statistics for Modern Biology") ([Read online](http://web.stanford.edu/class/bios221/book/))
-* [Interpretable Machine Learning](https://leanpub.com/interpretable-machine-learning "Interpretable Machine Learning") ([Read online](https://christophm.github.io/interpretable-ml-book/))
 * [Data Visualization with R](https://rkabacoff.github.io/datavis/)
 * [Bayesian Modeling and Computation in Python](https://www.amazon.com/Bayesian-Modeling-Computation-Chapman-Statistical/dp/036789436X "Bayesian Modeling and Computation in Python") ([Read online](https://bayesiancomputationbook.com/))
 * [Statistical Rethinking](https://www.amazon.com/Statistical-Rethinking-Bayesian-Examples-Chapman/dp/036713991X/ "Statistical Rethinking") ([Online Course](https://github.com/rmcelreath/stat_rethinking_2023))
@@ -41,3 +40,6 @@ layout: page
 * [Programming Rust](https://www.amazon.com/Programming-Rust-Fast-Systems-Development/dp/1492052590/ "Programming Rust") ([Online Code](https://github.com/ProgrammingRust))
 * [Modeling Mindsets](https://www.amazon.com/Modeling-Mindsets-Many-Cultures-Learning/dp/B0BMJH7M9F/ "Modeling Mindsets") 
 * [Rust Atomics and Locks](https://www.amazon.com/Rust-Atomics-Locks-Low-Level-Concurrency/dp/1098119444) ([Read online](https://marabos.nl/atomics/)) ([Online Code](https://github.com/m-ou-se/rust-atomics-and-locks))
+* [Generative Deep Learning](https://www.amazon.com/Generative-Deep-Learning-Teaching-Machines/dp/1098134184/ "Generative Deep Learning")
+* [Developing Apps with GPT-4 and ChatGPT]
+* [Machine Learning for High-Risk Applications: Approaches to Responsible AI](https://www.amazon.com/Machine-Learning-High-Risk-Applications-Responsible/dp/1098102436 "Machine Learning for High-Risk Applications: Approaches to Responsible AI")
