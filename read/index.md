@@ -41,5 +41,5 @@ layout: page
 * [Modeling Mindsets](https://www.amazon.com/Modeling-Mindsets-Many-Cultures-Learning/dp/B0BMJH7M9F/ "Modeling Mindsets") 
 * [Rust Atomics and Locks](https://www.amazon.com/Rust-Atomics-Locks-Low-Level-Concurrency/dp/1098119444) ([Read online](https://marabos.nl/atomics/)) ([Online Code](https://github.com/m-ou-se/rust-atomics-and-locks))
 * [Generative Deep Learning](https://www.amazon.com/Generative-Deep-Learning-Teaching-Machines/dp/1098134184/ "Generative Deep Learning")
-* [Developing Apps with GPT-4 and ChatGPT]
+* [Developing Apps with GPT-4 and ChatGPT](https://learning.oreilly.com/library/view/developing-apps-with/9781098152475/)
 * [Machine Learning for High-Risk Applications: Approaches to Responsible AI](https://www.amazon.com/Machine-Learning-High-Risk-Applications-Responsible/dp/1098102436 "Machine Learning for High-Risk Applications: Approaches to Responsible AI")
