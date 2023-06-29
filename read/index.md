@@ -20,7 +20,7 @@ layout: page
 * [Hands-On Machine Learning with Scikit-Learn and TensorFlow](https://www.amazon.com/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1492032646/ "Hands-On Machine Learning with Scikit-Learn and TensorFlow")
 * [Deep Learning with Python](https://www.amazon.com/Deep-Learning-Python-Francois-Chollet/dp/1617294438 "Deep Learning with Python")
 * [Python Data Science Handbook](https://www.amazon.com/Python-Data-Science-Handbook-Essential/dp/1491912057 "Python Data Science Handbook") ([Read online](https://jakevdp.github.io/PythonDataScienceHandbook/))
-* [R for Data Science](https://www.amazon.com/R-Data-Science-Hadley-Wickham/dp/1491910399/ "R for Data Science") ([Read online](http://r4ds.had.co.nz/))
+* [R for Data Science](https://www.amazon.com/dp/1492097403/ "R for Data Science") ([Read online (1st edition)](http://r4ds.had.co.nz/), [Read online (2nd edition)(https://r4ds.hadley.nz/)])
 * [R in a Nutshell](http://www.amazon.com/R-Nutshell-OReilly-Joseph-Adler/dp/144931208X/ "R In a Nutshell")
 * [Graph Analysis and Visualization](http://www.amazon.com/Graph-Analysis-Visualization-Discovering-Opportunity/dp/1118845846/ "Graph Analysis and Visualization")
 * [Python for Finance](http://www.amazon.com/Python-Finance-Analyze-Financial-Data/dp/1491945281 "Python for Finance")
