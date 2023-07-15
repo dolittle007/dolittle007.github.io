@@ -44,4 +44,4 @@ layout: page
 * [Generative Deep Learning](https://www.amazon.com/Generative-Deep-Learning-Teaching-Machines/dp/1098134184/ "Generative Deep Learning") ([Online code](https://github.com/davidADSP/Generative_Deep_Learning_2nd_Edition))
 * [Developing Apps with GPT-4 and ChatGPT](https://learning.oreilly.com/library/view/developing-apps-with/9781098152475/)
 * [Machine Learning for High-Risk Applications: Approaches to Responsible AI](https://www.amazon.com/Machine-Learning-High-Risk-Applications-Responsible/dp/1098102436 "Machine Learning for High-Risk Applications: Approaches to Responsible AI")([Online Code](https://github.com/ml-for-high-risk-apps-book/Machine-Learning-for-High-Risk-Applications-Book))
-* [Causal Inference for The Brave and True](https://matheusfacure.github.io/python-causality-handbook/landing-page.html)
+* [Causal Inference for The Brave and True](https://matheusfacure.github.io/python-causality-handbook/landing-page.html) ([Online code](https://github.com/matheusfacure/python-causality-handbook))
