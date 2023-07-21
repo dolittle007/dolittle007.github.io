@@ -11,7 +11,7 @@ layout: page
 * [R in Action]()
 * [The Art of R Programming]()
 * [The Elements of Style](http://www.amazon.com/Elements-Style-Fourth-William-Strunk/dp/020530902X/ "The Elements of Style")
-* [Python for Data Analysis](http://www.amazon.com/Python-Data-Analysis-Wrangling-IPython/dp/1449319793/ "Python for Data Analysis")
+* [Python for Data Analysis](http://www.amazon.com/Python-Data-Analysis-Wrangling-IPython/dp/1449319793/ "Python for Data Analysis") ([Read online](https://wesmckinney.com/book/))
 * [Programming Python](http://www.amazon.com/Programming-Python-Mark-Lutz/dp/0596158106 "Programming Python")
 * [Doing Data Science](http://www.amazon.com/Doing-Data-Science-Straight-Frontline/dp/1449358659 "Doing Data Science")
 * [Data Science from Scratch](http://www.amazon.com/Data-Science-Scratch-Principles-Python/dp/149190142X "Data Science from Scratch")
