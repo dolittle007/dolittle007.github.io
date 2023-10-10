@@ -14,11 +14,11 @@ An Introduction to Nanopore direct RNA data analysis.
 
 ```bash
 # Install Guppy CPU version
-wget -c https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_6.5.7_linux64.tar.gz
+wget -c  https://cdn.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_6.5.7_linux64.tar.gz
 tar zxvf ont-guppy-cpu_6.5.7_linux64.tar.gz
 
 # Install Guppy GPU version
-wget -c https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_6.5.7_linux64.tar.gz
+wget -c https://cdn.oxfordnanoportal.com/software/analysis/ont-guppy_6.5.7_linux64.tar.gz
 tar zxvf ont-guppy_6.5.7_linux64.tar.gz
 
 # add ont-guppy-cpu/bin to $PATH in .bashrc file
