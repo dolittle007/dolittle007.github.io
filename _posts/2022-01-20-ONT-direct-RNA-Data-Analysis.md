@@ -3,6 +3,7 @@ layout: post
 title: "Nanopore direct RNA data analysis"
 date: 2022-01-20
 category: tutorial
+comments: true
 tags: [Nanopore, ONT, Long-reads, analysis]
 ---
 
