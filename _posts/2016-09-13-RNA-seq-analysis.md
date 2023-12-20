@@ -3,6 +3,7 @@ layout: post
 title: "RNA-seq data analysis"
 date: 2016-09-13
 category: tutorial
+comments: true
 tags: [RNA-seq, analysis, STAR, plot, R]
 ---
 
