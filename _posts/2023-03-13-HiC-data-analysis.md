@@ -31,18 +31,19 @@ wget -c https://s3.amazonaws.com/hicfiles.tc4ga.com/public/juicer/juicer_tools_1
 
 #### Step1: Alignment
 
-Now that you have a genome file, index file and a reference fasta file you are all set to align your Micro-C library to the reference. Please note the specific settings that are needed to map mates independently and for optimal results with our proximity library reads.
+Now that you have a genome file, index file and a reference fasta file you are all set to align your Hi-C library to the reference. Please note the specific settings that are needed to map mates independently and for optimal results with our proximity library reads.
+
 | Parameter   |      Alignment function      |
-|:------------|:----------------------------|
-| mem    | set the bwa to use the BWA-MEM algorithm, a fast and accurate alignment algorithm optimized for sequences in the range of 70bp to 1Mbp |
-| -5    |    for split alignment, take the alignment with the smallest coordinate (5’ end) as primary, the mapq assignment of the primary alignment is calculated independent of the 3’ alignment   |
-| -S    | skip mate rescue |
-|-P     | skip pairing; mate rescue performed unless -S also in use|
-|-T0     |The T flag set the minimum mapping quality of alignments to output, at this stage we want all the alignments to be recorded and thus T is set up to 0, (this will allow us to gather full stats of the library, at later stage we will filter the alignments by mapping quality|
-|-t|number of threads, default is 1. Set the numbers of threads to not more than the number of cores that you have on your machine (If you don’d know the number of cores, used the command lscpu and multiply Thread(s) per core x Core(s) per socket x Socket(s))|
-|*.fasta or *.fa|Path to a reference file, ending with .fa or .fasta, e,g, hg38.fasta|
-|*.fastq or *.fastq.gz|Path to two fastq files; path to read 1 fastq file, followed by fastq file of read 2 (usually labeled as R1 and R2, respectively). Files can be in their compressed format (.fastq.gz) or uncompressed (.fastq). In case your library sequence is divided to multiple fastq files, you can use a process substitution < with the cat command (see example below)|
-|-o|sam file name to use for output results [stdout]. You can choose to skip the -o flag if you are piping the output to the next command using ‘\|’ |
+|:------------|:-----------------------------|
+|     mem     | set the bwa to use the BWA-MEM algorithm, a fast and accurate alignment algorithm optimized for sequences in the range of 70bp to 1Mbp |
+|    -5       |    for split alignment, take the alignment with the smallest coordinate (5’ end) as primary, the mapq assignment of the primary alignment is calculated independent of the 3’ alignment   |
+|   -S        | skip mate rescue |
+|   -P        | skip pairing; mate rescue performed unless -S also in use|
+|-T0          |The T flag set the minimum mapping quality of alignments to output, at this stage we want all the alignments to be recorded and thus T is set up to 0, (this will allow us to gather full stats of the library, at later stage we will filter the alignments by mapping quality|
+|  -t         |number of threads, default is 1. Set the numbers of threads to not more than the number of cores that you have on your machine (If you don’d know the number of cores, used the command lscpu and multiply Thread(s) per core x Core(s) per socket x Socket(s))|
+|*.fasta or *.fa  | Path to a reference file, ending with .fa or .fasta, e,g, hg38.fasta|
+|*.fastq or *.fastq.gz | Path to two fastq files; path to read 1 fastq file, followed by fastq file of read 2 (usually labeled as R1 and R2, respectively). Files can be in their compressed format (.fastq.gz) or uncompressed (.fastq). In case your library sequence is divided to multiple fastq files, you can use a process substitution < with the cat command (see example below)|
+| -o  | sam file name to use for output results [stdout]. You can choose to skip the -o flag if you are piping the output to the next command using "\|" |
 
 Command:
 ```bash
@@ -59,7 +60,7 @@ bwa mem -5SP -T0 -t16 hg38.fasta <(zcat file1.R1.fastq.gz file2.R1.fastq.gz file
 
 #### Step2: Recording valid ligation events
 
-We use the __parse__ module of the __pairtools__ pipeline to find ligation junctions in Micro-C (and other proximity ligation) libraries. When a ligation event is identified in the alignment file the pairtools pipeline will record the outer-most (5’) aligned base pair and the strand of each one of the paired reads into __.pairsam__ file (pairsam format captures SAM entries together with the Hi-C pair information). In addition, it will also asign a pair type for each event. e.g. if both reads aligned uniquely to only one region in the genome, the type UU (Unique-Unique) will be assigned to the pair. The following steps are necessary to identify the high quality valid pairs over low quality events (e.g. due to low mapping quality):
+We use the __parse__ module of the __pairtools__ pipeline to find ligation junctions in Hi-C (and other proximity ligation) libraries. When a ligation event is identified in the alignment file the pairtools pipeline will record the outer-most (5’) aligned base pair and the strand of each one of the paired reads into __.pairsam__ file (pairsam format captures SAM entries together with the Hi-C pair information). In addition, it will also asign a pair type for each event. e.g. if both reads aligned uniquely to only one region in the genome, the type UU (Unique-Unique) will be assigned to the pair. The following steps are necessary to identify the high quality valid pairs over low quality events (e.g. due to low mapping quality):
 
 __pairtools parse__ options
 
@@ -82,6 +83,7 @@ At the parsing step, pairs will be flipped such that regardless of read1 and rea
 #### Step3: Sorting the pairsam file
 The parsed pairs are then sorted using pairtools sort
 __pairtools sort__ options:
+
 |Parameter|Function|
 |:--------|:-------|
 |--tmpdir|rovide a full path to a temp directory. A good rule of thumb is to have a space available for this directory at a volume of x3 of the overall volume of the fastq.gz files. Using a temp directory will help avoid memory issues|
@@ -115,7 +117,9 @@ pairtools merge *.sorted.pairsam -o merged.pairsam
 #### Step5: Removig PCR duplicates
 
 __pairtools dedup__ detects molecules that could be formed via PCR duplication and tags them as “DD” pair type. These pairs should be excluded from downstream analysis. Use the pairtools dedup command with the –output-stats option to save the dup stats into a text file.
+
 __pairtools dedup__ options:
+
 |Parameter|Function|
 |:--------|:-------|
 |--mark-dups|If specified, duplicate pairs are marked as DD in “pair_type” and as a duplicate in the sam entries|
@@ -132,16 +136,16 @@ pairtools dedup --nproc-in 8 --nproc-out 8 --mark-dups --output-stats stats.txt 
 ```
 
 #### Step6: Filtering
-Sometimes you may need certain types of pairs based on their properties, such as mapq, pair type, distance or orientation. For all these manipulations, there is pairtools select which requires a file and pythonic condition as an input:
+Sometimes you may need certain types of pairs based on their properties, such as mapq, pair type, distance or orientation. For all these manipulations, there is __pairtools select__ which requires a file and pythonic condition as an input:
 
 Command:
 ```bash
-pairsamtools select <condition> -o <filtered_pairsam> <deduped_pairsam> 
+pairtools select <condition> -o <filtered_pairsam> <deduped_pairsam> 
 ```
 
 Example:
 ```bash
-pairsamtools select '(pair_type == "UU") or (pair_type == "UR") or (pair_type == "RU")' -o filtered.pairsam.gz deduped.pairsam.gz 
+pairtools select '(pair_type == "UU") or (pair_type == "UR") or (pair_type == "RU")' -o filtered.pairsam deduped.pairsam 
 ```
 #### Step7: Generate .pairs and bam files
 
@@ -165,6 +169,29 @@ pairtools split --nproc-in 8 --nproc-out 8 --output-pairs mapped.pairs --output-
 ```
 The __.pairs__ file can be used for generating contact matrix.
 
+### Bonus
+I also provide a all-in-one bash script (__sam2pairs.sh__).
+
+```bash
+#!/bin/bash
+# input is sam file from bwa mem -SP5M
+input=$1
+output_prefix=$2
+
+chrom_size=/path/to/hg38.genome
+tmpdir=/path/to/your/tmp/
+cores=16
+
+cat $input | pairtools parse --assembly hg38 --min-mapq 40 --walks-policy all --nproc-in $cores --nproc-out $cores --chroms-path $chrom_size | pairtools sort --nproc $cores --tmpdir=$tmpdir | pairtools dedup --mark-dups --nproc-in $cores --nproc-out $cores --output-stats $output_prefix.stats.txt | pairtools select '(pair_type == "UU") or (pair_type == "UR") or (pair_type == "RU")' | pairtools split --nproc-in $cores --nproc-out $cores --output-pairs $output_prefix.pairs
+
+bgzip --force $output_prefix.pairs
+pairix -f $output_prefix.pairs.gz
+```
+```bash
+sam2pair.sh test.sam test
+
+This script will output test.pairs.gz.
+```
 
 
 ### References

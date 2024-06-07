@@ -3,6 +3,7 @@ layout: post
 title: "Nanopore direct RNA data analysis"
 date: 2022-01-20
 category: tutorial
+comments: true
 tags: [Nanopore, ONT, Long-reads, analysis]
 ---
 
@@ -14,12 +15,12 @@ An Introduction to Nanopore direct RNA data analysis.
 
 ```bash
 # Install Guppy CPU version
-wget -c https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_6.3.8_linux64.tar.gz
-tar zxvf ont-guppy-cpu_6.3.8_linux64.tar.gz
+wget -c  https://cdn.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_6.5.7_linux64.tar.gz
+tar zxvf ont-guppy-cpu_6.5.7_linux64.tar.gz
 
 # Install Guppy GPU version
-wget -c https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_6.3.8_linux64.tar.gz
-tar zxvf ont-guppy_6.3.8_linux64.tar.gz
+wget -c https://cdn.oxfordnanoportal.com/software/analysis/ont-guppy_6.5.7_linux64.tar.gz
+tar zxvf ont-guppy_6.5.7_linux64.tar.gz
 
 # add ont-guppy-cpu/bin to $PATH in .bashrc file
 PATH=/path/to/ont-guppy-cpu/bin:$PATH
@@ -80,9 +81,8 @@ RCS is included in included in the Direct RNA Sequencing kit, SQK-RNA002, and PC
 We currently recommend using [__minimap2__](https://github.com/lh3/minimap2) to align to the reference genome.
 
 ```bash
-minimap2 -Y -t 8 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:ONT" --MD -ax splice -uf -k14 --junc-bed hg38.bigbed hg38.fasta sample.fastq > aligned.sam
-samtools sort -@ 8 -O BAM align.sam -o aligned.sort.bam
-samtools index aligned.sort.bam
+minimap2 -Y -t 8 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:ONT" --MD -ax splice -uf -k14 --junc-bed hg38.bigbed hg38.fasta sample.fastq | samtools sort -@ 8 -O BAM -o aligned.bam -
+samtools index aligned.bam
 ```
 
 

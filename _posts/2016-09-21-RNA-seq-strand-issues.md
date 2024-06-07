@@ -135,6 +135,6 @@ Fraction of reads explained by "1+-,1-+,2++,2--": 0.9441
 So it is a strand-specific pair-end RNA-seq data using dUTP protocol.
 
 ### In a nutshell
-pass
+[Alternative summary](https://rnabio.org/module-09-appendix/0009/12/01/StrandSettings/) from [Griffith Lab](https://griffithlab.org/). 
 
 Thanks to [Likit Preeyanon](http://likit.github.io/running-bowtiebowtie2-rsem-and-tophat-on-dutp-strand-specific-reads.html "RNA-Seq by Expectation-Maximization") and [Xianjun Dong](http://onetipperday.sterding.com/2012/07/how-to-tell-which-library-type-to-use.html) for generously sharing ideas.
