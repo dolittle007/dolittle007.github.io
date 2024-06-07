@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Hi-C data analysis (part1)"
-date: 2023-03-13
+title: "Hi-C data analysis"
+date: 2022-03-13
 category: tutorial
 tags: [Hi-C, juicer, pairtools, mcool, analysis]
 ---
 
-An Introduction to Hi-C data analysis (part1).
+An Introduction to Hi-C data analysis.
 
 <!--more-->
 
@@ -165,6 +165,26 @@ pairtools split --nproc-in 8 --nproc-out 8 --output-pairs mapped.pairs --output-
 ```
 The __.pairs__ file can be used for generating contact matrix.
 
+
+
+### References
+
+* [4DN Hi-C data processing pipeline](https://data.4dnucleome.org/resources/data-analysis/hi_c-processing-pipeline)
+* [Hi-C data analysis Bootcamp 2018](https://hms-dbmi.github.io/hic-data-analysis-bootcamp/#1)
+* [Pairtools walkthrough](https://pairtools.readthedocs.io/en/latest/examples/pairtools_walkthrough.html)
+* [Micro-C data analysis](https://micro-c.readthedocs.io/en/latest/fastq_to_bam.html)
+* [Hi-C processing workflow based on 4DN consortium pipeline](https://gist.github.com/ggirelli/bbc52daad8f16564777785fbe98ec6ed)
+* 
+ut_prefix.stats.txt | pairtools select '(pair_type == "UU") or (pair_type == "UR") or (pair_type == "RU")' | pairtools split --nproc-in $cores --nproc-out $cores --output-pairs $output_prefix.pairs
+
+bgzip --force $output_prefix.pairs
+pairix -f $output_prefix.pairs.gz
+```
+```bash
+sam2pair.sh test.sam test
+
+This script will output test.pairs.gz.
+```
 
 
 ### References
