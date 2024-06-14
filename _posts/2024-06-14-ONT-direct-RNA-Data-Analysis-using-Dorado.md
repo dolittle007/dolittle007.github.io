@@ -50,9 +50,10 @@ dorado basecaller <model> ./pod5/ > data.bam
 # If you would like to keep the adapter sequences
 dorado basecaller --no-trim <model> ./pod5/ > data.bam
 
-# Duplex basecalling, always using sup models, see ONT [__documentation__](https://community.nanoporetech.com/info_sheets/kit-14-device-and-informatics/v/k14_s1019_v1_revk_29jun2022/basecalling-kit-14-duplex-data)
+# Duplex basecalling
 dorado duplex sup ./pod5/ > duplex.bam
 ```
+For duplex basecalling, it is suggested to use super-accurate basecaller(SUP) models, see ONT [__documentation__](https://community.nanoporetech.com/info_sheets/kit-14-device-and-informatics/v/k14_s1019_v1_revk_29jun2022/basecalling-kit-14-duplex-data)
 
 #### Options
 ```bash
@@ -100,5 +101,5 @@ samtools index aligned.bam
 
 
 ### References
-* [^ref1]: [Duplex basecalling for whole-genome assembly](https://rrwick.github.io/2024/05/08/duplex_assemblies.html)
+[^ref1]: [Duplex basecalling for whole-genome assembly](https://rrwick.github.io/2024/05/08/duplex_assemblies.html)
 
