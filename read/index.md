@@ -26,7 +26,8 @@ layout: page
 * [Python for Finance](http://www.amazon.com/Python-Finance-Analyze-Financial-Data/dp/1491945281 "Python for Finance")
 * [Interpretable Machine Learning](https://leanpub.com/interpretable-machine-learning "Interpretable Machine Learning") ([Read online](https://christophm.github.io/interpretable-ml-book/))
 * [Fluent Python](http://www.amazon.com/Fluent-Python-Concise-Effective-Programming/dp/1491946008 "Fluent Python")
-* [Fundamentals of Data Visualization]( https://www.amazon.com/Fundamentals-Data-Visualization-Informative-Compelling/dp/1492031089 "Fundamentals of Data Visualization") ([Read online](https://serialmentor.com/dataviz/))
+* [Fundamentals of Data Visualization](https://www.amazon.com/Fundamentals-Data-Visualization-Informative-Compelling/dp/1492031089 "Fundamentals of Data Visualization") ([Read online](https://serialmentor.com/dataviz/))
+* [Machine Learning Q and AI](https://www.amazon.com/Machine-Learning-AI-Essential-Questions/dp/1718503768 "Machine Learning Q and AI")
 
 ### The books I am reading
 * [The Elements of Statistical Learning](http://www.amazon.com/Elements-Statistical-Learning-Prediction-Statistics/dp/0387848576 "The elements of statistical learning")
@@ -47,3 +48,6 @@ layout: page
 * [Causal Inference and Discovery in Python: Unlock the secrets of modern causal machine learning with DoWhy, EconML, PyTorch and more](https://www.amazon.com/Causal-Inference-Discovery-Python-learning/dp/1804612987 "Causal Inference and Discovery in Python")([Online Code](https://github.com/PacktPublishing/Causal-Inference-and-Discovery-in-Python))
 <!---  * [Causal Inference for The Brave and True](https://matheusfacure.github.io/python-causality-handbook/landing-page.html) ([Online code](https://github.com/matheusfacure/python-causality-handbook))
 -->
+
+* [Introduction To Conformal Prediction With Python: A Short Guide for Quantifying Uncertainty of Machine Learning Models](https://www.amazon.com/Introduction-Conformal-Prediction-Python-Quantifying/dp/B0BW2X919P "Introduction To Conformal Prediction With Python")
+* [Build a Large Language Model](https://www.amazon.com/Build-Large-Language-Model-Scratch/dp/1633437167 "Build a Large Language Model") ([Read online](https://www.manning.com/books/build-a-large-language-model-from-scratch), [Online code](https://github.com/rasbt/LLMs-from-scratch))
