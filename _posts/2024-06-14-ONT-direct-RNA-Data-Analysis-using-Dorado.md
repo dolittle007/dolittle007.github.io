@@ -8,7 +8,7 @@ tags: [Nanopore, ONT, Long-reads, analysis]
 ---
 
 An Introduction to Nanopore direct RNA data analysis using Dorado.
-ONT has replaced guppy with [dorado](https://github.com/nanoporetech/dorado)
+[Dorado](https://github.com/nanoporetech/dorado) is a production basecaller from 2022, successor to Guppy.
 
 <!--more-->
 
@@ -73,7 +73,7 @@ samtools view data.bam -d dx:-1 | samtools fastq > data.fastq # simplex reads wh
 ```
 
 #### What is Simplex basecalling and Duplex basecalling?
-Sometimes during ONT sequencing, after one strand of DNA finishes its trip through a pore, the other strand immediately follows, and there are two different ways that the basecaller can handle this. It can make a separate read from each strand’s signal, what ONT calls [__simplex sequencing__](https://nanoporetech.com/platform/accuracy/simplex). Or it can basecall both signals together to make a single read with higher accuracy, what ONT calls [__duplex sequencing__](https://nanoporetech.com/platform/accuracy/duplex). According to user's experience[^ref1], about 15–20% of ONT read signals are part of a duplex pair.
+Sometimes during ONT sequencing, after one strand of DNA finishes its trip through a pore, the other strand immediately follows, and there are two different ways that the basecaller can handle this. It can make a separate read from each strand’s signal, what ONT calls [__simplex sequencing__](https://nanoporetech.com/platform/accuracy/simplex). Or it can basecall both signals together to make a single read with higher accuracy, what ONT calls [__duplex sequencing__](https://nanoporetech.com/platform/accuracy/duplex). According to user's experience[^duplex_call], about 15–20% of ONT read signals are part of a duplex pair.
 
 ![center](/figures/2024-06-14-ONT-direct-RNA-Data-Analysis-using-Dorado/duplex.png)
 
@@ -99,7 +99,10 @@ minimap2 -Y -t 8 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:ONT" --MD -ax splice -uf -
 samtools index aligned.bam
 ```
 
+### Optional: other analysis
+You may try other tools for ONT data visualization and analysis[^ont_tools].
+
 
 ### References
-[^ref1]: [Duplex basecalling for whole-genome assembly](https://rrwick.github.io/2024/05/08/duplex_assemblies.html)
-
+[^duplex_call]: [Duplex basecalling for whole-genome assembly](https://rrwick.github.io/2024/05/08/duplex_assemblies.html)
+[^ont_tools]: [List of software packages for Nanopore sequencing data analysis](https://github.com/GoekeLab/awesome-nanopore)
