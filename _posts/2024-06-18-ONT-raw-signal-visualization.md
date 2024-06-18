@@ -65,7 +65,7 @@ blue-crab p2s data.pod5 -o data.blow5
 ### Step2: raw signals to basecalled reads alignment
 
 ```bash
-f5c resquiggle -c data.fastq data.blow5 -o data.paf
+f5c resquiggle -c --rna --pore r9 -o data.paf data.fastq data.blow5 -o data.paf
 ```
 
 ### Step3: Signal-to-read visualization
