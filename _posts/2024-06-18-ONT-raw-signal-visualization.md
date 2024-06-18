@@ -53,7 +53,8 @@ pip install squigualiser
 ```bash
 slow5tools f2s ./fast5_dir -d blow5_dir # convert multiple FAST5 files to multiple BLOW5 files
 slow5tools merge blow5_dir -o data.blow5 # merge BLOW5 into one
-slow5tools index data.blow5 # index BLOW5 file
+slow5tools get data.blow5 -l read_ids.txt --to blow5 -o target.blow5 # extract records from a blow5 file based on a list of read ids
+slow5tools index target.blow5 # index BLOW5 file
 ```
 
 # For single POD5 file
@@ -65,13 +66,13 @@ blue-crab p2s data.pod5 -o data.blow5
 ### Step2: raw signals to basecalled reads alignment
 
 ```bash
-f5c resquiggle -c --rna --pore r9 -o data.paf data.fastq data.blow5 -o data.paf
+f5c resquiggle -c --rna --pore r9 -o target.paf target.fastq target.blow5
 ```
 
 ### Step3: Signal-to-read visualization
 
 ```bash
-squigualiser plot -f target.fastq -s data.blow5 -a data.paf -o out_dir --save_svg
+squigualiser plot -f target.fastq -s target.blow5 -a target.paf -o out_dir --save_svg
 
 ```
 
