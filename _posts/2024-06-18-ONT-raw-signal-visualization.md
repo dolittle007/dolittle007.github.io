@@ -74,6 +74,9 @@ f5c resquiggle -c --rna --pore r9 -o target.paf target.fastq target.blow5
 ```bash
 squigualiser plot -f target.fastq -s target.blow5 -a target.paf -o out_dir --save_svg
 
+# show the whole fastq sequence
+squigualiser plot -f target.fastq -s target.blow5 -a target.paf -o target_dir --rna --sig_scale znorm --fixed_width --base_limit 20000 --sig_plot_limit 99999999
+
 ```
 
 #### Options
@@ -81,4 +84,7 @@ squigualiser plot -f target.fastq -s target.blow5 -a target.paf -o out_dir --sav
 ```bash
 -r read_id # specify the read with read_id to plot
 --rna # specify for RNA reads
+--fixed_width # plot with fixed base width
+--base_limit # maximum number of bases to plot
+--sig_plot_limit # maximum number of signal samples to plot
 ```
