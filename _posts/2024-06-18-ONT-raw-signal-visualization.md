@@ -48,7 +48,7 @@ pip install squigualiser
 
 ### Step1: Converting data format
 
-# For multiple FAST5 files
+#### For multiple FAST5 files
 
 ```bash
 slow5tools f2s ./fast5_dir -d blow5_dir # convert multiple FAST5 files to multiple BLOW5 files
@@ -57,7 +57,7 @@ slow5tools get data.blow5 -l read_ids.txt --to blow5 -o target.blow5 # extract r
 slow5tools index target.blow5 # index BLOW5 file
 ```
 
-# For single POD5 file
+#### For single POD5 file
 
 ```bash
 blue-crab p2s data.pod5 -o data.blow5
