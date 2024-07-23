@@ -46,6 +46,7 @@ layout: page
 * [Developing Apps with GPT-4 and ChatGPT](https://learning.oreilly.com/library/view/developing-apps-with/9781098152475/)
 * [Machine Learning for High-Risk Applications: Approaches to Responsible AI](https://www.amazon.com/Machine-Learning-High-Risk-Applications-Responsible/dp/1098102436 "Machine Learning for High-Risk Applications: Approaches to Responsible AI")([Online Code](https://github.com/ml-for-high-risk-apps-book/Machine-Learning-for-High-Risk-Applications-Book))
 * [Causal Inference and Discovery in Python: Unlock the secrets of modern causal machine learning with DoWhy, EconML, PyTorch and more](https://www.amazon.com/Causal-Inference-Discovery-Python-learning/dp/1804612987 "Causal Inference and Discovery in Python")([Online Code](https://github.com/PacktPublishing/Causal-Inference-and-Discovery-in-Python))
-
 * [Introduction To Conformal Prediction With Python: A Short Guide for Quantifying Uncertainty of Machine Learning Models](https://www.amazon.com/Introduction-Conformal-Prediction-Python-Quantifying/dp/B0BW2X919P "Introduction To Conformal Prediction With Python")
 * [Build a Large Language Model](https://www.amazon.com/Build-Large-Language-Model-Scratch/dp/1633437167 "Build a Large Language Model") ([Read online](https://www.manning.com/books/build-a-large-language-model-from-scratch), [Online code](https://github.com/rasbt/LLMs-from-scratch))
+* [Tidy Finance with Python](https://www.amazon.com/Tidy-Finance-Python-Chapman-Hall/dp/1032676418 "Tidy Finance with Python") ([Read online](https://www.tidy-finance.org/python/), [Online code](https://github.com/tidy-finance))
+
