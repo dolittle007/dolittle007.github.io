@@ -74,8 +74,11 @@ f5c resquiggle -c --rna --pore r9 -o target.paf target.fastq target.blow5
 ```bash
 squigualiser plot -f target.fastq -s target.blow5 -a target.paf -o out_dir --save_svg
 
-# show the whole fastq sequence
+# show the whole fastq sequence, output in the HTML file
 squigualiser plot -f target.fastq -s target.blow5 -a target.paf -o target_dir --rna --sig_scale znorm --fixed_width --base_limit 20000 --sig_plot_limit 99999999
+
+# show the whole fastq sequence, output in the SVG file
+squigualiser plot -f target.fastq -s target.blow5 -a target.paf -o target_dir --rna --sig_scale znorm --fixed_width --base_limit 20000 --sig_plot_limit 99999999 --no_samples --no_colours --save_svg --region 200-500 --xrange 6000 --plot_limit 9000
 
 ```
 
