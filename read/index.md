@@ -49,4 +49,6 @@ layout: page
 * [Introduction To Conformal Prediction With Python: A Short Guide for Quantifying Uncertainty of Machine Learning Models](https://www.amazon.com/Introduction-Conformal-Prediction-Python-Quantifying/dp/B0BW2X919P "Introduction To Conformal Prediction With Python")
 * [Build a Large Language Model](https://www.amazon.com/Build-Large-Language-Model-Scratch/dp/1633437167 "Build a Large Language Model") ([Read online](https://www.manning.com/books/build-a-large-language-model-from-scratch), [Online code](https://github.com/rasbt/LLMs-from-scratch))
 * [Tidy Finance with Python](https://www.amazon.com/Tidy-Finance-Python-Chapman-Hall/dp/1032676418 "Tidy Finance with Python") ([Read online](https://www.tidy-finance.org/python/), [Online code](https://github.com/tidy-finance))
+* [Hands-On Large Language Models](https://www.amazon.com/Hands-Large-Language-Models-Understanding/dp/1098150961 "Hands-On Large Language Models") ([Read online](https://learning.oreilly.com/library/view/hands-on-large-language/9781098150952/))
+* [AI Engineering](https://www.amazon.com/AI-Engineering-Building-Applications-Foundation/dp/1098166302 "AI Engineering") ([Read online](https://learning.oreilly.com/library/view/ai-engineering/9781098166298/))
 
