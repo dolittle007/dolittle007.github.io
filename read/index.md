@@ -51,4 +51,5 @@ layout: page
 * [Tidy Finance with Python](https://www.amazon.com/Tidy-Finance-Python-Chapman-Hall/dp/1032676418 "Tidy Finance with Python") ([Read online](https://www.tidy-finance.org/python/), [Online code](https://github.com/tidy-finance))
 * [Hands-On Large Language Models](https://www.amazon.com/Hands-Large-Language-Models-Understanding/dp/1098150961 "Hands-On Large Language Models") ([Read online](https://learning.oreilly.com/library/view/hands-on-large-language/9781098150952/))
 * [AI Engineering](https://www.amazon.com/AI-Engineering-Building-Applications-Foundation/dp/1098166302 "AI Engineering") ([Read online](https://learning.oreilly.com/library/view/ai-engineering/9781098166298/))
+* [Effective Rust](https://www.amazon.com/Effective-Rust-Specific-Ways-Improve/dp/1098151402 "Effective Rust") ([Read online](https://www.lurklurk.org/effective-rust/))
 
