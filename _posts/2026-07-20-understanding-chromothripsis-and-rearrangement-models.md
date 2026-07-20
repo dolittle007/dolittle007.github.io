@@ -8,11 +8,12 @@ tags: [Genomics, Cancer Biology, Bioinformatics, Evolution]
 image: /figures/2026-07-20-understanding-chromothripsis/chromothripsis_shattering.jpg
 ---
 
-How does a cancer genome acquire hundreds of structural rearrangements? The traditional model of cancer progression asserts that genomes evolve through a gradual, step-wise accumulation of mutations over years. However, recent genome sequencing has revealed a dramatic counter-narrative: **chromothripsis**, a single catastrophic burst where one or a few chromosomes are shattered into dozens to hundreds of pieces and stitched back together in a chaotic order. 
+How does a cancer genome acquire hundreds of structural rearrangements? The traditional model of cancer progression asserts that genomes evolve through a gradual, step-wise accumulation of mutations over years. However, recent genome sequencing has revealed a dramatic counter-narrative: **chromothripsis**, a single catastrophic burst where one or a few chromosomes are shattered into dozens to hundreds of pieces and stitched back together in a chaotic order.
+
+<!--more-->
 
 In this post, we explore the cell biology behind chromothripsis, contrast it with standard genome rearrangement models like **Double Cut and Join (DCJ)**, and discuss how computational biologists are adapting models using **$k$-break rearrangements** to capture the reality of simultaneous genomic catastrophes.
 
-<!--more-->
 
 ![Chromothripsis Mechanism](/figures/2026-07-20-understanding-chromothripsis/chromothripsis_shattering.jpg)
 
