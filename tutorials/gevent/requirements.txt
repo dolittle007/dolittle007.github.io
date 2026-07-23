@@ -1,5 +1,0 @@
-Markdown==2.1.1
-cogapp==2.3
-Jinja2==2.11.3
-gevent
-pyzmq
