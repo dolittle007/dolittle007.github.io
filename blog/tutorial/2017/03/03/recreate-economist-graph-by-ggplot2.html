@@ -1,0 +1,715 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Recreate Economist graph by ggplot2 | Ting-You Wang </title> <meta name="author" content="Ting-You Wang"> <meta name="description" content="Bioinformatics Research Associate at Northwestern University Feinberg School of Medicine. I explore, analyze, and visualize biological data, focusing on genetics, genomics, cancer, and lupus susceptibility. "> <meta name="keywords" content="bioinformatics, genomics, cancer research, lupus, jekyll, al-folio"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://databeauty.com/blog/tutorial/2017/03/03/recreate-economist-graph-by-ggplot2.html"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <div class="navbar-brand social"> <a href="mailto:tywang@northwestern.edu" title="Email"><i class="fa-solid fa-envelope"></i></a> <a href="https://scholar.google.com/citations?user=FVx_uDIAAAAJ" title="Scholar userid" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a> <a href="https://github.com/dolittle007" title="Github username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-github"></i></a> <a href="https://www.linkedin.com/in/dolittle007" title="Linkedin username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-linkedin"></i></a> <a href="https://twitter.com/dolittle007" title="X username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-x-twitter"></i></a> <a href="/cv/" title="Cv pdf"><i class="ai ai-cv"></i></a> <a href="/feed.xml" title="Rss icon"><i class="fa-solid fa-square-rss"></i></a> </div> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">Projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">Books </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">Blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Recreate Economist graph by ggplot2</h1> <p class="post-meta"> Created on March 03, 2017 </p> <p class="post-tags"> <a href="/blog/2017"> <i class="fa-solid fa-calendar fa-sm"></i> 2017 </a>   ·   <a href="/blog/tag/ggplot"> <i class="fa-solid fa-hashtag fa-sm"></i> ggplot</a>   <a href="/blog/tag/economist"> <i class="fa-solid fa-hashtag fa-sm"></i> Economist</a>   <a href="/blog/tag/plot"> <i class="fa-solid fa-hashtag fa-sm"></i> plot</a>   <a href="/blog/tag/r"> <i class="fa-solid fa-hashtag fa-sm"></i> R</a>   ·   <a href="/blog/category/tutorial"> <i class="fa-solid fa-tag fa-sm"></i> tutorial</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>In this blog we would use some of those techniques to reproduce a graphic from the <a href="http://www.economist.com/" rel="external nofollow noopener" target="_blank">Economist</a> ( Most of the part of this blog has been taken from the Harvard Labs class of Introduction to R Graphics )</p> <h3 id="challenge-recreate-this-economist-graph">Challenge: Recreate This Economist Graph</h3> <p>Graph source: <a href="http://www.economist.com/node/21541178" title="economist" rel="external nofollow noopener" target="_blank">http://www.economist.com/node/21541178</a></p> <p>Building off of the graphics you created in the previous exercises, put the finishing touches to make it as close as possible to the original economist graph.</p> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/Economist1.png" alt="center"></p> <h3 id="challenge-solution">Challenge Solution</h3> <p>Lets start by creating the basic scatter plot using <a href="/data/EconomistData.csv">Economist Data</a>, then we can make a list of things that need to be added or changed. The basic plot loogs like this:</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"/data/EconomistData.csv"</span><span class="p">)</span><span class="w">
+
+  </span><span class="n">pc1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CPI</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HDI</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Region</span><span class="p">))</span><span class="w">
+  </span><span class="n">pc1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_point</span><span class="p">()</span><span class="w">
+  </span></code></pre></figure> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc1.png" alt="center"></p> <p>To complete this graph we need to:</p> <ul> <li>add a trend line</li> <li>change the point shape to open circle</li> <li>change the order and labels of Region</li> <li>label select points</li> <li>fix up the tick marks and labels</li> <li>move color legend to the top</li> <li>title, label axes, remove legend title</li> <li>theme the graph with no vertical guides</li> <li>add model R2 (hard)</li> <li>add sources note (hard)</li> <li>final touches to make it perfect (use image editor for this)</li> </ul> <h3 id="adding-the-trend-line">Adding the trend line</h3> <p>Adding the trend line is not too difficult, though we need to guess at the model being displyed on the graph. A little bit of trial and error leds to</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="p">(</span><span class="n">pc2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pc1</span><span class="w"> </span><span class="o">+</span><span class="w">
+     </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w">
+                 </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lm"</span><span class="p">,</span><span class="w">
+                 </span><span class="n">formula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w">
+                 </span><span class="n">se</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w">
+                 </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+     </span><span class="n">geom_point</span><span class="p">()</span></code></pre></figure> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc2.png" alt="center"></p> <p>Notice that we put the geom_line layer first so that it will be plotted underneath the points, as was done on the original graph</p> <h3 id="use-open-points">Use open points</h3> <p>This one is a little tricky. We know that we can change the shape with the shape argument, what what value do we set shape to? The example shown in ?shape can help us:</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="w"> </span><span class="c1"># A look at all 25 symbols</span><span class="w">
+  </span><span class="n">df2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">25</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">25</span><span class="p">)</span><span class="w">
+  </span><span class="n">s</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">))</span><span class="w">
+  </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_point</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="p">),</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_shape_identity</span><span class="p">()</span><span class="w">
+  </span><span class="c1"># While all symbols have a foreground colour, symbols 19-25 also take a</span><span class="w">
+  </span><span class="c1"># background colour (fill)</span><span class="w">
+  </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_point</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="p">),</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Red"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_shape_identity</span><span class="p">()</span><span class="w">
+  </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_point</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="p">),</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Red"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Black"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_shape_identity</span><span class="p">()</span><span class="w">
+ </span></code></pre></figure> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/shapes.png" alt="center"></p> <p>This shows us that shape 1 is an open circle, so</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">pc2</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_point</span><span class="p">(</span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span></code></pre></figure> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2//pc2-3.png" alt="center"> That is better, but unfortunately the size of the line around the points is much narrower than on the original. This is a frustrating aspect of ggplot2, and we will have to hack around it. One way to do that is to multiple point layers of slightly different sizes.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="p">(</span><span class="n">pc3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pc2</span><span class="w"> </span><span class="o">+</span><span class="w">
+     </span><span class="n">geom_point</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4.5</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+     </span><span class="n">geom_point</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+     </span><span class="n">geom_point</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3.5</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">))</span></code></pre></figure> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc3.png" alt="center"></p> <h3 id="labelling-points">Labelling points</h3> <p>This one is tricky in a couple of ways. First, there is no attribute in the data that separates points that should be labelled from points that should not be. So the first step is to identify those points.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">pointsToLabel</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Russia"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Venezuela"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Iraq"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Myanmar"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Sudan"</span><span class="p">,</span><span class="w">
+                     </span><span class="s2">"Afghanistan"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Congo"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Greece"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Argentina"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Brazil"</span><span class="p">,</span><span class="w">
+                     </span><span class="s2">"India"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Italy"</span><span class="p">,</span><span class="w"> </span><span class="s2">"China"</span><span class="p">,</span><span class="w"> </span><span class="s2">"South Africa"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Spane"</span><span class="p">,</span><span class="w">
+                     </span><span class="s2">"Botswana"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Cape Verde"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bhutan"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rwanda"</span><span class="p">,</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
+                     </span><span class="s2">"United States"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Germany"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Britain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Barbados"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Norway"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Japan"</span><span class="p">,</span><span class="w">
+                     </span><span class="s2">"New Zealand"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Singapore"</span><span class="p">)</span><span class="w">
+ </span></code></pre></figure> <p>Now we can label these points using geom_text, like this:</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="p">(</span><span class="n">pc4</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pc3</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_text</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Country</span><span class="p">),</span><span class="w">
+              </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray20"</span><span class="p">,</span><span class="w">
+              </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="n">Country</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">pointsToLabel</span><span class="p">)))</span><span class="w">
+ </span></code></pre></figure> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc4.png" alt="center"> This more or less gets the information across, but the labels overlap in a most unpleasing fashion. We can use the ggrepel package to make things better, but if you want perfection you will probably have to do some hand-adjustment.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="s2">"ggrepel"</span><span class="p">)</span><span class="w">
+  </span><span class="n">pc3</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_text_repel</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Country</span><span class="p">),</span><span class="w">
+              </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray20"</span><span class="p">,</span><span class="w">
+              </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="n">Country</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">pointsToLabel</span><span class="p">),</span><span class="w">
+              </span><span class="n">force</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w">
+ </span></code></pre></figure> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc4-ggrel.png" alt="center"></p> <h3 id="change-the-region-labels-and-order">Change the region labels and order</h3> <p>Thinkgs are starting to come together. There are just a couple more things we need to add, and then all that will be left are themeing changes.</p> <p>Comparing our graph to the original we notice that the labels and order of the Regions in the color legend differ. To correct this we need to change both the labels and order of the Region variable. We can do this with the factor function.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dat</span><span class="o">$</span><span class="n">Region</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Region</span><span class="p">,</span><span class="w">
+                       </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"EU W. Europe"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"Americas"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"Asia Pacific"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"East EU Cemt Asia"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"MENA"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"SSA"</span><span class="p">),</span><span class="w">
+                       </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"OECD"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"Americas"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"Asia &amp;\nOceania"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"Central &amp;\nEastern Europe"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"Middle East &amp;\nnorth Africa"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"Sub-Saharan\nAfrica"</span><span class="p">))</span><span class="w">
+ </span></code></pre></figure> <p>Now when we construct the plot using these data the order should appear as it does in the original.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">pc4</span><span class="o">$</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat</span><span class="w">
+  </span><span class="n">pc4</span></code></pre></figure> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc4-relabel.png" alt="center"></p> <p>Add title and format axes The next step is to add the title and format the axes. We do that using the scales system in ggplot2.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="w">
+  </span><span class="p">(</span><span class="n">pc5</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pc4</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_x_continuous</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">expression</span><span class="p">(</span><span class="n">italic</span><span class="p">(</span><span class="s2">"Corruption Perceptions Index, 2011 (10=least corrupt)"</span><span class="p">)),</span><span class="w">
+                       </span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">.9</span><span class="p">,</span><span class="w"> </span><span class="m">10.5</span><span class="p">),</span><span class="w">
+                       </span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_y_continuous</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">expression</span><span class="p">(</span><span class="n">italic</span><span class="p">(</span><span class="s2">"Human Development Index, 2011 (1=Best)"</span><span class="p">)),</span><span class="w">
+                       </span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">1.0</span><span class="p">),</span><span class="w">
+                       </span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_color_manual</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                       </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"#24576D"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"#099DD7"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"#28AADC"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"#248E84"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"#F2583F"</span><span class="p">,</span><span class="w">
+                                  </span><span class="s2">"#96503F"</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Corruption and Human development"</span><span class="p">))</span><span class="w">
+ </span></code></pre></figure> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc5.png" alt="center"></p> <h3 id="theme-tweaks">Theme tweaks</h3> <p>Our graph is almost there. To finish up, we need to adjust some of the theme elements, and label the axes and legends. This part usually involves some trial and error as you figure out where things need to be positioned. To see what these various theme settings do you can change them and observe the results.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="p">(</span><span class="n">pc6</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pc5</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">theme_minimal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># start with a minimal theme and add what we need</span><span class="w">
+    </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray20"</span><span class="p">),</span><span class="w">
+          </span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"top"</span><span class="p">,</span><span class="w"> </span><span class="c1"># position the legend in the upper left </span><span class="w">
+          </span><span class="n">legend.direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"horizontal"</span><span class="p">,</span><span class="w">
+          </span><span class="n">legend.justification</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="c1"># anchor point for legend.position.</span><span class="w">
+          </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray10"</span><span class="p">),</span><span class="w">
+          </span><span class="n">axis.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">face</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"italic"</span><span class="p">),</span><span class="w">
+          </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">vjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-1</span><span class="p">),</span><span class="w"> </span><span class="c1"># move title away from axis</span><span class="w">
+          </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">vjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">),</span><span class="w"> </span><span class="c1"># move away for axis</span><span class="w">
+          </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="c1"># element_blank() is how we remove elements</span><span class="w">
+          </span><span class="n">axis.line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray40"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">),</span><span class="w">
+          </span><span class="n">axis.line.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+          </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray50"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">),</span><span class="w">
+          </span><span class="n">panel.grid.major.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">()</span><span class="w">
+    </span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">guides</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">guide_legend</span><span class="p">(</span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)))</span><span class="w"> </span><span class="c1"># forces legend to be in a single line</span><span class="w">
+  </span></code></pre></figure> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc6.png" alt="center"></p> <h3 id="add-model-r2-and-source-note">Add model R2 and source note</h3> <p>The last bit of information that we want to have on the graph is the variance explained by the model represented by the trend line. Lets fit that model and pull out the R2 first, then think about how to get it onto the graph.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="p">(</span><span class="n">mR2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">summary</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">HDI</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">CPI</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="p">))</span><span class="o">$</span><span class="n">r.squared</span><span class="p">)</span></code></pre></figure> <p>OK, now that we’ve calculated the values, let’s think about how to get them on the graph. ggplot2 has an annotate function, but this is not convenient for adding elements outside the plot area. The grid package has nice functions for doing this, so we’ll use those.</p> <p>And here it is, our final version!</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="w">
+  </span><span class="n">png</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"economist.png"</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">800</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">600</span><span class="p">)</span><span class="w">
+  </span><span class="n">pc6</span><span class="w"> 
+  </span><span class="n">grid.text</span><span class="p">(</span><span class="s2">"Sources: Transparency International; UN Human Development Report"</span><span class="p">,</span><span class="w">
+           </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.02</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.03</span><span class="p">,</span><span class="w">
+           </span><span class="n">just</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"left"</span><span class="p">,</span><span class="w">
+           </span><span class="n">draw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+  </span><span class="n">grid.segments</span><span class="p">(</span><span class="n">x0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.81</span><span class="p">,</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.825</span><span class="p">,</span><span class="w">
+                </span><span class="n">y0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.90</span><span class="p">,</span><span class="w"> </span><span class="n">y1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.90</span><span class="p">,</span><span class="w">
+                </span><span class="n">gp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpar</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">),</span><span class="w">
+                </span><span class="n">draw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+  </span><span class="n">grid.text</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"R² = "</span><span class="p">,</span><span class="w">
+                   </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">mR2</span><span class="o">*</span><span class="m">100</span><span class="p">),</span><span class="w">
+                   </span><span class="s2">"%"</span><span class="p">),</span><span class="w">
+            </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.835</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.90</span><span class="p">,</span><span class="w">
+            </span><span class="n">gp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpar</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray20"</span><span class="p">),</span><span class="w">
+            </span><span class="n">draw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">
+            </span><span class="n">just</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"left"</span><span class="p">)</span><span class="w">
+
+  </span><span class="n">dev.off</span><span class="p">()</span></code></pre></figure> <p><img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc7.png" alt="center"></p> <h3 id="modification-by-adobe-illustrator">Modification by Adobe Illustrator</h3> <p>Comparing it to the original suggests that we’ve got most of the important elements, though of course the two graphs are not identical. <img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/final.png" alt="center"> Comparing it to the original suggests that we’ve got most of the important elements, though of course the two graphs are not identical. <img src="/figures/2017-03-03-recreate-economist-graph-by-ggplot2/Economist1.png" alt="center"></p> <p>### all code in a file</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggrepel</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/EconomistData.csv"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">pointsToLabel</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Russia"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Venezuela"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Iraq"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Myanmar"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Sudan"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"Afghanistan"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Congo"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Greece"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Argentina"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Brazil"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"India"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Italy"</span><span class="p">,</span><span class="w"> </span><span class="s2">"China"</span><span class="p">,</span><span class="w"> </span><span class="s2">"South Africa"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Spane"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"Botswana"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Cape Verde"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bhutan"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rwanda"</span><span class="p">,</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"United States"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Germany"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Britain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Barbados"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Norway"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Japan"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"New Zealand"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Singapore"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dat</span><span class="o">$</span><span class="n">Region</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Region</span><span class="p">,</span><span class="w">
+                     </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"EU W. Europe"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"Americas"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"Asia Pacific"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"East EU Cemt Asia"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"MENA"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"SSA"</span><span class="p">),</span><span class="w">
+                     </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"OECD"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"Americas"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"Asia &amp;\nOceania"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"Central &amp;\nEastern Europe"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"Middle East &amp;\nnorth Africa"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"Sub-Saharan\nAfrica"</span><span class="p">))</span><span class="w">
+                                
+</span><span class="n">pdf</span><span class="p">(</span><span class="s2">"pc7.pdf"</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="o">=</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="o">=</span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="n">paper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"a4r"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CPI</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HDI</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Region</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w">
+                </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lm"</span><span class="p">,</span><span class="w">
+                </span><span class="n">formula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w">
+                </span><span class="n">se</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w">
+                </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4.5</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4.25</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4.0</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3.75</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3.5</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_text_repel</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Country</span><span class="p">),</span><span class="w">
+                </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray20"</span><span class="p">,</span><span class="w">
+                </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="n">Country</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">pointsToLabel</span><span class="p">),</span><span class="w">
+                </span><span class="n">force</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+ </span><span class="n">scale_x_continuous</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">expression</span><span class="p">(</span><span class="n">italic</span><span class="p">(</span><span class="s2">"Corruption Perceptions Index, 2011 (10=least corrupt)"</span><span class="p">)),</span><span class="w">
+                       </span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">.9</span><span class="p">,</span><span class="w"> </span><span class="m">10.5</span><span class="p">),</span><span class="w">
+                       </span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+ </span><span class="n">scale_y_continuous</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">expression</span><span class="p">(</span><span class="n">italic</span><span class="p">(</span><span class="s2">"Human Development Index, 2011 (1=Best)"</span><span class="p">)),</span><span class="w">
+                       </span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">1.0</span><span class="p">),</span><span class="w">
+                       </span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_color_manual</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                     </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"#24576D"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"#099DD7"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"#28AADC"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"#248E84"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"#F2583F"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"#96503F"</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Corruption and Human development"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_minimal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># start with a minimal theme and add what we need</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray20"</span><span class="p">),</span><span class="w">
+        </span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"top"</span><span class="p">,</span><span class="w"> </span><span class="c1"># position the legend in the upper left </span><span class="w">
+        </span><span class="n">legend.direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"horizontal"</span><span class="p">,</span><span class="w">
+        </span><span class="n">legend.justification</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="c1"># anchor point for legend.position.</span><span class="w">
+        </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray10"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">face</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"italic"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">vjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-1</span><span class="p">),</span><span class="w"> </span><span class="c1"># move title away from axis</span><span class="w">
+        </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">vjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">),</span><span class="w"> </span><span class="c1"># move away for axis</span><span class="w">
+        </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="c1"># element_blank() is how we remove elements</span><span class="w">
+        </span><span class="n">axis.line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray40"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.line.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray50"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">),</span><span class="w">
+        </span><span class="n">panel.grid.major.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">()</span><span class="w">
+  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">guides</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">guide_legend</span><span class="p">(</span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w">
+
+</span><span class="n">mR2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">summary</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">HDI</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">CPI</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="p">))</span><span class="o">$</span><span class="n">r.squared</span><span class="w">
+
+</span><span class="n">grid.text</span><span class="p">(</span><span class="s2">"Sources: Transparency International; UN Human Development Report"</span><span class="p">,</span><span class="w">
+          </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.02</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.03</span><span class="p">,</span><span class="w">
+          </span><span class="n">just</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"left"</span><span class="p">,</span><span class="w">
+          </span><span class="n">draw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">grid.segments</span><span class="p">(</span><span class="n">x0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.81</span><span class="p">,</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.825</span><span class="p">,</span><span class="w">
+              </span><span class="n">y0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.90</span><span class="p">,</span><span class="w"> </span><span class="n">y1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.90</span><span class="p">,</span><span class="w">
+              </span><span class="n">gp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpar</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">),</span><span class="w">
+              </span><span class="n">draw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">grid.text</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"R² = "</span><span class="p">,</span><span class="w">
+                 </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">mR2</span><span class="o">*</span><span class="m">100</span><span class="p">),</span><span class="w">
+                 </span><span class="s2">"%"</span><span class="p">),</span><span class="w">
+          </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.835</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.90</span><span class="p">,</span><span class="w">
+          </span><span class="n">gp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpar</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray20"</span><span class="p">),</span><span class="w">
+          </span><span class="n">draw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">
+          </span><span class="n">just</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"left"</span><span class="p">)</span><span class="w">
+</span><span class="n">dev.off</span><span class="p">()</span></code></pre></figure> <h4 id="reference">Reference</h4> <p><a href="http://www.grroups.com/blog/r-graphics-tutorial-series-part-6-ggplot2" rel="external nofollow noopener" target="_blank">R graphics tutorials</a> from Ankit Agarwal</p> <p><a href="tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.ipynb#Putting-It-All-Together">R graphics ipython notebook</a></p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html">Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a Custodian</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html">Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html">Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2026/07/20/diffusion-llms.html">Diffusion LLMs</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html">Nanopore raw data visualization using squigualiser</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html">Nanopore direct RNA data analysis using Dorado</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html">Modern commnad line tools powered by Rust</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html">Nanopore direct cDNA data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/03/13/HiC-data-analysis.html">Hi-C data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html">Nanopore direct RNA data analysis</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Ting-You Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-projects",
+          title: "Projects",
+          description: "Software, pipelines, and tools developed for genomics and data analysis.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-publications",
+          title: "Publications",
+          description: "Peer-reviewed scientific publications, book chapters, and journal articles.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-books",
+          title: "Books",
+          description: "Books that I am reading, have read, or plan to read.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-blog",
+          title: "Blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Ting-You Wang's professional curriculum vitae detailing research, education, and software.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-rethinking-bioinformatics-expertise-in-the-era-of-ai-a-newbie-39-s-journey-as-a-custodian",
+        
+          title: "Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html";
+          
+        },
+      },{id: "post-mapping-the-global-landscape-of-cancer-research-key-trends-from-the-nature-index",
+        
+          title: "Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html";
+          
+        },
+      },{id: "post-shattered-chromosomes-understanding-chromothripsis-and-genome-rearrangement-models",
+        
+          title: "Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html";
+          
+        },
+      },{id: "post-diffusion-llms",
+        
+          title: "Diffusion LLMs",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2026/07/20/diffusion-llms.html";
+          
+        },
+      },{id: "post-nanopore-raw-data-visualization-using-squigualiser",
+        
+          title: "Nanopore raw data visualization using squigualiser",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis-using-dorado",
+        
+          title: "Nanopore direct RNA data analysis using Dorado",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html";
+          
+        },
+      },{id: "post-modern-commnad-line-tools-powered-by-rust",
+        
+          title: "Modern commnad line tools powered by Rust",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html";
+          
+        },
+      },{id: "post-nanopore-direct-cdna-data-analysis",
+        
+          title: "Nanopore direct cDNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-hi-c-data-analysis",
+        
+          title: "Hi-C data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/03/13/HiC-data-analysis.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis",
+        
+          title: "Nanopore direct RNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-operation-on-bigwig-files",
+        
+          title: "Operation on BigWig Files",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/07/operation-on-bigwig-files.html";
+          
+        },
+      },{id: "post-pacbio-iso-seq-data-analysis",
+        
+          title: "PacBio Iso-Seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/12/08/PacBio-Iso-Seq-Data-Analysis.html";
+          
+        },
+      },{id: "post-probabilistic-graphical-models-for-fraud-detection",
+        
+          title: "Probabilistic Graphical Models for Fraud Detection",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/09/15/Probabilistic-Graphical-Models-for-Fraud-Detection.html";
+          
+        },
+      },{id: "post-an-introduction-to-options",
+        
+          title: "An Introduction to Options",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/06/02/intro-options.html";
+          
+        },
+      },{id: "post-funding-schemes-for-postdoctoral-fellowship",
+        
+          title: "Funding schemes for postdoctoral fellowship",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/news/2018/02/05/postdoctoral-fellowships.html";
+          
+        },
+      },{id: "post-from-perceptron-to-deep-learning",
+        
+          title: "From Perceptron to Deep Learning",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/01/16/From-Perceptron-to-Deep-Learning.html";
+          
+        },
+      },{id: "post-introduction-to-meta-analysis-fixed-effect-model-and-random-effect-model",
+        
+          title: "Introduction to Meta-analysis: fixed-effect model and random-effect model",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/statistics/2017/09/08/meta-analysis.html";
+          
+        },
+      },{id: "post-recreate-economist-graph-by-ggplot2",
+        
+          title: "Recreate Economist graph by ggplot2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/03/03/recreate-economist-graph-by-ggplot2.html";
+          
+        },
+      },{id: "post-gwas-prephasing-and-imputation",
+        
+          title: "GWAS prephasing and imputation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/02/20/GWAS-prephasing-and-imputation.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis-strand-issues",
+        
+          title: "RNA-seq data analysis (strand issues)",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/09/21/RNA-seq-strand-issues.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis",
+        
+          title: "RNA-seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2016/09/13/RNA-seq-analysis.html";
+          
+        },
+      },{id: "post-rna-seq-normalization",
+        
+          title: "RNA-seq normalization",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/08/29/RNAseq-normalization.html";
+          
+        },
+      },{id: "post-linear-models-in-practice",
+        
+          title: "linear models in practice",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2016/03/23/Linear-models-in-practice.html";
+          
+        },
+      },{id: "post-introduction-to-linear-models",
+        
+          title: "Introduction to Linear Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Introduction-to-Linear-Models.html";
+          
+        },
+      },{id: "post-expressing-design-formula-in-r",
+        
+          title: "Expressing design formula in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Expressing-design-formula-in-R.html";
+          
+        },
+      },{id: "post-penalized-regression-methods-for-association-studies",
+        
+          title: "Penalized Regression Methods for Association Studies",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2015/05/15/Penalized-Regression.html";
+          
+        },
+      },{id: "post-what-is-norm",
+        
+          title: "What is norm?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/27/What-is-norm.html";
+          
+        },
+      },{id: "post-the-making-of-manipulating-data-tables",
+        
+          title: "The Making of Manipulating Data Tables",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/06/slides-workflow.html";
+          
+        },
+      },{id: "post-when-is-a-z-statistic-and-when-a-t-statistic-used",
+        
+          title: "When is a z-statistic and when a t-statistic used?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/05/t-statistic-or-z-statistic.html";
+          
+        },
+      },{id: "post-creating-html5-slides-with-rstudio-knitr-and-pandoc",
+        
+          title: "Creating HTML5 slides with RStudio, knitr and pandoc",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/26/Creating-HTML5-Slides.html";
+          
+        },
+      },{id: "post-5-functions-to-do-principal-components-analysis-in-r",
+        
+          title: "5 functions to do Principal Components Analysis in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/25/PCA-in-R.html";
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather";
+            },},{id: "news-a-simple-inline-announcement",
+          title: 'A simple inline announcement.',
+          description: "",
+          section: "News",},{id: "news-a-long-announcement-with-details",
+          title: 'A long announcement with details',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2";
+            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
+          title: 'A simple inline announcement with Markdown emoji! <img class="emoji" title=":sparkles:" alt=":sparkles:" src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png" height="20" width="20"> <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20">',
+          description: "",
+          section: "News",},{id: "projects-scanneo",
+          title: 'ScanNeo',
+          description: "A pipeline for identifying insertion and deletion (indel) introduced neoantigens from RNA sequencing data.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_scanneo";
+            },},{id: "projects-scanitd",
+          title: 'ScanITD',
+          description: "Performs a stepwise seed-and-realignment procedure for internal tandem duplication (ITD) detection with robust variant allele frequency estimation.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_scanitd";
+            },},{id: "projects-scanexitron",
+          title: 'ScanExitron',
+          description: "A computational workflow for exitron splicing identification and profiling from next-generation sequencing RNA-Seq datasets.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_scanexitron";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%74%79%77%61%6E%67@%6E%6F%72%74%68%77%65%73%74%65%72%6E.%65%64%75", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=FVx_uDIAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/cv/", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Expressing design formula in R | Ting-You Wang </title> <meta name="author" content="Ting-You Wang"> <meta name="description" content="Bioinformatics Research Associate at Northwestern University Feinberg School of Medicine. I explore, analyze, and visualize biological data, focusing on genetics, genomics, cancer, and lupus susceptibility. "> <meta name="keywords" content="bioinformatics, genomics, cancer research, lupus, jekyll, al-folio"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://databeauty.com/blog/opinion/2016/03/23/Expressing-design-formula-in-R.html"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <div class="navbar-brand social"> <a href="mailto:tywang@northwestern.edu" title="Email"><i class="fa-solid fa-envelope"></i></a> <a href="https://scholar.google.com/citations?user=FVx_uDIAAAAJ" title="Scholar userid" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a> <a href="https://github.com/dolittle007" title="Github username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-github"></i></a> <a href="https://www.linkedin.com/in/dolittle007" title="Linkedin username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-linkedin"></i></a> <a href="https://twitter.com/dolittle007" title="X username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-x-twitter"></i></a> <a href="/cv/" title="Cv pdf"><i class="ai ai-cv"></i></a> <a href="/feed.xml" title="Rss icon"><i class="fa-solid fa-square-rss"></i></a> </div> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">Projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">Books </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">Blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Expressing design formula in R</h1> <p class="post-meta"> Created on March 23, 2016 </p> <p class="post-tags"> <a href="/blog/2016"> <i class="fa-solid fa-calendar fa-sm"></i> 2016 </a>   ·   <a href="/blog/tag/linear-regression-model"> <i class="fa-solid fa-hashtag fa-sm"></i> linear regression model</a>   <a href="/blog/tag/analysis"> <i class="fa-solid fa-hashtag fa-sm"></i> analysis</a>   <a href="/blog/tag/logistic-regression-model"> <i class="fa-solid fa-hashtag fa-sm"></i> logistic regression model</a>   <a href="/blog/tag/plot"> <i class="fa-solid fa-hashtag fa-sm"></i> plot</a>   <a href="/blog/tag/r"> <i class="fa-solid fa-hashtag fa-sm"></i> R</a>   ·   <a href="/blog/category/opinion"> <i class="fa-solid fa-tag fa-sm"></i> opinion</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>Expressing experimental designs using R formula.</p> <h3 id="the-design-matrix">The Design Matrix</h3> <p>Here we will show how to use the two R functions, <code class="language-plaintext highlighter-rouge">formula</code> and <code class="language-plaintext highlighter-rouge">model.matrix</code>, in order to produce <em>design matrices</em> (also known as <em>model matrices</em>) for a variety of linear models. For example, in the mouse diet examples we wrote the model as</p> \[Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, i=1,\dots,N\] <p>with $Y_i$ the weights and $x_i$ equal to 1 only when mouse $i$ receives the high fat diet. We use the term <em>experimental unit</em> to $N$ different entities from which we obtain a measurement. In this case, the mice are the experimental units.</p> <p>This is the type of variable we will focus on in this chapter. We call them <em>indicator variables</em> since they simply indicate if the experimental unit had a certain characteristic or not. As we described earlier, we can use linear algebra to represent this model:</p> \[\mathbf{Y} = \begin{pmatrix} Y_1\\ Y_2\\ \vdots\\ Y_N \end{pmatrix} , \mathbf{X} = \begin{pmatrix} 1&amp;x_1\\ 1&amp;x_2\\ \vdots\\ 1&amp;x_N \end{pmatrix} , \boldsymbol{\beta} = \begin{pmatrix} \beta_0\\ \beta_1 \end{pmatrix} \mbox{ and } \boldsymbol{\varepsilon} = \begin{pmatrix} \varepsilon_1\\ \varepsilon_2\\ \vdots\\ \varepsilon_N \end{pmatrix}\] <p>as:</p> \[\, \begin{pmatrix} Y_1\\ Y_2\\ \vdots\\ Y_N \end{pmatrix} = \begin{pmatrix} 1&amp;x_1\\ 1&amp;x_2\\ \vdots\\ 1&amp;x_N \end{pmatrix} \begin{pmatrix} \beta_0\\ \beta_1 \end{pmatrix} + \begin{pmatrix} \varepsilon_1\\ \varepsilon_2\\ \vdots\\ \varepsilon_N \end{pmatrix}\] <p>or simply:</p> \[\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}\] <p>The design matrix is the matrix $\mathbf{X}$.</p> <p>Once we define a design matrix, we are ready to find the least squares estimates. We refer to this as <em>fitting the model</em>. For fitting linear models in R, we will directly provide a <em>formula</em> to the <code class="language-plaintext highlighter-rouge">lm</code> function. In this script, we will use the <code class="language-plaintext highlighter-rouge">model.matrix</code> function, which is used internally by the <code class="language-plaintext highlighter-rouge">lm</code> function. This will help us to connect the R <code class="language-plaintext highlighter-rouge">formula</code> with the matrix $\mathbf{X}$. It will therefore help us interpret the results from <code class="language-plaintext highlighter-rouge">lm</code>.</p> <h4 id="choice-of-design">Choice of design</h4> <p>The choice of design matrix is a critical step in linear modeling since it encodes which coefficients will be fit in the model, as well as the inter-relationship between the samples. A common misunderstanding is that the choice of design follows straightforward from a description of which samples were included in the experiment. This is not the case. The basic information about each sample (whether control or treatment group, experimental batch, etc.) does not imply a single ‘correct’ design matrix. The design matrix additionally encodes various assumptions about how the variables in $\mathbf{X}$ explain the observed values in $\mathbf{Y}$, on which the investigator must decide.</p> <p>For the examples we cover here, we use linear models to make comparisons between different groups. Hence, the design matrices that we ultimately work with will have at least two columns: an <em>intercept</em> column, which consists of a column of 1’s, and a second column, which specifies which samples are in a second group. In this case, two coefficients are fit in the linear model: the intercept, which represents the population average of the first group, and a second coefficient, which represents the difference between the population averages of the second group and the first group. The latter is typically the coefficient we are interested in when we are performing statistical tests: we want to know if there is a difference between the two groups.</p> <p>We encode this experimental design in R with two pieces. We start with a formula with the tilde symbol <code class="language-plaintext highlighter-rouge">~</code>. This means that we want to model the observations using the variables to the right of the tilde. Then we put the name of a variable, which tells us which samples are in which group.</p> <p>Let’s try an example. Suppose we have two groups, control and high fat diet, with two samples each. For illustrative purposes, we will code these with 1 and 2 respectively. We should first tell R that these values should not be interpreted numerically, but as different levels of a <em>factor</em>. We can then use the paradigm <code class="language-plaintext highlighter-rouge">~ group</code> to, say, model on the variable <code class="language-plaintext highlighter-rouge">group</code>.</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">group</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div> <p>(Don’t worry about the <code class="language-plaintext highlighter-rouge">attr</code> lines printed beneath the matrix. We won’t be using this information.)</p> <p>What about the <code class="language-plaintext highlighter-rouge">formula</code> function? We don’t have to include this. By starting an expression with <code class="language-plaintext highlighter-rouge">~</code>, it is equivalent to telling R that the expression is a formula:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model.matrix</span><span class="p">(</span><span class="n">formula</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">group</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div> <p>What happens if we don’t tell R that <code class="language-plaintext highlighter-rouge">group</code> should be interpreted as a factor?</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">group</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div> <p>This is <strong>not</strong> the design matrix we wanted, and the reason is that we provided a numeric variable as opposed to an <em>indicator</em> to the <code class="language-plaintext highlighter-rouge">formula</code> and <code class="language-plaintext highlighter-rouge">model.matrix</code> functions, without saying that these numbers actually referred to different groups. We want the second column to have only 0 and 1, indicating group membership.</p> <p>A note about factors: the names of the levels are irrelevant to <code class="language-plaintext highlighter-rouge">model.matrix</code> and <code class="language-plaintext highlighter-rouge">lm</code>. All that matters is the order. For example:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"control"</span><span class="p">,</span><span class="s2">"control"</span><span class="p">,</span><span class="s2">"highfat"</span><span class="p">,</span><span class="s2">"highfat"</span><span class="p">))</span><span class="w">
+</span><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">group</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div> <p>produces the same design matrix as our first code chunk.</p> <h4 id="more-groups">More groups</h4> <p>Using the same formula, we can accommodate modeling more groups. Suppose we have a third diet:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">))</span><span class="w">
+</span><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">group</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div> <p>Now we have a third column which specifies which samples belong to the third group.</p> <p>An alternate formulation of design matrix is possible by specifying <code class="language-plaintext highlighter-rouge">+ 0</code> in the formula:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">))</span><span class="w">
+</span><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div> <p>This group now fits a separate coefficient for each group. We will explore this design in more depth later on.</p> <h4 id="more-variables">More variables</h4> <p>We have been using a simple case with just one variable (diet) as an example. In the life sciences, it is quite common to perform experiments with more than one variable. For example, we may be interested in the effect of diet and the difference in sexes. In this case, we have four possible groups:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">diet</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
+</span><span class="n">sex</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"f"</span><span class="p">,</span><span class="s2">"f"</span><span class="p">,</span><span class="s2">"m"</span><span class="p">,</span><span class="s2">"m"</span><span class="p">,</span><span class="s2">"f"</span><span class="p">,</span><span class="s2">"f"</span><span class="p">,</span><span class="s2">"m"</span><span class="p">,</span><span class="s2">"m"</span><span class="p">))</span><span class="w">
+</span><span class="n">table</span><span class="p">(</span><span class="n">diet</span><span class="p">,</span><span class="n">sex</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div> <p>If we assume that the diet effect is the same for males and females (this is an assumption), then our linear model is:</p> \[Y_{i}= \beta_0 + \beta_1 x_{i,1} + \beta_2 x_{i,2} + \varepsilon_i\] <p>To fit this model in R, we can simply add the additional variable with a <code class="language-plaintext highlighter-rouge">+</code> sign in order to build a design matrix which fits based on the information in additional variables:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">diet</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
+</span><span class="n">sex</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"f"</span><span class="p">,</span><span class="s2">"f"</span><span class="p">,</span><span class="s2">"m"</span><span class="p">,</span><span class="s2">"m"</span><span class="p">,</span><span class="s2">"f"</span><span class="p">,</span><span class="s2">"f"</span><span class="p">,</span><span class="s2">"m"</span><span class="p">,</span><span class="s2">"m"</span><span class="p">))</span><span class="w">
+</span><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">diet</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sex</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div> <p>The design matrix includes an intercept, a term for <code class="language-plaintext highlighter-rouge">diet</code> and a term for <code class="language-plaintext highlighter-rouge">sex</code>. We would say that this linear model accounts for differences in both the group and condition variables. However, as mentioned above, the model assumes that the diet effect is the same for both males and females. We say these are an <em>additive</em> effect. For each variable, we add an effect regardless of what the other is. Another model is possible here, which fits an additional term and which encodes the potential interaction of group and condition variables. We will cover interaction terms in depth in a later script.</p> <p>The interaction model can be written in either of the following two formulas:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">diet</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">diet</span><span class="o">:</span><span class="n">sex</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div> <p>or</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">diet</span><span class="o">*</span><span class="n">sex</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div> <h4 id="releveling">Releveling</h4> <p>The level which is chosen for the <em>reference level</em> is the level which is contrasted against. By default, this is simply the first level alphabetically. We can specify that we want group 2 to be the reference level by either using the <code class="language-plaintext highlighter-rouge">relevel</code> function:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
+</span><span class="n">group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">relevel</span><span class="p">(</span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="s2">"2"</span><span class="p">)</span><span class="w">
+</span><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">group</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div> <p>or by providing the levels explicitly in the <code class="language-plaintext highlighter-rouge">factor</code> call:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"1"</span><span class="p">,</span><span class="s2">"2"</span><span class="p">))</span><span class="w">
+</span><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">group</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div> <h4 id="where-does-modelmatrix-look-for-the-data">Where does model.matrix look for the data?</h4> <p>The <code class="language-plaintext highlighter-rouge">model.matrix</code> function will grab the variable from the R global environment, unless the data is explicitly provided as a data frame to the <code class="language-plaintext highlighter-rouge">data</code> argument:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="w">
+</span><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">data.frame</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="m">5</span><span class="o">:</span><span class="m">8</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div> <p>Note how the R global environment variable <code class="language-plaintext highlighter-rouge">group</code> is ignored.</p> <h4 id="continuous-variables">Continuous variables</h4> <p>In this chapter, we focus on models based on indicator values. In certain designs, however, we will be interested in using numeric variables in the design formula, as opposed to converting them to factors first. For example, in the falling object example, time was a continuous variable in the model and time squared was also included:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3.4</span><span class="p">,</span><span class="n">len</span><span class="o">=</span><span class="m">4</span><span class="p">)</span><span class="w"> 
+</span><span class="n">model.matrix</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">tt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">I</span><span class="p">(</span><span class="n">tt</span><span class="o">^</span><span class="m">2</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div> <p>The <code class="language-plaintext highlighter-rouge">I</code> function above is necessary to specify a mathematical transformation of a variable. For more details, see the manual page for the <code class="language-plaintext highlighter-rouge">I</code> function by typing <code class="language-plaintext highlighter-rouge">?I</code>.</p> <p>In the life sciences, we could be interested in testing various dosages of a treatment, where we expect a specific relationship between a measured quantity and the dosage, e.g. 0 mg, 10 mg, 20 mg.</p> <p>The assumptions imposed by including continuous data as variables are typically hard to defend and motivate than the indicator function variables. Whereas the indicator variables simply assume a different mean between two groups, continuous variables assume a very specific relationship between the outcome and predictor variables.</p> <p>In cases like the falling object, we have the theory of gravitation supporting the model. In the father-son height example, because the data is bivariate normal, it follows that there is a linear relationship if we condition. However, we find that continuous variables are included in linear models without justification to “adjust” for variables such as age. We highly discourage this practice unless the data support the model being used.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html">Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a Custodian</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html">Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html">Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2026/07/20/diffusion-llms.html">Diffusion LLMs</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html">Nanopore raw data visualization using squigualiser</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html">Nanopore direct RNA data analysis using Dorado</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html">Modern commnad line tools powered by Rust</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html">Nanopore direct cDNA data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/03/13/HiC-data-analysis.html">Hi-C data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html">Nanopore direct RNA data analysis</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Ting-You Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-projects",
+          title: "Projects",
+          description: "Software, pipelines, and tools developed for genomics and data analysis.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-publications",
+          title: "Publications",
+          description: "Peer-reviewed scientific publications, book chapters, and journal articles.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-books",
+          title: "Books",
+          description: "Books that I am reading, have read, or plan to read.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-blog",
+          title: "Blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Ting-You Wang's professional curriculum vitae detailing research, education, and software.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-rethinking-bioinformatics-expertise-in-the-era-of-ai-a-newbie-39-s-journey-as-a-custodian",
+        
+          title: "Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html";
+          
+        },
+      },{id: "post-mapping-the-global-landscape-of-cancer-research-key-trends-from-the-nature-index",
+        
+          title: "Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html";
+          
+        },
+      },{id: "post-shattered-chromosomes-understanding-chromothripsis-and-genome-rearrangement-models",
+        
+          title: "Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html";
+          
+        },
+      },{id: "post-diffusion-llms",
+        
+          title: "Diffusion LLMs",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2026/07/20/diffusion-llms.html";
+          
+        },
+      },{id: "post-nanopore-raw-data-visualization-using-squigualiser",
+        
+          title: "Nanopore raw data visualization using squigualiser",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis-using-dorado",
+        
+          title: "Nanopore direct RNA data analysis using Dorado",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html";
+          
+        },
+      },{id: "post-modern-commnad-line-tools-powered-by-rust",
+        
+          title: "Modern commnad line tools powered by Rust",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html";
+          
+        },
+      },{id: "post-nanopore-direct-cdna-data-analysis",
+        
+          title: "Nanopore direct cDNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-hi-c-data-analysis",
+        
+          title: "Hi-C data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/03/13/HiC-data-analysis.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis",
+        
+          title: "Nanopore direct RNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-operation-on-bigwig-files",
+        
+          title: "Operation on BigWig Files",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/07/operation-on-bigwig-files.html";
+          
+        },
+      },{id: "post-pacbio-iso-seq-data-analysis",
+        
+          title: "PacBio Iso-Seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/12/08/PacBio-Iso-Seq-Data-Analysis.html";
+          
+        },
+      },{id: "post-probabilistic-graphical-models-for-fraud-detection",
+        
+          title: "Probabilistic Graphical Models for Fraud Detection",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/09/15/Probabilistic-Graphical-Models-for-Fraud-Detection.html";
+          
+        },
+      },{id: "post-an-introduction-to-options",
+        
+          title: "An Introduction to Options",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/06/02/intro-options.html";
+          
+        },
+      },{id: "post-funding-schemes-for-postdoctoral-fellowship",
+        
+          title: "Funding schemes for postdoctoral fellowship",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/news/2018/02/05/postdoctoral-fellowships.html";
+          
+        },
+      },{id: "post-from-perceptron-to-deep-learning",
+        
+          title: "From Perceptron to Deep Learning",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/01/16/From-Perceptron-to-Deep-Learning.html";
+          
+        },
+      },{id: "post-introduction-to-meta-analysis-fixed-effect-model-and-random-effect-model",
+        
+          title: "Introduction to Meta-analysis: fixed-effect model and random-effect model",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/statistics/2017/09/08/meta-analysis.html";
+          
+        },
+      },{id: "post-recreate-economist-graph-by-ggplot2",
+        
+          title: "Recreate Economist graph by ggplot2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/03/03/recreate-economist-graph-by-ggplot2.html";
+          
+        },
+      },{id: "post-gwas-prephasing-and-imputation",
+        
+          title: "GWAS prephasing and imputation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/02/20/GWAS-prephasing-and-imputation.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis-strand-issues",
+        
+          title: "RNA-seq data analysis (strand issues)",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/09/21/RNA-seq-strand-issues.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis",
+        
+          title: "RNA-seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2016/09/13/RNA-seq-analysis.html";
+          
+        },
+      },{id: "post-rna-seq-normalization",
+        
+          title: "RNA-seq normalization",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/08/29/RNAseq-normalization.html";
+          
+        },
+      },{id: "post-linear-models-in-practice",
+        
+          title: "linear models in practice",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2016/03/23/Linear-models-in-practice.html";
+          
+        },
+      },{id: "post-introduction-to-linear-models",
+        
+          title: "Introduction to Linear Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Introduction-to-Linear-Models.html";
+          
+        },
+      },{id: "post-expressing-design-formula-in-r",
+        
+          title: "Expressing design formula in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Expressing-design-formula-in-R.html";
+          
+        },
+      },{id: "post-penalized-regression-methods-for-association-studies",
+        
+          title: "Penalized Regression Methods for Association Studies",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2015/05/15/Penalized-Regression.html";
+          
+        },
+      },{id: "post-what-is-norm",
+        
+          title: "What is norm?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/27/What-is-norm.html";
+          
+        },
+      },{id: "post-the-making-of-manipulating-data-tables",
+        
+          title: "The Making of Manipulating Data Tables",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/06/slides-workflow.html";
+          
+        },
+      },{id: "post-when-is-a-z-statistic-and-when-a-t-statistic-used",
+        
+          title: "When is a z-statistic and when a t-statistic used?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/05/t-statistic-or-z-statistic.html";
+          
+        },
+      },{id: "post-creating-html5-slides-with-rstudio-knitr-and-pandoc",
+        
+          title: "Creating HTML5 slides with RStudio, knitr and pandoc",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/26/Creating-HTML5-Slides.html";
+          
+        },
+      },{id: "post-5-functions-to-do-principal-components-analysis-in-r",
+        
+          title: "5 functions to do Principal Components Analysis in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/25/PCA-in-R.html";
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather";
+            },},{id: "news-a-simple-inline-announcement",
+          title: 'A simple inline announcement.',
+          description: "",
+          section: "News",},{id: "news-a-long-announcement-with-details",
+          title: 'A long announcement with details',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2";
+            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
+          title: 'A simple inline announcement with Markdown emoji! <img class="emoji" title=":sparkles:" alt=":sparkles:" src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png" height="20" width="20"> <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20">',
+          description: "",
+          section: "News",},{id: "projects-scanneo",
+          title: 'ScanNeo',
+          description: "A pipeline for identifying insertion and deletion (indel) introduced neoantigens from RNA sequencing data.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_scanneo";
+            },},{id: "projects-scanitd",
+          title: 'ScanITD',
+          description: "Performs a stepwise seed-and-realignment procedure for internal tandem duplication (ITD) detection with robust variant allele frequency estimation.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_scanitd";
+            },},{id: "projects-scanexitron",
+          title: 'ScanExitron',
+          description: "A computational workflow for exitron splicing identification and profiling from next-generation sequencing RNA-Seq datasets.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_scanexitron";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%74%79%77%61%6E%67@%6E%6F%72%74%68%77%65%73%74%65%72%6E.%65%64%75", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=FVx_uDIAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/cv/", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

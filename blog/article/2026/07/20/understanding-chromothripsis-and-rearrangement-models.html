@@ -1,0 +1,526 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models | Ting-You Wang </title> <meta name="author" content="Ting-You Wang"> <meta name="description" content="Bioinformatics Research Associate at Northwestern University Feinberg School of Medicine. I explore, analyze, and visualize biological data, focusing on genetics, genomics, cancer, and lupus susceptibility. "> <meta name="keywords" content="bioinformatics, genomics, cancer research, lupus, jekyll, al-folio"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://databeauty.com/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <div class="navbar-brand social"> <a href="mailto:tywang@northwestern.edu" title="Email"><i class="fa-solid fa-envelope"></i></a> <a href="https://scholar.google.com/citations?user=FVx_uDIAAAAJ" title="Scholar userid" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a> <a href="https://github.com/dolittle007" title="Github username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-github"></i></a> <a href="https://www.linkedin.com/in/dolittle007" title="Linkedin username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-linkedin"></i></a> <a href="https://twitter.com/dolittle007" title="X username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-x-twitter"></i></a> <a href="/cv/" title="Cv pdf"><i class="ai ai-cv"></i></a> <a href="/feed.xml" title="Rss icon"><i class="fa-solid fa-square-rss"></i></a> </div> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">Projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">Books </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">Blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models</h1> <p class="post-meta"> Created on July 20, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/genomics"> <i class="fa-solid fa-hashtag fa-sm"></i> Genomics</a>   <a href="/blog/tag/cancer-biology"> <i class="fa-solid fa-hashtag fa-sm"></i> Cancer Biology</a>   <a href="/blog/tag/bioinformatics"> <i class="fa-solid fa-hashtag fa-sm"></i> Bioinformatics</a>   <a href="/blog/tag/evolution"> <i class="fa-solid fa-hashtag fa-sm"></i> Evolution</a>   ·   <a href="/blog/category/article"> <i class="fa-solid fa-tag fa-sm"></i> article</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>How does a cancer genome acquire hundreds of structural rearrangements? The traditional model of cancer progression asserts that genomes evolve through a gradual, step-wise accumulation of mutations over years. However, recent genome sequencing has revealed a dramatic counter-narrative: <strong>chromothripsis</strong>, a single catastrophic burst where one or a few chromosomes are shattered into dozens to hundreds of pieces and stitched back together in a chaotic order.</p> <p>In this post, we explore the cell biology behind chromothripsis, contrast it with standard genome rearrangement models like <strong>Double Cut and Join (DCJ)</strong>, and discuss how computational biologists are adapting models using <strong>$k$-break rearrangements</strong> to capture the reality of simultaneous genomic catastrophes.</p> <p><img src="/figures/2026-07-20-understanding-chromothripsis/chromothripsis_shattering.jpg" alt="Chromothripsis Mechanism"></p> <hr> <h2 id="1-the-biology-of-chromothripsis">1. The Biology of Chromothripsis</h2> <p>The term <strong>chromothripsis</strong> (Greek for <em>chromosome shattering</em>) was coined in 2011 by Stephens et al. to describe a mutational signature characterized by clustered breakpoints localized to a single chromosome or arm, with alternating copy number states (typically fluctuating between two states: copy-number neutral and deleted).</p> <p>Biologists have identified two primary mitotic errors that trigger this catastrophe:</p> <h3 id="a-the-micronucleus-model-whole-chromosome-shattering">A. The Micronucleus Model (Whole-Chromosome Shattering)</h3> <p>During cell division, if a chromosome fails to segregate properly to either spindle pole (a lagging chromosome), it can become trapped outside the main nucleus at mitotic exit. A separate membrane, called a <strong>micronucleus</strong>, forms around it.</p> <ul> <li> <strong>Envelope Collapse:</strong> The micronuclear envelope (micro-NE) is structurally unstable and prone to irreversible collapse during interphase.</li> <li> <strong>Replication Stress &amp; Shattering:</strong> Rupturing dilutes critical replication machinery, halting DNA synthesis and exposing the chromosome to cytosolic nucleases. When the cell enters the next mitosis, this under-replicated, damaged chromosome is prematurely condensed and shattered.</li> <li> <strong>Ligation:</strong> The resulting acentric fragments are distributed to the daughter cells, where canonical Non-Homologous End Joining (c-NHEJ) stitches them back together in a random, scrambled order.</li> </ul> <h3 id="b-the-chromatin-bridge-model-focal-chromothripsis">B. The Chromatin Bridge Model (Focal Chromothripsis)</h3> <p>If a chromosome acquires two active centromeres (a <strong>dicentric chromosome</strong>, often due to telomere-to-telomere fusion), it can be pulled to opposing poles during division, creating a <strong>chromatin bridge</strong> that spans the two daughter cells.</p> <ul> <li> <strong>Exonuclease Digestion:</strong> During G1 phase, the nuclear envelope surrounding the stretched bridge ruptures. The cytoplasmic 3′ exonuclease <strong>TREX1</strong> gains access to the exposed DNA and cleaves it.</li> <li> <strong>Signature:</strong> Because the cleavage is localized, the resulting rearrangements are focally restricted to a specific region or arm. This is frequently accompanied by <strong>kataegis</strong> (clustered hotspots of cytosine mutations).</li> </ul> <hr> <h2 id="2-pan-cancer-prevalence-and-genomic-signatures-the-pcawg-study">2. Pan-Cancer Prevalence and Genomic Signatures: The PCAWG Study</h2> <p>To understand the real-world impact and frequency of this phenomenon, the <strong>Pan-Cancer Analysis of Whole Genomes (PCAWG) Consortium</strong> conducted a landmark analysis of 2,658 tumors spanning 38 cancer types using whole-genome sequencing (WGS) data (Cortés-Ciriano et al., 2020).</p> <p>Using the computational tool <strong>ShatterSeek</strong>, they uncovered several critical insights that redefined our view of chromothripsis:</p> <h3 id="a-pervasiveness-and-tumor-type-specificity">A. Pervasiveness and Tumor-Type Specificity</h3> <p>While SNP array-based studies previously estimated chromothripsis to occur in only 1.5% to 5% of cancers, WGS data revealed that it is highly <strong>pervasive</strong>:</p> <ul> <li> <strong>Overall Frequency:</strong> High-confidence chromothripsis was detected in <strong>29% of all tumors</strong> (increasing to <strong>40%</strong> if low-confidence calls are included).</li> <li> <strong>Extreme Variation:</strong> Some cancers exhibit near-universal chromothripsis. It was found in <strong>100% of liposarcomas</strong> and <strong>77% of osteosarcomas</strong>, and surpassed <strong>50%</strong> in glioblastomas, skin melanomas, and lung adenocarcinomas. Conversely, it is extremely rare in thyroid adenocarcinomas (3.3%) and chronic lymphocytic leukemia (1.2%).</li> <li> <strong>Multichromosomal Events:</strong> While 40% of chromothripsis cases affect only a single chromosome, the other 60% are <strong>multichromosomal</strong>, involving interchromosomal SVs (e.g., at least 5 chromosomes are affected in 61% of osteosarcomas).</li> </ul> <h3 id="b-predisposing-factors-tp53-and-polyploidy">B. Predisposing Factors: TP53 and Polyploidy</h3> <p>The study highlighted a strong link between cell cycle checkpoints, ploidy, and chromothripsis:</p> <ul> <li> <strong>TP53 Mutational Status:</strong> Inactivating <em>TP53</em> mutations are strongly correlated with chromothripsis (odds ratio of 1.54 compared to TP53 wild-type).</li> <li> <strong>Polyploidy:</strong> The odds of chromothripsis in a polyploid tumor are 1.5 times larger than in a diploid tumor. Interestingly, in 74% of canonical cases where the timeline could be established, <strong>chromothripsis occurred after polyploidization</strong>, suggesting that the chromosomal instability of newly established polyploid cells drives subsequent shattering.</li> <li> <strong>p53-Proficient Diploids:</strong> Despite these risk factors, <strong>60% of chromothripsis cases</strong> occurred in diploid tumors with wild-type <em>TP53</em> and no <em>MDM2</em> amplification, showing that p53 inactivation is not a strict prerequisite.</li> </ul> <h3 id="c-reassembly-signatures-nhej-vs-replicative-processes">C. Reassembly Signatures: NHEJ vs. Replicative Processes</h3> <p>Analyzing breakpoint junctions in canonical chromothripsis cases revealed that reassembly is not always mediated by standard end-joining:</p> <ul> <li> <strong>Canonical End-Joining (55%):</strong> The majority of cases showed repair signatures consistent solely with NHEJ or alternative end-joining (alt-EJ).</li> <li> <strong>Replication-Associated Repairs (32%):</strong> A significant fraction displayed short stretches of microhomology (0-6 bp) and small templated insertions (10–500 bp), indicating contributions from <strong>Microhomology-Mediated Break-Induced Replication (MMBIR)</strong>.</li> <li> <strong>Chromoanasynthesis (5%):</strong> In diploid tumors, about 5% of events showed low-level copy number gains without Loss of Heterozygosity (LOH) and extensive template-switching, showing that replicative processes can construct chromothripsis-like configurations in a single step.</li> </ul> <h3 id="d-oncogenic-drivers-and-gene-inactivation">D. Oncogenic Drivers and Gene Inactivation</h3> <p>Chromothripsis acts as a powerful driver of tumorigenesis by reshaping key loci:</p> <ul> <li> <strong>Oncogene Amplification:</strong> Roughly 11% of small-scale focal amplifications of oncogenes (such as <em>CCND1</em>, <em>CDK4</em>, <em>MDM2</em>, and <em>MYC</em>) co-localize with chromothripsis regions, often resulting in massive copy-number changes via double minutes or neochromosomes.</li> <li> <strong>Tumor Suppressor Loss:</strong> Chromothripsis is directly responsible for about 2% of the losses of tumor-suppressor and DNA-repair genes, including <em>PTEN</em>, <em>BRCA1</em>, <em>BRCA2</em>, <em>APC</em>, <em>TP53</em>, and <em>MLH1</em> (the loss of which can trigger a microsatellite-instability phenotype).</li> </ul> <hr> <h2 id="3-modeling-genome-rearrangements-the-classical-dcj-model">3. Modeling Genome Rearrangements: The Classical DCJ Model</h2> <p>To study how genomes reorganize over time, computational biologists rely on <strong>genome rearrangement models</strong>. The most popular and mathematically elegant of these is the <strong>Double Cut and Join (DCJ)</strong> model, formalized by Yancopoulos et al. (2005) and Bergeron, Mixtacki, and Stoye (2008).</p> <h3 id="how-dcj-works">How DCJ Works</h3> <p>In the DCJ model, a genome is represented as a collection of adjacencies (connections between chromosomal segments) in an <strong>adjacency graph</strong>. A single DCJ operation performs two cuts on adjacencies and rejoins the four exposed ends in a new configuration. This single operation acts as a unified mechanism representing:</p> <ul> <li> <strong>Inversions</strong> (reversing a segment)</li> <li> <strong>Translocations</strong> (exchanging segments between chromosomes)</li> <li> <strong>Fusions</strong> and <strong>Fissions</strong> (joining or splitting chromosomes)</li> </ul> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DCJ Operation (2-break):
+Before:   A — B   and   C — D
+Cuts:     A [x] B  and  C [x] D
+Joins:    A — C   and   B — D   (or A — D and B — C)
+</code></pre></div></div> <h3 id="the-advantages-of-dcj">The Advantages of DCJ</h3> <p>The DCJ model is highly efficient:</p> <ol> <li> <strong>Distance Calculation:</strong> The minimum number of DCJ steps (the DCJ distance) required to transform one genome into another can be computed in <strong>linear time</strong> $O(n)$ using the cycles and paths in the adjacency graph.</li> <li> <strong>Optimal Sorting:</strong> Shortest paths of sequential 2-break rearrangements can be calculated rapidly.</li> </ol> <hr> <h2 id="4-the-sv-chronological-order-issue">4. The SV Chronological Order Issue</h2> <p>While the DCJ model is incredibly useful for calculating evolutionary distances, it encounters a major roadblock when reconstructing the actual <strong>chronology of structural variations (SVs)</strong>.</p> <h3 id="a-non-uniqueness-of-shortest-paths">A. Non-Uniqueness of Shortest Paths</h3> <p>If you have a highly rearranged genome, there are typically thousands or millions of different optimal paths of the same minimum length. Standard DCJ algorithms cannot distinguish between these mathematically equivalent sequences. Without additional biological constraints (like single-cell phylogenies or copy number changes), determining which sequence actually occurred historically is impossible.</p> <h3 id="b-sequential-vs-simultaneous-conflict">B. Sequential vs. Simultaneous Conflict</h3> <p>This is where the biology of chromothripsis directly clashes with the assumptions of DCJ:</p> <ul> <li> <strong>The Parsimony Assumption:</strong> DCJ assumes that rearrangements occur step-by-step (one-by-one).</li> <li> <strong>The Reality of Shattering:</strong> Chromothripsis shatters a chromosome into $M$ fragments, which are reassembled in a single cell cycle.</li> <li> <strong>The Modeling Failure:</strong> If we feed a chromothriptic genome into a standard DCJ model, the algorithm will attempt to represent the event as a sequence of multiple independent 2-break steps. It will claim that “rearrangement 1 happened, then rearrangement 2, then rearrangement 3,” which is a false biological chronology.</li> </ul> <hr> <h2 id="5-the-solution-k-break-rearrangements">5. The Solution: $k$-Break Rearrangements</h2> <p>To bridge the gap between biological reality and mathematical modeling, researchers use <strong>$k$-break rearrangements</strong>.</p> <p>A $k$-break operation cuts $k$ adjacencies simultaneously and rejoins the $2k$ ends in a new configuration. Under this framework:</p> <ul> <li>A <strong>2-break</strong> is a standard DCJ operation.</li> <li>A <strong>3-break</strong> can represent transpositions and block interchanges in a single step.</li> <li>An <strong>$n$-break</strong> (where $n$ is large) represents a chromosome-shattering event like chromothripsis in a single step.</li> </ul> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>k-break Operation:
+Cuts:     Adjacency_1, Adjacency_2, ..., Adjacency_k
+Joins:    Scrambled re-ligation of all 2k ends in 1 step
+</code></pre></div></div> <h3 id="the-trade-offs-of-the-k-break-model">The Trade-offs of the $k$-break Model</h3> <p>While $k$-breaks allow us to model chromothripsis as a single step, they introduce significant computational and modeling challenges:</p> <table> <thead> <tr> <th style="text-align: left">Challenge</th> <th style="text-align: left">Explanation</th> </tr> </thead> <tbody> <tr> <td style="text-align: left"><strong>The “Unbounded $k$” Triviality</strong></td> <td style="text-align: left">If $k$ is allowed to be arbitrarily large without penalty, the distance between any two genomes is always 1 (a single $n$-break). We lose the ability to measure evolutionary distance.</td> </tr> <tr> <td style="text-align: left"><strong>Cost Functions $C(k)$</strong></td> <td style="text-align: left">To make the model useful, we must define a cost function where a standard 2-break is cheap, but a massive $k$-break is heavily penalized. Selecting and tuning this cost function is a major research problem.</td> </tr> <tr> <td style="text-align: left"><strong>NP-Hardness</strong></td> <td style="text-align: left">Unlike the linear-time DCJ model, finding the most parsimonious sorting scenario using a mix of 2-breaks and $k$-breaks is an NP-hard problem due to the exponential combinations of joining $2k$ ends.</td> </tr> <tr> <td style="text-align: left"><strong>Handling Fragment Deletions</strong></td> <td style="text-align: left">Traditional $k$-break models assume all cut ends are conserved and rejoined. In chromothripsis, massive deletions occur due to lost acentric fragments. The model must be extended to support $k$-breaks with deletions.</td> </tr> </tbody> </table> <hr> <h2 id="6-conclusion">6. Conclusion</h2> <p>Chromothripsis has changed how we view genome instability. Rather than being a gradual process, cancer genomes can undergo massive, punctuated reorganizations overnight.</p> <p>While classical models like DCJ (2-breaks) remain the workhorse of comparative genomics for progressive evolutionary changes, the development of constrained and penalized $k$-break models is essential for accurately capturing genomic catastrophes. Modern bioinformatics workflows are increasingly combining these models with single-cell sequencing and copy-number profiles to reconstruct the true, non-stepwise history of cancer genomes.</p> <h3 id="references">References</h3> <ol> <li>Stephens, P. J., et al. (2011). “Massive genomic rearrangement acquired in a single catastrophic event during cancer development.” <em>Cell</em>, 144(1), 27-40.</li> <li>Ly, P., &amp; Cleveland, D. W. (2017). “Rebuilding Chromosomes After Catastrophe: Emerging Mechanisms of Chromothripsis.” <em>Trends in Cell Biology</em>, 27(12), 917-930.</li> <li>Cortés-Ciriano, I., Lee, J. J. K., Xi, R., et al. (2020). “Comprehensive analysis of chromothripsis in 2,658 human cancers using whole-genome sequencing.” <em>Nature Genetics</em>, 52(3), 331–341.</li> <li>Yancopoulos, S., et al. (2005). “Efficient sorting of genomic permutations by translocation, inversion and block interchange.” <em>Discrete Applied Mathematics</em>, 150(1-3), 229-244.</li> <li>Bergeron, A., Mixtacki, J., &amp; Stoye, J. (2008). “The double cut and join model of genome rearrangements.” <em>Theoretical Computer Science</em>, 395(2-3), 172-192.</li> </ol> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html">Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a Custodian</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html">Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2026/07/20/diffusion-llms.html">Diffusion LLMs</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html">Nanopore raw data visualization using squigualiser</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html">Nanopore direct RNA data analysis using Dorado</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html">Modern commnad line tools powered by Rust</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html">Nanopore direct cDNA data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/03/13/HiC-data-analysis.html">Hi-C data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html">Nanopore direct RNA data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/01/07/operation-on-bigwig-files.html">Operation on BigWig Files</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Ting-You Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-projects",
+          title: "Projects",
+          description: "Software, pipelines, and tools developed for genomics and data analysis.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-publications",
+          title: "Publications",
+          description: "Peer-reviewed scientific publications, book chapters, and journal articles.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-books",
+          title: "Books",
+          description: "Books that I am reading, have read, or plan to read.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-blog",
+          title: "Blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Ting-You Wang's professional curriculum vitae detailing research, education, and software.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-rethinking-bioinformatics-expertise-in-the-era-of-ai-a-newbie-39-s-journey-as-a-custodian",
+        
+          title: "Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html";
+          
+        },
+      },{id: "post-mapping-the-global-landscape-of-cancer-research-key-trends-from-the-nature-index",
+        
+          title: "Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html";
+          
+        },
+      },{id: "post-shattered-chromosomes-understanding-chromothripsis-and-genome-rearrangement-models",
+        
+          title: "Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html";
+          
+        },
+      },{id: "post-diffusion-llms",
+        
+          title: "Diffusion LLMs",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2026/07/20/diffusion-llms.html";
+          
+        },
+      },{id: "post-nanopore-raw-data-visualization-using-squigualiser",
+        
+          title: "Nanopore raw data visualization using squigualiser",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis-using-dorado",
+        
+          title: "Nanopore direct RNA data analysis using Dorado",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html";
+          
+        },
+      },{id: "post-modern-commnad-line-tools-powered-by-rust",
+        
+          title: "Modern commnad line tools powered by Rust",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html";
+          
+        },
+      },{id: "post-nanopore-direct-cdna-data-analysis",
+        
+          title: "Nanopore direct cDNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-hi-c-data-analysis",
+        
+          title: "Hi-C data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/03/13/HiC-data-analysis.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis",
+        
+          title: "Nanopore direct RNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-operation-on-bigwig-files",
+        
+          title: "Operation on BigWig Files",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/07/operation-on-bigwig-files.html";
+          
+        },
+      },{id: "post-pacbio-iso-seq-data-analysis",
+        
+          title: "PacBio Iso-Seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/12/08/PacBio-Iso-Seq-Data-Analysis.html";
+          
+        },
+      },{id: "post-probabilistic-graphical-models-for-fraud-detection",
+        
+          title: "Probabilistic Graphical Models for Fraud Detection",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/09/15/Probabilistic-Graphical-Models-for-Fraud-Detection.html";
+          
+        },
+      },{id: "post-an-introduction-to-options",
+        
+          title: "An Introduction to Options",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/06/02/intro-options.html";
+          
+        },
+      },{id: "post-funding-schemes-for-postdoctoral-fellowship",
+        
+          title: "Funding schemes for postdoctoral fellowship",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/news/2018/02/05/postdoctoral-fellowships.html";
+          
+        },
+      },{id: "post-from-perceptron-to-deep-learning",
+        
+          title: "From Perceptron to Deep Learning",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/01/16/From-Perceptron-to-Deep-Learning.html";
+          
+        },
+      },{id: "post-introduction-to-meta-analysis-fixed-effect-model-and-random-effect-model",
+        
+          title: "Introduction to Meta-analysis: fixed-effect model and random-effect model",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/statistics/2017/09/08/meta-analysis.html";
+          
+        },
+      },{id: "post-recreate-economist-graph-by-ggplot2",
+        
+          title: "Recreate Economist graph by ggplot2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/03/03/recreate-economist-graph-by-ggplot2.html";
+          
+        },
+      },{id: "post-gwas-prephasing-and-imputation",
+        
+          title: "GWAS prephasing and imputation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/02/20/GWAS-prephasing-and-imputation.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis-strand-issues",
+        
+          title: "RNA-seq data analysis (strand issues)",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/09/21/RNA-seq-strand-issues.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis",
+        
+          title: "RNA-seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2016/09/13/RNA-seq-analysis.html";
+          
+        },
+      },{id: "post-rna-seq-normalization",
+        
+          title: "RNA-seq normalization",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/08/29/RNAseq-normalization.html";
+          
+        },
+      },{id: "post-linear-models-in-practice",
+        
+          title: "linear models in practice",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2016/03/23/Linear-models-in-practice.html";
+          
+        },
+      },{id: "post-introduction-to-linear-models",
+        
+          title: "Introduction to Linear Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Introduction-to-Linear-Models.html";
+          
+        },
+      },{id: "post-expressing-design-formula-in-r",
+        
+          title: "Expressing design formula in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Expressing-design-formula-in-R.html";
+          
+        },
+      },{id: "post-penalized-regression-methods-for-association-studies",
+        
+          title: "Penalized Regression Methods for Association Studies",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2015/05/15/Penalized-Regression.html";
+          
+        },
+      },{id: "post-what-is-norm",
+        
+          title: "What is norm?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/27/What-is-norm.html";
+          
+        },
+      },{id: "post-the-making-of-manipulating-data-tables",
+        
+          title: "The Making of Manipulating Data Tables",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/06/slides-workflow.html";
+          
+        },
+      },{id: "post-when-is-a-z-statistic-and-when-a-t-statistic-used",
+        
+          title: "When is a z-statistic and when a t-statistic used?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/05/t-statistic-or-z-statistic.html";
+          
+        },
+      },{id: "post-creating-html5-slides-with-rstudio-knitr-and-pandoc",
+        
+          title: "Creating HTML5 slides with RStudio, knitr and pandoc",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/26/Creating-HTML5-Slides.html";
+          
+        },
+      },{id: "post-5-functions-to-do-principal-components-analysis-in-r",
+        
+          title: "5 functions to do Principal Components Analysis in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/25/PCA-in-R.html";
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather";
+            },},{id: "news-a-simple-inline-announcement",
+          title: 'A simple inline announcement.',
+          description: "",
+          section: "News",},{id: "news-a-long-announcement-with-details",
+          title: 'A long announcement with details',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2";
+            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
+          title: 'A simple inline announcement with Markdown emoji! <img class="emoji" title=":sparkles:" alt=":sparkles:" src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png" height="20" width="20"> <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20">',
+          description: "",
+          section: "News",},{id: "projects-scanneo",
+          title: 'ScanNeo',
+          description: "A pipeline for identifying insertion and deletion (indel) introduced neoantigens from RNA sequencing data.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_scanneo";
+            },},{id: "projects-scanitd",
+          title: 'ScanITD',
+          description: "Performs a stepwise seed-and-realignment procedure for internal tandem duplication (ITD) detection with robust variant allele frequency estimation.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_scanitd";
+            },},{id: "projects-scanexitron",
+          title: 'ScanExitron',
+          description: "A computational workflow for exitron splicing identification and profiling from next-generation sequencing RNA-Seq datasets.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_scanexitron";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%74%79%77%61%6E%67@%6E%6F%72%74%68%77%65%73%74%65%72%6E.%65%64%75", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=FVx_uDIAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/cv/", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

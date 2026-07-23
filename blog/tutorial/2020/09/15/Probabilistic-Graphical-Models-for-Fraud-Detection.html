@@ -1,0 +1,882 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Probabilistic Graphical Models for Fraud Detection | Ting-You Wang </title> <meta name="author" content="Ting-You Wang"> <meta name="description" content="Bioinformatics Research Associate at Northwestern University Feinberg School of Medicine. I explore, analyze, and visualize biological data, focusing on genetics, genomics, cancer, and lupus susceptibility. "> <meta name="keywords" content="bioinformatics, genomics, cancer research, lupus, jekyll, al-folio"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://databeauty.com/blog/tutorial/2020/09/15/Probabilistic-Graphical-Models-for-Fraud-Detection.html"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <div class="navbar-brand social"> <a href="mailto:tywang@northwestern.edu" title="Email"><i class="fa-solid fa-envelope"></i></a> <a href="https://scholar.google.com/citations?user=FVx_uDIAAAAJ" title="Scholar userid" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a> <a href="https://github.com/dolittle007" title="Github username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-github"></i></a> <a href="https://www.linkedin.com/in/dolittle007" title="Linkedin username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-linkedin"></i></a> <a href="https://twitter.com/dolittle007" title="X username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-x-twitter"></i></a> <a href="/cv/" title="Cv pdf"><i class="ai ai-cv"></i></a> <a href="/feed.xml" title="Rss icon"><i class="fa-solid fa-square-rss"></i></a> </div> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">Projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">Books </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">Blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Probabilistic Graphical Models for Fraud Detection</h1> <p class="post-meta"> Created on September 15, 2020 </p> <p class="post-tags"> <a href="/blog/2020"> <i class="fa-solid fa-calendar fa-sm"></i> 2020 </a>   ·   <a href="/blog/tag/probabilistic-graphical-models"> <i class="fa-solid fa-hashtag fa-sm"></i> Probabilistic Graphical Models</a>   <a href="/blog/tag/r"> <i class="fa-solid fa-hashtag fa-sm"></i> R</a>   ·   <a href="/blog/category/tutorial"> <i class="fa-solid fa-tag fa-sm"></i> tutorial</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>Probabilistic Graphical Models for Fraud Detection.</p> <blockquote> <p>Editor’s note: this post is from <a href="http://blog.applied.ai" title="The Sampler archives" rel="external nofollow noopener" target="_blank">The Sampler archives</a> in 2015.</p> </blockquote> <p>Bayesian networks are useful tools for probabilistically computing the interdependencies and outcomes of real-world systems given limited information. Here we describe their use in fraud detection.</p> <p>In this new technical series I will introduce the basic concepts of Bayesian networks a.k.a. belief networks a.k.a. Probabilistic Graphical Models (PGMs) and explain how they can be used to detect anomalous or fraudulent behaviour in insurance. In particular I will work through specific examples of how we might spot anomalies in medical non-disclosure in the life insurance underwriting process.</p> <p>PGMs are a very interesting and rigorous way to define the causal relations between different events in a system or process. PGMs allow us to state our prior assumptions and account for new evidence in real-time, thus uncovering patterns and customer behaviours that are not always easily clear.</p> <p>Before we start, some terms:</p> <ul> <li>A PGM is a probabilistic model wherein we use a network or graph to express the structure of conditional dependence between random variables i.e if event A happens, then event B will happen with X% probability and so on.</li> <li>In particular, a Bayesian network or belief network is a PGM where the the graph is a Directed Acyclic Graph (DAG)</li> <li>Variables can be directly observed, e.g. the car battery is Y% charged or unobserved a.ka. latent e.g the customer has fraudulent intent</li> <li>Variables in the graph can be categorical: event A happens True or False, color in is Red, Blue or Green, or they can be ordinal, integers or floats. For simplicity, here we will restrict our models to categorical variables only.</li> </ul> <h2 id="conditional-probability-and-conditional-independence">Conditional Probability and Conditional Independence</h2> <p>Before we can discuss Bayesian Networks, we first need to introduce the concepts of conditional probability and conditional independence.</p> <h2 id="conditional-probability">Conditional Probability</h2> <p>This is simply the probability of observing an event given that we already know the realisation of some other event.</p> <p>For example, suppose we want to know the probability of seeing a total of $11$ from the roll of two 6-sided dice. There are two ways to score $11,<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> so absent any other information, the probability of this event is:</p> \[P(T = 11) = \frac{2}{36} = 0.0555\] <p>Now suppose we already know that one of the dice has rolled a $5$. Now in order to score $11$ total, there’s only one option: to roll a $6$. Thus the probability of the total equalling $11$ is:</p> \[P(T = 11 \; | \; D_{1} = 5) = \frac{1}{6} = 0.1667\] <p>… where $D_{1}$ is the score of first die.</p> <p>Knowledge of the outcome of the first die roll $D_{1}$ means we now have a different expectation for the final total $T$.</p> <p>This concept can be expanded further: instead of having complete information about $D_{1}$, we might have incomplete information and only know that $D_{1}$ is either a $4$ or $5$, with a $50\%$ probability of each. With a PGM we can propagate this knowledge forward to adjust the probabilities for $T.<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">2</a></sup></p> <h2 id="conditional-dependence">Conditional Dependence</h2> <p>This is a closely related topic, but more subtle. Let’s say we have three variables, $A$, $B$ and $C$, and the outcome of $C$ is (directly) dependent upon $A$ and also (directly) dependent upon $B$. Now we can state that $A$ and $B$ are conditionally dependent based on our knowledge of the outcome $C$.</p> <p>To illustrate, consider the 3 random variables related to the 2 dice rolls, $T$, $D_{1}$ and $D_{2}$. The total $T$ is dependent on both $D_{1}$ and $D_{2}$, and both dice are physically independent of one another.</p> <p>If our friend rolls the dice and tells us only the value of $T = 4$ we intuitively know we can make a guess about the dice values, since $T = D_{1} + D_{2}$.</p> <p>We could make a dependency table based on $T=4$ about the viable combinations (marked X):</p> <table> <thead> <tr> <th> </th> <th>D2</th> <th> </th> <th> </th> </tr> <tr> <th>D1</th> <th>1</th> <th>2</th> <th>3</th> </tr> </thead> <tbody> <tr> <td>1</td> <td>o</td> <td>o</td> <td>X</td> </tr> <tr> <td>2</td> <td>o</td> <td>X</td> <td>o</td> </tr> <tr> <td>3</td> <td>X</td> <td>o</td> <td>o</td> </tr> <tr> <td>…</td> <td> </td> <td> </td> <td> </td> </tr> </tbody> </table> <p>Furthermore, if we then learn the value of one die, e.g. $D_{1} = 1$ then we can use our table to deduce that $D_{2} = 3$. The values of the dice are conditionally dependent on the value of their total.</p> <p>Thinking about systems in this way can be initially counter-intuitive, since here the dice are not physically changed and are truly independent in a physical sense.</p> <p>More formally, the joint distribution of $A$, $B$, and $C$ can be factorised into two expressions, one containing $A$ and $C$, and the other containing $B$ and $C$, i.e.</p> \[P(A, B, C) = f(A, C) \; g(B, C)\] <h2 id="conditional-independence">Conditional Independence</h2> <p>We see above how 2 independent variables can become conditionally dependent from knowing the value of a 3rd, mutually dependent variable.</p> <p>Lets say we also have a deck of cards $C$ and draw a single card $C_1$ based on nothing but blind chance. Our friend is interested in the values $T$ and $C_1$ so we report them separately as separate systems, nothing more. I.e. $T$ and $C_1$ are independent, and our primary variables $D_1 + D_{2}$ and $C_1$ are conditionally independent.</p> <p>If we created a final, super, overarching total $S = D_{1} + D_{2} + C_{1}$ then that would change the graph, and $D_{1}$, $D_{2}$, $C_{1}$ would become conditionally dependent on $S$.</p> <hr> <h2 id="bayesian-networks-and-the-sprinkler-network">Bayesian Networks and the Sprinkler Network</h2> <p>Now suppose we are trying to create a model with lots of variables. Rather than try to consider all the variables at once, we try to model the system by building up chains of dependency. This allows us to break up the modelling process into smaller chunks, making the whole system much more manageable.</p> <p>Our Bayesian network or PGM is a directed acyclic graph (DAG). Each variable is a node on the graph, and an edge or vertex represents the conditional relationship between the variables, with the edge pointing towards the dependent variable.</p> <h2 id="the-sprinkler-network">The Sprinkler Network</h2> <p>One of the simplest Bayesian networks is the Sprinkler network. In this network we have three binary-valued variables:</p> <p>$R(ain)$, representing whether or not it is raining; $S(prinkler)$, representing if the lawn sprinkler is turned on; and $G(rass)$, representing if the grass is wet. We can’t control the rain, but if it is raining we are less likely to need to use the sprinkler, so it is less likely to be turned on. Both rain and an active sprinkler affect the likelihood of the grass being wet.</p> <p>We can represent all of the above as a DAG:</p> <p><img src="/figures/2020-09-15-Probabilistic-Graphical-Models-for-Fraud-Detection/Sprinkler_network.png" alt="center"></p> <p>Now that we have the structure in place, we need to think about probabilities. This is generally done by specifying conditional probability tables (CPTs). Each variable has its own CPT, specifying different probabilities for outcomes given the different values of the conditional variables.</p> <p>In the Sprinkler network:</p> <p>$R$ is totally independent (no arrows point into it) and so we just need to specify a binomial probability for it.<sup id="fnref:3"><a href="#fn:3" class="footnote" rel="footnote" role="doc-noteref">3</a></sup> $S$ depends on the value of $R$, and so we need to specify two probabilities, one for each value of $R$. Finally, $G$ depends on both $S$ and $R$ and so we need 4 probabilities, one for each combination of $S$ and $R$. We can now fully specify the sprinkler network by specifying the CPTs for each variable. Note the nomenclature $P(A|\neg B)$ means the conditional probability that $A$ happens given that $B$ does not happen.</p> <p>First the probabilities for $R$:</p> \[P(R) = 0.2\] <p>Then for $S$:</p> \[P(S|R) = 0.01 \;\; P(S|\neg R) = 0.4\] <p>And finally for $G$:</p> \[P(G|S,R) = 0.99 \;\; P(G|S, \neg R) = 0.9\] \[P(G|\neg S, R) = 0.8 \;\; P(G|\neg S, \neg R) = 0\] <p>Using the PGM Ideally, we can use this network to answer (simple) questions like:</p> <p>What is the likelihood of the grass being wet? If the grass is wet, how likely is it to be raining? If the sprinkler is not on, how likely is it to not be raining? In order to compute the answers, we need to combine all the CPTs. When the overall size of the network is small, with few nodes (variables) and few edges (outcomes), we can use the ‘brute force’ method: just multiply out all the conditional tables and calculate the joint distribution of all the variables.</p> <p>With the full, joint distribution we know everything that can be known about the system: questions are answered by conditioning on the evidence observed and then marginalising out all the other variables.</p> <p>This is not conceptually complex but can be a laborious accounting exercise, making errors all too common. Thankfully, this is exactly the kind of task computers excel at, so we will use some R packages to handle all the details, allowing us to focus on the interesting stuff.</p> <p>The package I am going to use from now on is the gRain package, available on CRAN.</p> <h2 id="computing-the-pgm">Computing the PGM</h2> <p>We specify the network by first specifying the CPTs using the function cptable(). You may notice dependencies are described using R’s formula notation, aiding familiarity. The code used to create this Sprinkler network is shown below, please get in touch if you would like access to the full code repository.</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">rain</span><span class="w">  
+            </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"yes"</span><span class="p">,</span><span class="w"> </span><span class="s2">"no"</span><span class="p">)</span><span class="w">
+            </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">0.8</span><span class="p">));</span><span class="w">
+
+</span><span class="n">s</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">sprinkler</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">rain</span><span class="w">  
+            </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"yes"</span><span class="p">,</span><span class="w"> </span><span class="s2">"no"</span><span class="p">)</span><span class="w">
+            </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.01</span><span class="p">,</span><span class="w"> </span><span class="m">0.99</span><span class="p">,</span><span class="w"> </span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="m">0.6</span><span class="p">));</span><span class="w">
+
+</span><span class="n">g</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">grass</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">sprinkler</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rain</span><span class="w">  
+            </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"yes"</span><span class="p">,</span><span class="w"> </span><span class="s2">"no"</span><span class="p">)</span><span class="w">
+            </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.99</span><span class="p">,</span><span class="w"> </span><span class="m">0.01</span><span class="p">,</span><span class="w"> </span><span class="m">0.9</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.8</span><span class="p">,</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">));</span><span class="w">
+
+</span><span class="n">sprinkler.grain</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grain</span><span class="p">(</span><span class="n">compileCPT</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">)));</span><span class="w">
+</span></code></pre></div></div> <p>Once we have the network, it is very straightforward to ask questions:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="c1">### Q1: What is the likelihood of the grass being wet?</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">sprinkler.grain</span><span class="p">,</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'grass'</span><span class="p">)</span><span class="w">
+</span><span class="o">$</span><span class="n">grass</span><span class="w">
+ </span><span class="n">grass</span><span class="w">
+     </span><span class="n">yes</span><span class="w">      </span><span class="n">no</span><span class="w">
+ </span><span class="m">0.43618</span><span class="w"> </span><span class="m">0.56382</span><span class="w">
+</span></code></pre></div></div> <p>The probability of the grass being wet is $0.436$.</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="c1">### Q2: If the grass is wet, how likely is it to be raining?</span><span class="w">
+ </span><span class="n">querygrain</span><span class="p">(</span><span class="n">sprinkler.grain</span><span class="p">,</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'rain'</span><span class="p">,</span><span class="w"> </span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">grass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'yes'</span><span class="p">))</span><span class="w">
+ </span><span class="o">$</span><span class="n">rain</span><span class="w">
+ </span><span class="n">rain</span><span class="w">
+      </span><span class="n">yes</span><span class="w">       </span><span class="n">no</span><span class="w">
+ </span><span class="m">0.413086</span><span class="w"> </span><span class="m">0.586914</span><span class="w">
+</span></code></pre></div></div> <p>If the grass is wet, the probability that it is raining is $0.413$.</p> <p>I will leave answering the third question as an exercise for the reader.</p> <hr> <h2 id="expanding-the-model">Expanding the Model</h2> <p>Now that we have a simple and working model for the Sprinkler system, we can move on to building a little more complexity. Rather than adding nodes to the system, how do we add additional outcomes to the variables we have?</p> <p>It makes sense to keep the sprinkler as a binary variable. On/Off is intuitive. Instead, how about we add three levels to the Grass variable, denoted three levels of ‘wetness’ - ‘Dry’, ‘Damp’ and ‘Wet’. How does this affect our system?</p> <p>In terms of specifying conditional probability, we do not need to change a whole lot with our network. $R$ and $S$ remain the same, we still have 4 combinations with which to condition upon, but we now need to specify three values for $G$, one for each of the three levels of $G$.</p> <p>The code to do this is shown below:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">rain</span><span class="w">  
+            </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"rain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"norain"</span><span class="p">)</span><span class="w">
+            </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">0.8</span><span class="p">));</span><span class="w">
+
+</span><span class="n">s</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">sprinkler</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">rain</span><span class="w">  
+            </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"on"</span><span class="p">,</span><span class="w"> </span><span class="s2">"off"</span><span class="p">)</span><span class="w">
+            </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.01</span><span class="p">,</span><span class="w"> </span><span class="m">0.99</span><span class="p">,</span><span class="w"> </span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="m">0.6</span><span class="p">));</span><span class="w">
+
+</span><span class="n">g</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">grass</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">sprinkler</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rain</span><span class="w">  
+            </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"dry"</span><span class="p">,</span><span class="w"> </span><span class="s2">"damp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"wet"</span><span class="p">)</span><span class="w">
+            </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.01</span><span class="p">,</span><span class="w"> </span><span class="m">0.20</span><span class="p">,</span><span class="w"> </span><span class="m">0.79</span><span class="w">  </span><span class="c1">## ON, Rain</span><span class="w">
+                       </span><span class="p">,</span><span class="m">0.05</span><span class="p">,</span><span class="w"> </span><span class="m">0.30</span><span class="p">,</span><span class="w"> </span><span class="m">0.65</span><span class="w">  </span><span class="c1">## OFF, Rain</span><span class="w">
+                       </span><span class="p">,</span><span class="m">0.10</span><span class="p">,</span><span class="w"> </span><span class="m">0.70</span><span class="p">,</span><span class="w"> </span><span class="m">0.20</span><span class="w">  </span><span class="c1">## ON, NoRain</span><span class="w">
+                       </span><span class="p">,</span><span class="m">0.90</span><span class="p">,</span><span class="w"> </span><span class="m">0.09</span><span class="p">,</span><span class="w"> </span><span class="m">0.01</span><span class="w">  </span><span class="c1">## OFF, NoRain</span><span class="w">
+
+</span><span class="n">expandedsprinkler1.grain</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grain</span><span class="p">(</span><span class="n">compileCPT</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">)));</span><span class="w">
+</span></code></pre></div></div> <p>We can now ask slightly more interesting questions:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="c1">### What is the likelihood that it is raining given that the grass is damp?</span><span class="w">
+</span><span class="n">querygrain</span><span class="p">(</span><span class="n">expandedsprinkler1.grain</span><span class="w">  
+           </span><span class="p">,</span><span class="n">nodes</span><span class="o">=</span><span class="s1">'rain'</span><span class="w">                                   
+           </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">grass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'damp'</span><span class="p">));</span><span class="w">           
+</span><span class="o">$</span><span class="n">rain</span><span class="w">
+ </span><span class="n">rain</span><span class="w">
+     </span><span class="n">rain</span><span class="w">   </span><span class="n">norain</span><span class="w">
+ </span><span class="m">0.182875</span><span class="w"> </span><span class="m">0.817125</span><span class="w">
+</span></code></pre></div></div> <p>What about the probability of rain given that the grass is not dry (thus either damp or wet)? We cannot calculate the two probabilities and add them, that quantity is not a probability as they are not mutually exclusive events.<sup id="fnref:4"><a href="#fn:4" class="footnote" rel="footnote" role="doc-noteref">4</a></sup></p> <p>Instead, we need to calculate:</p> \[P(R = \text{rain} \; | \; G = \text{damp}) \; P(G = \text{damp}) + P(R = \text{rain} \; | \; G = \text{wet}) \; P(G = \text{wet})\] <p>An alternative method - one that is probably easier in this case - is to inspect the joint distribution and add the probabilities.</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### What is the likelihood that is raining given that the grass is either</span><span class="w">
+</span><span class="c1">### damp or wet?</span><span class="w">
+ </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ftable</span><span class="p">(</span><span class="n">querygrain</span><span class="p">(</span><span class="n">expandedsprinkler1.grain</span><span class="w">
+                  </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"rain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sprinkler"</span><span class="p">,</span><span class="w"> </span><span class="s2">"grass"</span><span class="p">)</span><span class="w">
+                  </span><span class="p">,</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'joint'</span><span class="p">),</span><span class="w">
+        </span><span class="n">row.vars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'grass'</span><span class="p">);</span><span class="w">
+       </span><span class="n">rain</span><span class="w">         </span><span class="n">rain</span><span class="w">          </span><span class="n">norain</span><span class="w">
+       </span><span class="n">sprinkler</span><span class="w">      </span><span class="n">on</span><span class="w">     </span><span class="n">off</span><span class="w">      </span><span class="n">on</span><span class="w">     </span><span class="n">off</span><span class="w">
+ </span><span class="n">grass</span><span class="w">
+ </span><span class="n">dry</span><span class="w">             </span><span class="m">0.00002</span><span class="w"> </span><span class="m">0.00990</span><span class="w"> </span><span class="m">0.03200</span><span class="w"> </span><span class="m">0.43200</span><span class="w">
+ </span><span class="n">damp</span><span class="w">            </span><span class="m">0.00040</span><span class="w"> </span><span class="m">0.05940</span><span class="w"> </span><span class="m">0.22400</span><span class="w"> </span><span class="m">0.04320</span><span class="w">
+ </span><span class="n">wet</span><span class="w">             </span><span class="m">0.00158</span><span class="w"> </span><span class="m">0.12870</span><span class="w"> </span><span class="m">0.06400</span><span class="w"> </span><span class="m">0.00480</span><span class="w">
+</span></code></pre></div></div> <p>So, to calculate those probabilities we add up the probabilities where $G$ is either “damp” or “wet” and $R$ is “rain”:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">       </span><span class="n">rain</span><span class="w">         </span><span class="n">rain</span><span class="w">          </span><span class="n">norain</span><span class="w">
+       </span><span class="n">sprinkler</span><span class="w">      </span><span class="n">on</span><span class="w">     </span><span class="n">off</span><span class="w">      </span><span class="n">on</span><span class="w">     </span><span class="n">off</span><span class="w">
+ </span><span class="n">grass</span><span class="w">
+ </span><span class="n">dry</span><span class="w">                   </span><span class="n">.</span><span class="w">       </span><span class="n">.</span><span class="w">       </span><span class="n">.</span><span class="w">       </span><span class="n">.</span><span class="w">
+ </span><span class="n">damp</span><span class="w">            </span><span class="m">0.00040</span><span class="w"> </span><span class="m">0.05940</span><span class="w">       </span><span class="n">.</span><span class="w">       </span><span class="n">.</span><span class="w">
+ </span><span class="n">wet</span><span class="w">             </span><span class="m">0.00158</span><span class="w"> </span><span class="m">0.12870</span><span class="w">       </span><span class="n">.</span><span class="w">       </span><span class="n">.</span><span class="w">
+</span></code></pre></div></div> <p>Thus our probability is</p> \[P(R | G \neg dry) = 0.00040 + 0.00158 + 0.05940 + 0.12870 = 0.19008\] <p>Finally, what if we also have three levels of $R$? Instead of ‘rain’ and ‘norain’, we have ‘norain’, ‘light’, and ‘heavy’. We need to expand the CPTs, but otherwise the network is unchanged.</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### Create the network with three levels for R:</span><span class="w">
+</span><span class="n">r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">rain</span><span class="w">  
+            </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"norain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"light"</span><span class="p">,</span><span class="w"> </span><span class="s2">"heavy"</span><span class="p">)</span><span class="w">
+            </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.7</span><span class="p">,</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">));</span><span class="w">
+
+</span><span class="n">s</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">sprinkler</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">rain</span><span class="w">  
+            </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"on"</span><span class="p">,</span><span class="w"> </span><span class="s2">"off"</span><span class="p">)</span><span class="w">
+            </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> </span><span class="m">0.15</span><span class="p">,</span><span class="w"> </span><span class="m">0.85</span><span class="p">,</span><span class="w"> </span><span class="m">0.01</span><span class="p">,</span><span class="w"> </span><span class="m">0.99</span><span class="p">));</span><span class="w">
+
+</span><span class="n">g</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">grass</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">sprinkler</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rain</span><span class="w">  
+            </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"dry"</span><span class="p">,</span><span class="w"> </span><span class="s2">"damp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"wet"</span><span class="p">)</span><span class="w">
+            </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.10</span><span class="p">,</span><span class="w"> </span><span class="m">0.70</span><span class="p">,</span><span class="w"> </span><span class="m">0.20</span><span class="w">  </span><span class="c1">## ON, NoRain</span><span class="w">
+                       </span><span class="p">,</span><span class="m">0.88</span><span class="p">,</span><span class="w"> </span><span class="m">0.10</span><span class="p">,</span><span class="w"> </span><span class="m">0.02</span><span class="w">  </span><span class="c1">## OFF, NoRain</span><span class="w">
+                       </span><span class="p">,</span><span class="m">0.05</span><span class="p">,</span><span class="w"> </span><span class="m">0.60</span><span class="p">,</span><span class="w"> </span><span class="m">0.35</span><span class="w">  </span><span class="c1">## ON, Light</span><span class="w">
+                       </span><span class="p">,</span><span class="m">0.10</span><span class="p">,</span><span class="w"> </span><span class="m">0.60</span><span class="p">,</span><span class="w"> </span><span class="m">0.30</span><span class="w">  </span><span class="c1">## OFF, Light</span><span class="w">
+                       </span><span class="p">,</span><span class="m">0.01</span><span class="p">,</span><span class="w"> </span><span class="m">0.25</span><span class="p">,</span><span class="w"> </span><span class="m">0.74</span><span class="w">  </span><span class="c1">## ON, Heavy</span><span class="w">
+                       </span><span class="p">,</span><span class="m">0.05</span><span class="p">,</span><span class="w"> </span><span class="m">0.25</span><span class="p">,</span><span class="w"> </span><span class="m">0.70</span><span class="w">  </span><span class="c1">## OFF, Heavy</span><span class="w">
+                        </span><span class="p">));</span><span class="w">
+
+</span><span class="n">expandedsprinkler2.grain</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grain</span><span class="p">(</span><span class="n">compileCPT</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">)));</span><span class="w"> 
+</span></code></pre></div></div> <p>Given that we have wet grass, what is the probability table for the 3 different levels of rain?</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="c1">### What are the probability values for rain given that the</span><span class="w">
+ </span><span class="c1">### grass is wet?</span><span class="w">
+ </span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">expandedsprinkler2.grain</span><span class="w">
+           </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"rain"</span><span class="w">
+           </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">grass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'wet'</span><span class="p">))</span><span class="w">
+</span><span class="o">$</span><span class="n">rain</span><span class="w">
+ </span><span class="n">rain</span><span class="w">
+   </span><span class="n">norain</span><span class="w">    </span><span class="n">light</span><span class="w">    </span><span class="n">heavy</span><span class="w">
+ </span><span class="m">0.328672</span><span class="w"> </span><span class="m">0.313872</span><span class="w"> </span><span class="m">0.357456</span><span class="w">
+</span></code></pre></div></div> <p>So, according to our CPTs and the network, wet grass means all three levels of rain are roughly equally likely, not something I would have expected! In this case it would be very helpful to gather evidence on the sprinkler, and include that in the computation.</p> <p>This is an excellent illustration of why PGMs and Bayesian networks are so useful. Once you start bringing in evidence and condition probability, it is unlikely you will have a good intuition on what the effects are. Human brains are rarely wired well for this kind of problem.</p> <h2 id="building-bayesian-networks-from-data">Building Bayesian Networks from Data</h2> <p>I really like the power of Bayesian networks. Despite being built from simple blocks, the interaction of those probabilities often result in non-intuitive outcomes. They do have limitations, and it is important to consider those.</p> <p>We will discuss other downsides in the next article, but one big one is probably becoming obvious: constructing the CPTs can be tedious. Bayesian networks often suffer from poor scaling. Creating a CPT for a variable with 5 possible values that depends on three other variables, each with 4 different levels is a nightmare to create. There are $4^{3} = 64$ combinations of conditions and each condition needs a probability for 5 levels.</p> <p>We can mitigate this a little if we already have a lot of data. That way, we can create the DAG without any probabilities, and then create the network from the data. The grain() function can take data as a parameter and use this to calculate the CPTs.</p> <p>This saves a lot of time and effort, but has its own issues. Some combinations may not appear in the data, requiring smoothing and introduce errors. More seriously, in many cases Bayesian networks have unobserved, missing, or latent variables, making it much harder to properly estimate the CPTs.</p> <h2 id="we-will-return-to-these-issues-later-in-the-series">We will return to these issues later in the series.</h2> <h2 id="summary">Summary</h2> <p>In this first article I introduced Bayesian networks, illustrated the concepts using the simple Sprinkler system, and performed some conditional probability calculations using different levels of evidence.</p> <hr> <p><em>We continue our series on Bayesian networks by discussing their suitability for fraud detection in complex processes: for example assessing medical non-disclosure in life insurance applications.</em></p> <p>The previous article in this series introduced the concept of Probabilistic Graphical Models (PGMs) and Bayesian networks. They can be very useful tools for probabilistically computing the interdependencies and outcomes of real-world systems given limited information.</p> <p>We created a very simple model, the Sprinkler system, and showed how we can use Conditional Probability Tables (CPTs) to break down relationships into tractable parts and then combine them to calculate likely ranges for unknown values in a system.</p> <p>With the basics established, we will now introduce an application for Bayesian networks that I have been thinking about for a while: medical non-disclosure in the underwriting process.</p> <hr> <h1 id="medical-non-disclosure">Medical Non-Disclosure</h1> <h2 id="background">Background</h2> <p>When applying for a life insurance policy, the insurer will ask a series of health-related questions regarding the insured person. The answers to these questions allow the insurer to properly assess the risk associated with the policy and price it accordingly.</p> <ul> <li> <p>In the event of the disclosure of serious prior or current medical conditions, the insurer may ask the individuals to submit to a medical exam for underwriting purposes.</p> </li> <li> <p>In the event of non-disclosure, then an exam may be nevertheless randomly assigned to applicants to discourage fraudulent applications, and cover the event that the applicant has medical conditions of which they’re unaware.<sup id="fnref:5"><a href="#fn:5" class="footnote" rel="footnote" role="doc-noteref">5</a></sup></p> </li> </ul> <p>Medical exams are expensive: incurring a financial cost, and the time delay may result in a desirable applicant going elsewhere. Thus we might want focus medical exams for non-disclosure more towards the riskiest applications.</p> <h2 id="how-do-we-predict-medical-non-disclosure">How do we predict medical non-disclosure?</h2> <p>A large problem in modelling medical non-disclosure is the lack of full information in the existing data. We can only know the true medical status of an application if a medical exam was undertaken. As mentioned above, it’s rare that an applicant non-discloses AND is selected for a medical exam AND has a medical issue.</p> <p>This is a form of classification problem, but it is one with a severe class imbalance: we are trying to detect cases with a very low incidence rate. False positives are extremely likely. Similar issues exist in areas like fraud detection in financial transactions and in claims management for car insurance or personal injury insurance.</p> <p>Interestingly, there is also a sequential business process encoded into the the data, which we can use. A Bayesian network can encode an if-then-else web of processes and can naturally handle low-incidence probabilities. If there is a no-incidence issue we can use smoothing to ensure zero probabilities never occur.<sup id="fnref:6"><a href="#fn:6" class="footnote" rel="footnote" role="doc-noteref">6</a></sup></p> <h2 id="try-a-bayesian-network">Try a Bayesian network</h2> <p>To get started, we introduce a simple Bayesian network for modelling non-disclosure in underwriting. The network has 11 variables, with each variable taking only 2 or 3 values.</p> <p>I appreciate this is a clear incidence of Bad Teacher Syndrome - start with a simple example in class (the Sprinkler Network) and immediately jump to a harder problem for homework - but bear with me. The jump is not as huge as it might first appear. The principles are the same, just more variables and CPTs to deal with.</p> <hr> <h2 id="the-medical-exam-network-model">The Medical Exam Network Model</h2> <h2 id="preamble">Preamble</h2> <p>It is tempting to just dive into some modelling, getting something down on paper or on screen, and worrying about details later. Despite all my advice to the contrary, I am as guilty of this as the next person. At times this approach may even be beneficial. Playing with a basic model is a good way to develop intuition for what you are doing.</p> <p>I would not recommend acting on any outputs of your work at this stage, however. It is most likely to prove a poor idea, as the initial outputs of the model will bear out.</p> <p>Alas, try as we might to avoid it, deep thought will be required if we want something useful.</p> <p>I should also point out that I have no data at all, as I am unaware of any available datasets to play with in this area. This is one big thought experiment. In such circumstances, my preference is to first generate the data, but doing that in this case involves building the model, bringing us full circle. Instead, we will build a simple model and focus on the approach we take, possibly generating data from it later, finally considering how real-world issues can be dealt with.</p> <p>Before we can do any of this, we need to resolve a very important issue: what exactly is it we are trying to do, not generally, but specifically? “Improve the underwriting process” is vague, and could mean a lot of different things.</p> <p>Also, different ideas of what our goals are may result in different ways of both approaching the problem and interpreting model results, so we should nail down exactly what the goal is now. If necessary, we can always adjust it later as issues arise.<sup id="fnref:7"><a href="#fn:7" class="footnote" rel="footnote" role="doc-noteref">7</a></sup></p> <h2 id="building-the-model">Building the Model</h2> <p>Let’s start with this statement:</p> <p>We want a model which, given the data observed in the policy application, allows us to estimate the probability of a subsequent medical exam changing the underwriting decision of the policy. This model should incorporate our assumptions of the process and not be too complicated.</p> <p>So, while certainly trying to assess the likelihood of fraudulent applications, we also want:</p> <ul> <li>to allow for the applicant being unaware of a condition, and</li> <li>to consider the degree of risk posed by the non-disclosure: if the impact on the underwriting outcome is minimal it may prove more cost-effective to accept this rather than incur the cost of more frequent medical exams.</li> </ul> <p>Our model will have a binary ‘outcome’ variable $M$, set to $True$ if the result of a medical exam will have a significant effect on the underwriting decision, and $False$ if not.</p> <p>The implicit assumption of only having a single medical exam - or the grouping of different types together - is something we are likely to revisit in future, using multiple levels for the medical exam, or multiple variables representing different medical tests.</p> <p>We consider three different medical conditions:</p> <ul> <li> <strong>(S)moker</strong>: has 3 levels ‘Smoker’, ‘Quitter’, or ‘Nonsmoker’</li> <li> <strong>(B)MI</strong>: has 3 levels ‘Normal’, ‘Overweight’ or ‘Obese’</li> <li> <strong>Family (H)istory</strong>: has 2 levels ‘None’ or ‘HeartDisease’</li> </ul> <p>Each medical condition will have three aspects: the true underlying condition (prefix $T$), what was declared on the application (prefix $D$), and the size of the effect of the non-disclosure on the underwriting decision (prefix $S$). The aspect variable will be a binary variable with levels ‘Serious’ and ‘NotSerious’; the other two will have the same levels as determined by the condition.</p> <p>So we have 9 variables in the model representing the 3 different medical conditions, each condition having 3 aspects. We have already discussed $M$, the binary variable depicting the necessity of a medical exam.</p> <p>Finally, we have an ‘honesty’ variable $HN$, a binary variable with levels ‘Honest’ and ‘Dishonest’, affecting the propensity for an applicant to declare a more favourable medical condition than the true value.</p> <p>A little overwhelming when described in words, so lets visualise the resulting Bayesian network:</p> <p><img src="/figures/2020-09-15-Probabilistic-Graphical-Models-for-Fraud-Detection/underwriting_network.png" alt="center"></p> <p>To reiterate, this model is hugely simplified - I cannot imagine ever putting such a model into production in its current form. This is still perfectly acceptable, the purpose of this work is to explore the idea and determine how such a model could be used. The network in its current form is more than adequate.</p> <p>Now we have the structure of the model, we need to specify the CPTs. Four variables have no dependencies, $HN$, $TS$, $TB$ and $TH$. The CPTs for these variables are very simple: a discrete proportion for each level. $HN$ can be set from prior beliefs on the frequency of applications found to have issues. In our setup, we will use $HN(Honest) = 0.99, \; HN(Dishonest) = 0.01$.</p> <p>The proportions for the other three can be determined from public health data, for example we set the proportion for smoking as:</p> \[TS(Smoker) = 0.2 \;\; TS(Quitter) = 0.2 \;\; TS(Nonsmoker) = 0.6.\] <p>The rest of the variables all have conditional probabilities that depend on other variables in the system. The three ‘declared’ variables depend on the ‘True’ level and the honesty $HN$ of the application.</p> <p>We will not show all the code to create the network here, it is a little long and unwieldy. It is available in a BitBucket repository, please get in touch if you would like access.</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hn</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">HN</span><span class="w">  
+             </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.01</span><span class="p">,</span><span class="w"> </span><span class="m">0.99</span><span class="p">)</span><span class="w">
+             </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Dishonest"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Honest"</span><span class="p">));</span><span class="w">
+
+</span><span class="n">ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">TS</span><span class="w">  
+             </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.60</span><span class="p">,</span><span class="w"> </span><span class="m">0.20</span><span class="p">,</span><span class="w"> </span><span class="m">0.20</span><span class="p">)</span><span class="w">
+             </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Nonsmoker"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Quitter"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Smoker"</span><span class="p">));</span><span class="w">
+
+</span><span class="n">tb</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">TB</span><span class="w">  
+             </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.75</span><span class="p">,</span><span class="w"> </span><span class="m">0.20</span><span class="p">,</span><span class="w"> </span><span class="m">0.05</span><span class="p">)</span><span class="w">
+             </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"None"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Overweight"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Obese"</span><span class="p">));</span><span class="w">
+
+</span><span class="n">th</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">TH</span><span class="w">  
+             </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.95</span><span class="p">,</span><span class="w"> </span><span class="m">0.05</span><span class="p">)</span><span class="w">
+             </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"None"</span><span class="p">,</span><span class="w"> </span><span class="s2">"HeartDisease"</span><span class="p">));</span><span class="w">
+
+</span><span class="n">ds</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">DS</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">HN</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TS</span><span class="w">  
+             </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1.00</span><span class="p">,</span><span class="w"> </span><span class="m">0.00</span><span class="p">,</span><span class="w"> </span><span class="m">0.00</span><span class="w">  </span><span class="c1"># (HN = D, TS = N)</span><span class="w">
+                        </span><span class="p">,</span><span class="m">1.00</span><span class="p">,</span><span class="w"> </span><span class="m">0.00</span><span class="p">,</span><span class="w"> </span><span class="m">0.00</span><span class="w">  </span><span class="c1"># (HN = H, TS = N)</span><span class="w">
+                        </span><span class="p">,</span><span class="m">0.50</span><span class="p">,</span><span class="w"> </span><span class="m">0.40</span><span class="p">,</span><span class="w"> </span><span class="m">0.10</span><span class="w">  </span><span class="c1"># (HN = D, TS = Q)</span><span class="w">
+                        </span><span class="p">,</span><span class="m">0.05</span><span class="p">,</span><span class="w"> </span><span class="m">0.80</span><span class="p">,</span><span class="w"> </span><span class="m">0.15</span><span class="w">  </span><span class="c1"># (HN = H, TS = Q)</span><span class="w">
+                        </span><span class="p">,</span><span class="m">0.30</span><span class="p">,</span><span class="w"> </span><span class="m">0.40</span><span class="p">,</span><span class="w"> </span><span class="m">0.30</span><span class="w">  </span><span class="c1"># (HN = D, TS = S)</span><span class="w">
+                        </span><span class="p">,</span><span class="m">0.00</span><span class="p">,</span><span class="w"> </span><span class="m">0.10</span><span class="p">,</span><span class="w"> </span><span class="m">0.90</span><span class="w">  </span><span class="c1"># (HN = H, TS = S)</span><span class="w">
+                         </span><span class="p">)</span><span class="w">
+             </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Nonsmoker"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Quitter"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Smoker"</span><span class="p">));</span><span class="w">
+
+</span><span class="n">m</span><span class="w">  </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">SS</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SB</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SH</span><span class="w">  
+              </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.99</span><span class="p">,</span><span class="w"> </span><span class="m">0.01</span><span class="w">        </span><span class="c1"># (SS = S, SB = S, SH = S)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.90</span><span class="p">,</span><span class="w"> </span><span class="m">0.10</span><span class="w">        </span><span class="c1"># (SS = N, SB = S, SH = S)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.95</span><span class="p">,</span><span class="w"> </span><span class="m">0.05</span><span class="w">        </span><span class="c1"># (SS = S, SB = N, SH = S)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.85</span><span class="p">,</span><span class="w"> </span><span class="m">0.15</span><span class="w">        </span><span class="c1"># (SS = N, SB = N, SH = S)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.85</span><span class="p">,</span><span class="w"> </span><span class="m">0.15</span><span class="w">        </span><span class="c1"># (SS = S, SB = S, SH = N)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.60</span><span class="p">,</span><span class="w"> </span><span class="m">0.40</span><span class="w">        </span><span class="c1"># (SS = N, SB = S, SH = N)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.60</span><span class="p">,</span><span class="w"> </span><span class="m">0.40</span><span class="w">        </span><span class="c1"># (SS = S, SB = N, SH = N)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.10</span><span class="p">,</span><span class="w"> </span><span class="m">0.90</span><span class="w">        </span><span class="c1"># (SS = N, SB = N, SH = N)</span><span class="w">
+                          </span><span class="p">)</span><span class="w">
+              </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Medical"</span><span class="p">,</span><span class="w"> </span><span class="s2">"NoMedical"</span><span class="p">));</span><span class="w">
+
+</span><span class="n">underwriting.grain</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grain</span><span class="p">(</span><span class="n">compileCPT</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">hn</span><span class="w">  
+                                           </span><span class="p">,</span><span class="n">ts</span><span class="p">,</span><span class="w"> </span><span class="n">tb</span><span class="p">,</span><span class="w"> </span><span class="n">th</span><span class="w">
+                                           </span><span class="p">,</span><span class="n">ds</span><span class="p">,</span><span class="w"> </span><span class="n">db</span><span class="p">,</span><span class="w"> </span><span class="n">dh</span><span class="w">
+                                           </span><span class="p">,</span><span class="n">ss</span><span class="p">,</span><span class="w"> </span><span class="n">sb</span><span class="p">,</span><span class="w"> </span><span class="n">sh</span><span class="w">
+                                           </span><span class="p">,</span><span class="n">m</span><span class="p">)));</span><span class="w">
+</span></code></pre></div></div> <p>Thoroughly discussing the CPTs above is tedious, but it is worth spending a little time explaining the ds table. Probabilities cycle through variables from left to right in variable level order.</p> <p>As you may infer from the comments, probabilities group in threes as $DS$ has three levels. $HN$ has two levels and $TS$ has three, so there are six combinations of the conditioning variables - meaning we need 18 numbers to specify this CPT, and the totals of every group of three should add to 1.</p> <p>The first set of three values are the conditional probabilities for the three levels of $DS$ when the conditioning variables are all that their first levels, $HN = \text{Dishonest}$ and $TS = \text{Nonsmoker}$.</p> <p>The three values are $1.00$, $0.00$, and $0.00$ respectively, meaning that a dishonest application from a non-smoker will always declare as a non-smoker. Recall that the level order is Nonsmoker, Quitter, Smoker.</p> <p>Justifying the values in the CPTs is a topic we will discuss in the next article.</p> <hr> <h2 id="using-the-model">Using the Model</h2> <p>Now our basic model is in place we can start to ask questions:</p> <p>For example: “What is the unconditional probability of a medical exam changing the underwriting decision?”</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### What is the unconditional probability of a Medical exam changing</span><span class="w">
+</span><span class="c1">### the underwriting decision?</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="p">,</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'M'</span><span class="p">)</span><span class="w">
+ </span><span class="o">$</span><span class="n">M</span><span class="w">
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">0.187249</span><span class="w">  </span><span class="m">0.812751</span><span class="w">
+</span></code></pre></div></div> <p>According to our model, with no information on the application, we expect almost $19\%$ of applications to have their underwriting decisions changed based upon the results of a medical exam. This seems high, and suggests problems with the model as it is currently configured.</p> <p>This is not necessarily a flaw in the approach, none of the above is based on any data and the CPTs were chosen by myself. I chose conditional probabilities that seem reasonable, but may well need modification. Considering the simplicity of the model, I would expect a more accurate model to have a lower unconditional probability.</p> <p>This is an excellent illustration of why precise definitions are so crucial. Remember how we have defined $M$: it is the likelihood of a medical exam changing the underwriting decision. Implicit in this definition is that the underwriting process is properly assessing and pricing the risk given correct information.</p> <p>In practice, insurers will also factor risk in the decision for a medical exam - it is common for all policies above a certain amount to automatically require a medical exam. While certainly prudent, our model ignores this, focusing solely on non-disclosure and whether or not taking a medical exam will reveal something significant.</p> <p>If we ignore this precise definition, $19\%$ may not appear so bad, being superficially similar to calculating the overall proportion of policies that get requests for medical exams. However that proportion includes policies which automatically require a medical, and so is biased high.</p> <p>All of this suggests the current model and its CPTs are not a good representation of reality, and we will need to fix this. The current CPT numbers may prove reasonable, but the flow of conditional probability is tricky to get right. Were this not the case, we would not need a Bayesian network!</p> <h2 id="choosing-cpts-is-difficult">Choosing CPTs is difficult</h2> <p>When getting unexpected outputs that appear wrong, we need to focus on the CPTs and make sure those are correct. It is the CPTs that determine the outputs, so if we get those right the outputs take care of themselves.</p> <p>Furthermore, the non-linear nature of the calculations in the network makes the proposition of trying to control the output difficult. It is prudent to not strike that hornet nest for the moment unless we cannot avoid it.</p> <p>For now, we stick with our current model and allow for a potential high bias in our estimations. We will deal with issues of altering CPT values in future articles.</p> <hr> <h2 id="model-validation">Model Validation</h2> <p>Given we have a flawed model, but one we can work with, what other questions can we ask of it?</p> <p>Our primary interest is the necessity for a medical exam, so we start with questions mirroring our desired use: add declared medical conditions and observe the effect on the $M$ variable.</p> <p>For example, if an application declares a clean bill of health: Non-smoker $(DS = \text{Nonsmoker})$, normal weight $(DB = \text{Normal})$ and no family history of heart disease $(DH = \text{None})$, how does this effect the necessity for an exam?</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### What is the probability of an exam changing the decision if a</span><span class="w">
+</span><span class="c1">### person declares himself a Nonsmoker, Normal weight and no</span><span class="w">
+</span><span class="c1">### family history of heart disease.</span><span class="w">
+ </span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+          </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'M'</span><span class="w">
+          </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">DS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Nonsmoker'</span><span class="w">
+                          </span><span class="p">,</span><span class="n">DB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Normal'</span><span class="w">
+                          </span><span class="p">,</span><span class="n">DH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'None'</span><span class="p">));</span><span class="w">
+</span><span class="o">$</span><span class="n">M</span><span class="w">
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+   </span><span class="m">0.14649</span><span class="w">   </span><span class="m">0.85351</span><span class="w">
+</span></code></pre></div></div> <p>It seems the declaration of a clean bill of health reduces the likelihood of needing a medical.</p> <p>What about applications that do not have a clean bill of health? Will the likelihood of requesting a medical increase or decrease?</p> <p>As well-behaved statisticians, we will mind our manners and do as the teachers told us, we alter the declared variables one at a time and see what happens.</p> <h3 id="declaration-of-smoking-ds">Declaration of Smoking $DS$</h3> <p>First we try the smoking variables:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+           </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'M'</span><span class="w">
+           </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">DS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Quitter'</span><span class="w">
+                           </span><span class="p">,</span><span class="n">DB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Normal'</span><span class="w">
+                           </span><span class="p">,</span><span class="n">DH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'None'</span><span class="p">));</span><span class="w">
+</span><span class="o">$</span><span class="n">M</span><span class="w">
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">0.184824</span><span class="w">  </span><span class="m">0.815176</span><span class="w">
+</span></code></pre></div></div> <p>This seems counter-intuitive. Declaring as having quit smoking increases the necessity of a taking a medical exam?</p> <p>Before you quit reading this in digust, cursing my name for wasting your time reading this drivel, look at the CPT for $DH$ in the code listed above.</p> <p>Close observation shows applicants tell a lot of fibs about their smoking status. Even honest application claim to have quit 10% of the time when they are actually still considered smokers. The Bayesian network propagates this, resulting in a higher likelihood of needing a medical.</p> <p>How about declaring as a smoker?</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+           </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'M'</span><span class="w">
+           </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">DS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Smoker'</span><span class="w">
+                           </span><span class="p">,</span><span class="n">DB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Normal'</span><span class="w">
+                           </span><span class="p">,</span><span class="n">DH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'None'</span><span class="p">));</span><span class="w">
+</span><span class="o">$</span><span class="n">M</span><span class="w">
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">0.164652</span><span class="w">  </span><span class="m">0.835348</span><span class="w">
+</span></code></pre></div></div> <p>The probability is now $0.164$, as non-disclosure is less likely in that case, so the probability of a $True$ value for $M$ is reduced.</p> <h3 id="declaration-of-bmi-db">Declaration of BMI $DB$</h3> <p>We inspect BMI in a similar way:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+           </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'M'</span><span class="w">
+           </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">DS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Nonsmoker'</span><span class="w">
+                           </span><span class="p">,</span><span class="n">DB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Overweight'</span><span class="w">
+                           </span><span class="p">,</span><span class="n">DH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'None'</span><span class="p">));</span><span class="w">
+</span><span class="o">$</span><span class="n">M</span><span class="w">
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">0.157997</span><span class="w">  </span><span class="m">0.842003</span><span class="w">
+</span></code></pre></div></div> <p>Much like the smoking condition, declaring as being overweight increases the likelihood of an exam being relevant.</p> <p>In a similar situation as for the smoking status, one way to explain this is that such declarations are more common in dishonest applications, and this affects the likelihood of $M$.</p> <p>What about being declaring yourself obese? If the above pattern holds, we would expect this probability to drop.</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+           </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'M'</span><span class="w">
+           </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">DS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Nonsmoker'</span><span class="w">
+                           </span><span class="p">,</span><span class="n">DB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Obese'</span><span class="w">
+                           </span><span class="p">,</span><span class="n">DH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'None'</span><span class="p">));</span><span class="w">
+</span><span class="o">$</span><span class="n">M</span><span class="w">
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">0.178348</span><span class="w">  </span><span class="m">0.821652</span><span class="w">
+</span></code></pre></div></div> <p>What is happening here? For smoking, the middle condition, Quitter, resulted in the highest likelihood for $M$, but for BMI it is the worst condition.</p> <p>Why is this?</p> <p>The answer lies in the values of the CPTs. As we have configured our network, being obese increases likelihood that a medical exam will uncover something. This is being reflected in the calculation for $M$.</p> <h3 id="declaration-of-family-history-dh">Declaration of Family History $DH$</h3> <p>Finally we check family history. This is simpler as we only have two levels:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+           </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'M'</span><span class="w">
+           </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">DS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Nonsmoker'</span><span class="w">
+                           </span><span class="p">,</span><span class="n">DB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Normal'</span><span class="w">
+                           </span><span class="p">,</span><span class="n">DH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'HeartDisease'</span><span class="p">));</span><span class="w">
+</span><span class="o">$</span><span class="n">M</span><span class="w">
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">0.260385</span><span class="w">  </span><span class="m">0.739615</span><span class="w">
+</span></code></pre></div></div> <p>The probability of an exam having an underwriting impact jumps to $0.260$ if you declare a history of heart disease.</p> <p>In case you were wondering, I expected none of the above results when I first ran the queries and had no intuition for what might occur.</p> <p>In some cases, I was forced to recheck the code where I set the CPTs, fearing a mistake, but found they were exactly as I wanted them to be.</p> <p>This is why Bayesian networks are so useful. Each of the pieces make sense, but combine in ways that makes predicting the output difficult.</p> <hr> <h2 id="conclusion">Conclusion</h2> <p>In this article we introduced a simple model for medical non-disclosure, implemented it and looked at some basic outputs of the model.</p> <p>In the next article we will continue this work, analyse other outputs of the model, attempt to properly discern why we see the results we see, look at how we might improve these results and discuss other methods we might use to refine our approach.</p> <p>We will also deal with the issue of missing data, a major concern in many scenarios.</p> <hr> <p><em>We finish our series on Bayesian networks by discussing conditional probability, more complex models, missing data and other real-world issues in their application to insurance modelling.</em></p> <p>In the previous article we introduced a very simple model for medical non-disclosure, set up the network in R using the gRain package,then used it to estimate the conditional probability of the necessity of a medical exam, $M$, given various evidence.</p> <p>We discussed flaws of the model in its current form, observing how changes in declared health status affect the likelihood that a medical exam will discover issues impacting the underwriting decision for the policy.</p> <p>In this final post, we investigate further problems with the model, focusing on getting better outputs and look into other potential uses for the model. In particular, we will look at ways in which we could deal with missing data and investigate potential iterations and improvements.</p> <hr> <h2 id="the-flow-of-conditional-probability">The Flow of Conditional Probability</h2> <p>A useful way to aid understanding of Bayesian networks is to consider the flow of conditional probability. The idea is that as we assert evidence - setting nodes on the graph to specific values - we affect the conditional probability of nodes elsewhere on the network.</p> <p>As always, this is easiest done by visualising the network, so I will show it again: <img src="/figures/2020-09-15-Probabilistic-Graphical-Models-for-Fraud-Detection/underwriting_network.png" alt="center"></p> <p><em>Readers may wish to refer to the previous article for explanations of the nodes.</em></p> <p>So how does this work? We have a built a model, so we play with the network and try to understand the behaviour we observe.</p> <p>In the previous article we took a similar approach, but focused entirely on how such a toy model could be used in practice: setting values for the declared variables of each condition and observing the effect on the conditional probability for $M$.</p> <p>This time we take a more holistic approach, observing the effect of evidence on all nodes on the network. For brevity here we will focus on just a handful of examples.</p> <p>We start with the smoking condition, in particular the interplay between $HN$, $TS$ and $DS$ as that is easy to grasp and shows some interesting interactions. Here’s the relevant code again from the previous post:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hn</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">HN</span><span class="w">  
+             </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.01</span><span class="p">,</span><span class="w"> </span><span class="m">0.99</span><span class="p">)</span><span class="w">
+             </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Dishonest"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Honest"</span><span class="p">));</span><span class="w">
+
+</span><span class="n">ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">TS</span><span class="w">  
+             </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.60</span><span class="p">,</span><span class="w"> </span><span class="m">0.20</span><span class="p">,</span><span class="w"> </span><span class="m">0.20</span><span class="p">)</span><span class="w">
+             </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Nonsmoker"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Quitter"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Smoker"</span><span class="p">));</span><span class="w">
+
+</span><span class="n">ds</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="n">DS</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">HN</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TS</span><span class="w">  
+             </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1.00</span><span class="p">,</span><span class="w"> </span><span class="m">0.00</span><span class="p">,</span><span class="w"> </span><span class="m">0.00</span><span class="w">  </span><span class="c1"># (HN = D, TS = N)</span><span class="w">
+                        </span><span class="p">,</span><span class="m">1.00</span><span class="p">,</span><span class="w"> </span><span class="m">0.00</span><span class="p">,</span><span class="w"> </span><span class="m">0.00</span><span class="w">  </span><span class="c1"># (HN = H, TS = N)</span><span class="w">
+                        </span><span class="p">,</span><span class="m">0.50</span><span class="p">,</span><span class="w"> </span><span class="m">0.40</span><span class="p">,</span><span class="w"> </span><span class="m">0.10</span><span class="w">  </span><span class="c1"># (HN = D, TS = Q)</span><span class="w">
+                        </span><span class="p">,</span><span class="m">0.05</span><span class="p">,</span><span class="w"> </span><span class="m">0.80</span><span class="p">,</span><span class="w"> </span><span class="m">0.15</span><span class="w">  </span><span class="c1"># (HN = H, TS = Q)</span><span class="w">
+                        </span><span class="p">,</span><span class="m">0.30</span><span class="p">,</span><span class="w"> </span><span class="m">0.40</span><span class="p">,</span><span class="w"> </span><span class="m">0.30</span><span class="w">  </span><span class="c1"># (HN = D, TS = S)</span><span class="w">
+                        </span><span class="p">,</span><span class="m">0.00</span><span class="p">,</span><span class="w"> </span><span class="m">0.10</span><span class="p">,</span><span class="w"> </span><span class="m">0.90</span><span class="w">  </span><span class="c1"># (HN = H, TS = S)</span><span class="w">
+                         </span><span class="p">)</span><span class="w">
+             </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Nonsmoker"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Quitter"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Smoker"</span><span class="p">));</span><span class="w">
+</span></code></pre></div></div> <p>For clarity, according to the above CPT definitions, if a person is dishonest and has quit smoking, the probabilities of declaring as a non-smoker, quitter or smoker are $0.50$, $0.40$ and $0.10$. We can argue these levels<sup id="fnref:8"><a href="#fn:8" class="footnote" rel="footnote" role="doc-noteref">8</a></sup> later: for the moment we care more about how evidence and conditional probabilities interact than the values themselves.</p> <p>We run a query on the network and calculate the two marginal distributions<sup id="fnref:9"><a href="#fn:9" class="footnote" rel="footnote" role="doc-noteref">9</a></sup> for $TS \; (True Smoker)$ and $DS \; (Declared Smoker)$.</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+             </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"DS"</span><span class="p">,</span><span class="w"> </span><span class="s2">"TS"</span><span class="p">)</span><span class="w">
+             </span><span class="p">,</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"marginal"</span><span class="p">);</span><span class="w">
+
+ </span><span class="o">$</span><span class="n">TS</span><span class="w">
+ </span><span class="n">TS</span><span class="w">
+ </span><span class="n">Nonsmoker</span><span class="w">   </span><span class="n">Quitter</span><span class="w">    </span><span class="n">Smoker</span><span class="w">
+       </span><span class="m">0.6</span><span class="w">       </span><span class="m">0.2</span><span class="w">       </span><span class="m">0.2</span><span class="w">
+
+ </span><span class="o">$</span><span class="n">DS</span><span class="w">
+ </span><span class="n">DS</span><span class="w">
+ </span><span class="n">Nonsmoker</span><span class="w">   </span><span class="n">Quitter</span><span class="w">    </span><span class="n">Smoker</span><span class="w">
+    </span><span class="m">0.6115</span><span class="w">    </span><span class="m">0.1798</span><span class="w">    </span><span class="m">0.2087</span><span class="w">
+</span></code></pre></div></div> <p>As expected, $TS$ is as set in the CPT, but $DS$ is a little more complicated as it includes the probability distribution values of $HN \;(Honesty)$.</p> <p>What if we have evidence the applicant is dishonest, $HN = \text{Dishonest}$?</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+           </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"DS"</span><span class="p">,</span><span class="w"> </span><span class="s2">"TS"</span><span class="p">)</span><span class="w">
+           </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">HN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Dishonest'</span><span class="p">)</span><span class="w">
+           </span><span class="p">,</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"marginal"</span><span class="p">);</span><span class="w">
+
+ </span><span class="o">$</span><span class="n">TS</span><span class="w">
+ </span><span class="n">TS</span><span class="w">
+ </span><span class="n">Nonsmoker</span><span class="w">   </span><span class="n">Quitter</span><span class="w">    </span><span class="n">Smoker</span><span class="w">
+       </span><span class="m">0.6</span><span class="w">       </span><span class="m">0.2</span><span class="w">       </span><span class="m">0.2</span><span class="w">
+
+ </span><span class="o">$</span><span class="n">DS</span><span class="w">
+ </span><span class="n">DS</span><span class="w">
+ </span><span class="n">Nonsmoker</span><span class="w">   </span><span class="n">Quitter</span><span class="w">    </span><span class="n">Smoker</span><span class="w">
+      </span><span class="m">0.76</span><span class="w">      </span><span class="m">0.16</span><span class="w">      </span><span class="m">0.08</span><span class="w">
+</span></code></pre></div></div> <p>This means that knowing the value of $HN \; (Honesty)$ does not affect that value of $TS \;(True Smoker)$ at all, but does shift the probabilities for $DS \; (Declared Smoker)$ towards the healthier end of the values - which makes sense.</p> <p>What if we have evidence the applicant is honest, $HN = \text{Honest}$?</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+           </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"DS"</span><span class="p">,</span><span class="w"> </span><span class="s2">"TS"</span><span class="p">)</span><span class="w">
+           </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">HN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Honest'</span><span class="p">)</span><span class="w">
+           </span><span class="p">,</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"marginal"</span><span class="p">);</span><span class="w">
+
+ </span><span class="o">$</span><span class="n">TS</span><span class="w">
+ </span><span class="n">TS</span><span class="w">
+ </span><span class="n">Nonsmoker</span><span class="w">   </span><span class="n">Quitter</span><span class="w">    </span><span class="n">Smoker</span><span class="w">
+       </span><span class="m">0.6</span><span class="w">       </span><span class="m">0.2</span><span class="w">       </span><span class="m">0.2</span><span class="w">
+
+ </span><span class="o">$</span><span class="n">DS</span><span class="w">
+ </span><span class="n">DS</span><span class="w">
+ </span><span class="n">Nonsmoker</span><span class="w">   </span><span class="n">Quitter</span><span class="w">    </span><span class="n">Smoker</span><span class="w">
+      </span><span class="m">0.61</span><span class="w">      </span><span class="m">0.18</span><span class="w">      </span><span class="m">0.21</span><span class="w">
+</span></code></pre></div></div> <p>Once again, $TS$ is unchanged but now there is a slight shift in the distribution of $DS$ to the healthier end of the scale, but less than before. This makes sense as 99% of people are honest according to the distribution for $HN$. This is largely accounted for in the marginal distribution of $DS$ without setting a value for $HN$.</p> <p>It is obvious from the graph that $HN$ and $TS$ are independent, but what about conditional dependence on $DS$? Put another way, if we know the value of $DS$, are they still independent? We test this using the network. Fix a value for $DS$ and observe the effect of $HN$ and $TS$ on each other.</p> <p>Before we do this, what is the effect of declaring as a Quitter $(DS = \text{Quitter})$ upon $TS$ and $HN$?</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+           </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"TS"</span><span class="p">,</span><span class="w"> </span><span class="s2">"HN"</span><span class="p">)</span><span class="w">
+           </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">DS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Quitter'</span><span class="p">)</span><span class="w">
+           </span><span class="p">,</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"marginal"</span><span class="p">);</span><span class="w">
+
+ </span><span class="o">$</span><span class="n">HN</span><span class="w">
+ </span><span class="n">HN</span><span class="w">
+  </span><span class="n">Dishonest</span><span class="w">     </span><span class="n">Honest</span><span class="w">
+ </span><span class="m">0.00889878</span><span class="w"> </span><span class="m">0.99110122</span><span class="w">
+
+ </span><span class="o">$</span><span class="n">TS</span><span class="w">
+ </span><span class="n">TS</span><span class="w">
+ </span><span class="n">Nonsmoker</span><span class="w">   </span><span class="n">Quitter</span><span class="w">    </span><span class="n">Smoker</span><span class="w">
+  </span><span class="m">0.000000</span><span class="w">  </span><span class="m">0.885428</span><span class="w">  </span><span class="m">0.114572</span><span class="w">
+</span></code></pre></div></div> <p>Interesting. There is little effect on $HN$, but the effect on $TS$ is stark. As it stands, if you declare as a Quitter, there is zero probability of $TS = \text{Non-smoker}$. This is a potential problem, arising from the CPT for $DS$. If you look at the probabilities for $DS$, declaring as a Non-smoker is probability $1.0$ if you are a non-smoker, and the probabilities for the other two levels are $0.0$.</p> <p>Zero probabilities are problematic. Once one appears, it multiplies out as zero as well, propagating through the model. A first iteration of this model might be to make these conditional probabilities a little less extreme, and is why smoothing to small but non-zero values is helpful.</p> <p>What if we know that $TS = \text{Quitter}$?</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+           </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"HN"</span><span class="p">)</span><span class="w">
+           </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">DS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Quitter'</span><span class="p">,</span><span class="w"> </span><span class="n">TS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Quitter'</span><span class="p">)</span><span class="w">
+           </span><span class="p">,</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"marginal"</span><span class="p">);</span><span class="w">
+ </span><span class="o">$</span><span class="n">HN</span><span class="w">
+ </span><span class="n">HN</span><span class="w">
+  </span><span class="n">Dishonest</span><span class="w">     </span><span class="n">Honest</span><span class="w">
+ </span><span class="m">0.00502513</span><span class="w"> </span><span class="m">0.99497487</span><span class="w">
+</span></code></pre></div></div> <p>We already had $DS = \text{Quitter}$ so adding the knowledge that $TS = \text{Quitter}$ makes it more likely that the applicant is honest.</p> <p>Put another way, $TS$ and $HN$ are conditionally dependent on $DS$. Given that the network is built from conditional dependencies and CPTs, how do we read a Bayesian network to determine conditional dependencies?</p> <p>Physical analogies are helpful. Imagine that gravity works in the direction of the arrows, evidence acting as a block in the pipe at that node. To consider the effect of a single node on other nodes, imagine water being poured into the network at that node. The water (the conditional probability) flows down the pipes as the arrows dictate. However, if the node is blocked by evidence, the water will start to fill up against the direction of the arrow.</p> <p>Similarly, if the water approaches a node from ‘below’ (that is, against the arrow direction) evidence will also block it from flowing further upwards. We will show this shortly.</p> <p>In our previous example, with no evidence on the network, the effect of $HN$ was unable to reach $TS$ as it flowed down through $DS$ to $SS$. With evidence on $DS$ however, it flows up the ‘pipe’ to affect $TS$.</p> <hr> <h2 id="creating-data-from-the-network">Creating Data from the Network</h2> <p>The most tedious aspect of creating a Bayesian network is constructing all the CPTs, with potential for error. In many cases this is unavoidable, but we do have an alternative in situations with a sufficient amount of complete data. For instance, gRain provides functionality to use data alongside a graph specification to construct the Bayesian network automatically.<sup id="fnref:10"><a href="#fn:10" class="footnote" rel="footnote" role="doc-noteref">10</a></sup></p> <p>This also works in reverse: we can use a Bayesian network to generate data. The ?simulate method works here:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">underwriting.data.dt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">simulate</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="p">,</span><span class="w"> </span><span class="n">nsim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100000</span><span class="p">);</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">setDT</span><span class="p">(</span><span class="n">underwriting.data.dt</span><span class="p">);</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">underwriting.data.dt</span><span class="p">);</span><span class="w">
+
+             </span><span class="n">HN</span><span class="w">        </span><span class="n">TS</span><span class="w">         </span><span class="n">TB</span><span class="w">   </span><span class="n">TH</span><span class="w">        </span><span class="n">DS</span><span class="w">         </span><span class="n">DB</span><span class="w">           </span><span class="n">DH</span><span class="w">         </span><span class="n">SS</span><span class="w">         </span><span class="n">SB</span><span class="w">         </span><span class="n">SH</span><span class="w">         </span><span class="n">M</span><span class="w">
+      </span><span class="m">1</span><span class="o">:</span><span class="w"> </span><span class="n">Honest</span><span class="w">    </span><span class="n">Smoker</span><span class="w">       </span><span class="n">None</span><span class="w"> </span><span class="n">None</span><span class="w">    </span><span class="n">Smoker</span><span class="w">     </span><span class="n">Normal</span><span class="w">         </span><span class="n">None</span><span class="w">    </span><span class="n">Serious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+      </span><span class="m">2</span><span class="o">:</span><span class="w"> </span><span class="n">Honest</span><span class="w"> </span><span class="n">Nonsmoker</span><span class="w">       </span><span class="n">None</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="n">Nonsmoker</span><span class="w">     </span><span class="n">Normal</span><span class="w">         </span><span class="n">None</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+      </span><span class="m">3</span><span class="o">:</span><span class="w"> </span><span class="n">Honest</span><span class="w"> </span><span class="n">Nonsmoker</span><span class="w">      </span><span class="n">Obese</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="n">Nonsmoker</span><span class="w">      </span><span class="n">Obese</span><span class="w">         </span><span class="n">None</span><span class="w">    </span><span class="n">Serious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w">   </span><span class="n">Medical</span><span class="w">
+      </span><span class="m">4</span><span class="o">:</span><span class="w"> </span><span class="n">Honest</span><span class="w">   </span><span class="n">Quitter</span><span class="w">       </span><span class="n">None</span><span class="w"> </span><span class="n">None</span><span class="w">   </span><span class="n">Quitter</span><span class="w">     </span><span class="n">Normal</span><span class="w">         </span><span class="n">None</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+      </span><span class="m">5</span><span class="o">:</span><span class="w"> </span><span class="n">Honest</span><span class="w"> </span><span class="n">Nonsmoker</span><span class="w">       </span><span class="n">None</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="n">Nonsmoker</span><span class="w">     </span><span class="n">Normal</span><span class="w">         </span><span class="n">None</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+     </span><span class="o">---</span><span class="w">
+  </span><span class="m">99996</span><span class="o">:</span><span class="w"> </span><span class="n">Honest</span><span class="w">   </span><span class="n">Quitter</span><span class="w"> </span><span class="n">Overweight</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="n">Nonsmoker</span><span class="w"> </span><span class="n">Overweight</span><span class="w">         </span><span class="n">None</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">99997</span><span class="o">:</span><span class="w"> </span><span class="n">Honest</span><span class="w">   </span><span class="n">Quitter</span><span class="w">       </span><span class="n">None</span><span class="w"> </span><span class="n">None</span><span class="w">   </span><span class="n">Quitter</span><span class="w">     </span><span class="n">Normal</span><span class="w">         </span><span class="n">None</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">99998</span><span class="o">:</span><span class="w"> </span><span class="n">Honest</span><span class="w"> </span><span class="n">Nonsmoker</span><span class="w">       </span><span class="n">None</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="n">Nonsmoker</span><span class="w">     </span><span class="n">Normal</span><span class="w">         </span><span class="n">None</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">99999</span><span class="o">:</span><span class="w"> </span><span class="n">Honest</span><span class="w">    </span><span class="n">Smoker</span><span class="w">       </span><span class="n">None</span><span class="w"> </span><span class="n">None</span><span class="w">   </span><span class="n">Quitter</span><span class="w"> </span><span class="n">Overweight</span><span class="w"> </span><span class="n">HeartDisease</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w">   </span><span class="n">Medical</span><span class="w">
+ </span><span class="m">100000</span><span class="o">:</span><span class="w"> </span><span class="n">Honest</span><span class="w"> </span><span class="n">Nonsmoker</span><span class="w">       </span><span class="n">None</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="n">Nonsmoker</span><span class="w">     </span><span class="n">Normal</span><span class="w"> </span><span class="n">HeartDisease</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NotSerious</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+</span></code></pre></div></div> <p>With this data, we create the network connections and use the data to recreate the network. The DAG is specified by using a list of strings. Each entry in the list specifies a node in the network. If the node is dependent on others this is denoted as a character vector with the dependent nodes following the defined node.</p> <p>We could specify the DAG for the underwriting network as follows:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">underwriting.dag</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dag</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="w">  
+    </span><span class="s2">"HN"</span><span class="w">
+   </span><span class="p">,</span><span class="s2">"TS"</span><span class="w">
+   </span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s2">"DS"</span><span class="p">,</span><span class="s2">"HN"</span><span class="p">,</span><span class="s2">"TS"</span><span class="p">)</span><span class="w">
+   </span><span class="p">,</span><span class="s2">"TB"</span><span class="w">
+   </span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s2">"DB"</span><span class="p">,</span><span class="s2">"HN"</span><span class="p">,</span><span class="s2">"TB"</span><span class="p">)</span><span class="w">
+   </span><span class="p">,</span><span class="s2">"TH"</span><span class="w">
+   </span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s2">"DH"</span><span class="p">,</span><span class="s2">"HN"</span><span class="p">,</span><span class="s2">"TH"</span><span class="p">)</span><span class="w">
+   </span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s2">"SS"</span><span class="p">,</span><span class="s2">"DS"</span><span class="p">,</span><span class="s2">"TS"</span><span class="p">)</span><span class="w">
+   </span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s2">"SB"</span><span class="p">,</span><span class="s2">"DB"</span><span class="p">,</span><span class="s2">"TB"</span><span class="p">)</span><span class="w">
+   </span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s2">"SH"</span><span class="p">,</span><span class="s2">"DH"</span><span class="p">,</span><span class="s2">"TH"</span><span class="p">)</span><span class="w">
+   </span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s2">"M"</span><span class="p">,</span><span class="s2">"SS"</span><span class="p">,</span><span class="s2">"SB"</span><span class="p">,</span><span class="s2">"SH"</span><span class="p">)</span><span class="w">
+</span><span class="p">));</span><span class="w">
+</span></code></pre></div></div> <p>To create a network using the DAG and the data, we do the following:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">underwriting.sim.grain</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grain</span><span class="p">(</span><span class="n">underwriting.dag</span><span class="w">  
+                               </span><span class="p">,</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">underwriting.data.df</span><span class="w">
+                               </span><span class="p">,</span><span class="n">smooth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="w">
+                                </span><span class="p">);</span><span class="w">
+</span></code></pre></div></div> <p>The unconditional output for $M$ should be similar for both:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="p">,</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"M"</span><span class="p">))</span><span class="o">$</span><span class="n">M</span><span class="p">);</span><span class="w">
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+   </span><span class="m">0.17793</span><span class="w">   </span><span class="m">0.82207</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.sim.grain</span><span class="p">,</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"M"</span><span class="p">))</span><span class="o">$</span><span class="n">M</span><span class="p">);</span><span class="w">
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">0.176546</span><span class="w">  </span><span class="m">0.823454</span><span class="w">
+</span></code></pre></div></div> <p>So far, so good. What about applications with a clean bill of health?</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.grain</span><span class="w">
+                   </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'M'</span><span class="w">
+                   </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">DS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Nonsmoker'</span><span class="w">
+                                   </span><span class="p">,</span><span class="n">DB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Normal'</span><span class="w">
+                                   </span><span class="p">,</span><span class="n">DH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'None'</span><span class="p">))</span><span class="o">$</span><span class="n">M</span><span class="p">);</span><span class="w">
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+   </span><span class="m">0.14649</span><span class="w">   </span><span class="m">0.85351</span><span class="w">
+
+ </span><span class="o">&gt;</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.sim.grain</span><span class="w">
+                   </span><span class="p">,</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'M'</span><span class="w">
+                   </span><span class="p">,</span><span class="n">evidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">DS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Nonsmoker'</span><span class="w">
+                                   </span><span class="p">,</span><span class="n">DB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Normal'</span><span class="w">
+                                   </span><span class="p">,</span><span class="n">DH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'None'</span><span class="p">))</span><span class="o">$</span><span class="n">M</span><span class="p">);</span><span class="w">
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">0.145173</span><span class="w">  </span><span class="m">0.854827</span><span class="w">
+</span></code></pre></div></div> <p>There are slight differences between the calculations, which is as expected. Most of this is likely due to sample noise, but the smoothing of zero probabilities will also have a small effect.</p> <p>We could use bootstrapping techniques to get an estimate of the variability and gauge the effect of sample error on our probabilities. This is straightforward to implement in R but I will leave this be for now.<sup id="fnref:11"><a href="#fn:11" class="footnote" rel="footnote" role="doc-noteref">11</a></sup></p> <hr> <h2 id="missing-data">Missing Data</h2> <p>One major issue often encountered in this situation is missing data.</p> <p>Consider our non-disclosure model. A majority of policy applications are not referred for medical exams and so we never discover the $True$ nodes $TS$, $TB$ and $TH$ variables. The $HN$ variable is also likely untested and unknown.</p> <p>We could just reduce our dataset to complete cases, but this means removing a lot of data, and potentially biasing results: there is no guarantee incomplete data has the same statistical properties as the complete data.</p> <p>In this situation, how can we construct the network?</p> <p>My <strong>preferred</strong> method is to mirror the approach of the Bayesian network: use complete data for each node to calculate the CPTs and build the network node by node. It is time-consuming and tedious for large networks but does make full use of the data.</p> <p>The benefit of this approach is that it helps maximise the use of your data. You take subsets of the variables in the data and then use complete sets of these subsets to calculate the CPTs.</p> <p><strong>Alternatively</strong>, we can use more traditional missing data techniques such as imputation to complete the missing data, and then construct the Bayesian network as before. Such imputation has another level of complexity.</p> <p><strong>Finally</strong>, there is also the area of semi-supervised learning: techniques designed to help situations with very small amounts of labelled data in otherwise unlabelled datasets. The idea is to make best use of the small amounts of labelled data to either transduct the missing labels (unsupervised learning / pattern recognition), or induct the result dependent on these labels (supervised learning). This is a very interesting area, but we will not discuss any further here.</p> <hr> <h2 id="iterating-and-improving-the-model">Iterating and Improving the Model</h2> <p>Our proposed model is far from perfect. In fact at this point, it is little more than a toy model - helpful for developing a familiarity with the approach and for identifying areas we need to improve upon, but far from the finished product.</p> <h2 id="altering-the-cpt-values">Altering the CPT values</h2> <p>First we assume the network is acceptable, focussing on improving the outputs of the model. We do this by investigating the values set in the CPTs and seeing if they could be improved.</p> <p>We already mentioned that the unconditional output of the model for $M$ (i.e. the probability of a TRUE value without any other evidence on the network) is a little high at around $16\%$.</p> <p>Fixing this is not trivial. As discussed, the interaction of the different CPTs makes it tricky to affect output values. This seems annoying but is a feature of the Bayesian network approach, rather than a bug.</p> <p>First of all, surprising results do not mean wrong results; our intuition can be unreliable. It is best to ask questions of the model and see if the outputs make sense. If they do not, we then investigate our data and ensure there is a problem. If there is, we focus on the CPTs involved in the calculation and check them.</p> <p>Suppose the unconditional probability for $M$ seems too high, and we have reason to expect a value more like $12\%$. How do we go about tweaking this output?</p> <p>Looking at the network, the nodes with the most influence on the calculation of $M$ are the CPT for $M$ itself, and the nodes above it on the network that condition the CPTs: $SS$, $SB$, $SH$.<sup id="fnref:12"><a href="#fn:12" class="footnote" rel="footnote" role="doc-noteref">12</a></sup></p> <p>Let’s try reducing the probabilities for $M = \text{Medical}$ a little:</p> <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m2</span><span class="w">  </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cptable</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">SS</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SB</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SH</span><span class="w">  
+              </span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.99</span><span class="p">,</span><span class="w"> </span><span class="m">0.01</span><span class="w">        </span><span class="c1"># (SS = S, SB = S, SH = S)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.80</span><span class="p">,</span><span class="w"> </span><span class="m">0.20</span><span class="w">        </span><span class="c1"># (SS = N, SB = S, SH = S)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.85</span><span class="p">,</span><span class="w"> </span><span class="m">0.15</span><span class="w">        </span><span class="c1"># (SS = S, SB = N, SH = S)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.75</span><span class="p">,</span><span class="w"> </span><span class="m">0.25</span><span class="w">        </span><span class="c1"># (SS = N, SB = N, SH = S)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.80</span><span class="p">,</span><span class="w"> </span><span class="m">0.20</span><span class="w">        </span><span class="c1"># (SS = S, SB = S, SH = N)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.40</span><span class="p">,</span><span class="w"> </span><span class="m">0.60</span><span class="w">        </span><span class="c1"># (SS = N, SB = S, SH = N)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.70</span><span class="p">,</span><span class="w"> </span><span class="m">0.30</span><span class="w">        </span><span class="c1"># (SS = S, SB = N, SH = N)</span><span class="w">
+                         </span><span class="p">,</span><span class="m">0.05</span><span class="p">,</span><span class="w"> </span><span class="m">0.95</span><span class="w">        </span><span class="c1"># (SS = N, SB = N, SH = N)</span><span class="w">
+                          </span><span class="p">)</span><span class="w">
+              </span><span class="p">,</span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Medical"</span><span class="p">,</span><span class="w"> </span><span class="s2">"NoMedical"</span><span class="p">));</span><span class="w">
+
+</span><span class="n">underwriting.iteration.grain</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grain</span><span class="p">(</span><span class="n">compileCPT</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">hn</span><span class="w">  
+                                                     </span><span class="p">,</span><span class="n">ts</span><span class="p">,</span><span class="w"> </span><span class="n">tb</span><span class="p">,</span><span class="w"> </span><span class="n">th</span><span class="w">
+                                                     </span><span class="p">,</span><span class="n">ds</span><span class="p">,</span><span class="w"> </span><span class="n">db</span><span class="p">,</span><span class="w"> </span><span class="n">dh</span><span class="w">
+                                                     </span><span class="p">,</span><span class="n">ss</span><span class="p">,</span><span class="w"> </span><span class="n">sb</span><span class="p">,</span><span class="w"> </span><span class="n">sh</span><span class="w">
+                                                     </span><span class="p">,</span><span class="n">m2</span><span class="p">)));</span><span class="w">
+
+</span><span class="n">querygrain</span><span class="p">(</span><span class="n">underwriting.iteration.grain</span><span class="p">,</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"M"</span><span class="p">))</span><span class="o">$</span><span class="n">M</span><span class="p">;</span><span class="w">  
+ </span><span class="n">M</span><span class="w">
+   </span><span class="n">Medical</span><span class="w"> </span><span class="n">NoMedical</span><span class="w">
+  </span><span class="m">0.133279</span><span class="w">  </span><span class="m">0.866721</span><span class="w">
+</span></code></pre></div></div> <p>We see that reducing the strength of the effect of the ‘seriousness’ variables on $M$ a little brings the probability down to just over $13\%$. Of course, this does not mean we should be reducing those probabilities, that is where domain knowledge can guide us.</p> <hr> <h2 id="altering-the-network">Altering the Network</h2> <p>Often the model requires improvement more drastic than the tweaking of CPT values and requires altering the network, including adding or redefining variables or their relationships.</p> <p>One quick improvement to the model might involve adding more medical conditions that affect pricing. Currently we consider three medical conditions and adding more is straightforward, the one issue being that additional ‘seriousness’ variables multiplicatively increases the conditioning levels for specifying $M$.</p> <p>There is a potential problem with adding conditions. Going back for a moment to the physical analogy, we are adding extra channels into the $M$ variable, thus upwardly biasing the probability of a medical being a necessity. I am not sure how to fix this problem, but it is an issue I would pay attention to.</p> <p>Ultimately though, we may need to move beyond a Bayesian network, as they work best for discrete-value variables.<sup id="fnref:13"><a href="#fn:13" class="footnote" rel="footnote" role="doc-noteref">13</a></sup> Many of the medical readings are continuous in nature, such as weight, height, blood pressure, glucose levels etc, and models should reflect this as much as possible.</p> <p>To be clear, it is always possible to discretise the continuous variables in a network. This can be effective but loses information in the data. It is better to use the continuous variables directly.</p> <p>DAGs may prove too limiting, as many biometric readings are likely to be interdependent, which is more complicated to capture with a Bayesian network. We could add some hidden variables to model these mixed dependencies via conditional dependence, but often involves questionable assumptions. Using cyclical networks for this may prove fruitful.</p> <p>In short, the current model is really just the start: progress could be made along multiple approaches, all worthy of exploration at this point.</p> <hr> <h2 id="conclusions-and-summary">Conclusions and Summary</h2> <p>In this series of articles we looked at Bayesian networks and how they might be used in the area of fraud detection.</p> <p>Despite obvious limitations, the approach seems sound and deals with major issues such as severe class imbalance and missing data in a natural way.</p> <p>The 11-variable model we discussed, though simple, provides adequate scope for exploration and introspection, and is an interesting example of the approach.</p> <p>I created the model on pen and paper in perhaps an hour, after a few aborted attempts, and we went through its implementation in R: nothing too complex. Despite this, it produced a number of surprising results and allowed us to learn some non-intuitive facts about the model.</p> <p>I am happy with the outcomes produced, and I think Bayesian networks are an excellent way to start learning about probabilistic graphical models in general.</p> <p>While not lacking for further topics, we will leave it here. A fit and proper dealing of the extra topics would take at least half a post in themselves, and may well be the topic of future posts as I explore the area further.</p> <p>As always, if you have any comments, queries, corrections or criticisms, please get in touch with us, we would love to hear what you have to say.</p> <h3 id="acknowledgements">Acknowledgements</h3> <p>Thanks to <a href="https://github.com/kaybenleroll" title="Mick Cooney" rel="external nofollow noopener" target="_blank">Mick Cooney</a> for generously sharing ideas.</p> <div class="footnotes" role="doc-endnotes"> <ol> <li id="fn:1"> <p>Now that we are comfortable with the basics, we can move on to the primary model I want to discuss in this series: attempting to model medical non-disclosure in underwriting life insurance. This is where customers can fail to disclose pre-existing medical conditions and lifestyle choices when applying for life insurance products. Such non-disclosure is not necessarily fraud (quite often it can be a simple, honest mistake), but insurers are very well-advised to spot it as soon as possible to minimise portfolio risk. With two six-sided dice there are $6 \times 6 = 36$ different outcomes. To get a total of 11, we need a 5 on one die and a 6 on the other. There are two ways this can happen - (5,6) or (6,5). Thus, the probability of getting an 11 is $\frac{2}{36}$. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:2"> <p>Calculating the distribution for $T$ is a little involved, so I will not go into all the details here, merely offering guidance. We break the calculation into two parts: one for the $D_1 = 4$ and one for $D_1 = 5$. If $D_1 = 4$, $T$ can take values from 5 to 10, with each outcome being equally likely. We do the same for $D_1 = 5$. Finally, we combine all the possible outcomes to get our distribution for $T$, which I will leave to the reader. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:3"> <p>We only need a binomial probability, that is, one probability value, as we have already stated that the variables are binary valued: yes or no. Should we have multiple possible outcomes for the variables we will need multinomial probabilities. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:4"> <p>Mutually exclusive events are when we have different possibilities for the same observation. By conditioning on different values of the variable the outcomes are no longer comparable and so adding their probabilities does not make sense. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:5"> <p>A non-zero probability of asking for a medical prevents bad actors from gaming your procedures, but not all applications should be equally likely for an examination request. There are professional criminal gangs who focus entirely on exploiting the poorly designed business policies of insurance companies. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:6"> <p>Zero probabilities are bad because of the multiplicative effect. Once you calculate anything involving a zero probability it forces everything else to be zero too. Zero multiplied by anything is zero too. Instead, we replace all zero probabilities with a small number, preventing this zero propagation. <a href="#fnref:6" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:7"> <p>We need to be aware that this kind of iteration poses risks. You need to ensure that the consequences of changes of definition propagates fully through your model. Inconsistencies across different areas of your model can result in hard to find ‘bugs’ in your model, and the non-intuitive nature of the outputs can hide this. Another reason to be initially cautious in how this model is used. <a href="#fnref:7" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:8"> <p>The 0.10 probability of declaring as a smoker is possibly too high, but this goes back to the importance of precise definitions for variables. I consider dishonesty here as a personality trait that creates a tendency to under-declare health conditions, rather than an absolute. My thinking is that even dishonest people can tell the truth or get forms wrong. This is definitely where subject matter expertise is hugely useful to direct modifications. <a href="#fnref:8" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:9"> <p>In this article I use marginal distributions for illustration rather than the joint or conditional distributions. Whilst less direct, I think marginal distributions are easier to understand as it is just a discrete univariate distribution of probabilities and avoid the necessity of doing arithmetic. I would rather execute more code and have the answer stare right at me than open the possibility of misinterpreting the output. This stuff is subtle enough as it is. <a href="#fnref:9" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:10"> <p>It is also possible to use this data to also derive the structure of the Bayesian network. This is known as structural learning or model selection. Code to do this requires additional packages and comes with quite a health warning - silly outputs are all to common. We will not discuss this further. <a href="#fnref:10" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:11"> <p>The bootstrap, and resampling techniques in general, is a fascinating approach that I will probably cover at some point with a blogpost in the near future. It is a hugely useful tool in almost all areas of statistical modelling. <a href="#fnref:11" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:12"> <p>As always, the code used in writing this series is available on BitBucket. Get in touch with us if you would like access. <a href="#fnref:12" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:13"> <p>I may be wrong about this limitation with discrete variables. Please correct me if this is wrong. <a href="#fnref:13" class="reversefootnote" role="doc-backlink">↩</a></p> </li> </ol> </div> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html">Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a Custodian</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html">Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html">Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2026/07/20/diffusion-llms.html">Diffusion LLMs</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html">Nanopore raw data visualization using squigualiser</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html">Nanopore direct RNA data analysis using Dorado</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html">Modern commnad line tools powered by Rust</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html">Nanopore direct cDNA data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/03/13/HiC-data-analysis.html">Hi-C data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html">Nanopore direct RNA data analysis</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Ting-You Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-projects",
+          title: "Projects",
+          description: "Software, pipelines, and tools developed for genomics and data analysis.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-publications",
+          title: "Publications",
+          description: "Peer-reviewed scientific publications, book chapters, and journal articles.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-books",
+          title: "Books",
+          description: "Books that I am reading, have read, or plan to read.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-blog",
+          title: "Blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Ting-You Wang's professional curriculum vitae detailing research, education, and software.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-rethinking-bioinformatics-expertise-in-the-era-of-ai-a-newbie-39-s-journey-as-a-custodian",
+        
+          title: "Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html";
+          
+        },
+      },{id: "post-mapping-the-global-landscape-of-cancer-research-key-trends-from-the-nature-index",
+        
+          title: "Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html";
+          
+        },
+      },{id: "post-shattered-chromosomes-understanding-chromothripsis-and-genome-rearrangement-models",
+        
+          title: "Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html";
+          
+        },
+      },{id: "post-diffusion-llms",
+        
+          title: "Diffusion LLMs",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2026/07/20/diffusion-llms.html";
+          
+        },
+      },{id: "post-nanopore-raw-data-visualization-using-squigualiser",
+        
+          title: "Nanopore raw data visualization using squigualiser",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis-using-dorado",
+        
+          title: "Nanopore direct RNA data analysis using Dorado",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html";
+          
+        },
+      },{id: "post-modern-commnad-line-tools-powered-by-rust",
+        
+          title: "Modern commnad line tools powered by Rust",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html";
+          
+        },
+      },{id: "post-nanopore-direct-cdna-data-analysis",
+        
+          title: "Nanopore direct cDNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-hi-c-data-analysis",
+        
+          title: "Hi-C data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/03/13/HiC-data-analysis.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis",
+        
+          title: "Nanopore direct RNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-operation-on-bigwig-files",
+        
+          title: "Operation on BigWig Files",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/07/operation-on-bigwig-files.html";
+          
+        },
+      },{id: "post-pacbio-iso-seq-data-analysis",
+        
+          title: "PacBio Iso-Seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/12/08/PacBio-Iso-Seq-Data-Analysis.html";
+          
+        },
+      },{id: "post-probabilistic-graphical-models-for-fraud-detection",
+        
+          title: "Probabilistic Graphical Models for Fraud Detection",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/09/15/Probabilistic-Graphical-Models-for-Fraud-Detection.html";
+          
+        },
+      },{id: "post-an-introduction-to-options",
+        
+          title: "An Introduction to Options",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/06/02/intro-options.html";
+          
+        },
+      },{id: "post-funding-schemes-for-postdoctoral-fellowship",
+        
+          title: "Funding schemes for postdoctoral fellowship",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/news/2018/02/05/postdoctoral-fellowships.html";
+          
+        },
+      },{id: "post-from-perceptron-to-deep-learning",
+        
+          title: "From Perceptron to Deep Learning",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/01/16/From-Perceptron-to-Deep-Learning.html";
+          
+        },
+      },{id: "post-introduction-to-meta-analysis-fixed-effect-model-and-random-effect-model",
+        
+          title: "Introduction to Meta-analysis: fixed-effect model and random-effect model",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/statistics/2017/09/08/meta-analysis.html";
+          
+        },
+      },{id: "post-recreate-economist-graph-by-ggplot2",
+        
+          title: "Recreate Economist graph by ggplot2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/03/03/recreate-economist-graph-by-ggplot2.html";
+          
+        },
+      },{id: "post-gwas-prephasing-and-imputation",
+        
+          title: "GWAS prephasing and imputation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/02/20/GWAS-prephasing-and-imputation.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis-strand-issues",
+        
+          title: "RNA-seq data analysis (strand issues)",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/09/21/RNA-seq-strand-issues.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis",
+        
+          title: "RNA-seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2016/09/13/RNA-seq-analysis.html";
+          
+        },
+      },{id: "post-rna-seq-normalization",
+        
+          title: "RNA-seq normalization",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/08/29/RNAseq-normalization.html";
+          
+        },
+      },{id: "post-linear-models-in-practice",
+        
+          title: "linear models in practice",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2016/03/23/Linear-models-in-practice.html";
+          
+        },
+      },{id: "post-introduction-to-linear-models",
+        
+          title: "Introduction to Linear Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Introduction-to-Linear-Models.html";
+          
+        },
+      },{id: "post-expressing-design-formula-in-r",
+        
+          title: "Expressing design formula in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Expressing-design-formula-in-R.html";
+          
+        },
+      },{id: "post-penalized-regression-methods-for-association-studies",
+        
+          title: "Penalized Regression Methods for Association Studies",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2015/05/15/Penalized-Regression.html";
+          
+        },
+      },{id: "post-what-is-norm",
+        
+          title: "What is norm?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/27/What-is-norm.html";
+          
+        },
+      },{id: "post-the-making-of-manipulating-data-tables",
+        
+          title: "The Making of Manipulating Data Tables",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/06/slides-workflow.html";
+          
+        },
+      },{id: "post-when-is-a-z-statistic-and-when-a-t-statistic-used",
+        
+          title: "When is a z-statistic and when a t-statistic used?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/05/t-statistic-or-z-statistic.html";
+          
+        },
+      },{id: "post-creating-html5-slides-with-rstudio-knitr-and-pandoc",
+        
+          title: "Creating HTML5 slides with RStudio, knitr and pandoc",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/26/Creating-HTML5-Slides.html";
+          
+        },
+      },{id: "post-5-functions-to-do-principal-components-analysis-in-r",
+        
+          title: "5 functions to do Principal Components Analysis in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/25/PCA-in-R.html";
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather";
+            },},{id: "news-a-simple-inline-announcement",
+          title: 'A simple inline announcement.',
+          description: "",
+          section: "News",},{id: "news-a-long-announcement-with-details",
+          title: 'A long announcement with details',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2";
+            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
+          title: 'A simple inline announcement with Markdown emoji! <img class="emoji" title=":sparkles:" alt=":sparkles:" src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png" height="20" width="20"> <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20">',
+          description: "",
+          section: "News",},{id: "projects-scanneo",
+          title: 'ScanNeo',
+          description: "A pipeline for identifying insertion and deletion (indel) introduced neoantigens from RNA sequencing data.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_scanneo";
+            },},{id: "projects-scanitd",
+          title: 'ScanITD',
+          description: "Performs a stepwise seed-and-realignment procedure for internal tandem duplication (ITD) detection with robust variant allele frequency estimation.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_scanitd";
+            },},{id: "projects-scanexitron",
+          title: 'ScanExitron',
+          description: "A computational workflow for exitron splicing identification and profiling from next-generation sequencing RNA-Seq datasets.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_scanexitron";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%74%79%77%61%6E%67@%6E%6F%72%74%68%77%65%73%74%65%72%6E.%65%64%75", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=FVx_uDIAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/cv/", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

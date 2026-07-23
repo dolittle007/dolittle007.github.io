@@ -1,0 +1,538 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> From Perceptron to Deep Learning | Ting-You Wang </title> <meta name="author" content="Ting-You Wang"> <meta name="description" content="Bioinformatics Research Associate at Northwestern University Feinberg School of Medicine. I explore, analyze, and visualize biological data, focusing on genetics, genomics, cancer, and lupus susceptibility. "> <meta name="keywords" content="bioinformatics, genomics, cancer research, lupus, jekyll, al-folio"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://databeauty.com/blog/2018/01/16/From-Perceptron-to-Deep-Learning.html"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <div class="navbar-brand social"> <a href="mailto:tywang@northwestern.edu" title="Email"><i class="fa-solid fa-envelope"></i></a> <a href="https://scholar.google.com/citations?user=FVx_uDIAAAAJ" title="Scholar userid" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a> <a href="https://github.com/dolittle007" title="Github username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-github"></i></a> <a href="https://www.linkedin.com/in/dolittle007" title="Linkedin username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-linkedin"></i></a> <a href="https://twitter.com/dolittle007" title="X username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-x-twitter"></i></a> <a href="/cv/" title="Cv pdf"><i class="ai ai-cv"></i></a> <a href="/feed.xml" title="Rss icon"><i class="fa-solid fa-square-rss"></i></a> </div> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">Projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">Books </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">Blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">From Perceptron to Deep Learning</h1> <p class="post-meta"> Created on January 16, 2018 </p> <p class="post-tags"> <a href="/blog/2018"> <i class="fa-solid fa-calendar fa-sm"></i> 2018 </a>   ·   <a href="/blog/tag/deep-learning"> <i class="fa-solid fa-hashtag fa-sm"></i> Deep Learning</a>   <a href="/blog/tag/ai"> <i class="fa-solid fa-hashtag fa-sm"></i> AI</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <hr> <p>As a machine learning engineer, I have been learning and playing with deep learning for quite some time. Now, after finishing all Andrew NG newest deep learning courses in Coursera, I decided to put some of my understanding of this field into a blog post. I found writing things down is an efficient way in subduing a topic. In addition, I hope that this post might be useful to those who want to get started into Deep Learning.</p> <p><br> Alright, so let us talk about deep learning. Oh, wait, before I jump directly talking about what a Deep Learning or a Deep Neural Network (DNN) is, I would like to start this post by introducing a simple problem where I hope it will give us a better intuition on why we need a (deep) neural network. By the way, together with this post I am also releasing <a href="https://github.com/chrisbangun/medium-post/tree/master/Perceptron-to-DNN" rel="external nofollow noopener" target="_blank">code on Github</a> that allows you to train a deep neural net model to solve the XOR problem below. <br></p> <h3 id="xor-problem">XOR PROBLEM</h3> <p><br> The XOR, or “exclusive or”, problem is a problem where given two binary inputs, we have to predict the outputs of a XOR logic gates. As a reminder, a XOR function should return 1 if the two inputs are not equal and 0 otherwise. Table 1 below shows all the possible inputs and outputs for the XOR function:</p> <table> <thead> <tr> <th style="text-align: center">X1</th> <th style="text-align: center">X2</th> <th style="text-align: center">Output</th> </tr> </thead> <tbody> <tr> <td style="text-align: center">1</td> <td style="text-align: center">1</td> <td style="text-align: center">0</td> </tr> <tr> <td style="text-align: center">1</td> <td style="text-align: center">0</td> <td style="text-align: center">1</td> </tr> <tr> <td style="text-align: center">0</td> <td style="text-align: center">1</td> <td style="text-align: center">1</td> </tr> <tr> <td style="text-align: center">0</td> <td style="text-align: center">0</td> <td style="text-align: center">0</td> </tr> </tbody> </table> <p>Now, let us plot our dataset and see how is the nature of our data.</p> <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    argument:
+    data: np.array containing the input value
+    labels: 1d numpy array containing the expected label
+    </span><span class="sh">"""</span>
+
+    <span class="n">positives</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">negatives</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">positives</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">positives</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> 
+                        <span class="n">color</span><span class="o">=</span><span class="sh">'</span><span class="s">red</span><span class="sh">'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="sh">'</span><span class="s">+</span><span class="sh">'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">negatives</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">negatives</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> 
+                        <span class="n">color</span><span class="o">=</span><span class="sh">'</span><span class="s">blue</span><span class="sh">'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="sh">'</span><span class="s">_</span><span class="sh">'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+    <span class="n">positives</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="n">negatives</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">concatenate</span><span class="p">([</span><span class="n">positives</span><span class="p">,</span> <span class="n">negatives</span><span class="p">])</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+    <span class="nf">plot_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span></code></pre></figure> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/xor-plot.png" alt="XOR Problem" height="300px" width="300px" class="img-responsive "></p> <p>Maybe after seeing the figure above, we might want to rethink whether this xor problem is indeed a simple problem or not. As you can see, our data is not linearly separable, hence, some well-known linear model out there, such as logistic regression might not be able to classify our data. To give you a clearer understanding, below I plot some decision boundaries that I built using a very simple linear model:</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/linear-model-decision-boundaries.png" alt="Linear Model Decision Boundaries" height="250px" width="600px" class="img-responsive "></p> <p>Having seen the figure above, it is clear that we need a classifier that works well for non-linearly separable data. SVM with its kernel trick can be a good option. However, in this post, we are going to build a neural network instead and see how this neural network can help us to solve the XOR problem.</p> <h3 id="what-is-neural-network">What is Neural Network?</h3> <p>Neural Network or Artificial Neural Network is a very good function approximators that based loosely on the ways in which the brain is believed to work. Figure 1 below shows the analogy between the human biological neuron and an artificial neural network.</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/biological-neuron.png" alt="Linear Model Decision Boundaries" height="250px" width="600px" class="img-responsive "></p> <p style="text-align: center;">Figure 1. (a) Structure of neurons in brain (b) Analogy of Artificial Neural Network With Biological Neural Network — image taken from cs231n.github.io</p> <p><br> Without going into too much detail on a biological neuron, I will give a high-level intuition on how the biological neuron process an information.</p> <p>Our neuron receives signals through Dendrite. This information or signals are then passed through to the Soma or the Cell Body. Inside the cell body, all of the information will be summed up to generate an output. When the sumed up result reaches a threshold value, the neuron fires and the information will be carried down through the axon, then to other connected neurons through its synapses. The amount of signal transmitted between neurons depends upon the strength of the connections.</p> <p>The whole aforementioned flow is something that is adopted by the artificial neural network. You can think of the dendrite as the weighted inputs based on their synaptic interconnection in an artificial neural network. The weighted input is then summed up together inside a ‘cell-body’ of the artificial neural network. If the generated output is greater than the threshold unit, the neuron will “fire” and the output of this neuron will be transferred to the other neurons.</p> <p>So, you can see that the ANN is modeled using the working of basic biological neurons.</p> <h3 id="so-how-do-this-neural-network-works">So, How do this Neural Network works?</h3> <p>In order to know how this neural network works, let us first see a very simple form of an artificial neural network called Perceptron.</p> <p>For me, Perceptron is one of the most elegant algorithms that ever exist in machine learning. Created back in the 1950s, this simple algorithm can be said as the foundation for the starting point to so many important developments in machine learning algorithms, such as logistic regression, support vector machine and even deep neural networks.</p> <p>So how does a perceptron works? We’ll use a picture represented in Figure 2 as the starting point of our discussion.</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/perceptron.png" alt="Perceptron" height="150px" width="300px" class="img-responsive "></p> <p style="text-align: center;">Figure 2. Perceptron — <a href="http://neuralnetworksanddeeplearning.com/chap1.html" rel="external nofollow noopener" target="_blank">Source</a></p> <p>Figure 2 shows a perceptron algorithm with three inputs, x1, x2 and x3 and a neuron unit which can generate an output value. For generating the output, Rosenblatt introduced a simple rule by introducing the concept of <em>weights</em>. Weights are basically real numbers expressing the importance of the respective inputs to the output [<a href="http://neuralnetworksanddeeplearning.com/chap1.html" rel="external nofollow noopener" target="_blank">1</a>]. The neuron depicted above will generate two possible values, 0 or 1, and it is determined by whether the weighted sum of each input, <strong>∑wjxj</strong>, <em>is less than or greater than some threshold value</em>. Therefore, <em>the main idea of a perceptron algorithm is to learn the values of the weights <strong>w</strong> that are then multiplied with the input features in order to make a decision whether a neuron fires or not</em>. We can write this in a mathematical expression as depicted below:</p> <p style="text-align: center;"><img src="https://cdn-images-1.medium.com/max/1600/1*T9WY-gWHU3xMPlUKAJZDhg.png" alt=""></p> <p>Now, we can modify the formula above by doing two things: First, we can transformed the weighted sum formulation into a dot product of two vectors, <em>w (weights)</em> and <em>x (inputs)</em>, where w⋅x ≡ ∑wjxj. Then, we can move the threshold to the other side of the inequality and to replace it by a new variable, called <em>bias</em> b, where b ≡ −threshold. Now, with those modification, our perceptron rule can be rewritten as:</p> <p style="text-align: center;"><img src="https://cdn-images-1.medium.com/max/1600/1*I6k5jLEitKojxpmVOy3NHw.png" alt=""></p> <p>Now, when we put all together back to our perceptron architecture, we’ll have a complete architecture for a single perceptron as depicted below:</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/single-perceptron.png" alt="Single Perceptron" height="300px" width="460px" class="img-responsive "></p> <p style="text-align: center;">Figure 3. A single layer perceptron architecture</p> <p>A typical single layer perceptron uses the Heaviside step function as the activation function to convert the resulting value to either 0 or 1, thus classifying the input values as 0 or 1. As depicted in Figure 4, the Heaviside step function will output zero for negative argument and one for positive argument.</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/heaviside.png" alt="Heaviside step function" height="300px" width="360px" class="img-responsive "></p> <p style="text-align: center;">Figure 4. The shape of the Heaviside step function — <a href="https://en.wikipedia.org/wiki/Heaviside_step_function" rel="external nofollow noopener" target="_blank">Source</a></p> <p>The Heaviside step function is particularly useful in classification task in cases where the input data is <a href="https://en.wikipedia.org/wiki/Linear_separability" rel="external nofollow noopener" target="_blank">linearly separable</a>. However, recall that our goal is to find a classifier that works well in a non linearly separable data. Therefore, both a single layer perceptron and the Heaviside step function is obviously pointless here. Later, as you’ll see in the next section, we’ll need to have a multiple layers that consists of several perceptrons along with a non linear activation function.</p> <p>Specifically, there are two main reasons why we cannot use the Heaviside step function —( see also my answer on <a href="https://stats.stackexchange.com/questions/271701/why-is-step-function-not-used-in-activation-functions-in-machine-learning/318772#318772" rel="external nofollow noopener" target="_blank">stats.stackexchange.com</a>):</p> <ol> <li> <p>At the moment, one of the most efficient ways to train a multi-layer neural network is by using gradient descent with backpropagation (we’ll talk about these two methods shortly). A requirement for backpropagation algorithm is a <em>differentiable activation function</em>. However, the Heaviside step function is non-differentiable at x = 0 and it has 0 derivative elsewhere. This means that gradient descent won’t be able to make a progress in updating the weights.</p> </li> <li> <p>Recall that the main objective of the neural network is to learn the values of the weights and biases so that the model could produce a prediction as close as possible to the real value. In order to do this, as in many optimisation problems, we’d like a small change in the weight or bias to cause only a small corresponding change in the output from the network. Having a function that can only generate either 0 or 1 (or yes and no), won’t help us to achieve this objective.</p> </li> </ol> <h3 id="activation-function">Activation Function</h3> <p>The activation function is one of the most important components in the neural network. In particular, a nonlinear activation function is essential at least for three reasons:</p> <ul> <li>It helps the neuron to learn and make sense of something really complicated.</li> <li>They introduce nonlinear properties to our Network.</li> <li>we’d like a small change in weight to cause only a small corresponding change in the output from the network</li> </ul> <p>We’ve seen that the Heaviside step function as one example of an activation function, nevertheless, in this particular section, we’ll explore several non-linear activation functions that are generally used in the deep learning community. By the way, a more in-depth explanation of the activation function, including the pros and cons of each non-linear activation function, can be studied in these two great post written by <a href="https://medium.com/the-theory-of-everything/understanding-activation-functions-in-neural-networks-9491262884e0" rel="external nofollow noopener" target="_blank">Avinash Sharma</a> and <a href="https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b" rel="external nofollow noopener" target="_blank">Karpathy</a>.</p> <h4 id="sigmoid-function">Sigmoid Function</h4> <p>The sigmoid function, also known as the logistic function, is a function that given an input, it will generate an output in range (0,1). The sigmoid function is written as:</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/sigmoid.png" alt="sigmoid activation function" height="350px" width="350px" class="img-responsive "></p> <p style="text-align: center;">Figure 5. The shape of the Sigmoid Function</p> <p>Figure 5 draws the shape of the sigmoid function. As you can see, it is like the smoothed out version of the Heaviside step function. However, the sigmoid function is preferable due to many factors, such as:</p> <ul> <li>It is nonlinear in nature.</li> <li>Instead of outputing 0 and 1, now we have a function that can give a value output 0.67. Yup, as you might guess, this can be used to represent a probability value.</li> <li>Still related to point (2), now we have our activations bound in a range, which means it won’t blow up the activations.</li> </ul> <p>However, the sigmoid activation function has some drawbacks:</p> <p><em>The vanishing gradient</em>. As you can see from the preceding figure, when z, the input value to the function, is really small (moving towards -inf), the output of the sigmoid function will be closer to zero. Conversely, when z, is really big (moving towards +inf), the output of the sigmoid function will be closer to</p> <p><strong><em>So what does this imply?</em></strong></p> <p>In that region, the gradient is going to be very small and even vanished. The vanishing gradient is a big problem especially in deep learning, where we stack multiple layers of such non-linearities on top of each other, since even a large change in the parameters of the first layer doesn’t change the output much. In other words, the network refuses to learn and oftentimes the time taken to train the model tend to become slower and slower, especially if we use the gradient descent algorithm.</p> <p>Another disadvantage of the sigmoid activation function is that computing the exponential can be expensive in practice. Although, arguably, the activation function is a very small part of the computation in a deep net compared to the matrix multiplication and/or convolution, so, this might not become a huge problem. However, I think it is worth to mention.</p> <h4 id="tanh-function">Tanh Function</h4> <p>Tanh or hyperbolic tangent is another activation function that is commonly used in deep neural nets. The nature of the function is very similar to the sigmoid function where it squash the input into a nice bounded range value. Specifically, given a value, tanh will generate an output value between -1 and 1.</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/tanh.png" alt="tanh activation function" height="350px" width="350px" class="img-responsive "></p> <p style="text-align: center;">Figure 6. The shape of the tanh function</p> <p>As mentioned earlier, the tanh activation function has characteristics similar to the sigmoid function. It is nonlinear and it is bound to a certain range, in this case (-1, 1). Also, not surprisingly, tanh shares the same drawbacks as what the sigmoid has. It suffers from the vanishing gradient problem and as you can see from the mathematical formula, we need to compute the exponential, which oftentimes is computationally inefficient.</p> <h4 id="relu-rectified-linear-unit">ReLu (Rectified Linear Unit)</h4> <p>Here it comes the ReLu, an activation function that was not expected to perform better than sigmoid and tanh, yet, in practice it does! In fact, this <a href="http://cs231n.github.io/neural-networks-1/" rel="external nofollow noopener" target="_blank">lecture</a> says by default, <em>use the ReLU non-linearity.</em></p> <p>The ReLu has a very nice mathematical property in which it is very computationally efficient. Given an input value, the ReLu will generate 0, if the input is less than 0, otherwise the output will be the same as the input. Mathematically speaking, this is the form of the ReLu function</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/relu.png" alt="relu activation function" height="350px" width="350px" class="img-responsive "></p> <p style="text-align: center;">Figure 7. The shape of the ReLu function</p> <p>Now, you may ask, <em>“isn’t that a linear function? why do we call ReLu as a nonlinear function?”</em></p> <p>First, let us first understand what a linear function is. <a href="https://en.wikipedia.org/wiki/Linear_function" rel="external nofollow noopener" target="_blank">Wikipedia</a> says that:</p> <blockquote> <p>In linear algebra, a linear function is a map <em>f</em> between two <a href="https://en.wikipedia.org/wiki/Vector_space" rel="external nofollow noopener" target="_blank">vector spaces</a> that preserves <a href="https://en.wikipedia.org/wiki/Vector_addition" rel="external nofollow noopener" target="_blank">vector addition</a> and <a href="https://en.wikipedia.org/wiki/Scalar_multiplication" rel="external nofollow noopener" target="_blank">scalar multiplication</a>:</p> <p><strong>f(x + y) = f(x) + f(y)</strong></p> <p><strong>f(ax) = af(x)</strong></p> </blockquote> <p>Given the definition above, we can see that <em>max(0, x)</em> is a piece-wise linear function. It is piece-wise because it is linear only if we restrict its domain to (−inf, 0] or [0,+inf). However, it is not linear over its entire domain. For instance</p> <blockquote> <p>f(−1) + f(1) ≠f (0)</p> </blockquote> <p>So, now we know that ReLu is a nonlinear activation function and it has a nice mathematical property and also computationally more efficient compared to sigmoid or Tanh. In addition, ReLu is known to be “free” from the vanishing gradient problem. However, there is one big drawback in ReLu, which is called the “dying ReLu”. The dying ReLu is a phenomenon where a neuron in the network is permanently dead due to inability to fire in the forward pass.</p> <p>To be more precise, this problem occurs when the activation value generates by a neuron is zero while in forward pass, which resulting that its weights will get zero gradient. As a result, when we do backpropagation, the weights of that neuron will never be updated and that particular neuron will never be activated. I highly suggest you to watch this <a href="https://www.youtube.com/watch?v=gYpoJMlgyXA&amp;feature=youtu.be&amp;t=20m54s" rel="external nofollow noopener" target="_blank">lecture</a> video which has more in-depth explanation on this particular problem and how to avoid the dying ReLu problem. Please go check it!</p> <p>Oh, one more thing about ReLu that I think worth to mention. As you may notice, unlike the sigmoid and tanh, ReLu doesn’t bound the output value. As this might not become a huge problem in general, it can be, however, become troublesome in another variant of deep learning model such as the Recurrent Neural Network (RNN). Concretely, the unbounded value generated by the ReLu could make the computation within the RNN likely to blow up to infinity without reasonable weights. As a result, the learning can be remarkably unstable because a slight shift in the weights in the wrong direction during backpropagation can blow up the activations during the forward pass. I’ll try to cover more about this in my next blog post, hopefully :)</p> <h3 id="how-does-a-neural-network-predicts-and-learns">How does a Neural Network Predicts and Learns?</h3> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/feedforward.png" alt="Feedforward" height="400px" width="550px" class="img-responsive "></p> <p style="text-align: center;">Figure 8. The Multi Layer Perceptrons</p> <p>The architecture depicted in Figure 8 above is called the multi-layer perceptrons (MLP). As its name implies, in MLP, we simply stacked multiple perceptrons into several layers. The one depicted above is a network with 3 layers: an input layer, a hidden layer, and an output layer. However, in the deep learning or neural net community, people don’t call this network as three layers neural network. Usually, we just count the number of hidden layers or number of hidden layer along with the output layer, hence two-layers neural network. The hidden layers simply mean neither an input nor an output layer. Now, as you might guess, the term deep learning solely implies, we have “more” hidden layers :).</p> <p><strong><em>So how do a neural net generates a predictions?</em></strong></p> <p>A neural network generates a prediction after passing all the inputs through all the layers, up to the output layer. This process is called <strong>feedforward</strong>. As you can see from Figure 8, we “feed” the network with the input, <strong>x</strong>, compute the activation function and pass it through layer by layer until it reaches the output layer. In supervised setting task, such as classification task, we usually use a sigmoid activation function in the output layer since we can translate its output as a probability. In Figure 8, we can see that the value generated by the output layer is 0.24, and since this value is less than 0.5, we can then said the prediction, <strong>y_hat</strong>, is zero.</p> <p>Then, as in typical classification task, we’ll have a cost function which measures how good our model approximate the real label is. In fact, training in neural network simply means, <strong>minimize the cost as much as possible</strong>. We can define our cost function as follows:</p> <p style="text-align: center;"><img src="https://cdn-images-1.medium.com/max/1600/1*jZcH1BNbkWobtcNQwvgQhw.png" alt=""></p> <p style="text-align: center;">Mean Squared Error</p> <p>So the objective is to find some combination of <strong>w’s</strong> and <strong>b</strong> that could make our cost <strong>J</strong>, as small as possible. To do this, we’ll rely on two important algorithms which are Gradient Descent and Backpropagation.</p> <h4 id="gradient-descent-algorithm">Gradient Descent Algorithm</h4> <p>For those of you who have been doing machine learning might already know about the gradient descent algorithm. Training a neural network is not much different from training any other machine learning model with gradient descent. The only notable difference would be the effect of nonlinearities in our network that makes our cost function become non-convex.</p> <p>To give a better intuition, let us assume that our cost function is a convex function (a big one bowl) as depicted in Figure 9 below:</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/GD.png" alt="Gradient Descent" height="300px" width="450px" class="img-responsive "></p> <p style="text-align: center;">Figure 9. The schematic of the Gradient Descent — <a href="https://www.coursera.org/specializations/deep-learning" rel="external nofollow noopener" target="_blank">Source</a></p> <p>In the diagram above, the horizontal axes represent our space of parameters, weights and biases, while the cost function, <strong>J(w, b)</strong> is then some surface above the horizontal axes. The red circle depicted in the diagram above is the original value of our cost w.r.t the weights and bias. To minimize the cost, we now know that we have to go to the steepest path down the bowl. But the question is, <em>how do we know which direction to step?</em> <em>Should we increase or decrease the value of our parameters?</em> We can do a random search, but it will take quite a long time and obviously computationally expensive.</p> <p>There is a better way to find which direction we should go, in tweaking the learnable parameters, weights and biases. Calculus teaches us that the direction of the gradient vector, at a given point, will naturally point in the steepest direction. Therefore, we’ll use the gradient of our cost function w.r.t our weights and our biases.</p> <p>Now, Let us simplify things by just looking the cost w.r.t the weights as depicted in Figure 10 below:</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/GD2.png" alt="Gradient Descent" height="300px" width="500px" class="img-responsive "></p> <p style="text-align: center;"><img src="https://cdn-images-1.medium.com/max/1600/1*zGIwokdMizPsUYfzqpEclQ.png" alt=""></p> <p style="text-align: center;">Figure 10. Visualization of negative and positive gradients — <a href="https://www.mathsisfun.com/gradient.html" rel="external nofollow noopener" target="_blank">source</a></p> <p>Figure 10 pictures the value of our cost function w.r.t to the value of the weights. You can think of the black circle above as our original cost. Recall that the gradient of a function or a variable can be positive, zero or negative. A negative gradient means that the line slopes downwards and vice versa if it is positive. Now, since our objective is to minimize the cost, we then need to move our weights in the opposite direction of the gradient of the cost function. This update procedure can be written as follow:</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/updateGD.png" alt="Parameter Update" height="100px" width="200px" class="img-responsive "></p> <p style="text-align: center;">Figure 11. Parameters update — Gradient Descent</p> <p>where <strong>α</strong> is a step size or learning rate and we’ll multiply this with the partial derivative of our cost w.r.t the learnable parameters. So, what does <strong>α</strong> used for?</p> <p>Well, the gradient tells us the direction in which the function has the steepest rate, however, it does not tell us how far along this direction we should step. Here is where we need the <strong>α</strong>, which is a hyperparameter that basically control the size of our step, like, how much should we move towards a certain direction. Choosing the right value for our learning rate is very important since it will hugely affect two things: the speed of the learning algorithm and whether we can find the local optimum or not (converge). In practice, you might want to use an adaptive learning rate algorithms such as momentum, RMSProp, Adam and so forth. A guy from AYLIEN wrote a very nice <a href="http://ruder.io/optimizing-gradient-descent/" rel="external nofollow noopener" target="_blank">post</a> regarding various optimization and adaptive learning rate algorithm.</p> <h4 id="backpropagation">Backpropagation</h4> <p>In the previous section, we’ve talked about the gradient descent algorithm, which is an optimization algorithm that we use as the learning algorithm in a deep neural network. Recall that by using gradient descent means that we need to find the gradient of our cost function w.r.t our learnable parameters, <strong>w</strong>, and <strong>b</strong>. In other words, we need to compute the partial derivative of our cost function w.r.t <strong>w</strong> and <strong>b</strong>.</p> <p>However, if we observe our cost function <strong>J</strong>, as depicted in Figure 12 below, there is no a direct relationship between J and both <strong>w</strong> and <strong>b</strong>.</p> <p style="text-align: center;"><img src="https://cdn-images-1.medium.com/max/1600/1*jZcH1BNbkWobtcNQwvgQhw.png" alt=""></p> <p style="text-align: center;">Figure 12. Mean Squared Error</p> <p>Only if we trace back from the output layer, the layer that generates <strong>y_hat</strong>, way to the input layer, we’ll see that <strong>J</strong> has an indirect relation with both <strong>w</strong> and <strong>b</strong>, as shown in Figure 13 below:</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/backprop.png" alt="Backpropagation" height="350px" width="550px" class="img-responsive "></p> <p style="text-align: center;">Figure 13. The schematic of the backpropagation</p> <p>Now, you can see that in order to find the gradient of our cost w.r.t both <strong>w</strong> and <strong>b</strong>, we need to find the partial derivative of the cost with all the variables, such as <strong>a</strong> (the activation function) and <strong>z</strong> (the linear computation: <strong>wx</strong> + <strong>b</strong>) in the preceding layers. This is where we need a backpropagation. Backpropagation is basically a repeated application of chain rule of calculus for partial derivatives, which I would say, probably the most efficient way to find the gradient of our cost <strong>J</strong> w.r.t to all the learnable parameters in a neural network.</p> <p>In this post, I’ll walk you to compute a gradient of the cost function <strong>J</strong> w.r.t <strong>W2</strong>, which is the weights in the second layer of a neural network. For simplicity, we’ll use the architecture shown in Figure 8, where we have one hidden layer with three hidden neurons.</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/backprop_1.png" alt="Backpropagation1" height="200px" width="300px" class="img-responsive "></p> <p>To find the rate of change of <strong>y_hat</strong> w.r.t <strong>z2</strong>, we need to differentiate our sigmoid activation function with respect to <strong>z</strong>. Assuming we use a sigmoid activation function, we can then compute it as:</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/backprop_2.png" alt="Backpropagation2" height="200px" width="300px" class="img-responsive "></p> <p>Now, once we have the value of our partial derivative J w.r.t W2, we can update the value of our W2 using the formula shown in Figure 11 in the previous section. Basically, we’ll perform the same computation with all the weights and biases repeatedly until we have a cost value as minimum as possible.</p> <h3 id="neural-nets-for-solving-the-xor-problem">Neural Nets for Solving the XOR Problem</h3> <p>Great! I guess we’ve covered pretty much everything that we need to know in order to build a neural network model, and even a deep learning model, that would help us to solve the XOR problem.</p> <p>While writing this post, I’ve built a simple neural network model with only one hidden layers with various number of hidden neurons. The example of the network that I used is shown in Figure 14 below. Also, I presented some decision boundaries generated by my model with different number of neurons. As you can see later, we can say that having more neurons will make our model become more complex, hence creating a more complex decision boundary.</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/two-layers.png" alt="Two Layers Arch" height="350px" width="350px" class="img-responsive "></p> <p style="text-align: center;">Figure 14. A two layers neural net with 3 hidden Neurons</p> <p style="text-align: center;"><img src="/figures/2018-01-16-From-Perceptron-to-Deep-Learning/solution.png" alt="Decision Boundaries" height="350px" width="550px" class="img-responsive "></p> <p style="text-align: center;">Figure 15. Decision boundaries generated by one hidden layer with several hidden neurons</p> <p>But, what would be the best choice? having more neurons or going deeper, meaning having more layers?</p> <p>Well, Theoritically, the main benefit of a very deep network is that it can <strong>represent very complex functions</strong>. Specifically, by using a deeper architecture, we can learn features at many different levels of abstraction, for instance identifying edges (at the lower layers) to very complex features (at the deeper layers).</p> <p>However, using a deeper network doesn’t always help in practice. The biggest problem that we will encounter when training a deeper network is the <strong>vanishing gradients</strong> problem: a condition where a very deep networks often have a gradient signal that goes to zero quickly, thus making gradient descent unbearably slow.</p> <p>More specifically, during gradient descent, as we backprop from the final layer back to the first layer, we are multiplying by the weight matrix on each step, and thus the gradient can decrease exponentially quickly to zero or, in rare cases, grow exponentially quickly and “explode” to take very large values.</p> <p>So, to wrap up this lengthy post, these are a few bullet points that would briefly summarise it:</p> <ul> <li>The intuition, the Neural Net introduces non-linearities to the model and can be used to solve a complex non-linearly separable data.</li> <li>Perceptron is an elegant algorithm that powered many of the most advancement algorithms in machine learning, including deep learning.</li> <li>Intuitively, deep learning means, use a neural net with more hidden layers. Of course, there are many variants of it, such as Convolution Neural Net, Recurrent Neural net and so on.</li> <li>Activation function is extremely an important component in neural net and YES, you should understand it.</li> <li>Currently, Gradient Descent with Backpropagation is the best combination that we use to train a (deep) Neural Net.</li> <li>Having more hidden layers not necessarily improves the performance of our model. In fact, it suffers from one well-known problem called the vanishing gradient problem.</li> </ul> <hr> <h3 id="adi-chris"><a href="https://becominghuman.ai/@adichris" rel="external nofollow noopener" target="_blank">Adi Chris</a></h3> <p>A passionate learner and the machine learning enthusiast.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html">Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a Custodian</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html">Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html">Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2026/07/20/diffusion-llms.html">Diffusion LLMs</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html">Nanopore raw data visualization using squigualiser</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html">Nanopore direct RNA data analysis using Dorado</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html">Modern commnad line tools powered by Rust</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html">Nanopore direct cDNA data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/03/13/HiC-data-analysis.html">Hi-C data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html">Nanopore direct RNA data analysis</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Ting-You Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-projects",
+          title: "Projects",
+          description: "Software, pipelines, and tools developed for genomics and data analysis.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-publications",
+          title: "Publications",
+          description: "Peer-reviewed scientific publications, book chapters, and journal articles.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-books",
+          title: "Books",
+          description: "Books that I am reading, have read, or plan to read.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-blog",
+          title: "Blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Ting-You Wang's professional curriculum vitae detailing research, education, and software.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-rethinking-bioinformatics-expertise-in-the-era-of-ai-a-newbie-39-s-journey-as-a-custodian",
+        
+          title: "Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html";
+          
+        },
+      },{id: "post-mapping-the-global-landscape-of-cancer-research-key-trends-from-the-nature-index",
+        
+          title: "Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html";
+          
+        },
+      },{id: "post-shattered-chromosomes-understanding-chromothripsis-and-genome-rearrangement-models",
+        
+          title: "Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html";
+          
+        },
+      },{id: "post-diffusion-llms",
+        
+          title: "Diffusion LLMs",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2026/07/20/diffusion-llms.html";
+          
+        },
+      },{id: "post-nanopore-raw-data-visualization-using-squigualiser",
+        
+          title: "Nanopore raw data visualization using squigualiser",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis-using-dorado",
+        
+          title: "Nanopore direct RNA data analysis using Dorado",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html";
+          
+        },
+      },{id: "post-modern-commnad-line-tools-powered-by-rust",
+        
+          title: "Modern commnad line tools powered by Rust",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html";
+          
+        },
+      },{id: "post-nanopore-direct-cdna-data-analysis",
+        
+          title: "Nanopore direct cDNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-hi-c-data-analysis",
+        
+          title: "Hi-C data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/03/13/HiC-data-analysis.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis",
+        
+          title: "Nanopore direct RNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-operation-on-bigwig-files",
+        
+          title: "Operation on BigWig Files",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/07/operation-on-bigwig-files.html";
+          
+        },
+      },{id: "post-pacbio-iso-seq-data-analysis",
+        
+          title: "PacBio Iso-Seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/12/08/PacBio-Iso-Seq-Data-Analysis.html";
+          
+        },
+      },{id: "post-probabilistic-graphical-models-for-fraud-detection",
+        
+          title: "Probabilistic Graphical Models for Fraud Detection",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/09/15/Probabilistic-Graphical-Models-for-Fraud-Detection.html";
+          
+        },
+      },{id: "post-an-introduction-to-options",
+        
+          title: "An Introduction to Options",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/06/02/intro-options.html";
+          
+        },
+      },{id: "post-funding-schemes-for-postdoctoral-fellowship",
+        
+          title: "Funding schemes for postdoctoral fellowship",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/news/2018/02/05/postdoctoral-fellowships.html";
+          
+        },
+      },{id: "post-from-perceptron-to-deep-learning",
+        
+          title: "From Perceptron to Deep Learning",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/01/16/From-Perceptron-to-Deep-Learning.html";
+          
+        },
+      },{id: "post-introduction-to-meta-analysis-fixed-effect-model-and-random-effect-model",
+        
+          title: "Introduction to Meta-analysis: fixed-effect model and random-effect model",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/statistics/2017/09/08/meta-analysis.html";
+          
+        },
+      },{id: "post-recreate-economist-graph-by-ggplot2",
+        
+          title: "Recreate Economist graph by ggplot2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/03/03/recreate-economist-graph-by-ggplot2.html";
+          
+        },
+      },{id: "post-gwas-prephasing-and-imputation",
+        
+          title: "GWAS prephasing and imputation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/02/20/GWAS-prephasing-and-imputation.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis-strand-issues",
+        
+          title: "RNA-seq data analysis (strand issues)",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/09/21/RNA-seq-strand-issues.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis",
+        
+          title: "RNA-seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2016/09/13/RNA-seq-analysis.html";
+          
+        },
+      },{id: "post-rna-seq-normalization",
+        
+          title: "RNA-seq normalization",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/08/29/RNAseq-normalization.html";
+          
+        },
+      },{id: "post-linear-models-in-practice",
+        
+          title: "linear models in practice",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2016/03/23/Linear-models-in-practice.html";
+          
+        },
+      },{id: "post-introduction-to-linear-models",
+        
+          title: "Introduction to Linear Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Introduction-to-Linear-Models.html";
+          
+        },
+      },{id: "post-expressing-design-formula-in-r",
+        
+          title: "Expressing design formula in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Expressing-design-formula-in-R.html";
+          
+        },
+      },{id: "post-penalized-regression-methods-for-association-studies",
+        
+          title: "Penalized Regression Methods for Association Studies",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2015/05/15/Penalized-Regression.html";
+          
+        },
+      },{id: "post-what-is-norm",
+        
+          title: "What is norm?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/27/What-is-norm.html";
+          
+        },
+      },{id: "post-the-making-of-manipulating-data-tables",
+        
+          title: "The Making of Manipulating Data Tables",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/06/slides-workflow.html";
+          
+        },
+      },{id: "post-when-is-a-z-statistic-and-when-a-t-statistic-used",
+        
+          title: "When is a z-statistic and when a t-statistic used?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/05/t-statistic-or-z-statistic.html";
+          
+        },
+      },{id: "post-creating-html5-slides-with-rstudio-knitr-and-pandoc",
+        
+          title: "Creating HTML5 slides with RStudio, knitr and pandoc",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/26/Creating-HTML5-Slides.html";
+          
+        },
+      },{id: "post-5-functions-to-do-principal-components-analysis-in-r",
+        
+          title: "5 functions to do Principal Components Analysis in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/25/PCA-in-R.html";
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather";
+            },},{id: "news-a-simple-inline-announcement",
+          title: 'A simple inline announcement.',
+          description: "",
+          section: "News",},{id: "news-a-long-announcement-with-details",
+          title: 'A long announcement with details',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2";
+            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
+          title: 'A simple inline announcement with Markdown emoji! <img class="emoji" title=":sparkles:" alt=":sparkles:" src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png" height="20" width="20"> <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20">',
+          description: "",
+          section: "News",},{id: "projects-scanneo",
+          title: 'ScanNeo',
+          description: "A pipeline for identifying insertion and deletion (indel) introduced neoantigens from RNA sequencing data.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_scanneo";
+            },},{id: "projects-scanitd",
+          title: 'ScanITD',
+          description: "Performs a stepwise seed-and-realignment procedure for internal tandem duplication (ITD) detection with robust variant allele frequency estimation.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_scanitd";
+            },},{id: "projects-scanexitron",
+          title: 'ScanExitron',
+          description: "A computational workflow for exitron splicing identification and profiling from next-generation sequencing RNA-Seq datasets.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_scanexitron";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%74%79%77%61%6E%67@%6E%6F%72%74%68%77%65%73%74%65%72%6E.%65%64%75", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=FVx_uDIAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/cv/", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

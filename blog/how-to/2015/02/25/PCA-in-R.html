@@ -1,0 +1,653 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> 5 functions to do Principal Components Analysis in R | Ting-You Wang </title> <meta name="author" content="Ting-You Wang"> <meta name="description" content="Bioinformatics Research Associate at Northwestern University Feinberg School of Medicine. I explore, analyze, and visualize biological data, focusing on genetics, genomics, cancer, and lupus susceptibility. "> <meta name="keywords" content="bioinformatics, genomics, cancer research, lupus, jekyll, al-folio"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://databeauty.com/blog/how-to/2015/02/25/PCA-in-R.html"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <div class="navbar-brand social"> <a href="mailto:tywang@northwestern.edu" title="Email"><i class="fa-solid fa-envelope"></i></a> <a href="https://scholar.google.com/citations?user=FVx_uDIAAAAJ" title="Scholar userid" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a> <a href="https://github.com/dolittle007" title="Github username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-github"></i></a> <a href="https://www.linkedin.com/in/dolittle007" title="Linkedin username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-linkedin"></i></a> <a href="https://twitter.com/dolittle007" title="X username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-x-twitter"></i></a> <a href="/cv/" title="Cv pdf"><i class="ai ai-cv"></i></a> <a href="/feed.xml" title="Rss icon"><i class="fa-solid fa-square-rss"></i></a> </div> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">Projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">Books </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">Blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">5 functions to do Principal Components Analysis in R</h1> <p class="post-meta"> Created on February 25, 2015 </p> <p class="post-tags"> <a href="/blog/2015"> <i class="fa-solid fa-calendar fa-sm"></i> 2015 </a>   ·   <a href="/blog/tag/principal-components"> <i class="fa-solid fa-hashtag fa-sm"></i> principal components</a>   <a href="/blog/tag/analysis"> <i class="fa-solid fa-hashtag fa-sm"></i> analysis</a>   <a href="/blog/tag/pca"> <i class="fa-solid fa-hashtag fa-sm"></i> pca</a>   <a href="/blog/tag/multivariate"> <i class="fa-solid fa-hashtag fa-sm"></i> multivariate</a>   <a href="/blog/tag/plot"> <i class="fa-solid fa-hashtag fa-sm"></i> plot</a>   <a href="/blog/tag/r"> <i class="fa-solid fa-hashtag fa-sm"></i> R</a>   ·   <a href="/blog/category/how-to"> <i class="fa-solid fa-tag fa-sm"></i> how-to</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>Principal Component Analysis (<a href="http://en.wikipedia.org/wiki/Principal_component" rel="external nofollow noopener" target="_blank">PCA</a>) is a multivariate technique that allows us to summarize the systematic patterns of variations in the data.</p> <p>From a data analysis standpoint, PCA is used for studying one table of observations and variables with the main idea of transforming the observed variables into a set of new variables, the principal components, which are uncorrelated and explain the variation in the data. For this reason, PCA allows to reduce a “complex” data set to a lower dimension in order to reveal the structures or the dominant types of variations in both the observations and the variables.</p> <h3 id="pca-in-r">PCA in R</h3> <p>In R, there are several functions from different packages that allow us to perform PCA. In this post I’ll show you 5 different ways to do a PCA using the following functions (with their corresponding packages in parentheses):</p> <ul> <li> <code class="language-plaintext highlighter-rouge">prcomp()</code> (stats)</li> <li> <code class="language-plaintext highlighter-rouge">princomp()</code> (stats)</li> <li> <code class="language-plaintext highlighter-rouge">PCA()</code> (FactoMineR)</li> <li> <code class="language-plaintext highlighter-rouge">dudi.pca()</code> (ade4)</li> <li> <code class="language-plaintext highlighter-rouge">acp()</code> (amap)</li> </ul> <p>Brief note: It is no coincidence that the three external packages (<code class="language-plaintext highlighter-rouge">"FactoMineR"</code>, <code class="language-plaintext highlighter-rouge">"ade4"</code>, and <code class="language-plaintext highlighter-rouge">"amap"</code>) have been developed by French data analysts, which have a long tradition and preference for PCA and other related exploratory techniques.</p> <p>No matter what function you decide to use, the typical PCA results should consist of a set of eigenvalues, a table with the scores or Principal Components (PCs), and a table of loadings (or correlations between variables and PCs). The eigenvalues provide information of the variability in the data. The scores provide information about the structure of the observations. The loadings (or correlations) allow you to get a sense of the relationships between variables, as well as their associations with the extracted PCs.</p> <h3 id="the-data">The Data</h3> <p>To make things easier, we’ll use the dataset <code class="language-plaintext highlighter-rouge">USArrests</code> that already comes with R. It’s a data frame with 50 rows (USA states) and 4 columns containing information about violent crime rates by US State. Since most of the times the variables are measured in different scales, the PCA must be performed with standardized data (mean = 0, variance = 1). The good news is that all of the functions that perform PCA come with parameters to specify that the analysis must be applied on standardized data.</p> <h3 id="option-1-using-prcomp">Option 1: using prcomp()</h3> <p>The function <code class="language-plaintext highlighter-rouge">prcomp()</code> comes with the default <code class="language-plaintext highlighter-rouge">"stats"</code> package, which means that you don’t have to install anything. It is perhaps the quickest way to do a PCA if you don’t want to install other packages.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># PCA with function prcomp</span><span class="w">
+</span><span class="n">pca1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prcomp</span><span class="p">(</span><span class="n">USArrests</span><span class="p">,</span><span class="w"> </span><span class="n">scale.</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># sqrt of eigenvalues</span><span class="w">
+</span><span class="n">pca1</span><span class="o">$</span><span class="n">sdev</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] 1.5749 0.9949 0.5971 0.4164</code></pre></figure> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># loadings</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">pca1</span><span class="o">$</span><span class="n">rotation</span><span class="p">)</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##              PC1     PC2     PC3      PC4
+## Murder   -0.5359  0.4182 -0.3412  0.64923
+## Assault  -0.5832  0.1880 -0.2681 -0.74341
+## UrbanPop -0.2782 -0.8728 -0.3780  0.13388
+## Rape     -0.5434 -0.1673  0.8178  0.08902</code></pre></figure> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># PCs (aka scores)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">pca1</span><span class="o">$</span><span class="n">x</span><span class="p">)</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##                PC1     PC2      PC3      PC4
+## Alabama    -0.9757  1.1220 -0.43980  0.15470
+## Alaska     -1.9305  1.0624  2.01950 -0.43418
+## Arizona    -1.7454 -0.7385  0.05423 -0.82626
+## Arkansas    0.1400  1.1085  0.11342 -0.18097
+## California -2.4986 -1.5274  0.59254 -0.33856
+## Colorado   -1.4993 -0.9776  1.08400  0.00145</code></pre></figure> <h3 id="option-2-using-princomp">Option 2: using princomp()</h3> <p>The function <code class="language-plaintext highlighter-rouge">princomp()</code> also comes with the default <code class="language-plaintext highlighter-rouge">"stats"</code> package, and it is very similar to her cousin <code class="language-plaintext highlighter-rouge">prcomp()</code>. What I don’t like of <code class="language-plaintext highlighter-rouge">princomp()</code> is that sometimes it won’t display all the values for the loadings, but this is a minor detail.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># PCA with function princomp</span><span class="w">
+</span><span class="n">pca2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">princomp</span><span class="p">(</span><span class="n">USArrests</span><span class="p">,</span><span class="w"> </span><span class="n">cor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># sqrt of eigenvalues</span><span class="w">
+</span><span class="n">pca2</span><span class="o">$</span><span class="n">sdev</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">## Comp.1 Comp.2 Comp.3 Comp.4 
+## 1.5749 0.9949 0.5971 0.4164</code></pre></figure> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># loadings</span><span class="w">
+</span><span class="nf">unclass</span><span class="p">(</span><span class="n">pca2</span><span class="o">$</span><span class="n">loadings</span><span class="p">)</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##           Comp.1  Comp.2  Comp.3   Comp.4
+## Murder   -0.5359  0.4182 -0.3412  0.64923
+## Assault  -0.5832  0.1880 -0.2681 -0.74341
+## UrbanPop -0.2782 -0.8728 -0.3780  0.13388
+## Rape     -0.5434 -0.1673  0.8178  0.08902</code></pre></figure> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># PCs (aka scores)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">pca2</span><span class="o">$</span><span class="n">scores</span><span class="p">)</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##             Comp.1  Comp.2   Comp.3    Comp.4
+## Alabama    -0.9856  1.1334 -0.44427  0.156267
+## Alaska     -1.9501  1.0732  2.04000 -0.438583
+## Arizona    -1.7632 -0.7460  0.05478 -0.834653
+## Arkansas    0.1414  1.1198  0.11457 -0.182811
+## California -2.5240 -1.5429  0.59856 -0.341996
+## Colorado   -1.5146 -0.9876  1.09501  0.001465</code></pre></figure> <h3 id="option-3-using-pca">Option 3: using PCA()</h3> <p>A highly recommended option, especially if you want more detailed results and assessing tools, is the <code class="language-plaintext highlighter-rouge">PCA()</code> function from the package <code class="language-plaintext highlighter-rouge">"FactoMineR"</code>. It is by far the best PCA function in R and it comes with a number of parameters that allow you to tweak the analysis in a very nice way.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># PCA with function PCA</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">FactoMineR</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># apply PCA</span><span class="w">
+</span><span class="n">pca3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PCA</span><span class="p">(</span><span class="n">USArrests</span><span class="p">,</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># matrix with eigenvalues</span><span class="w">
+</span><span class="n">pca3</span><span class="o">$</span><span class="n">eig</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##        eigenvalue percentage of variance cumulative percentage of variance
+## comp 1     2.4802                 62.006                             62.01
+## comp 2     0.9898                 24.744                             86.75
+## comp 3     0.3566                  8.914                             95.66
+## comp 4     0.1734                  4.336                            100.00</code></pre></figure> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># correlations between variables and PCs</span><span class="w">
+</span><span class="n">pca3</span><span class="o">$</span><span class="n">var</span><span class="o">$</span><span class="n">coord</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##           Dim.1   Dim.2   Dim.3    Dim.4
+## Murder   0.8440 -0.4160  0.2038  0.27037
+## Assault  0.9184 -0.1870  0.1601 -0.30959
+## UrbanPop 0.4381  0.8683  0.2257  0.05575
+## Rape     0.8558  0.1665 -0.4883  0.03707</code></pre></figure> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># PCs (aka scores)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">pca3</span><span class="o">$</span><span class="n">ind</span><span class="o">$</span><span class="n">coord</span><span class="p">)</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##              Dim.1   Dim.2    Dim.3     Dim.4
+## Alabama     0.9856 -1.1334  0.44427  0.156267
+## Alaska      1.9501 -1.0732 -2.04000 -0.438583
+## Arizona     1.7632  0.7460 -0.05478 -0.834653
+## Arkansas   -0.1414 -1.1198 -0.11457 -0.182811
+## California  2.5240  1.5429 -0.59856 -0.341996
+## Colorado    1.5146  0.9876 -1.09501  0.001465</code></pre></figure> <h3 id="option-4-using-dudipca">Option 4: using dudi.pca()</h3> <p>Another option is to use the <code class="language-plaintext highlighter-rouge">dudi.pca()</code> function from the package <code class="language-plaintext highlighter-rouge">"ade4"</code> which has a huge amount of other methods as well as some interesting graphics.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># PCA with function dudi.pca</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ade4</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># apply PCA</span><span class="w">
+</span><span class="n">pca4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dudi.pca</span><span class="p">(</span><span class="n">USArrests</span><span class="p">,</span><span class="w"> </span><span class="n">nf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">scannf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># eigenvalues</span><span class="w">
+</span><span class="n">pca4</span><span class="o">$</span><span class="n">eig</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] 2.4802 0.9898 0.3566 0.1734</code></pre></figure> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># loadings</span><span class="w">
+</span><span class="n">pca4</span><span class="o">$</span><span class="n">c1</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##              CS1     CS2     CS3      CS4
+## Murder   -0.5359  0.4182 -0.3412  0.64923
+## Assault  -0.5832  0.1880 -0.2681 -0.74341
+## UrbanPop -0.2782 -0.8728 -0.3780  0.13388
+## Rape     -0.5434 -0.1673  0.8178  0.08902</code></pre></figure> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># correlations between variables and PCs</span><span class="w">
+</span><span class="n">pca4</span><span class="o">$</span><span class="n">co</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##            Comp1   Comp2   Comp3    Comp4
+## Murder   -0.8440  0.4160 -0.2038  0.27037
+## Assault  -0.9184  0.1870 -0.1601 -0.30959
+## UrbanPop -0.4381 -0.8683 -0.2257  0.05575
+## Rape     -0.8558 -0.1665  0.4883  0.03707</code></pre></figure> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># PCs</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">pca4</span><span class="o">$</span><span class="n">li</span><span class="p">)</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##              Axis1   Axis2    Axis3     Axis4
+## Alabama    -0.9856  1.1334 -0.44427  0.156267
+## Alaska     -1.9501  1.0732  2.04000 -0.438583
+## Arizona    -1.7632 -0.7460  0.05478 -0.834653
+## Arkansas    0.1414  1.1198  0.11457 -0.182811
+## California -2.5240 -1.5429  0.59856 -0.341996
+## Colorado   -1.5146 -0.9876  1.09501  0.001465</code></pre></figure> <h3 id="option-5-using-acp">Option 5: using acp()</h3> <p>A fifth possibility is the <code class="language-plaintext highlighter-rouge">acp()</code> function from the package <code class="language-plaintext highlighter-rouge">"amap"</code>.</p> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># PCA with function acp</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">amap</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># apply PCA</span><span class="w">
+</span><span class="n">pca5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acp</span><span class="p">(</span><span class="n">USArrests</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># sqrt of eigenvalues</span><span class="w">
+</span><span class="n">pca5</span><span class="o">$</span><span class="n">sdev</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">## Comp 1 Comp 2 Comp 3 Comp 4 
+## 1.5749 0.9949 0.5971 0.4164</code></pre></figure> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># loadings</span><span class="w">
+</span><span class="n">pca5</span><span class="o">$</span><span class="n">loadings</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##          Comp 1  Comp 2  Comp 3   Comp 4
+## Murder   0.5359  0.4182 -0.3412  0.64923
+## Assault  0.5832  0.1880 -0.2681 -0.74341
+## UrbanPop 0.2782 -0.8728 -0.3780  0.13388
+## Rape     0.5434 -0.1673  0.8178  0.08902</code></pre></figure> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># scores</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">pca5</span><span class="o">$</span><span class="n">scores</span><span class="p">)</span></code></pre></figure> <figure class="highlight"><pre><code class="language-text" data-lang="text">##             Comp 1  Comp 2   Comp 3   Comp 4
+## Alabama     0.9757  1.1220 -0.43980  0.15470
+## Alaska      1.9305  1.0624  2.01950 -0.43418
+## Arizona     1.7454 -0.7385  0.05423 -0.82626
+## Arkansas   -0.1400  1.1085  0.11342 -0.18097
+## California  2.4986 -1.5274  0.59254 -0.33856
+## Colorado    1.4993 -0.9776  1.08400  0.00145</code></pre></figure> <p>Of course these are not the only options to do a PCA, but I’ll leave the other approaches for another post.</p> <h3 id="pca-plots">PCA plots</h3> <p>Everybody uses PCA to visualize the data, and most of the discussed functions come with their own plot functions. But you can also make use of the great graphical displays of <code class="language-plaintext highlighter-rouge">"ggplot2"</code>. Just to show you a couple of plots, let’s take the basic results from <code class="language-plaintext highlighter-rouge">prcomp()</code>.</p> <h4 id="plot-of-observations">Plot of observations</h4> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># load ggplot2</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># create data frame with scores</span><span class="w">
+</span><span class="n">scores</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">pca1</span><span class="o">$</span><span class="n">x</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># plot of observations</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scores</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC2</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rownames</span><span class="p">(</span><span class="n">scores</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_hline</span><span class="p">(</span><span class="n">yintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray65"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray65"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"tomato"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.8</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"PCA plot of USA States - Crime Rates"</span><span class="p">)</span></code></pre></figure> <p><img src="/figures/2015-02-25-PCA-in-R/pca_plot.png" alt="center"></p> <h4 id="circle-of-correlations">Circle of correlations</h4> <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># function to create a circle</span><span class="w">
+</span><span class="n">circle</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">center</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">npoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w">
+    </span><span class="n">tt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">pi</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">npoints</span><span class="p">)</span><span class="w">
+    </span><span class="n">xx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">center</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">cos</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span><span class="w">
+    </span><span class="n">yy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">center</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">sin</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span><span class="w">
+    </span><span class="nf">return</span><span class="p">(</span><span class="n">data.frame</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xx</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">yy</span><span class="p">))</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">corcir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">circle</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">npoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># create data frame with correlations between variables and PCs</span><span class="w">
+</span><span class="n">correlations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">cor</span><span class="p">(</span><span class="n">USArrests</span><span class="p">,</span><span class="w"> </span><span class="n">pca1</span><span class="o">$</span><span class="n">x</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># data frame with arrows coordinates</span><span class="w">
+</span><span class="n">arrows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">y1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">correlations</span><span class="o">$</span><span class="n">PC1</span><span class="p">,</span><span class="w"> 
+    </span><span class="n">y2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">correlations</span><span class="o">$</span><span class="n">PC2</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># geom_path will do open circles</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_path</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">corcir</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray65"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+    </span><span class="n">geom_segment</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arrows</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y1</span><span class="p">,</span><span class="w"> </span><span class="n">xend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x2</span><span class="p">,</span><span class="w"> </span><span class="n">yend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y2</span><span class="p">),</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray65"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+    </span><span class="n">geom_text</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">correlations</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC2</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rownames</span><span class="p">(</span><span class="n">correlations</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+    </span><span class="n">geom_hline</span><span class="p">(</span><span class="n">yintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray65"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> 
+    </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gray65"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xlim</span><span class="p">(</span><span class="m">-1.1</span><span class="p">,</span><span class="w"> </span><span class="m">1.1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylim</span><span class="p">(</span><span class="m">-1.1</span><span class="p">,</span><span class="w"> </span><span class="m">1.1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"pc1 aixs"</span><span class="p">,</span><span class="w"> 
+    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"pc2 axis"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Circle of correlations"</span><span class="p">)</span></code></pre></figure> <p><img src="/figures/2015-02-25-PCA-in-R/pca_circle.png" alt="center"></p> <h4 id="reference">Reference</h4> <p>[PCA in R] (http://gastonsanchez.com/blog/how-to/2012/06/17/PCA-in-R.html) from Gaston Sanchez</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html">Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a Custodian</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html">Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html">Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2026/07/20/diffusion-llms.html">Diffusion LLMs</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html">Nanopore raw data visualization using squigualiser</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html">Nanopore direct RNA data analysis using Dorado</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html">Modern commnad line tools powered by Rust</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html">Nanopore direct cDNA data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/03/13/HiC-data-analysis.html">Hi-C data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html">Nanopore direct RNA data analysis</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Ting-You Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-projects",
+          title: "Projects",
+          description: "Software, pipelines, and tools developed for genomics and data analysis.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-publications",
+          title: "Publications",
+          description: "Peer-reviewed scientific publications, book chapters, and journal articles.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-books",
+          title: "Books",
+          description: "Books that I am reading, have read, or plan to read.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-blog",
+          title: "Blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Ting-You Wang's professional curriculum vitae detailing research, education, and software.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-rethinking-bioinformatics-expertise-in-the-era-of-ai-a-newbie-39-s-journey-as-a-custodian",
+        
+          title: "Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html";
+          
+        },
+      },{id: "post-mapping-the-global-landscape-of-cancer-research-key-trends-from-the-nature-index",
+        
+          title: "Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html";
+          
+        },
+      },{id: "post-shattered-chromosomes-understanding-chromothripsis-and-genome-rearrangement-models",
+        
+          title: "Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html";
+          
+        },
+      },{id: "post-diffusion-llms",
+        
+          title: "Diffusion LLMs",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2026/07/20/diffusion-llms.html";
+          
+        },
+      },{id: "post-nanopore-raw-data-visualization-using-squigualiser",
+        
+          title: "Nanopore raw data visualization using squigualiser",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis-using-dorado",
+        
+          title: "Nanopore direct RNA data analysis using Dorado",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html";
+          
+        },
+      },{id: "post-modern-commnad-line-tools-powered-by-rust",
+        
+          title: "Modern commnad line tools powered by Rust",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html";
+          
+        },
+      },{id: "post-nanopore-direct-cdna-data-analysis",
+        
+          title: "Nanopore direct cDNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-hi-c-data-analysis",
+        
+          title: "Hi-C data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/03/13/HiC-data-analysis.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis",
+        
+          title: "Nanopore direct RNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-operation-on-bigwig-files",
+        
+          title: "Operation on BigWig Files",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/07/operation-on-bigwig-files.html";
+          
+        },
+      },{id: "post-pacbio-iso-seq-data-analysis",
+        
+          title: "PacBio Iso-Seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/12/08/PacBio-Iso-Seq-Data-Analysis.html";
+          
+        },
+      },{id: "post-probabilistic-graphical-models-for-fraud-detection",
+        
+          title: "Probabilistic Graphical Models for Fraud Detection",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/09/15/Probabilistic-Graphical-Models-for-Fraud-Detection.html";
+          
+        },
+      },{id: "post-an-introduction-to-options",
+        
+          title: "An Introduction to Options",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/06/02/intro-options.html";
+          
+        },
+      },{id: "post-funding-schemes-for-postdoctoral-fellowship",
+        
+          title: "Funding schemes for postdoctoral fellowship",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/news/2018/02/05/postdoctoral-fellowships.html";
+          
+        },
+      },{id: "post-from-perceptron-to-deep-learning",
+        
+          title: "From Perceptron to Deep Learning",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/01/16/From-Perceptron-to-Deep-Learning.html";
+          
+        },
+      },{id: "post-introduction-to-meta-analysis-fixed-effect-model-and-random-effect-model",
+        
+          title: "Introduction to Meta-analysis: fixed-effect model and random-effect model",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/statistics/2017/09/08/meta-analysis.html";
+          
+        },
+      },{id: "post-recreate-economist-graph-by-ggplot2",
+        
+          title: "Recreate Economist graph by ggplot2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/03/03/recreate-economist-graph-by-ggplot2.html";
+          
+        },
+      },{id: "post-gwas-prephasing-and-imputation",
+        
+          title: "GWAS prephasing and imputation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/02/20/GWAS-prephasing-and-imputation.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis-strand-issues",
+        
+          title: "RNA-seq data analysis (strand issues)",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/09/21/RNA-seq-strand-issues.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis",
+        
+          title: "RNA-seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2016/09/13/RNA-seq-analysis.html";
+          
+        },
+      },{id: "post-rna-seq-normalization",
+        
+          title: "RNA-seq normalization",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/08/29/RNAseq-normalization.html";
+          
+        },
+      },{id: "post-linear-models-in-practice",
+        
+          title: "linear models in practice",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2016/03/23/Linear-models-in-practice.html";
+          
+        },
+      },{id: "post-introduction-to-linear-models",
+        
+          title: "Introduction to Linear Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Introduction-to-Linear-Models.html";
+          
+        },
+      },{id: "post-expressing-design-formula-in-r",
+        
+          title: "Expressing design formula in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Expressing-design-formula-in-R.html";
+          
+        },
+      },{id: "post-penalized-regression-methods-for-association-studies",
+        
+          title: "Penalized Regression Methods for Association Studies",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2015/05/15/Penalized-Regression.html";
+          
+        },
+      },{id: "post-what-is-norm",
+        
+          title: "What is norm?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/27/What-is-norm.html";
+          
+        },
+      },{id: "post-the-making-of-manipulating-data-tables",
+        
+          title: "The Making of Manipulating Data Tables",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/06/slides-workflow.html";
+          
+        },
+      },{id: "post-when-is-a-z-statistic-and-when-a-t-statistic-used",
+        
+          title: "When is a z-statistic and when a t-statistic used?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/05/t-statistic-or-z-statistic.html";
+          
+        },
+      },{id: "post-creating-html5-slides-with-rstudio-knitr-and-pandoc",
+        
+          title: "Creating HTML5 slides with RStudio, knitr and pandoc",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/26/Creating-HTML5-Slides.html";
+          
+        },
+      },{id: "post-5-functions-to-do-principal-components-analysis-in-r",
+        
+          title: "5 functions to do Principal Components Analysis in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/25/PCA-in-R.html";
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather";
+            },},{id: "news-a-simple-inline-announcement",
+          title: 'A simple inline announcement.',
+          description: "",
+          section: "News",},{id: "news-a-long-announcement-with-details",
+          title: 'A long announcement with details',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2";
+            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
+          title: 'A simple inline announcement with Markdown emoji! <img class="emoji" title=":sparkles:" alt=":sparkles:" src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png" height="20" width="20"> <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20">',
+          description: "",
+          section: "News",},{id: "projects-scanneo",
+          title: 'ScanNeo',
+          description: "A pipeline for identifying insertion and deletion (indel) introduced neoantigens from RNA sequencing data.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_scanneo";
+            },},{id: "projects-scanitd",
+          title: 'ScanITD',
+          description: "Performs a stepwise seed-and-realignment procedure for internal tandem duplication (ITD) detection with robust variant allele frequency estimation.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_scanitd";
+            },},{id: "projects-scanexitron",
+          title: 'ScanExitron',
+          description: "A computational workflow for exitron splicing identification and profiling from next-generation sequencing RNA-Seq datasets.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_scanexitron";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%74%79%77%61%6E%67@%6E%6F%72%74%68%77%65%73%74%65%72%6E.%65%64%75", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=FVx_uDIAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/cv/", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
