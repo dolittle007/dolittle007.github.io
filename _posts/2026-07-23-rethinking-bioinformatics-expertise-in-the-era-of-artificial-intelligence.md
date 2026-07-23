@@ -49,12 +49,7 @@ In my daily work, I’ve realized that I spend less time typing boilerplate code
 
 If you don't know how to write robust tests, if you don't understand the underlying biology well enough to recognize a subtle statistical artifact, then AI is a threat. But if you have the domain expertise to design rigorous validation checkpoints, AI becomes an extraordinary accelerant. It handles the manual drafting, leaving you free to focus on experimental design and validation.
 
-```
-[AI generates draft pipeline] ────> [Bioinformatician designs biological tests] ────> [Validated Discovery]
-                                                      │
-                                           (Catches silent bugs,
-                                          biases, & hallucinations)
-```
+![Bioinformatics AI Testing Workflow](/figures/2026-07-23-rethinking-bioinformatics-expertise/validation_workflow.jpg)
 
 ---
 
@@ -67,14 +62,7 @@ As a newbie, it’s tempting to just write a simple prompt and copy-paste the ou
 2. **Auditing the Data:** Realizing that model performance depends entirely on data quality. We must identify batch effects, label noise, and metadata standards before the data ever touches a model.
 3. **Interrogating Explanations:** Refusing to accept explainability maps (like SHAP values) at face value. We must test whether the features a classifier relies on are biologically mechanistic or just housekeeping genes correlated with technical noise.
 
-```
-                    AI CONSUMER                             AI CUSTODIAN
-             ┌─────────────────────────┐             ┌─────────────────────────┐
-             │  • Blindly trusts code  │             │  • Writes rigorous tests│
-             │  • Copies raw outputs   │     VS.     │  • Audits training data │
-             │  • Ignores edge cases   │             │  • Evaluates XAI maps   │
-             └─────────────────────────┘             └─────────────────────────┘
-```
+![AI Consumer vs AI Custodian](/figures/2026-07-23-rethinking-bioinformatics-expertise/consumer_vs_custodian.jpg)
 
 ---
 
