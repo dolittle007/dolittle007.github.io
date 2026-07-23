@@ -247,7 +247,7 @@ just = "left")
 
 dev.off()
 {% endhighlight %}  
- ![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc7.png)
+![center](/figures/2017-03-03-recreate-economist-graph-by-ggplot2/pc7.png)
 
 ### Modification by Adobe Illustrator
 

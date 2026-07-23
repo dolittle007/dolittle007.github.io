@@ -39,13 +39,13 @@ wget http://www.molgenis.org/downloads/GenotypeHarmonizer/GenotypeHarmonizer-1.4
 
 mkdir alignment
 java -Xmx40g -jar /user/path/to/GenotypeHarmonizer.jar \
- --inputType PLINK*BED \
- --input path_to_study_gwas \ # PLINK file prefix only
+--inputType PLINK*BED \
+--input path_to_study_gwas \ # PLINK file prefix only
 --update-id \
- --outputType PLINK_BED \
- --output alignment/all_chrs \
- --refType PLINK_BED \
- --ref path_to_reference # PLINK file prefix only
+--outputType PLINK_BED \
+--output alignment/all_chrs \
+--refType PLINK_BED \
+--ref path_to_reference # PLINK file prefix only
 {% endhighlight %}
 It will generate harmonized \_all_chrs.bed* _all_chrs.bim_ and _all_chrs.fam_ in the alignment folder. Genotype Harmonizer uses Linkage disequilibrium (LD) patterns to determine the correct strand G/C and A/T SNPs.
 

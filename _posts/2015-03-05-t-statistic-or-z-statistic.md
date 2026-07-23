@@ -29,7 +29,7 @@ summary(fit)
 
 Coefficients:
 Estimate Std. Error z value Pr(>|z|)  
-(Intercept) -3.989979 1.139951 -3.500 0.000465 **_
+(Intercept) -3.989979 1.139951 -3.500 0.000465 **\_
 gre 0.002264 0.001094 2.070 0.038465 _  
 gpa 0.804038 0.331819 2.423 0.015388 _  
 rank2 -0.675443 0.316490 -2.134 0.032829 _  
@@ -53,7 +53,7 @@ summary(lm(Fertility~., data=swiss))
 
 Coefficients:
 Estimate Std. Error t value Pr(>|t|)  
-(Intercept) 66.91518 10.70604 6.250 1.91e-07 **_
+(Intercept) 66.91518 10.70604 6.250 1.91e-07 **\_
 Agriculture -0.17211 0.07030 -2.448 0.01873 _  
 Examination -0.25801 0.25388 -1.016 0.31546  
 Education -0.87094 0.18303 -4.758 2.43e-05 \***

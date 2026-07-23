@@ -56,7 +56,7 @@ STAR --runMode genomeGenerate --genomeDir path_to_genomedir --genomeFastaFiles r
 {% highlight bash %}
 mkdir GENOME_data/star
 STAR --runThreadN 40 --runMode genomeGenerate --genomeDir GENOME_data/star \
- --genomeFastaFiles GENOME_data/Homo_sapiens.GRCh37.primary_assembly.fa
+--genomeFastaFiles GENOME_data/Homo_sapiens.GRCh37.primary_assembly.fa
 {% endhighlight %}
 
 #### Options
@@ -79,8 +79,8 @@ STAR --runThreadN 40 --runMode genomeGenerate --genomeDir GENOME_data/star \
 {% highlight bash %}
 mkdir GENOME_data/rsem
 rsem-prepare-reference --gtf GENOME_data/Homo_sapiens.GRCh37.gtf \
- GENOME_data/Homo_sapiens.GRCh37.primary_assembly.fa \
- GENOME_data/rsem/rsem
+GENOME_data/Homo_sapiens.GRCh37.primary_assembly.fa \
+GENOME_data/rsem/rsem
 {% endhighlight%}
 
 #### Options
@@ -100,10 +100,10 @@ mkdir RNASEQ_data
 mkdir RNASEQ_data/star*$sample
 
 STAR --genomeDir GENOME*data/star --sjdbGTFfile GENOME_data/Homo_sapiens.GRCh37.gtf \
- --readFilesIn RNASEQ_data/$read1 RNASEQ_data/$read2 \
- --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --outFilterMultimapNmax 10 \
- --outSAMunmapped Within --quantMode TranscriptomeSAM GeneCounts --twopassMode Basic \
- --runThreadN 20 --outFileNamePrefix RNASEQ_data/star*$sample/ --sjdbOverhang 100 \
+--readFilesIn RNASEQ_data/$read1 RNASEQ_data/$read2 \
+--readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --outFilterMultimapNmax 10 \
+--outSAMunmapped Within --quantMode TranscriptomeSAM GeneCounts --twopassMode Basic \
+--runThreadN 20 --outFileNamePrefix RNASEQ_data/star*$sample/ --sjdbOverhang 100 \
     --outSAMattrRGline ID:$sample PL:illumina PU:CCD LIB:KAPA SM:Cancer
 
 {% endhighlight %}

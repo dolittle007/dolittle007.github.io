@@ -31,13 +31,13 @@ The XOR, or “exclusive or”, problem is a problem where given two binary inpu
 we have to predict the outputs of a XOR logic gates. As a reminder, a XOR
 function should return 1 if the two inputs are not equal and 0 otherwise. Table
 1 below shows all the possible inputs and outputs for the XOR function:
- 
- |X1|X2|Output|
- |:-:|:-:|:-:|
- |1|1|0|
- |1|0|1|
- |0|1|1|
- |0|0|0|
+
+| X1  | X2  | Output |
+| :-: | :-: | :----: |
+|  1  |  1  |   0    |
+|  1  |  0  |   1    |
+|  0  |  1  |   1    |
+|  0  |  0  |   0    |
 
 Now, let us plot our dataset and see how is the nature of our data.
 
