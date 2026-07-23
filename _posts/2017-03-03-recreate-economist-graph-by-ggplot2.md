@@ -356,5 +356,3 @@ dev.off()
 #### Reference
 
 [R graphics tutorials](http://www.grroups.com/blog/r-graphics-tutorial-series-part-6-ggplot2) from Ankit Agarwal
-
-[R graphics ipython notebook](tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.ipynb#Putting-It-All-Together)
