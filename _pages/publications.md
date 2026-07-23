@@ -151,7 +151,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Tumor-specific lncRNA IGF1R-AS1 trans-regulates chromatin interactions associated with oncogenic MYC signaling preview" />
+      <img src="/assets/img/publication_preview/lncRNA_IGF1R-AS1.png" alt="Tumor-specific lncRNA IGF1R-AS1 trans-regulates chromatin interactions associated with oncogenic MYC signaling preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.nature.com/articles/s41467-026-70814-4" target="_blank" rel="noopener noreferrer">Tumor-specific lncRNA IGF1R-AS1 trans-regulates chromatin interactions associated with oncogenic MYC signaling</a>
@@ -165,7 +165,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="A genomic language model for chimera artifact detection in Nanopore direct RNA sequencing preview" />
+      <img src="/assets/img/publication_preview/deepchopper.png" alt="A genomic language model for chimera artifact detection in Nanopore direct RNA sequencing preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.nature.com/articles/s41467-026-68571-5" target="_blank" rel="noopener noreferrer">A genomic language model for chimera artifact detection in Nanopore direct RNA sequencing</a>
@@ -179,7 +179,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Ketone drink enhances therapeutic efficacy in prostate cancer by targeting EZH2 preview" />
+      <img src="/assets/img/publication_preview/s41389-025-00567-0.png" alt="Ketone drink enhances therapeutic efficacy in prostate cancer by targeting EZH2 preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.nature.com/articles/s41389-025-00567-0" target="_blank" rel="noopener noreferrer">Ketone drink enhances therapeutic efficacy in prostate cancer by targeting EZH2</a>
@@ -193,7 +193,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Androgen receptor-regulated lncRNA PRCAT71 promotes AR signaling through the interaction with KHSRP in prostate cancer preview" />
+      <img src="/assets/img/publication_preview/sciadv.adk6989-f1.jpg" alt="Androgen receptor-regulated lncRNA PRCAT71 promotes AR signaling through the interaction with KHSRP in prostate cancer preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.science.org/doi/10.1126/sciadv.adk6989" target="_blank" rel="noopener noreferrer">Androgen receptor-regulated lncRNA PRCAT71 promotes AR signaling through the interaction with KHSRP in prostate cancer</a>
@@ -207,7 +207,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="EZH2 directly methylates PARP1 and regulates its activity in cancer preview" />
+      <img src="/assets/img/publication_preview/sciadv.adl2804-f4.jpg" alt="EZH2 directly methylates PARP1 and regulates its activity in cancer preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.science.org/doi/10.1126/sciadv.adl2804" target="_blank" rel="noopener noreferrer">EZH2 directly methylates PARP1 and regulates its activity in cancer</a>
@@ -221,7 +221,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Comparative analyses of gene networks mediating cancer metastatic potentials across lineage types preview" />
+      <img src="/assets/img/publication_preview/bbae357.jpg" alt="Comparative analyses of gene networks mediating cancer metastatic potentials across lineage types preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://academic.oup.com/bib/article/25/4/bbae357/7714851" target="_blank" rel="noopener noreferrer">Comparative analyses of gene networks mediating cancer metastatic potentials across lineage types</a>
@@ -235,7 +235,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Chapter 5: Detecting Medium and Large Insertions and Deletions with transIndel preview" />
+      <img src="/assets/img/publication_preview/978-1-0716-2293-3.jpg" alt="Chapter 5: Detecting Medium and Large Insertions and Deletions with transIndel preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://link.springer.com/protocol/10.1007/978-1-0716-2293-3_5" target="_blank" rel="noopener noreferrer">Chapter 5: Detecting Medium and Large Insertions and Deletions with transIndel</a>
@@ -249,7 +249,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Opposing transcriptional programs of KLF5 and AR emerge during therapy for advanced prostate cancer preview" />
+      <img src="/assets/img/publication_preview/41467_2021_26612_Fig1_HTML.png" alt="Opposing transcriptional programs of KLF5 and AR emerge during therapy for advanced prostate cancer preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.nature.com/articles/s41467-021-26612-1" target="_blank" rel="noopener noreferrer">Opposing transcriptional programs of KLF5 and AR emerge during therapy for advanced prostate cancer</a>
