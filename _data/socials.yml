@@ -1,10 +1,8 @@
 # this file contains the social media links and usernames of the author
 # the socials will be displayed in the order they are defined here
 # for more information, please refer to the documentation of jekyll-socials plugin: https://github.com/george-gca/jekyll-socials
-email: tywang@northwestern.edu # your email address
 scholar_userid: FVx_uDIAAAAJ # Google Scholar user ID
 github_username: dolittle007
 linkedin_username: dolittle007
-x_username: dolittle007
 cv_pdf: /cv/ # links to the CV page (folder) instead of PDF download
 rss_icon: true # comment this line to hide the RSS icon
