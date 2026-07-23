@@ -89,6 +89,10 @@ cv:
         awarder: China Agricultural University
         date: 2005-2006
 
+    Professional Activities:
+      - label: Reviewer
+        details: Bioinformatics, BMC Bioinformatics, BMC Genomics, Briefings in Bioinformatics, Bioinformatics Advances, Biomolecules, Cancers, Cells, Cell Proliferation, Communications Medicine, Current Protocols, Frontiers in Artificial Intelligence, Frontiers in Genetics, Frontiers in Immunology, Gene, Genes, Genomics, Human Gene, International Journal of Molecular Sciences, Medical Microbiology and Immunology, Nucleic Acids Research, PLOS Computational Biology, PLOS ONE, PeerJ, Scientific Reports, STAR Protocols
+
     Skills:
       - name: Languages
         keywords: Python, R, Bash, C++, SQL, JavaScript
