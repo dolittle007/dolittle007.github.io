@@ -32,10 +32,10 @@ cv:
         end_date: 2011
       - institution: China Agricultural University
         location: Beijing, China
-        area: Biotechnology
-        studyType: BS
-        start_date: 2004
-        end_date: 2008
+        area: Mechanical Design, Manufacturing and Automation
+        studyType: BEng
+        start_date: 2003
+        end_date: 2007
 
     Experience:
       - company: Northwestern University
@@ -71,7 +71,14 @@ cv:
 
     Awards:
       - title: Eagles Telethon Post Doctoral Fellowship
+        awarder: University of Minnesota
         date: 2019-2020
+      - title: Annual Research Exhibition Travel Award
+        awarder: Minnesota Supercomputing Institute
+        date: 2019
+      - title: Faculty Outstanding Research Output Award
+        awarder: The University of Hong Kong
+        date: 2018
       - title: Postgraduate Scholarship
         awarder: The University of Hong Kong
         date: 2013-2017
