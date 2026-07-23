@@ -263,7 +263,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="A pan-cancer transcriptome analysis of exitron splicing identifies novel cancer driver genes and neoepitopes preview" />
+      <img src="/assets/img/publication_preview/pancancer_exitron.jpg" alt="A pan-cancer transcriptome analysis of exitron splicing identifies novel cancer driver genes and neoepitopes preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.cell.com/molecular-cell/fulltext/S1097-2765(21)00223-9" target="_blank" rel="noopener noreferrer">A pan-cancer transcriptome analysis of exitron splicing identifies novel cancer driver genes and neoepitopes</a>
@@ -277,7 +277,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Integrated protocol for exitron and exitron-derived neoantigen identification using human RNA-seq data with ScanExitron and ScanNeo preview" />
+      <img src="/assets/img/publication_preview/star_protocol.jpg" alt="Integrated protocol for exitron and exitron-derived neoantigen identification using human RNA-seq data with ScanExitron and ScanNeo preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.sciencedirect.com/science/article/pii/S2666166721004949" target="_blank" rel="noopener noreferrer">Integrated protocol for exitron and exitron-derived neoantigen identification using human RNA-seq data with ScanExitron and ScanNeo</a>
@@ -291,7 +291,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="LncGSEA: a versatile tool to infer lncRNA associated pathways from large-scale cancer transcriptome sequencing data preview" />
+      <img src="/assets/img/publication_preview/lncGSEA.png" alt="LncGSEA: a versatile tool to infer lncRNA associated pathways from large-scale cancer transcriptome sequencing data preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://link.springer.com/article/10.1186/s12864-021-07900-y" target="_blank" rel="noopener noreferrer">LncGSEA: a versatile tool to infer lncRNA associated pathways from large-scale cancer transcriptome sequencing data</a>
