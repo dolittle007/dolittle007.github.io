@@ -8,11 +8,11 @@ overrides:
     upstream_path: _includes/header.liquid
     upstream_sha256: c8663513baded68d9fa5fbe4d6363a976535bbe201efe5138243d0ff03101058
     local_sha256: 5159f1fd1e8e57bf2b9c2586f838b31dc344676a316e71bc3e36e1e6ef7ae379
-    acknowledged_at: '2026-07-23'
+    acknowledged_at: "2026-07-23"
   _sass/_blog.scss:
     owner: al_folio_core
     gem_version: 1.0.11
     upstream_path: _sass/_blog.scss
     upstream_sha256: 9981a7ce49cb02f7cca1b3d147097e7170524d917a9d3f273927f129262ec3a1
     local_sha256: 2378f9e74d1376a1c27d341a9890023b76a5d227d8ecc4977c207f564f294090
-    acknowledged_at: '2026-07-23'
+    acknowledged_at: "2026-07-23"

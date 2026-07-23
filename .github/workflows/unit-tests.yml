@@ -66,7 +66,6 @@ jobs:
       - name: Install JS deps 📦
         run: npm ci
 
-
       - name: Install build prerequisites 🔧
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
@@ -74,5 +73,3 @@ jobs:
 
       - name: Build site 🧪
         run: bundle exec jekyll build
-
-
