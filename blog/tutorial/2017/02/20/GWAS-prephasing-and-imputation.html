@@ -8,13 +8,13 @@
 
 <span class="nb">mkdir </span>alignment
 java <span class="nt">-Xmx40g</span> <span class="nt">-jar</span> /user/path/to/GenotypeHarmonizer.jar <span class="se">\</span>
- <span class="nt">--inputType</span> PLINK<span class="k">*</span>BED <span class="se">\</span>
- <span class="nt">--input</span> path_to_study_gwas <span class="se">\ </span><span class="c"># PLINK file prefix only</span>
+<span class="nt">--inputType</span> PLINK<span class="k">*</span>BED <span class="se">\</span>
+<span class="nt">--input</span> path_to_study_gwas <span class="se">\ </span><span class="c"># PLINK file prefix only</span>
 <span class="nt">--update-id</span> <span class="se">\</span>
- <span class="nt">--outputType</span> PLINK_BED <span class="se">\</span>
- <span class="nt">--output</span> alignment/all_chrs <span class="se">\</span>
- <span class="nt">--refType</span> PLINK_BED <span class="se">\</span>
- <span class="nt">--ref</span> path_to_reference <span class="c"># PLINK file prefix only</span></code></pre></figure> <p>It will generate harmonized _all_chrs.bed* <em>all_chrs.bim</em> and <em>all_chrs.fam</em> in the alignment folder. Genotype Harmonizer uses Linkage disequilibrium (LD) patterns to determine the correct strand G/C and A/T SNPs.</p> <h3 id="step2-phasing-the-gwas-samples">Step2: Phasing the GWAS samples</h3> <p>Once you GWAS dataset correctly aligned to the reference panel, we strongly recommend to phase each chromosome in a single run instead of making chunks. It makes the procedure much easier and increase downstream imputation quality.</p> <figure class="highlight"><pre><code class="language-bash" data-lang="bash">wget http://mathgen.stats.ox.ac.uk/genetics_software/shapeit/old_versions/shapeit.v2.r790.Ubuntu_12.04.4.static.tar.gz <span class="c"># download shapeit2 executable file</span>
+<span class="nt">--outputType</span> PLINK_BED <span class="se">\</span>
+<span class="nt">--output</span> alignment/all_chrs <span class="se">\</span>
+<span class="nt">--refType</span> PLINK_BED <span class="se">\</span>
+<span class="nt">--ref</span> path_to_reference <span class="c"># PLINK file prefix only</span></code></pre></figure> <p>It will generate harmonized _all_chrs.bed* <em>all_chrs.bim</em> and <em>all_chrs.fam</em> in the alignment folder. Genotype Harmonizer uses Linkage disequilibrium (LD) patterns to determine the correct strand G/C and A/T SNPs.</p> <h3 id="step2-phasing-the-gwas-samples">Step2: Phasing the GWAS samples</h3> <p>Once you GWAS dataset correctly aligned to the reference panel, we strongly recommend to phase each chromosome in a single run instead of making chunks. It makes the procedure much easier and increase downstream imputation quality.</p> <figure class="highlight"><pre><code class="language-bash" data-lang="bash">wget http://mathgen.stats.ox.ac.uk/genetics_software/shapeit/old_versions/shapeit.v2.r790.Ubuntu_12.04.4.static.tar.gz <span class="c"># download shapeit2 executable file</span>
 wget https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.tgz <span class="c"># download reference haplotypes, genetic maps files are also included</span>
 wget https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3_chrX.tgz <span class="c"># download reference haplotypes</span></code></pre></figure> <p>You can write a small BASH script to run the phasing.</p> <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">!</span>/usr/bin/env bash
 
