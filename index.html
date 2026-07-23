@@ -1,823 +1,525 @@
-<!DOCTYPE html>
-<html  lang="en">
-    <head>
-        <meta http-equiv="refresh" content="0; url=./blog" />
-        <title> DataBeauty - A Platform for Data Lovers & Data Artists
-        </title>
-		<meta name="google-site-verification" content="" />
-		<meta name="description" content="DataBeauty is a platform for Data Artists and Data Lovers to upload, discover, and buy or sell various Artforms Like Paintings, Photography,and  Digital art." />  
-        <meta name="keywords" content="data art, data lover, upload, buy affordable paintings for homes,sell paintings, photography, Expert, Visual Artists, Display, digital, Travel, Abstract, Contemporary, Modern Art,  Generative,emerging artists " />
-			<link rel="stylesheet" href="/static/css/romeo.css">
-			<link rel="stylesheet" href="/static/css/style_bak.css">
-			<link rel="stylesheet" href="/static/css/style.css">	
-			<link rel="stylesheet" href="/static/css/fourist.css">
-			<script src="/static/js/modernizr-2.5.3.min.js"></script>
-			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+---
+layout: page
+title: Home
+---
 
-
-            <link rel="stylesheet" href="/static/css/bootstrap.css">
-			<link rel="stylesheet" href="/static/css/bootstrap.min.css">
-			<link rel="stylesheet" href="/static/css/bootstrap-responsive.css">
-          
-			<link rel="stylesheet" href="/static/css/overcast/jquery-ui-1.10.3.custom.css">
-			<link rel="stylesheet" href="/static/css/pinry.css">
-		
-<script>
-         $(document).ready( function() {
-$('.dropdown-toggle').dropdown();
-
-	   $('.desc').click(function(e){
-					e.preventDefault();
-					});
-});
-</script>
-
-<script>
-$(function () {
-    $("#follow_button, #unfollow_button").click(function () {
-        $.post($(this).attr("href"), {});
-        $(this).parent().find("#follow_button, #unfollow_button").toggle();
-        return false
-    });
-});
-</script>
-
-
-		<!-- Le fav and touch icons -->
-		<link rel="shortcut icon" href="/static/images/ee.png">
-
-		<script src="/static/js/modernizr-transitions.js"></script>
-
-<!-- bxSlider Javascript file -->
-<script src="/static/js/jquery.bxslider.min.js"></script>
-<!-- bxSlider CSS file -->
-<link href="/static/css/jquery.bxslider.css" rel="stylesheet" />
-	
 <style>
-	.up{position:fixed; right:10px;top:92%; z-index:9999}
+  /* Executive Portfolio Homepage Stylesheet */
+  .home-container {
+    color: #2d3748;
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+  }
 
-         a#labelFeedback { position:fixed; display:block; top:50%; left:-20px; width:46px; height:103px; margin-top:-50px;
-		background:url("/static/images/feedbacknew.jpg") no-repeat 10px 0; text-indent:-5000px;
-		-moz-transition: left 0.3s ease-in 0s;
-		-webkit-transition: left 0.3s ease-in 0s;
-		-o-transition: left 0.3s ease-in 0s;
-		transition: left 0.3s ease-in 0s;
-		z-index:999; }
+  /* Hero Banner with custom scientific image and glassmorphism overlay */
+  .hero-banner {
+    position: relative;
+    border-radius: 16px;
+    background: url('/static/images/scientific_banner.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 50px 30px;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
 
-		a#labelFeedback:hover {left:-10px}
+  .hero-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(26, 32, 44, 0.92) 0%, rgba(45, 55, 72, 0.75) 100%);
+    z-index: 1;
+  }
 
-		.dropdown-menu .dropdown-submenu {
-               left: 100%;
-               position: absolute;
-               top: 0;
-               visibility: hidden;
-               margin-top: -1px;
-       }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 650px;
+    color: #ffffff;
+  }
 
-       .dropdown-menu li:hover .dropdown-submenu {
-               visibility: visible;
-       }
+  .hero-title {
+    font-family: 'Vollkorn', Georgia, serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
 
-	    .dropdown-menu li {
-   position: relative;
-}
+  .hero-title span {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #3aafc1;
+    display: block;
+    margin-top: 5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: #e2e8f0;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .hero-summary {
+    font-size: 0.95rem;
+    color: #cbd5e0;
+    margin-bottom: 1.8rem;
+  }
+
+  /* Buttons */
+  .cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+  }
+
+  .cta-btn.primary {
+    background-color: #3aafc1;
+    color: #ffffff !important;
+  }
+
+  .cta-btn.primary:hover {
+    background-color: #0a9cb2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(58, 175, 193, 0.3);
+  }
+
+  .cta-btn.secondary {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+  }
+
+  .cta-btn.secondary:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+  }
+
+  /* Stat Counter Section */
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 3rem;
+    background-color: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .stat-item {
+    border-right: 1px solid #e2e8f0;
+  }
+
+  .stat-item:last-child {
+    border-right: none;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #3aafc1;
+    line-height: 1.1;
+    margin-bottom: 3px;
+  }
+
+  .stat-title {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #718096;
+    font-weight: 600;
+  }
+
+  /* Section Headings */
+  .home-section-title {
+    font-family: 'Vollkorn', Georgia, serif;
+    font-size: 1.5rem;
+    color: #1a202c;
+    margin-top: 2.5rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .home-section-title::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background-color: #e2e8f0;
+  }
+
+  .home-section-icon {
+    color: #3aafc1;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Info Grid (Navigation Cards) */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 3rem;
+  }
+
+  .info-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01);
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .info-card:hover {
+    border-color: #3aafc1;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(58, 175, 193, 0.06);
+  }
+
+  .info-card-header {
+    margin-bottom: 12px;
+  }
+
+  .info-card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0 0 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .info-card-title svg {
+    color: #3aafc1;
+    width: 20px;
+    height: 20px;
+  }
+
+  .info-card-desc {
+    font-size: 0.9rem;
+    color: #4a5568;
+    margin: 0;
+  }
+
+  .info-card-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #3aafc1 !important;
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 15px;
+    transition: color 0.2s;
+  }
+
+  .info-card-link:hover {
+    color: #0a9cb2 !important;
+  }
+
+  /* Dynamic Recent Posts feed styled beautifully */
+  .recent-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 3rem;
+  }
+
+  .post-item {
+    background-color: #ffffff;
+    border-left: 3px solid #e2e8f0;
+    padding: 12px 18px;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.2s ease;
+  }
+
+  .post-item:hover {
+    border-left-color: #3aafc1;
+    background-color: #f7fafc;
+    transform: translateX(3px);
+  }
+
+  .post-meta-date {
+    font-size: 0.8rem;
+    color: #718096;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .post-item-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0 0 6px 0;
+  }
+
+  .post-item-title a {
+    color: #1a202c !important;
+    text-decoration: none !important;
+  }
+
+  .post-item-title a:hover {
+    color: #3aafc1 !important;
+  }
+
+  .post-item-excerpt {
+    font-size: 0.88rem;
+    color: #4a5568;
+    margin: 0;
+  }
+
+  /* Recruitment & Contact Section */
+  .recruitment-card {
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .recruitment-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 10px;
+  }
+
+  .recruitment-desc {
+    font-size: 0.92rem;
+    color: #4a5568;
+    max-width: 550px;
+    margin: 0 auto 20px auto;
+  }
+
+  .recruitment-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .recruitment-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #4a5568 !important;
+    text-decoration: none !important;
+    transition: color 0.2s;
+  }
+
+  .recruitment-link:hover {
+    color: #3aafc1 !important;
+  }
+
+  .recruitment-link svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  /* Responsive styling */
+  @media (max-width: 768px) {
+    .stats-strip {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+    .stat-item {
+      border-right: none;
+    }
+    .hero-banner {
+      padding: 35px 20px;
+    }
+    .hero-title {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stats-strip {
+      grid-template-columns: 1fr;
+    }
+    .recruitment-links {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+</style>
+
+<div class="home-container">
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h2 class="hero-title">
+        Ting-You Wang, PhD
+        <span>Lead Bioinformatics Researcher</span>
+      </h2>
+      <p class="hero-subtitle">
+        Bridging high-throughput computational biology and clinical diagnostics to unlock complex multi-omics discoveries.
+      </p>
+      <p class="hero-summary">
+        Over a decade of expertise developing peer-reviewed analytical models (ScanNeo, ScanExitron) and parsing large-scale datasets (WGS, RNA-Seq, GWAS) in oncology and autoimmunity. 
+      </p>
+      <div class="cta-group">
+        <a href="/work" class="cta-btn primary">Explore Research & Code</a>
+        <a href="/about" class="cta-btn secondary">View Biography & CV</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Metrics Strip -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-number">1,155+</div>
+      <div class="stat-title">Total Citations</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">14</div>
+      <div class="stat-title">h-index</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">16</div>
+      <div class="stat-title">i10-index</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">21</div>
+      <div class="stat-title">Publications</div>
+    </div>
+  </div>
+
+  <!-- Exploration Info Grid -->
+  <div class="home-section-title">
+    <span class="home-section-icon">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+    </span>
+    Professional Sections
+  </div>
+
+  <div class="info-grid">
     
-</style>
-	
-	<style>
-.nav > li > a:focus, .navbar .nav > li > a:hover {
-background-color: #000;
-color:white;
-text-decoration: none;
-}
-
-.nav > li > a {
-text-shadow: none;
-font-weight: bold;
-font-size: 12px;
-}
-
-.nav > li > a {
-float: none;
-padding: 10px 10px 3px;
-text-decoration: none;
-}
-
-
-
-
-
-.footer-container {
-  min-height: 40px;
-     background: url(/static/images/top.png) repeat-x top center;}
-.footer-container h2 {
-    float: left;
-    color: #FFFFFF;
-    font-size: 12px;
-    letter-spacing: 0.3em;
-    display: inline;
-    margin: 0 5px 0 0; }
-.footer-container .footer-subcontainer {
-    width: 100%;
-    height: 30px;
-    border-bottom: dotted 1px #8B8B8B;
-    padding-top: 18px; }
-  .footer-container footer {
-    font-size: 12px;
-    padding: 0;
-    color: #FFFFFF; }
-    .footer-container footer a {
-      color: #FFFFFF; }
-    .footer-container footer section {
-      height: inherit; }
-    .footer-container footer section.footer-left {
-      float: left;
-      width: 53%;
-      padding-left: 10%; }
-    .footer-container footer section.footer-right {
-      float: right;
-      width: 36%; }
-    .footer-container footer ul {
-      float: left;
-      list-style: none;
-      display: inline; }
-    .footer-container footer li {
-      float: left;
-      display: inline;
-      border-left: solid 1px #FFF;
-      padding: 0 10px 0 10px; }
-      .footer-container footer li:first-child {
-        border-left: none;
-        padding-left: 0px; }
-    .footer-container footer section ul {
-      margin: 0;
-      padding: 0; }
-    .footer-container footer .share-link {
-      float: left;
-      margin: 0 5px 0 5px;
-      position: relative;
-      top: -5px; }
-	  
-	  ::selection {
-	background: #000; /* Safari */
-	}
-::-moz-selection {
-	background: #000; /* Firefox */
-}
-
-::-webkit-selection{
-	background: #000; /* Firefox */
-}
-</style>
-
-
-	
-<script>
-function vote(slug, direction) {
-    $.post('/tips/'+slug+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
-           function(data) {
-               if (data.success == true) {
-                   $('#score').text(data.score.score);
-                   $('#num_votes').text(data.score.num_votes);
-               } else {
-                   alert('ERROR: ' + data.error_message);
-               }
-           }, 'json'
-          )
-}
-</script>
-<script type="text/javascript">
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-41994691-1', 'databeauty.com');
-  ga('send', 'pageview');
-
-</script>
-		
-
-</head>
-	
-    <body name="top">
-<div class="navbar  navbar-fixed-top" style="zoom:90%;">
-<div class="navbar-inner">
-                <div class="container-fluid">
-
-     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-<span class="icon-bar"> </span>
-<span class="icon-bar"> </span>
-<span class="icon-bar"> </span>
- </a>
- <a class="brand" href="#" style="color:white; margin-left:40px;margin-top:1px;letter-spacing:-1px">DataBeauty <sub >&beta;</sub> </a>
- <div class="nav-collapse">
-<ul class="nav">
- <li class="dropdown clearfix"><a data-toggle="dropdown" class="dropdown-toggle" href="#" style="color:white;">Explore Art<b class="caret"></b></a>
- <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-    <li><a href="#">All</a>	</li>
-	<li><a href="#">Paintings</a></li>
-	<li><a href="#">Photography</a></li>
-	<li><a href="#">Digital Art</a></li>
-			<li class="divider"></li>
-    <li><a href="#">Draw Something</a></li>
-    <!--
-	<li><a href="/ex_pos">Exhibition</a></li>
-	<li><a href="/opportunities">Art Opportunities</a></li>
-	<li><a href="/featured-artists">Featured Artists</a></li>
-	<li><a href="/mlaom">Most Loved Artworks</a></li>
-    <li><a href="/pins/tag/cap_one">Go Green Contest</a></li>
-    --> 
- </ul>
-</li>
- 
-</ul>  
-
-<span class="pull-left">
-		
-      	<ul class="nav">
-          <li class="dropdown">
-		  
-      	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon-white"></i>Shop<b class="caret"></b></a>
-         <ul class="dropdown-menu" id='' >
-                  <li><a href="#" role="button"> Paintings</a></li>
-                  <li><a href="#" role="button"> Photograph</a></li>
-                  <li><a href="#" role="button"> Digital Art</a></li>
-         </ul>
-         </li>
-         </ul>
-</span>  
-<span class="pull-left">
-	<ul class="nav">		  
-      	<li>
-<a href="/blog" class="dropdown-toggle" data-toggle="dropdown">
-<i class="icon-list icon-white"></i>Blog
-</a> 
-</li>
-</ul>
-</span>
-
-	   	
-
-
-<span class="pull-left">
-		
-      	<ul class="nav">		  
-      	<li>
-		   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-arrow-up icon-white"></i>Tutorials</a>
-		</li>
-        </ul>
-</span>
-
-<!-- <span class="pull-left">
-		
-      	<ul class="nav">
-          <li class="dropdown">
-		  
-      	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                   How to
-                    <b class="caret"></b>
-        </a>
-         <ul class="dropdown-menu" id='' >
-                  <li>
-                  	<a href="#NavModal" role="button" data-toggle="modal"> Sign Up and Login</a>
-                  </li>
-                  <li>
-                  	<a href="#postModal" role="button" data-toggle="modal"> Edit Your Profile</a>
-                  </li>
-                  <li>
-                  	<a href="#STModal" role="button" data-toggle="modal"> Upload Artworks</a>
-                  </li>
-                           
-				  <li>
-                  	<a href="#newModal" role="button" data-toggle="modal">Sell Artworks</a>
-                  </li>  
-				   <li>
-                  	<a href="#followModal" role="button" data-toggle="modal">Shop Artworks</a>
-                  </li> 
-					
-         </ul>
-         </li>
-         </ul>
-  </span> -->
-
-<!-- <div style="margin-top:1px;" class="btn-group pull-right">
-  <a href="/login/?next=/concept/" class="btn btn-success" style="color:white;">Login</a>
-  <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu">
-   
-  <li><a href="/login/facebook/?next=/concept/">Facebook Login</a></li>
-    <li><a href="/login/twitter/?next=/concept/">Twitter Login</a></li>
-	    <li><a href="/login/?next=/concept/">Plovist Login</a></li>
-  
-  </ul>
-</div> -->
-<!-- SEARCH -->
-
-
-
-
-<span class="pull-right">
-		
-      	<ul class="nav">
-        <li class="dropdown">
-		  
-      	<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-off icon-white"></i> Login
-		<b class="caret"></b>
-        </a>
-         <ul class="dropdown-menu" id='' >
-			<li><a href="/login/facebook/?next=/concept/">Facebook Login</a></li>
-			<li><a href="/login/twitter/?next=/concept/">Twitter Login</a></li>
-			<li><a href="/login/?next=/concept/">DataBeauty Login</a></li>						
-         </ul>
-         </li>
-         </ul>
-</span>
-
-
-<span class="pull-right">
-<form  id='searchform' class="navbar-form " style="margin-top:1px;" action="/search/" method="get" >
- <input id='search' style=" height:19px;width:350px;"  type="text" class="input-medium search-query span3" placeholder="Search for Data Beauty" name="q"> 
-</form>
-</span> 
-
-
-
- </div><!--/.nav-collapse -->
-</div>  <!--/.container -->
-</div> 
-        </div><!--navbar-->
-
-
-		<a id="labelFeedback" href="/contact" title="send your feedback">feedback</a>
-		 <!-- <a title="Scroll to Top" href="#top" class="up"><img src="/static/images/scroll-to-top.png"/> </a>-->
-       
-	   
-<style>
-.item img {
-	width: 1200px;
-	height: auto;
-}
-</style>
-<style>
-.footer-container {
-  min-height: 40px;
-     background: url(/static/images/top.png) repeat-x top center;}
-.footer-container h2 {
-    float: left;
-    color: #FFFFFF;
-    font-size: 12px;
-    letter-spacing: 0.3em;
-    display: inline;
-    margin: 0 5px 0 0; }
-.footer-container .footer-subcontainer {
-    width: 100%;
-    height: 30px;
-    border-bottom: dotted 1px #8B8B8B;
-    padding-top: 18px; }
-  .footer-container footer {
-    font-size: 12px;
-    padding: 0;
-    color: #FFFFFF; }
-    .footer-container footer a {
-      color: #FFFFFF; }
-    .footer-container footer section {
-      height: inherit; }
-    .footer-container footer section.footer-left {
-      float: left;
-      width: 53%;
-      padding-left: 10%; }
-    .footer-container footer section.footer-right {
-      float: right;
-      width: 36%; }
-    .footer-container footer ul {
-      float: left;
-      list-style: none;
-      display: inline; }
-    .footer-container footer li {
-      float: left;
-      display: inline;
-      border-left: solid 1px #FFF;
-      padding: 0 10px 0 10px; }
-      .footer-container footer li:first-child {
-        border-left: none;
-        padding-left: 0px; }
-    .footer-container footer section ul {
-      margin: 0;
-      padding: 0; }
-    .footer-container footer .share-link {
-      float: left;
-      margin: 0 5px 0 5px;
-      position: relative;
-      top: -5px; }
-	  
-	  
-.x img{
-   -webkit-transition: all 0.3s;
-   -moz-transition: all 0.3s;
-   -o-transition: all 0.3s ;
-   -ms-transition: all 0.3s;
-}
-
-.x img:hover{
- 
-       -webkit-transform:rotate(-10deg) scale(0.9);
-   -moz-transform: rotate(-10deg) scale(0.9);
-   -o-transform: rotate(-10deg)) scale(0.9);
-   -ms-transform: rotate(-10deg) scale(0.9);
-}
- 
-</style>
-
-
-	
- 
-    <div class="container">
-
-		
-		<div class="span12">
-                               <div class="hero-unit bg" style="background-image:url(/static/images/collage.png);
-                                               position:relative;background-size:1200px 414px; margin-top:-55px;" >
-                               <section id="opener">
-                                               <div class="width_wrap">
-                                       <br/>        <br><br><br><br><br><br><br><br><br><br><br/><br/>
-                            									   
-									    <a href="#"   style="margin-left:370px;">
-                                       <span class="x"> <img src="/static/images/ee.png"  width="150px;"/></span></a>
-                                       <br/>
-									   <a href="#"   >
-									   <img  style="position:absolute;left:360px;top:300px;" src="/static/images/ee_add_2.png"  width="150px;"/>
-                                       </a>
-                                       </div>        
-                               </section>
-                               </div>                
-       </div>
-	   
-		<br><br>
-      <!-- Example row of columns -->
-      <div class="row" style="margin-left:95px;">
-        <div class="span3" style="margin-left:30px;">
-          <h2>Share Art</h2>
-<p style="text-align:justify;">Create portfolio of your paintings, photographs, digital art and get appreciated by a large community of art lovers. 
-		  Discover awesome works of artists around the globe.</p>
-<p ><a href="#" class="btn btn-success" style="width:80px;font-size:18px;text-align:justify;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank">
- Explore</a></p> 
-			</div>
-			
-			
-			
-				
-			 <div class="span3" style="margin-left:30px;">
-<!-- 3.Featured Artist -->
-<h2>Art Marketplace</h2>
- <p style="text-align:justify;" > Buy unique artworks at affordable prices from artists around the globe or Sell your artworks in a community of art lovers from more than 90 countries.</p>
-		    <p > <a href="#" class="btn btn-success" style="width:80px;font-size:18px;text-align:justify;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank" > Explore</a></p>
-
-        </div>
-			
-			 <div class="span3" style="margin-left:30px;">
-<!-- 2. Be On Frontpage -->
-<h2>Competitions</h2>
-<p style="text-align:justify;">
-Ongoing Competition : Go Green by Capital One Analytics. Only Capital One Employees can Upload, but anyone can view/like or comment, entry with max likes wins.
-</p>
-<p><a href="#" class="btn btn-success" style="width:80px;font-size:18px;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank"> 
-Explore</a></p>
-			</div>
-			
-		
-		
-		
+    <!-- Work Card -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3 class="info-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          Research & Software
+        </h3>
+        <p class="info-card-desc">
+          Browse specialized biological analysis suites, neoantigen predictors, structural variant toolkits, and curated lists of peer-reviewed articles.
+        </p>
       </div>
-	  <br>
-	        <div class="row" style="margin-left:95px;">
-        <div class="span3" style="margin-left:30px;">
-          <h2>Loved Artworks</h2>
-<p style="text-align:justify;"> Top 10  user submitted artworks at Plovist.com in each of the following categories Painting, Photography, and Digital art will be displayed on the front page every month.</p>
-<p ><a href="#" class="btn btn-success" style="width:80px;font-size:18px;text-align:justify;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank">
- Explore</a></p> 
-			</div>
-			
-			
-			 <div class="span3" style="margin-left:30px;">
-<!-- 2. Be On Frontpage -->
-<h2>Exhibitions</h2>
-<p style="text-align:justify;">
-Get a chance to exhibit your art in front of people who count like curators, critics, collectors, advisors, gallery owners
- and other influential art world players.
-</p>
-<p><a href="#" class="btn btn-success" style="width:80px;font-size:18px;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank"> 
-Explore</a></p>
-			</div>
-			
-			
-			 <div class="span3" style="margin-left:30px;">
-<!-- 3.Featured Artist -->
-<h2>Featured Artist</h2>
- <p style="text-align:justify;" >India's Leading Fashion Photographer Pravin Talan is Featured Artist. He has been a part of many international projects, including the highly acclaimed Taj Mahal Project. </p>
-		    <p > <a href="#" class="btn btn-success" style="width:80px;font-size:18px;text-align:justify;color:white;font-family: Monaco, Consolas, 'Lucida Console', monospace;" target="_blank"> Explore</a></p>
+      <a href="/work" class="info-card-link">Browse portfolio &rarr;</a>
+    </div>
 
-        </div>
-		
-		
+    <!-- Blog Card -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3 class="info-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          Data Beauty Blog
+        </h3>
+        <p class="info-card-desc">
+          Insights on statistics, Applied Machine Learning, Python programming, R visualization, and the role of AI in structural biology.
+        </p>
       </div>
-	  <br />
+      <a href="/blog" class="info-card-link">Read articles &rarr;</a>
+    </div>
 
-<br /><br />	  
+    <!-- Reading Card -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3 class="info-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          Teaching & Reading
+        </h3>
+        <p class="info-card-desc">
+          A collection of annotated textbooks and resources covering Python development, statistical concepts, data mining, and system scripts.
+        </p>
+      </div>
+      <a href="/read" class="info-card-link">View reading lists &rarr;</a>
+    </div>
 
+    <!-- Biography Card -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3 class="info-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Biography & Contact
+        </h3>
+        <p class="info-card-desc">
+          Learn about academic posts, professional affiliations at Northwestern University and University of Minnesota, and download the full CV.
+        </p>
+      </div>
+      <a href="/about" class="info-card-link">About & CV &rarr;</a>
+    </div>
 
+  </div>
 
+  <!-- Recent Thoughts Section -->
+  <div class="home-section-title">
+    <span class="home-section-icon">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    </span>
+    Recent Thoughts
+  </div>
 
+  <div class="recent-posts">
+    {% for post in site.posts limit: 3 %}
+    <div class="post-item">
+      <span class="post-meta-date">{{ post.date | date: "%B %d, %Y" }}</span>
+      <h4 class="post-item-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
+      <p class="post-item-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+    </div>
+    {% endfor %}
+  </div>
 
-
-<hr style="border: 0;
- width: 100%;
- color: #cccac6;
-background-color: #cccac6;
-height: 1px;visibility:visible;"/>
-<br/>
-	
-	<a href="/mlaom" target="_blank"><h2 style="font-family: 'Segoe UI', Frutiger, 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif;text-align: center;font-size:30px;margin-bottom: 30px; color : #345">Most Loved Data Beauty of the Month !!</h2></a>
-
-	<div id='slider1' class="bxslider">
-			
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'The Dancer' by Jennaleeart"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/1.jpg" width="160" alt="Artist : jennaleeart" height="160">
-
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Eve and Tree of Knowledge' by Tokhtaman"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/2.jpg" width="160" alt="Artist : tokhtaman" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/Eva_and_Tree_of_Knowledge.jpg" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Horse Shoe Bend -Grand Canyon North Rim' by Koulvivek"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/3.jpg" width="160" alt="Artist : koulvivek" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/DSC08485.jpg" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Blue Forest' by Aparna.ajesh"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/4.jpg" width="160" alt="Artist : aparna.ajesh" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/Misty.jpg" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Village hues' by Anchal"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/5.jpg" width="160" alt="Artist : Anchal" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/20130322_132149-1.jpg" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Joy' by Serenecompositions"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/6.jpg" width="160" alt="Artist : serenecompositions" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/Joy.JPG" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Abandoned ' by Makandar"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/7.jpg" width="160" alt="Artist : makandar" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/DSC01367.JPG" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Bridge' by Bijapure"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/8.jpg" width="160" alt="Artist : bijapure" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/DSC01358.JPG" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'My First Bikini shot' by PravinTalan"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/9.jpg" width="160" alt="Artist : PravinTalan" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/one_of_my_frst_bikini_shots_and_still_one_of_my_best.jpg" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'abhinay ke praan...' by Kaptan"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/10.jpg" width="160" alt="Artist : kaptan" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/pran_copy.jpg" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Shades :)' by Apoorvaa"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/11.jpg" width="160" alt="Artist : Apoorvaa" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/315384_150948181708648_733242431_n.jpg" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Secular' by Boqa"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/12.jpg" width="160" alt="Artist : boqa" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/1000120_10152070586494447_1037648561_n.jpg" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Varanasi Ganga Ghat' by Sudhir.chalke.73"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/13.jpg" width="160" alt="Artist : sudhir.chalke.73" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/Varanasi.jpg" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'madhuban' by Shikhapatel"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/14.jpg" width="160" alt="Artist : shikhapatel" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/080620135900.jpg" alt="" height="95px" width="95px"/> -->
-</a>
-
-<a href="#" id="most_loved"  rel="tooltip" data-placement="top" title="'Couple Face' by Sudhir.chalke.73"	data-trigger="hover"  target="_blank">
- 	
-
-    <img src="/static/media/15.jpg" width="160" alt="Artist : sudhir.chalke.73" height="160">
-
-<!-- <img id="Pin" src="/static/media/pins/pin/originals/face13.jpg" alt="" height="95px" width="95px"/> -->
-</a>
+  <!-- Contact & Collaboration -->
+  <div class="recruitment-card">
+    <h3 class="recruitment-title">Get in Touch</h3>
+    <p class="recruitment-desc">
+      Always open to discussions on computational genomics, scientific collaborations, or inquiries regarding bioinformatics software. Feel free to reach out or connect online.
+    </p>
+    <div class="recruitment-links">
+      <a href="http://www.linkedin.com/in/dolittle007" class="recruitment-link" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        LinkedIn Profile
+      </a>
+    </div>
+  </div>
 
 </div>
-
-<hr style="border: 0;
- width: 100%;
- color: #cccac6;
-background-color: #cccac6;
-height: 1px;visibility:visible;"/>
-	<br/>
-	
-	
-<!-- Footer -->
-
-		
-    </div> <!-- /container -->
-	
-	
-	<div  class="footer-container" style="margin-bottom:-20px;"> 
-			<footer class="clearfix" style="background: url(/static/images/top.png) repeat-x top center;">
-		<div class="footer-subcontainer">
-			<section class="footer-left">
-				<h2 style="margin-top:-10px;">DataBeauty:</h2>
-				<ul>
-					<li><a rel="nofollow" href="#" target="_blank">About us</a></li>
-					<li><a rel="nofollow" href="#" target="_blank" >Terms &amp; conditions</a></li>
-					<li><a href="#" target="_blank" >Careers</a></li>
-					<li><a href="#" target="_blank" >Contact</a></li>
-				</ul>
-			</section>
-			<section class="footer-right">
-				<h2 style="margin-top:-10px;">Find us on:</h2>
-				<a href="#" target="_blank" ><img src="/static/images/fb_pinnew.jpg" width="20px" height="20px"/></a>
-				<a href="#" target="_blank" ><img src="/static/images/twitter_pinnew.jpg" width="20px" height="20px"/></a>
-				&nbsp;&nbsp;&copy;2015 DataBeauty. All rights reserved.
-
-		</div>
-
-
-            </footer>
-        </div>
-
-
-<script type="text/javascript">
-$(function(){
-$('#slider1').bxSlider({
- minSlides: 1,
-  maxSlides: 5,
-  slideWidth: 100,
-  adaptiveHeight:true,
-  slideMargin: 7
-});
-
-});
-</script>
-
-<script type="text/javascript">
-	$(function() {
-    $("a[rel='tooltip']").tooltip();
-});
-$('#most_loved').popover();
-</script>
-
-            <script src="/static/js/bootstrap.js"></script>
-			<script src="/static/js/bootstrap-collapse.js"></script>
-
-            <script src="/static/js/jquery.fancybox.js"></script>
-            <script src="/static/js/jquery.imagesloaded.js"></script>
-            <script src="/static/core/js/pinry.js"></script>
-			
-			<!-- Masonry JQuery Plugin -->
-			<script>window.jQuery || document.write('<script src="/static/js/jquery-1.7.1.min.js"><\/script>')</script>
-			<script src="/static/js/script.js"></script>
-
-			<script src="/static/js/jquery.masonry.min.js"></script>
-			<script src="/static/js/jquery.infinitescroll.min.js"></script>
-			<script src="/static/js/box-maker.js"></script>
-			<script src="/static/js/modernizr-transitions.js"></script>
-
-			<!-- INFINITE SCROLL SCRIPT  -->
-			<script type="text/javascript">
-			$(function(){
-			
-			var $container = $('#content');
-			
-			$container.imagesLoaded(function(){
-			  $container.masonry({
-				itemSelector: '.item',
-				columnWidth: 0,
-				isAnimated: !Modernizr.csstransitions
-			  });
-			});
-			
-			$container.infinitescroll({
-			  navSelector  : '#page-nav',    // selector for the paged navigation 
-			  nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
-			  itemSelector : '.item',     // selector for all items you'll retrieve
-			  loading: {
-				  finishedMsg: 'No more pages to load.',
-				  img: '/static/images/loading.gif'
-				}
-			  },
-			  // trigger Masonry as a callback
-			  function( newElements ) {
-				// hide new items while they are loading
-				var $newElems = $( newElements ).css({ opacity: 0});
-				// ensure that images load before adding to masonry layout
-				$newElems.imagesLoaded(function(){
-				  // show elems now they're ready
-				  $newElems.animate({ opacity: 1 });
-				  $container.masonry( 'appended', $newElems, true ); 
-				  
-				   $('.desc').click(function(e){
-					e.preventDefault();
-					});
-				
-				});
-			  }
-			);
-			
-		  });
-	</script>
-	<script src="/static/js/jquery-ui-1.10.3.custom.js"></script>
-	
-<script>
-
-$(function() {
-var cache= cache || {};
-        $( "#search" ).autocomplete({
-            delay: 500,
-			minLength: 2,
-            source: function( request, response ) {
-                var term = request.term;
-                if ( term in cache ) {
-                    response( cache[ term ] );
-                    return;
-                 }
-
-                $.getJSON( "/pins/search/autocom", request, function( data, status, xhr ) {
-                    if ( data.length > 0){
-                        cache[ term ] = data;
-                        response( data );
-                    }
-                 });
-            },
-			select: function( event, ui ) {
-			     $('#search').val(ui.item.value);
-                 $('#searchform').submit();
-            }
-
- 
-        })
-    });
-</script>
- 
-<script type='text/javascript'>
-</script><!--End of ClickDesk -->
- 	
-	</body>
-</html>
