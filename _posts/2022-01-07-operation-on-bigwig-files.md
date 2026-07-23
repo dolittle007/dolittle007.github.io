@@ -57,5 +57,6 @@ wiggletools mean sample1.bw sample2.bw ... sampleN.bw | wigToBigWig stdin hg38.g
 ```
 
 ### References
-* [extract bigwig regions](https://bioinfocore.com/blogs/extract-subset-bigwig-file-for-a-given-genomic-region/)
-* [bigwig average](https://github.com/deeptools/deepTools/issues/723)
+
+- [extract bigwig regions](https://bioinfocore.com/blogs/extract-subset-bigwig-file-for-a-given-genomic-region/)
+- [bigwig average](https://github.com/deeptools/deepTools/issues/723)

@@ -16,8 +16,8 @@ Rust is taking over the terminal. Rust is a general-purpose programming language
 
 Let us start with the terminal itself. [Alacritty](https://github.com/alacritty/alacritty) is a cross-platform modern terminal emulator with sensible defaults. It is GPU accelerated, super fast, and highly configurable. You can use it on Linux, macOS, and Windows.
 
-
 ### Installation
+
 ```bash
 # Arch Linux
 yay -S alacritty
@@ -41,6 +41,7 @@ cargo install alacritty
 [Starship](https://starship.rs/) is the best terminal prompt I have ever used. Forget Oh My Zsh and stuff like that. Starship is fast, highly customizable, and has a great default theme and settings. I didn’t even change most of the default settings, as things were perfect as it is. Starship works on shells like zsh, fish, and bash and can also work alongside other prompts like Oh My Zsh, in case you still want to use Oh My Zsh for other plugins like autosuggestions and so on. Starship works best with a Nerd Font as it can show icons and ligatures based on context. I used Oh My Zsh for many years with the powerlevel10k theme, but the prompt was a bit slow. Starship is blazing fast with more features and an excellent UX
 
 ### Installation
+
 ```bash
 # Arch Linux
 yay -S starship
@@ -63,6 +64,7 @@ cargo install starship --locked
 [bat](https://github.com/sharkdp/bat) is one of my favorite tools from this list. It’s a replacement for cat, and once you have used bat, you will never go back.
 
 ### Installation
+
 ```bash
 # Arch Linux
 yay -S bat
@@ -133,11 +135,13 @@ zoxide init fish | source
 # Alias cd to z
 alias cd='z'
 ```
+
 ### LSD and exa
 
 Both [LSD](https://github.com/Peltoche/lsd) and [exa](https://github.com/ogham/exa) are replacements for the ls command. They both look gorgeous with nice colors and icons and have features like headers, sorting, tree views, and so on. Exa is a bit faster than LSD for tree views and can show the Git status of files and folders.
 
 ### exa installation
+
 ```bash
 # Arch Linux
 yay -S exa
@@ -154,7 +158,9 @@ cargo install exa
 alias ls='exa --git --icons --color=always --group-directories-first'
 
 ```
+
 ### LSD installation
+
 ```bash
 # Arch Linux
 yay -S lsd
@@ -176,6 +182,7 @@ alias ls='lsd --header --color=always --group-directories-first'
 ```
 
 ### ripgrep
+
 [ripgrep (rg)](https://github.com/BurntSushi/ripgrep) is a line-oriented search tool that recursively searches your current directory for a regex pattern. It is faster than grep and has many features like compressed files search, colorized output, smart case, file type filtering, multi-threading, and so on.
 
 ### Installation
@@ -198,9 +205,11 @@ cargo install ripgrep
 ```
 
 ### fd
-[fd](https://github.com/sharkdp/fd) is a simpler alternative to __find__.  It is extremely fast due to parallel traversing and shows a modern colorized output and supports patterns and regex, parallel commands, smart case.
+
+[fd](https://github.com/sharkdp/fd) is a simpler alternative to **find**. It is extremely fast due to parallel traversing and shows a modern colorized output and supports patterns and regex, parallel commands, smart case.
 
 ### Installation
+
 ```bash
 # Arch Linux
 yay -S fd
@@ -219,9 +228,11 @@ cargo install fd-find
 ```
 
 ### dust
+
 [Dust](https://github.com/bootandy/dust) is an alternative for the du command. It is fast and has a better UX with nice visualization for disk usage.
 
 ### Installation
+
 ```bash
 # Arch Linux
 yay -S dust
@@ -241,9 +252,10 @@ cargo install du-dust
 
 ### Hyperfine
 
-Hyperfine is a Rust-powered, __time__ alternative, command-line benchmarking tool. 
+Hyperfine is a Rust-powered, **time** alternative, command-line benchmarking tool.
 
 ### Installation
+
 ```bash
 # Arch Linux
 yay -S hyperfine
@@ -263,9 +275,10 @@ cargo install hyperfine
 
 ### sd
 
-[sd](https://github.com/chmln/sd) is a find-and-replace CLI, and you can use it as a replacement for __sed__ and __awk__.
+[sd](https://github.com/chmln/sd) is a find-and-replace CLI, and you can use it as a replacement for **sed** and **awk**.
 
 ### Installation
+
 ```bash
 # Arch Linux
 yay -S sd
@@ -281,11 +294,12 @@ choco install sd-cli
 cargo install sd
 ```
 
-
 ### bottom
-[bottom](https://github.com/ClementTsang/bottom) is a __top__ replacement with a nice terminal UI. It’s quite feature-rich and customizable.
+
+[bottom](https://github.com/ClementTsang/bottom) is a **top** replacement with a nice terminal UI. It’s quite feature-rich and customizable.
 
 ### Installation
+
 ```bash
 # Arch Linux
 yay -S bottom
@@ -326,9 +340,8 @@ alias htop='btm'
 
 You can find a list of other Rust CLI tools [here](https://gist.github.com/sts10/daadbc2f403bdffad1b6d33aff016c0a).
 
-
 ### References
-* [Rust Easy!](https://deepu.tech/rust-terminal-tools-linux-mac-windows-fish-zsh/)
-* [A curated list of command-line utilities written in Rust](https://gist.github.com/sts10/daadbc2f403bdffad1b6d33aff016c0a)
-* [Rust Anthology Master List](https://github.com/brson/rust-anthology/blob/master/master-list.md)
 
+- [Rust Easy!](https://deepu.tech/rust-terminal-tools-linux-mac-windows-fish-zsh/)
+- [A curated list of command-line utilities written in Rust](https://gist.github.com/sts10/daadbc2f403bdffad1b6d33aff016c0a)
+- [Rust Anthology Master List](https://github.com/brson/rust-anthology/blob/master/master-list.md)

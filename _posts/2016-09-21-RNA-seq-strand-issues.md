@@ -6,20 +6,17 @@ category: opinion
 tags: [RNA-seq, analysis, strand, dUTP]
 ---
 
-I had been working on strand-specific paired-end reads from HiSeq lately and I had trouble mapping reads back to assembled transcripts using STAR as well as using RSEM to estimate transcript abundance. 
+I had been working on strand-specific paired-end reads from HiSeq lately and I had trouble mapping reads back to assembled transcripts using STAR as well as using RSEM to estimate transcript abundance.
 
 <!--more-->
 
 ### Strand-specific protocol
 
-
-| __Library Type__  | __Examples__ | __Description__ |
-|:------------------|:-------------|:----------------|
-|fr-unstranded |Standard Illumina|Reads from the left-most end of the fragment (in transcript coordinates) map to the transcript strand, and the right-most end maps to the opposite strand.|
-| fr-firststrand (RF/R) | dUTP, NSR, NNSR | Same as above except we enforce the rule that the right-most end of the fragment (in transcript coordinates) is the first sequenced (or only sequenced for single-end reads). Equivalently, it is assumed that only the strand generated during first strand synthesis is sequenced.|
-| fr-secondstrand (FR/F)| Ligation, Standard SOLiD |Same as above except we enforce the rule that the left-most end of the fragment (in transcript coordinates) is the first sequenced (or only sequenced for single-end reads). Equivalently, it is assumed that only the strand generated during second strand synthesis is sequenced.|
-
-
+| **Library Type**       | **Examples**             | **Description**                                                                                                                                                                                                                                                                      |
+| :--------------------- | :----------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| fr-unstranded          | Standard Illumina        | Reads from the left-most end of the fragment (in transcript coordinates) map to the transcript strand, and the right-most end maps to the opposite strand.                                                                                                                           |
+| fr-firststrand (RF/R)  | dUTP, NSR, NNSR          | Same as above except we enforce the rule that the right-most end of the fragment (in transcript coordinates) is the first sequenced (or only sequenced for single-end reads). Equivalently, it is assumed that only the strand generated during first strand synthesis is sequenced. |
+| fr-secondstrand (FR/F) | Ligation, Standard SOLiD | Same as above except we enforce the rule that the left-most end of the fragment (in transcript coordinates) is the first sequenced (or only sequenced for single-end reads). Equivalently, it is assumed that only the strand generated during second strand synthesis is sequenced. |
 
 ### Bowtie and Tophat flags for strand-specific reads
 
@@ -31,8 +28,8 @@ Tophat uses --fr-firststrand for a library created by the dUTP method. This is s
 
 `--ff` means both reads are from a forward strand.
 
-But regarding to which strand the RNA fragment is synthesized from, this involves different strand-specific protocols. Thanks to the illustration figure (see below) from Zhao Zhang, we could see that for example dUTP method is to only sequence the strand from the first strand synthesis (the original RNA strand is  degradated due to the dUTP incorporated), so the **/2 read** is from the original RNA strand.
-![center](/figures/2016-09-21-RNA-seq-strand-issue/pe-orient.png) 
+But regarding to which strand the RNA fragment is synthesized from, this involves different strand-specific protocols. Thanks to the illustration figure (see below) from Zhao Zhang, we could see that for example dUTP method is to only sequence the strand from the first strand synthesis (the original RNA strand is degradated due to the dUTP incorporated), so the **/2 read** is from the original RNA strand.
+![center](/figures/2016-09-21-RNA-seq-strand-issue/pe-orient.png)
 {:refdef: style="text-align: center"}
 Summary of library type protocols (for Tophat/Bowtie)
 {: refdef}
@@ -45,27 +42,25 @@ Therefore, to run Bowtie on dUTP reads, the command should look something like t
 
 To compare the results, I ran Bowtie on the same dataset (1M reads) with different flags specified.
 
-| __Flag__  | __Mapped Reads__ | __Unmapped Reads__ |
-|:--------------|:-------------|:----------------|
-|--fr (default) | 82.57%	     | 17.43%          |
-|--rf           | 0.17%	       | 99.83%          |
-|--ff           | 0.00%        | 100.00%         |
-|--fr --nofw    |	82.18%       |  17.82%         |
-|--fr --norc    | 1.99%	       | 98.01%          |
-
+| **Flag**       | **Mapped Reads** | **Unmapped Reads** |
+| :------------- | :--------------- | :----------------- |
+| --fr (default) | 82.57%           | 17.43%             |
+| --rf           | 0.17%            | 99.83%             |
+| --ff           | 0.00%            | 100.00%            |
+| --fr --nofw    | 82.18%           | 17.82%             |
+| --fr --norc    | 1.99%            | 98.01%             |
 
 The number of reads mapped with --fr and --nofw is a bit lower than that from --fr alone. This is due to the fact that without --nofw flag, Bowtie maps /1 reads to both strands.
 
 Note, with --norc flag, Bowtie will not attempt to map the /1 reads to the reverse strand.
 
-
-But regarding to which strand the RNA fragment is synthesized from, this involves different strand-specific protocols. Thanks to the illustration figure (see below) from Zhao Zhang, we could see that for example dUTP method is to only sequence the strand from the first strand synthesis (the original RNA strand is  degradated due to the dUTP incorporated), so the **/2 read** is from the original RNA strand.
-![center](/figures/2016-09-21-RNA-seq-strand-issue/strand.png) 
+But regarding to which strand the RNA fragment is synthesized from, this involves different strand-specific protocols. Thanks to the illustration figure (see below) from Zhao Zhang, we could see that for example dUTP method is to only sequence the strand from the first strand synthesis (the original RNA strand is degradated due to the dUTP incorporated), so the **/2 read** is from the original RNA strand.
+![center](/figures/2016-09-21-RNA-seq-strand-issue/strand.png)
 {:refdef: style="text-align: center"}
 Strand-specific library protocols (Credit: Zhao Zhang)
 {: refdef}
 
-***
+---
 
 ### Running RSEM on dUTP reads
 
@@ -76,7 +71,6 @@ However, for dUTP reads, the --forward-prob flag should be set to 0 instead. It 
 For example, the command should look something like this:
 
 `rsem-calculate-expression -p 8 --forward-prob 0 --paired-end sample_r1.fastq sample_r2.fastq index sample_output`
-
 
 ### Running HTseq-count on dUTP reads
 
@@ -90,35 +84,39 @@ For example, the command should look something like this:
 
 To run Trinity with dUTP reads, you need to use RF for --SS_lib_type flag, which means the /1 reads are from the reverse strand and the /2 reads are from the forward strand. Note that, RF flag in Trinity is not the same as --rf in Bowtie
 
-
-### Infer strand infomation 
+### Infer strand infomation
 
 Actually we can use infer_experiment.py from [**RSeQC**](http://rseqc.sourceforge.net/ "RSeQC") to infer how RNA-seq sequencing were configured, particulary how reads were stranded for strand-specific RNA-seq data, through comparing the “strandness of reads” with the “standness of transcripts”.
 
-You don’t need to know the RNA sequencing protocol before mapping your reads to the reference genome. Mapping your RNA-seq reads as if they were non-strand specific, this script can “__guess__” how RNA-seq reads were stranded.
+You don’t need to know the RNA sequencing protocol before mapping your reads to the reference genome. Mapping your RNA-seq reads as if they were non-strand specific, this script can “**guess**” how RNA-seq reads were stranded.
 
 #### For pair-end RNA-seq, there are two different ways to strand reads:
 
 1. 1++,1–,2+-,2-+ (**Ligation method**)
-* read1 mapped to ‘+’ strand indicates parental gene on ‘+’ strand
-* read1 mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
-* read2 mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
-* read2 mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
+
+- read1 mapped to ‘+’ strand indicates parental gene on ‘+’ strand
+- read1 mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
+- read2 mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
+- read2 mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
+
 2. 1+-,1-+,2++,2– (**dUTP method**)
-* read1 mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
-* read1 mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
-* read2 mapped to ‘+’ strand indicates parental gene on ‘+’ strand
-* read2 mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
+
+- read1 mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
+- read1 mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
+- read2 mapped to ‘+’ strand indicates parental gene on ‘+’ strand
+- read2 mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
 
 #### For single-end RNA-seq, there are also two different ways to strand reads:
 
 1. ++,-- (**Ligation method**)
-* read mapped to ‘+’ strand indicates parental gene on ‘+’ strand
-* read mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
-2. +-,-+ (**dUTP method**)
-* read mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
-* read mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
 
+- read mapped to ‘+’ strand indicates parental gene on ‘+’ strand
+- read mapped to ‘-‘ strand indicates parental gene on ‘-‘ strand
+
+2. +-,-+ (**dUTP method**)
+
+- read mapped to ‘+’ strand indicates parental gene on ‘-‘ strand
+- read mapped to ‘-‘ strand indicates parental gene on ‘+’ strand
 
 #### For example : Pair-end strand specific:
 
@@ -135,6 +133,7 @@ Fraction of reads explained by "1+-,1-+,2++,2--": 0.9441
 So it is a strand-specific pair-end RNA-seq data using dUTP protocol.
 
 ### In a nutshell
-[Alternative summary](https://rnabio.org/module-09-appendix/0009/12/01/StrandSettings/) from [Griffith Lab](https://griffithlab.org/). 
+
+[Alternative summary](https://rnabio.org/module-09-appendix/0009/12/01/StrandSettings/) from [Griffith Lab](https://griffithlab.org/).
 
 Thanks to [Likit Preeyanon](http://likit.github.io/running-bowtiebowtie2-rsem-and-tophat-on-dutp-strand-specific-reads.html "RNA-Seq by Expectation-Maximization") and [Xianjun Dong](http://onetipperday.sterding.com/2012/07/how-to-tell-which-library-type-to-use.html) for generously sharing ideas.

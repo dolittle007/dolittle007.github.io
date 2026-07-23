@@ -28,15 +28,17 @@ fit <- glm(admit ~ gre + gpa + rank, data = mydata, family = "binomial")
 summary(fit)
 
 Coefficients:
-             Estimate Std. Error z value Pr(>|z|)    
-(Intercept) -3.989979   1.139951  -3.500 0.000465 ***
-gre          0.002264   0.001094   2.070 0.038465 *  
-gpa          0.804038   0.331819   2.423 0.015388 *  
-rank2       -0.675443   0.316490  -2.134 0.032829 *  
-rank3       -1.340204   0.345306  -3.881 0.000104 ***
-rank4       -1.551464   0.417832  -3.713 0.000205 ***
-   ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Estimate Std. Error z value Pr(>|z|)  
+(Intercept) -3.989979 1.139951 -3.500 0.000465 **_
+gre 0.002264 0.001094 2.070 0.038465 _  
+gpa 0.804038 0.331819 2.423 0.015388 _  
+rank2 -0.675443 0.316490 -2.134 0.032829 _  
+rank3 -1.340204 0.345306 -3.881 0.000104 \***
+rank4 -1.551464 0.417832 -3.713 0.000205 \*\*\*
+
+---
+
+Signif. codes: 0 ‘**\*’ 0.001 ‘**’ 0.01 ‘\*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
@@ -50,15 +52,17 @@ Note that the dispersion parameter is fixed at 1 and thus, we get z-values.
 summary(lm(Fertility~., data=swiss))
 
 Coefficients:
-                 Estimate Std. Error t value Pr(>|t|)    
-(Intercept)      66.91518   10.70604   6.250 1.91e-07 ***
-Agriculture      -0.17211    0.07030  -2.448  0.01873 *  
-Examination      -0.25801    0.25388  -1.016  0.31546    
-Education        -0.87094    0.18303  -4.758 2.43e-05 ***
-Catholic          0.10412    0.03526   2.953  0.00519 ** 
-Infant.Mortality  1.07705    0.38172   2.822  0.00734 ** 
+Estimate Std. Error t value Pr(>|t|)  
+(Intercept) 66.91518 10.70604 6.250 1.91e-07 **_
+Agriculture -0.17211 0.07030 -2.448 0.01873 _  
+Examination -0.25801 0.25388 -1.016 0.31546  
+Education -0.87094 0.18303 -4.758 2.43e-05 \***
+Catholic 0.10412 0.03526 2.953 0.00519 **
+Infant.Mortality 1.07705 0.38172 2.822 0.00734 **
+
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Signif. codes: 0 ‘**\*’ 0.001 ‘**’ 0.01 ‘\*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 7.165 on 41 degrees of freedom
 

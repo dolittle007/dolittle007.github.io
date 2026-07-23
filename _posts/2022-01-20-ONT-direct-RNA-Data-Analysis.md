@@ -31,6 +31,7 @@ conda install -c bioconda samtools
 ```
 
 ### Annotation preparation
+
 ```bash
 wget -c https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_39/gencode.v39.annotation.gff3.gz
 gunzip gencode.v39.annotation.gff3.gz
@@ -41,17 +42,21 @@ paftools.js gff2bed gencode.v39.annotation.gff3 > hg38.bigbed
 ### Step1: Basecalling
 
 #### CPU-based basecalling
+
 ```bash
 guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 --cpu_threads_per_caller 8 --compress_fastq --reverse_sequence --u_substitution
 ```
 
 #### GPU-based basecalling
+
 ```bash
 guppy_basecaller --input_path ./fast5 --save_path ./guppy_output --flowcell FLO-MIN106 --kit SQK-RNA002 --calib_detect --num_callers 16 ----gpu_runners_per_device 80 -x "cuda:all" --compress_fastq --reverse_sequence --u_substitution
 ```
+
 WARNING: Use RNA-specific parameters, --calib_detect, --reverse_sequence, --u_substitution.
 
-#### Options 
+#### Options
+
 ```bash
 --input_path  # The location of FAST5 files
 --save_path # The location of output FASTQ files. It have three subfolders (pass, fail, and calibration_strands).
@@ -64,9 +69,11 @@ WARNING: Use RNA-specific parameters, --calib_detect, --reverse_sequence, --u_su
 ```
 
 List supported flowcells and kits:
+
 ```bash
 guppy_basecaller --print_workflows
 ```
+
 Alternatively, you can specific config file
 
 ```bash
@@ -74,15 +81,15 @@ guppy_basecaller --input_path ./fast5 --save_path ./guppy_output -c rna_r9.4.1_7
 ```
 
 #### What is RNA Calibration Strand (RCS)?
-The RNA CS (RCS) is the RNA Calibration Strand is the Enolase II from [__YHR174W__](http://useast.ensembl.org/Saccharomyces_cerevisiae/Gene/Summary?g=YHR174W;r=VIII:451327-452640;t=YHR174W_mRNA) at a concentration of 50 ng/μL. The reference fasta file for YHR174W ENO2 is available at __ont-guppy-cpu/data/YHR174W.fasta__.
+
+The RNA CS (RCS) is the RNA Calibration Strand is the Enolase II from [**YHR174W**](http://useast.ensembl.org/Saccharomyces_cerevisiae/Gene/Summary?g=YHR174W;r=VIII:451327-452640;t=YHR174W_mRNA) at a concentration of 50 ng/μL. The reference fasta file for YHR174W ENO2 is available at **ont-guppy-cpu/data/YHR174W.fasta**.
 RCS is included in included in the Direct RNA Sequencing kit, SQK-RNA002, and PCR-cDNA Barcoding Kit, SQK-PCB109
 
 ### Step3: Aign to Genome
-We currently recommend using [__minimap2__](https://github.com/lh3/minimap2) to align to the reference genome.
+
+We currently recommend using [**minimap2**](https://github.com/lh3/minimap2) to align to the reference genome.
 
 ```bash
 minimap2 -Y -t 8 -R "@RG\tID:Sample\tSM:hs\tLB:ga\tPL:ONT" --MD -ax splice -uf -k14 --junc-bed hg38.bigbed hg38.fasta sample.fastq | samtools sort -@ 8 -O BAM -o aligned.bam -
 samtools index aligned.bam
 ```
-
-

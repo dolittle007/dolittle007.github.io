@@ -12,7 +12,7 @@ Linear models in practice
 
 #### The mouse diet example
 
-We will demonstrate how to analyze the high fat diet data using linear models instead of directly applying a t-test. We will demonstrate how ultimately these two approaches are equivalent. 
+We will demonstrate how to analyze the high fat diet data using linear models instead of directly applying a t-test. We will demonstrate how ultimately these two approaches are equivalent.
 
 We start by reading in the data and creating a quick stripchart:
 
@@ -35,7 +35,7 @@ stripchart(dat$Bodyweight ~ dat$Diet, vertical=TRUE, method="jitter",
 
 We can see that the high fat diet group appears to have higher weights on average, although there is overlap between the two samples.
 
-For demonstration purposes, we will build the design matrix $\mathbf{X}$ using the formula `~ Diet`. The group with the 1's in the second column is determined by the level of `Diet` which comes second; that is, the non-reference level. 
+For demonstration purposes, we will build the design matrix $\mathbf{X}$ using the formula `~ Diet`. The group with the 1's in the second column is determined by the level of `Diet` which comes second; that is, the non-reference level.
 
 ```r
 levels(dat$Diet)
@@ -51,7 +51,6 @@ $$ \hat{\boldsymbol{\beta}} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top 
 
 We can calculate this in R using our matrix multiplication operator `%*%`, the inverse function `solve`, and the transpose function `t`.
 
-
 ```r
 Y <- dat$Bodyweight
 X <- model.matrix(~ Diet, data=dat)
@@ -59,7 +58,6 @@ solve(t(X) %*% X) %*% t(X) %*% Y
 ```
 
 These coefficients are the average of the control group and the difference of the averages:
-
 
 ```r
 s <- split(dat$Bodyweight, dat$Diet)
@@ -104,7 +102,7 @@ Our `lm` estimates were:
 summary(fit)$coefficients
 ```
 
-And the t-statistic  is the same:
+And the t-statistic is the same:
 
 ```r
 ttest <- t.test(s[["hf"]], s[["chow"]], var.equal=TRUE)

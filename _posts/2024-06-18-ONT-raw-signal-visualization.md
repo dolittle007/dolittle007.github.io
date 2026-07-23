@@ -14,8 +14,9 @@ An Introduction to Nanopore raw data visualization using [squigualiser](https://
 ### Software preparation
 
 #### Tool for converting raw data to BLOW5 format
-* If the raw data is in POD5 format, [Blue-crab](https://github.com/Psy-Fer/blue-crab) is required.
-* If the raw data is in FAST5 format, [slow5tools](https://hasindu2008.github.io/slow5tools/) is required.
+
+- If the raw data is in POD5 format, [Blue-crab](https://github.com/Psy-Fer/blue-crab) is required.
+- If the raw data is in FAST5 format, [slow5tools](https://hasindu2008.github.io/slow5tools/) is required.
 
 ```bash
 # Create environment

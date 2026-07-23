@@ -9,6 +9,7 @@ tags: [options, R]
 An Introduction to Options.
 
 <!--more-->
+
 > Editor’s note: this post is from [The Sampler archives](http://blog.applied.ai "The Sampler archives") in 2015.
 
 ```r
@@ -31,7 +32,7 @@ library(quantmod)
 # import::from(ggplot2   ,ggplot, aes, xlab, ylab, ggtitle
 #                        ,geom_histogram, geom_boxplot, geom_bar, geom_col
 #                        ,geom_line
-#                        ,scale_x_continuous, scale_y_continuous 
+#                        ,scale_x_continuous, scale_y_continuous
 #                        ,expand_limits, theme, element_text, facet_grid
 #                        ,facet_wrap, theme_set, theme)
 # import::from(scales    ,comma)
@@ -58,12 +59,10 @@ theme_set(theme_cowplot())
 set.seed(42)
 ```
 
-
 # First Post
 
-
 > "If you intelligently trade derivatives, it’s like a license to
-  steal" - Charlie Munger
+> steal" - Charlie Munger
 
 I have spent most of my professional life as a 'quant' - a term in
 finance that is short for quantitative analyst - a person who performs
@@ -114,13 +113,12 @@ articles of this series, but before that, it is important to know a
 little about the infrastructure and details of the options markets
 themselves.
 
-
 ## What is an Option?
 
 Options are derivative contracts that allow the holder the right, but
 not the obligation, to trade (buy or sell) a specific security for a
 specific price for a specific period of time. The asset for which the
-option confers the right to trade is termed the *underlying asset* (or
+option confers the right to trade is termed the _underlying asset_ (or
 underlying for short).
 
 Any type of asset can be used as the underlying, and this article will
@@ -133,9 +131,9 @@ bonds[^futures], so we do not lose much generality by this focus.
 Before we begin, it is best to first lay out some terminology and
 notation.
 
-A *long* position is one where the instrument is 'owned' by the
+A _long_ position is one where the instrument is 'owned' by the
 holder, profiting from a rise in the price of that instrument. A
-*short* position is one where the instrument has been sold by the
+_short_ position is one where the instrument has been sold by the
 holder without owning it, profiting from a fall in the price.
 
 These terms or used very generically in finance. Thus, a speculator
@@ -149,29 +147,29 @@ remember is that long positions want a rise in price and short
 positions want a decline.
 
 An option that confers the right to buy the underlying is termed a
-*call option* (*call* for short); an option that confers the right to
-sell is termed a *put option*.
+_call option_ (_call_ for short); an option that confers the right to
+sell is termed a _put option_.
 
 Calls and puts are very closely linked in terms of behaviour and
-price, called *put/call parity*, and we will discuss this in a future
+price, called _put/call parity_, and we will discuss this in a future
 article.
 
 The specified trade price for the option contract is termed the
-*strike price*, and the time period for which this right is conferred
-is the *lifetime* of the option. The date at which this right ends is
-the *expiration date* or *expiry date*.
+_strike price_, and the time period for which this right is conferred
+is the _lifetime_ of the option. The date at which this right ends is
+the _expiration date_ or _expiry date_.
 
 Options are insurance policies against the movement of the underlying
 price. A call is a policy against the stock price going up, a put is a
 policy against the stock price going down, and the policy lasts until
 expiration.
 
-Finally, most option contracts have a feature that is known as *early
-exercise* - that is, the right to buy or sell the stock can be
+Finally, most option contracts have a feature that is known as _early
+exercise_ - that is, the right to buy or sell the stock can be
 exercised prior to expiration. Most options traded have this feature
-and are termed *American* options. This has nothing to do with
+and are termed _American_ options. This has nothing to do with
 geography and is presumably some historical artefact. Options that do
-not have early exercise are termed *European* options.
+not have early exercise are termed _European_ options.
 
 The vast majority of options traded have early exercise rights and we
 will largely ignore European options. They are still very important
@@ -186,14 +184,14 @@ futures. Options are traded on an exchange, and are treated as assets
 in your account.
 
 Two of the most important concerns in financial trading are
-*counterparty risk* and *liquidity risk*. Both important concepts,
+_counterparty risk_ and _liquidity risk_. Both important concepts,
 attempts at their mitigation explain the existence of a lot of
 infrastructure that has built up around the asset markets.[^risktypes]
 
 ### Counterparty Risk
 
 Counterparty risk is the risk the person you trade with (your
-*counterparty*) is not fit or willing to make good on the trade when
+_counterparty_) is not fit or willing to make good on the trade when
 due.
 
 The sudden reappearance of counterparty risk was the major
@@ -220,8 +218,8 @@ pays up.
 
 ### Liquidity Risk
 
-*Liquidity risk* is the risk of the asset losing its
-*liquidity*. Liquidity is a commonly-used but nebulous term
+_Liquidity risk_ is the risk of the asset losing its
+_liquidity_. Liquidity is a commonly-used but nebulous term
 describing how difficult it is to find counterparties to trade an
 asset at a reasonable price. Liquid assets are easy to trade in large
 quantities, and such trades do not have a large effect on the price.
@@ -236,7 +234,7 @@ Both of these issues are serious business risks, and were even more so
 in the early days of finance[^earlyfinance]. Such concerns led to the creation of
 exchanges and clearing.
 
-An *exchange* is a legal entity that serves as a central marketplace
+An _exchange_ is a legal entity that serves as a central marketplace
 for traders of a particular asset type. It standardises contracts -
 especially important for options and futures - and centralises the
 liquidity in a central venue.
@@ -252,7 +250,7 @@ Once a trade occurs between a buyer and seller, it is recorded on the
 exchange, with trade notifications sent to a number of interested
 parties including both primary participants in the trade, regulatory
 authorities, and market data providers. Most importantly, the trade is
-registered with the *clearing* system.
+registered with the _clearing_ system.
 
 The clearing system is how trades are settled, and helps mitigate
 against counterparty risk: once your trade is reported it is the
@@ -284,12 +282,12 @@ losses are the responsibility of the clearing firm.
 
 ## The Option Market
 
-Almost all financial markets are *two-sided, open outcry* markets.
+Almost all financial markets are _two-sided, open outcry_ markets.
 
-A two-sided market is one where there is a buy price (the *bid*) and a
-sell price (the *ask* or *offer*). The difference between the bid and
-the ask is known as the *bid/ask spread*, and is the price charged by
-*market makers* to always quote prices on both sides. The bid/ask
+A two-sided market is one where there is a buy price (the _bid_) and a
+sell price (the _ask_ or _offer_). The difference between the bid and
+the ask is known as the _bid/ask spread_, and is the price charged by
+_market makers_ to always quote prices on both sides. The bid/ask
 spread is the most common way that traders make a profit; they try to
 take as little risk as possible and just earn the spread. Most
 market-makers want to carry no position overnight if possible, hedging
@@ -299,7 +297,7 @@ trading day.
 In an open outcry market, prices are constantly being updated and
 published. All the quotes published are aggregated and the highest bid
 and lowest ask across all the options exchanges for that contract is
-termed the *National Best Bid and Offer* or NBBO. Of course, any
+termed the _National Best Bid and Offer_ or NBBO. Of course, any
 individual market maker may have a spread wider than that implied by
 the NBBO, and that is perfectly acceptable - that market maker will
 get less trades as other people are willing to pay more or take less
@@ -371,8 +369,6 @@ some price behaviour, and talk about effective ways for using
 options. Hopefully this will provide some insights to how focused
 firms make so much money trading them.
 
-
-
 # Second Post
 
 In the last article we introduced the concept of options and how to
@@ -385,11 +381,10 @@ will only discuss the pricing models themselves briefly, as that topic
 is well-covered in many other resources, in far more detail than is
 possible here.[^optionpricing]
 
-
 ## Option Payoff Graphs
 
 Before we discuss option pricing, it is worth discussing the concept
-of *payoff* first. Simply stated, it is the realised profit earned
+of _payoff_ first. Simply stated, it is the realised profit earned
 from owning the option. This concept is a little more subtle than it
 first appears: when discussing profit do we include or ignore the
 amount paid to buy the option?
@@ -402,7 +397,7 @@ I imagine this is due to focus, traders are always thinking about the
 trading profit, so it only makes sense to include the cost in that
 case. Quants try to build models and price them, so it is much more
 natural to ignore the price paid for the option and focus instead on
-the value of the option at expiration - how *in the money* is it?[^moneyness]
+the value of the option at expiration - how _in the money_ is it?[^moneyness]
 
 Being a quant, I will largely ignore the price paid for an option when
 discussing payoffs, unless explicitly noted otherwise.
@@ -445,7 +440,6 @@ ggplot() +
     ggtitle('Payoff of a Long Call Option with Strike Price K = 100')
 ```
 
-
 A put option is exactly the opposite: In the above scenario but with a put instead of a call, we have:
 
 $$ \text{Payoff} = \text{max}(0, 100 - S) $$
@@ -465,16 +459,15 @@ put_plot <- ggplot() +
     ggtitle('Payoff of a Long Put Option with Strike Price K = 100')
 ```
 
-
 Payoff curves are often overkill for simple options once you have a
-grasp of the basics, but are still a very useful tool for *option
-spreads*: combinations of different option contracts with the same
+grasp of the basics, but are still a very useful tool for _option
+spreads_: combinations of different option contracts with the same
 underlying. We will not discuss spreads too much in this series as
 that is topic all in itself, but it is worth mentioning a few of the
 most common here as they are an excellent illustration of the use of
 payoff curves.
 
-A *straddle spread* is the combination of a long (or short) call and
+A _straddle spread_ is the combination of a long (or short) call and
 put option with the same expiration and strike price. Straddle spreads
 tend to be used to trade volatility - the trader is betting on the size
 of the movement of the underlying rather than on the direction of the
@@ -488,10 +481,10 @@ ggplot() +
     ggtitle('Payoff of a Long Straddle Spread with Strike Price K = 100')
 ```
 
-A *call spread* is the combination of a long and short call option at
+A _call spread_ is the combination of a long and short call option at
 different strikes[^callspread]. If the long strike is lower than the short
-strike, it is a *bullish* spread since it profits from a rise in stock
-price. If the short strike is lower, it is a *bearish* spread. In
+strike, it is a _bullish_ spread since it profits from a rise in stock
+price. If the short strike is lower, it is a _bearish_ spread. In
 either case, the maximum profit is capped at the difference between
 the strikes.
 
@@ -505,8 +498,6 @@ callspread_plot <- ggplot() +
     ylab('Payoff') +
     ggtitle('Payoff of a 100/110 Bullish Call Spread')
 ```
-
-
 
 ## Pricing Options
 
@@ -545,15 +536,15 @@ actually explaining it. As its name suggests, volatility is a measure
 of the size of the relative moves of the underlying price.
 
 Quantitative finance models price changes in assets in terms of
-percentage changes, termed the *returns* of the asset. This is for a
+percentage changes, termed the _returns_ of the asset. This is for a
 number of reasons:
 
-* Percentage changes are often easier to understand and remember when
+- Percentage changes are often easier to understand and remember when
   it comes to interpreting the output of models
-* It allows more natural comparisons, without needing to know the
+- It allows more natural comparisons, without needing to know the
   underlying price level as a reference point, and allows comparisons
   across asset classes
-* Much of quantitative finance deals with time series, and a sequence
+- Much of quantitative finance deals with time series, and a sequence
   of percentage changes tends to behave more independently than a
   series of price changes, making it more amenable to statistical
   methods
@@ -576,7 +567,7 @@ most important practical one: we can use volatility and option price
 interchangeably. For a given set of observed values of $S$, $t$, $r$
 and $K$, there is a one-to-one relationship between the option price
 and the volatility. Used this way, the volatility is called the
-*implied volatility* (or *implied vol* or *implied*). Thus, implied
+_implied volatility_ (or _implied vol_ or _implied_). Thus, implied
 vols are proxies for option prices, and are independent of the current
 stock price.
 
@@ -601,7 +592,6 @@ this factor is often rounded up to 16, meaning that an asset with an
 annualised volatility of 16% has a daily volatility of 1%.[^dailyvol]
 
 The convention is to express volatility in annualised terms.
-
 
 ## Calculating Option Prices
 
@@ -692,13 +682,13 @@ ggplot(data = plot_dt) +
     ylab("Option Price / Payoff")
 ```
 
-
 #### Option Intrinsic Value and Option Time Value
 
-Option prices can be split into two components, the *intrinsic value*
+Option prices can be split into two components, the _intrinsic value_
+
 - the value of the option were it to be immediately exercised - and
-the *time value* of the option which is the remainder. The time value
-is also referred to as the *option premium*.
+  the _time value_ of the option which is the remainder. The time value
+  is also referred to as the _option premium_.
 
 Options that are in the money always have positive intrinsic
 value. Options that are out of the money only have premium in them.
@@ -735,7 +725,6 @@ Looking at the plot, we see the premium increases as the underlying
 approaches the strike price. At the strike price, the premium is at
 its maximum, and beyond that the intrinsic value becomes non-zero and
 takes an increasing proportion of the option value.
-
 
 ### Comparing Calls and Puts
 
@@ -851,7 +840,6 @@ Finally, we look at $S = 110$. Given the symmetry, it would not be too
 surprising to see a similar result for $S = 90$ but with calls and
 puts switched:
 
-
 ```r
 ### Output prices for S = 110
 cat("Put price for S = 110\n")
@@ -879,13 +867,11 @@ for $S$.[^priceskew]
 We will discuss this further once we have an understanding of the
 Greeks.
 
-
 ## The First and Second Derivatives - The 'Greeks'
 
 Every discussion of option pricing involves describing the 'Greeks' -
 derivatives of the option price with respect to different input
 quantities such as stock price and volatility.
-
 
 ### Delta: $\Delta = \frac{dV}{dS}$
 
@@ -893,10 +879,10 @@ The delta, $\Delta$, of an option is the first derivative of the
 option price with respect to underlying price. It can be interpreted
 in two ways:
 
-* it is the equivalent amount of shares the option corresponds to at
+- it is the equivalent amount of shares the option corresponds to at
   this instant. Being long a 30-delta call option is equivalent to
   owning 30 shares of the underlying.
-* the absolute value of the delta is the probability of that option
+- the absolute value of the delta is the probability of that option
   ending up being in the money
 
 Numerically, delta varies from -1 to 1, but as option contracts are
@@ -921,7 +907,6 @@ be simultaneously the most important Greek from a risk point of view
 while being the least interesting from a trading and portfolio
 management point of view.
 
-
 ### Gamma: $\Gamma = \frac{d^2V}{dS^2}$
 
 The Gamma, $\Gamma$, of an option is the second derivative of the
@@ -945,7 +930,6 @@ the underlying price moves.
 
 The gamma of an option is positive for both calls and puts.
 
-
 ### Vega: $\text{Vega} = \frac{dV}{d\sigma}$
 
 The vega of an option is the first derivative of the option price with
@@ -959,7 +943,6 @@ The RQuantLib functions calculate vega on the scale of changes of 1
 unit of vol, 100 vol clicks, so this needs to be accounted for.
 
 The vega of an option is always positive.
-
 
 ### Theta: $\Theta = \frac{dV}{dt}$
 
@@ -976,7 +959,6 @@ changes. It is always negative as option values decay as time
 passes. This is because the reduced lifetime of the options results in
 less opportunity for the underlying to move, and thus is worth less.
 
-
 ### Rho: $\rho = \frac{dV}{dt}$
 
 The Rho, $\rho$, of an option is the first derivative of the option
@@ -991,7 +973,6 @@ tends to be for short timescales, so rho is not as important for most
 use cases as its effect is limited. It can be extremely important for
 very long-dated options though.
 
-
 ## Summary
 
 In this article we introduced payoff graphs and looked at the charts
@@ -1004,7 +985,6 @@ are important.
 In the next article, we will continue this discussion and show how
 calls and puts behave similarly. We will also talk a little about the
 consequences of the non-linearity in options.
-
 
 # Third Post
 
@@ -1043,7 +1023,6 @@ main.
 In quite a few cases, some behaviours dicussed do not hold for all options,
 especially for options with longer expirations, so beware!
 
-
 ## Units of Greeks Redux
 
 We also recall that options are traded as contracts for 100 shares, but are
@@ -1070,16 +1049,14 @@ price at the same time tomorrow to be about 1.80 USD.
 We also largely ignore interest-rate effects on pricing as we focus on more
 short term maturities of two months or less - 40 trading days.
 
-
 ## Revisiting Put-Call Parity
 
 We have discussed a few times in previous posts the close relationship between
 the price of a call and put option. For future brevity, we will introduce one
-more piece of terminology in options - the *line*, a specific combination of
+more piece of terminology in options - the _line_, a specific combination of
 expiration and strike price. Historically, option prices were quoted in
 expiration and strike order, with the strike prices in a column down the
 centre.
-
 
 The reason for this close relationship is somewhat counterintuitive: from an
 optionality point of view, call and put options are the same - that is, the
@@ -1217,8 +1194,7 @@ short 100 shares gives the same profit and loss (PnL for short) as being long
 as being long 1 call contract.
 
 To check this, we start with an option with a strike price of 100 with a
-volatility of 20%. Suppose we are 40 days out and the underlying stock is at
-95. We buy the 100 call (the call option at the 100 strike), paying the price.
+volatility of 20%. Suppose we are 40 days out and the underlying stock is at 95. We buy the 100 call (the call option at the 100 strike), paying the price.
 Suppose after one day's trading the underlying has moved up to 100. What is the
 PnL in this case, and how does it compare to being long the 100 put and long
 the stock instead?
@@ -1359,7 +1335,6 @@ This explains why all the Greeks for a call and put on the same line are the
 same apart from the delta (which differs by 100). Price parity forces this to
 be the case.[^priceparity]
 
-
 ## Option Premium Decay
 
 We discovered in the last article that theta for an option is negative: that
@@ -1372,7 +1347,6 @@ think about what may make sense.
 Suppose we an 40-day at-the-money option with 20% volatility and
 underlying/strike of 100. We can calculate the value of this option over time,
 using the unrealistic assumption that nothing else will change.
-
 
 ### Time Decay for At-the-Money Options
 
@@ -1398,7 +1372,6 @@ ggplot() +
     ylab("Option Price") +
     ggtitle("Plot of Theta Decay for At-the-Money Option\nS = 100, K = 100")
 ```
-
 
 The decay is slow at the beginning, approximating a constant decay,
 accelerating towards zero in the last 5-10 days of lifetime. The option
@@ -1437,7 +1410,6 @@ us to go further into the right tail as time passes. This reduction in
 expectation implies a low price for the option with days left before
 expiration.
 
-
 ### Time Decay for In-the-Money Options
 
 For ITM options, the intrinsic value of the option is positive, so the price
@@ -1464,7 +1436,6 @@ ggplot() +
 If we remove the intrinsic value and focus solely on the premium in the ITM
 option, how does this behave? We will draw all three plots together.
 
-
 ```r
 plot_dt <- rbind(data.table(contract = '095 Call', days = -days_remaining, premium = decay_itm_price - 5)
                 ,data.table(contract = '100 Call', days = -days_remaining, premium = decay_atm_price)
@@ -1478,7 +1449,6 @@ ggplot(data = plot_dt) +
     ylab("Option Premium") +
     ggtitle("Plot of Theta Decay in Premium")
 ```
-
 
 This plot was surprising, and confirmed something suggested at by the earlier
 plots: the premium decay for ITM and OTM options are very similar. Note that
@@ -1523,7 +1493,6 @@ This makes trading long option positions complicated: it often requires
 active trading, the success of which is heavily dependent on making good
 estimates of the short term direction of the market - a difficult task. This
 will become more apparent in the next section when we discuss how Gamma works.
-
 
 ## Gamma, Vega and Nonlinear Behaviour
 
@@ -1712,7 +1681,6 @@ ggplot() +
     ylab("Option Gamma")
 ```
 
-
 So, if nothing happens but the passing of time, the Gamma of the option will
 increase, then rapidly move to zero once 10 days or less are left in the
 option.
@@ -1754,9 +1722,8 @@ quickly.[^pnlquickly]
 Bear in mind that when trading options, trade sizes are usually in hundreds or
 thousands of contracts. 100 contracts is the equivalent of 10,000 shares, so
 imagine in the above scenario we bought 1,000 contracts. We paid 3,500 USD
-(0.035 * 100 share per contract * 1000 contracts) which was worth 9,500 USD on
+(0.035 _ 100 share per contract _ 1000 contracts) which was worth 9,500 USD on
 Friday morning, and then just over 42,000 USD at lunchtime.
-
 
 ## Summary
 
@@ -1784,7 +1751,6 @@ In the fourth and final article of this series we will discuss volatility: its
 effect on prices, how we think about it, and how it behaves as the underlying
 moves.
 
-
 # Fourth Post
 
 In the final post on this series we discuss the use of options as insurance
@@ -1795,7 +1761,6 @@ involving them - from a trading perspective and in terms of how they are
 priced and how they behave. In this final post we will discuss the use of
 options as an insurance product and how the volatility (vol) can add extra
 complexity to their behaviour.
-
 
 ## Volatility Effects - Options as Insurance
 
@@ -1864,7 +1829,6 @@ Diligent, informed and prudent risk management is essential for staying in
 business, so understanding and anticipating what will happen is hugely
 important.
 
-
 ## Volatility Smile and Skew
 
 In most option pricing models, the volatility of the underlying is independent
@@ -1914,10 +1878,9 @@ Why might this happen?
 A couple of issues are at play here, so we list them first and discuss them
 after
 
-  * The Black-Scholes Model is Wrong
-  * Options are Insurance
-  * Trader Psychology
-
+- The Black-Scholes Model is Wrong
+- Options are Insurance
+- Trader Psychology
 
 ### The Black-Scholes Model is Wrong
 
@@ -2008,12 +1971,10 @@ were flat, and a lot of people selling options or 'portfolio insurance' - a
 product that functioned like an option - lost a lot of money as they were not
 being compensated appropriately for the risk they were taking.
 
-
 ### Trader Psychology
 
 One final contributor to this behaviour is human nature and natural responses
-to asymmetric risk. In our previous example we priced at option at a strike of
-90. What if the strike were 80?
+to asymmetric risk. In our previous example we priced at option at a strike of 90. What if the strike were 80?
 
 ```r
 print(AmericanOption(type          = 'put'
@@ -2054,7 +2015,6 @@ AmericanOptionImpliedVolatility(type          = 'put'
 
 To get these prices of 1c and 3c we need to raise the vol to about 30% and 34%
 respectively.
-
 
 ## Volatility Skew
 
@@ -2109,7 +2069,6 @@ very large positive days in the market occurred around the Credit Crisis of
 The skewed distribution of returns induces the skew in the strike/implied vol
 curve. The skew is how the market 'corrects' for the mismatch between the basic
 assumptions of option pricing models and empirical reality.
-
 
 ## Miscellanous Issues
 
@@ -2178,13 +2137,12 @@ individual risk so the pattern is not as strongly observed. It is a phenomenon
 worth bearing in mind though, especially for someone who is long volatility -
 periods of calm will kill your PnL.
 
-
 ### Option Portfolios
 
 When trading options seriously, it is rare to own individual contracts. In
 fact, it is rare to have a trade involving an option alone. Often, option
 trades are tied to the underlying stock trade for the deltas. It is also
-common to trade *option spreads* - combinations of contracts mentioned in the
+common to trade _option spreads_ - combinations of contracts mentioned in the
 second post in this series.
 
 Call and put spreads are especially common: we buy and sell calls at two
@@ -2233,7 +2191,6 @@ risk assessments. That said, this is not a strongly held opinion, and could
 easily be wrong. It is something I can imagine myself implementing in the
 future despite my misgivings.
 
-
 ## Final Thoughts and Conclusions
 
 This series covered a lot of ground! We started with an explanation of what
@@ -2266,8 +2223,7 @@ so understanding the basics is very useful in insurance.
 
 Thanks to [Mick Cooney](https://github.com/kaybenleroll "Mick Cooney") for generously sharing ideas.
 
-
-[^futures]: A futures contract (*future*) is a simple type of derivative that allows your to buy or sell an asset today and take delivery of the asset at a future point in time. Futures differ from options in that entering into a futures contract obligates you to trade and so function in many ways like stock. I will not really discuss futures much in this article but a lot of the idiosyncratic nature of options contracts seems related to the fact that the first options exchanges were offshoots of futures exchanges. Please let me know if I am wrong about this.
+[^futures]: A futures contract (_future_) is a simple type of derivative that allows your to buy or sell an asset today and take delivery of the asset at a future point in time. Futures differ from options in that entering into a futures contract obligates you to trade and so function in many ways like stock. I will not really discuss futures much in this article but a lot of the idiosyncratic nature of options contracts seems related to the fact that the first options exchanges were offshoots of futures exchanges. Please let me know if I am wrong about this.
 
 [^longshort]: This term does make sense, and should be understood by the end of this series.
 
@@ -2287,9 +2243,9 @@ Thanks to [Mick Cooney](https://github.com/kaybenleroll "Mick Cooney") for gener
 
 [^optionpricing]: Wilmott on Quantitative Finance is an excellent resource for this.
 
-[^moneyness]: An option that is *in-the-money* is an option contract where the the exercise value of the option is positive. If the exercise value is negative, the option is *out-of-the-money*.
+[^moneyness]: An option that is _in-the-money_ is an option contract where the the exercise value of the option is positive. If the exercise value is negative, the option is _out-of-the-money_.
 
-[^callspread]: The options can also have different expirations, though this is generally termed a *calendar spread*.
+[^callspread]: The options can also have different expirations, though this is generally termed a _calendar spread_.
 
 [^expireprice]: Even then, it is probably more fair to say that the 'true' value stays latent, instead observing a realization of it.
 
@@ -2303,7 +2259,7 @@ Thanks to [Mick Cooney](https://github.com/kaybenleroll "Mick Cooney") for gener
 
 [^priceskew]: At first glance, this may seem to only apply to calls, as the value of a put has a negative relationship to the underlying but that is not the case due to parity. This will be discussed more in the third article.
 
-[^pricechange]: This is approximate as vega will have a second derivative, but for small changes in vol it is close enough. 
+[^pricechange]: This is approximate as vega will have a second derivative, but for small changes in vol it is close enough.
 
 [^priceparity]: If the market moves out of line on this, trading arbitrage will force it back. I heard a story (which I believe) that the first person to figure out that puts were the same as calls quietly made a huge fortune on the Chicago option floor with no risk
 
@@ -2313,8 +2269,4 @@ Thanks to [Mick Cooney](https://github.com/kaybenleroll "Mick Cooney") for gener
 
 [^pnlquickly]: Or make it. One of my favourite trading stories which I have been unable to verify is that one of the larger trading firms today largely owes its existence to Black Monday in 1987. A market-maker in options, through pure chance they owned a huge amount of put options that were way below the market level when the crash happened. Those options, which had cost them pennies, ended up being worth 50 or 60 USD each and made the firm millions. This provided them with the capital base to grow their operations and they admitted themselves it was pure luck.
 
-
-
-[^readerexercise]: As a quick spot test for the reader, can you think of a scenario where this happens? If you can, I will be pleased. It means I have managed to successfully convey the core concepts to at least one other person! 
-
-
+[^readerexercise]: As a quick spot test for the reader, can you think of a scenario where this happens? If you can, I will be pleased. It means I have managed to successfully convey the core concepts to at least one other person!
