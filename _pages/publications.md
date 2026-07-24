@@ -67,6 +67,7 @@ nav_order: 2
     height: 100%;
     display: block;
     object-fit: cover;
+    object-position: top;
     transition: transform 0.35s ease;
   }
 
