@@ -305,7 +305,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Identification of 38 novel loci for systemic lupus erythematosus and genetic heterogeneity between ancestral groups preview" />
+      <img src="/assets/img/publication_preview/41467_2021_21049_Fig2_HTML.png" alt="Identification of 38 novel loci for systemic lupus erythematosus and genetic heterogeneity between ancestral groups preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.nature.com/articles/s41467-021-21049-y" target="_blank" rel="noopener noreferrer">Identification of 38 novel loci for systemic lupus erythematosus and genetic heterogeneity between ancestral groups</a>
@@ -319,7 +319,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="ScanITD: Detecting internal tandem duplication with robust variant allele frequency estimation preview" />
+      <img src="/assets/img/publication_preview/ScanITD.jpg" alt="ScanITD: Detecting internal tandem duplication with robust variant allele frequency estimation preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://academic.oup.com/gigascience/article/9/8/giaa089/5898622" target="_blank" rel="noopener noreferrer">ScanITD: Detecting internal tandem duplication with robust variant allele frequency estimation</a>
@@ -333,7 +333,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="RAS internal tandem duplication disrupts GTPase-activating protein (GAP) binding to activate oncogenic signaling preview" />
+      <img src="/assets/img/publication_preview/JBC.jpg" alt="RAS internal tandem duplication disrupts GTPase-activating protein (GAP) binding to activate oncogenic signaling preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.jbc.org/article/S0021-9258(17)48957-5/fulltext" target="_blank" rel="noopener noreferrer">RAS internal tandem duplication disrupts GTPase-activating protein (GAP) binding to activate oncogenic signaling</a>
@@ -347,7 +347,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Identification of regulatory modules that stratify lupus disease mechanism through integrating multi-omics data preview" />
+      <img src="/assets/img/publication_preview/1-s2.0-S2162253119303750-fx1.jpg" alt="Identification of regulatory modules that stratify lupus disease mechanism through integrating multi-omics data preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.sciencedirect.com/science/article/pii/S2162253119303750" target="_blank" rel="noopener noreferrer">Identification of regulatory modules that stratify lupus disease mechanism through integrating multi-omics data</a>
@@ -361,7 +361,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="ScanNeo: identifying indel derived neoantigens using RNA-Seq data preview" />
+      <img src="/assets/img/publication_preview/ScanNeo.jpg" alt="ScanNeo: identifying indel derived neoantigens using RNA-Seq data preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://academic.oup.com/bioinformatics/article/35/20/4159/5382215" target="_blank" rel="noopener noreferrer">ScanNeo: identifying indel derived neoantigens using RNA-Seq data</a>
@@ -375,7 +375,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="HLA-IMPUTER: an easy to use web application for HLA imputation and association analysis using population-specific reference panels preview" />
+      <img src="/assets/img/publication_preview/sex.jpg" alt="HLA-IMPUTER: an easy to use web application for HLA imputation and association analysis using population-specific reference panels preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://academic.oup.com/bioinformatics/article/35/7/1244/5101258" target="_blank" rel="noopener noreferrer">HLA-IMPUTER: an easy to use web application for HLA imputation and association analysis using population-specific reference panels</a>
@@ -389,7 +389,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Identification of ST3AGL4, MFHAS1, CSNK2A2 and CD226 as loci associated with systemic lupus erythematosus (SLE) and evaluation of SLE genetics in drug repositioning preview" />
+      <img src="/assets/img/publication_preview/annrheumdis-2018.gif" alt="Identification of ST3AGL4, MFHAS1, CSNK2A2 and CD226 as loci associated with systemic lupus erythematosus (SLE) and evaluation of SLE genetics in drug repositioning preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://ard.bmj.com/content/77/7/1078" target="_blank" rel="noopener noreferrer">Identification of ST3AGL4, MFHAS1, CSNK2A2 and CD226 as loci associated with systemic lupus erythematosus (SLE) and evaluation of SLE genetics in drug repositioning</a>
@@ -403,7 +403,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Regulatory and evolutionary signatures of sex-biased genes on both the X chromosome and the autosomes preview" />
+      <img src="/assets/img/publication_preview/13293.jpg" alt="Regulatory and evolutionary signatures of sex-biased genes on both the X chromosome and the autosomes preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://link.springer.com/article/10.1186/s13293-017-0156-4" target="_blank" rel="noopener noreferrer">Regulatory and evolutionary signatures of sex-biased genes on both the X chromosome and the autosomes</a>
@@ -417,7 +417,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Genome-wide association meta-analysis in Chinese and European individuals identifies ten new loci associated with systemic lupus erythematosus preview" />
+      <img src="/assets/img/publication_preview/41588_2016_Article_BFng3603_Fig4_HTML.jpg" alt="Genome-wide association meta-analysis in Chinese and European individuals identifies ten new loci associated with systemic lupus erythematosus preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://www.nature.com/articles/ng.3603" target="_blank" rel="noopener noreferrer">Genome-wide association meta-analysis in Chinese and European individuals identifies ten new loci associated with systemic lupus erythematosus</a>
@@ -431,10 +431,10 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Meta-analysis of GWAS on two Chinese populations followed by replication identifies novel genetic variants on the X chromosome associated with systemic lupus erythematosus preview" />
+      <img src="/assets/img/publication_preview/hmg24_1.cover.gif" alt="Meta-analysis of GWAS on two Chinese populations followed by replication identifies novel genetic variants on the X chromosome associated with systemic lupus erythematosus preview" />
     </div>
     <div class="pub-body">
-      <a class="pub-title" href="https://academic.oup.com/hmg/article/24/1/274/2900742" target="_blank" rel="noopener noreferrer">Meta-analysis of GWAS on two Chinese populations followed by replication identifies novel genetic variants on the X chromosome associated with systemic lupus erythematosus</a>
+      <a class="pub-title" href="https://academic.oup.com/hmg/article-abstract/24/1/274/2900979" target="_blank" rel="noopener noreferrer">Meta-analysis of GWAS on two Chinese populations followed by replication identifies novel genetic variants on the X chromosome associated with systemic lupus erythematosus</a>
       <div class="pub-authors">Yan Zhang, Jing Zhang, Jing Yang, Yongfei Wang, Lu Zhang, Xianbao Zuo, Liangdan Sun, Hai-Feng Pan, Nattiya Hirankarn, <strong>Tingyou Wang</strong>, Ruoyan Chen, Dingge Ying, et al.</div>
       <div class="pub-venue">Human Molecular Genetics, 2015, 24(1), 274-284.</div>
       <div class="pub-links">
@@ -445,7 +445,7 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Chromosome-8-Coded Proteome of Chinese Chromosome Proteome Data Set (CCPD) 2.0 with Partial Immunohistochemical Verifications preview" />
+      <img src="/assets/img/publication_preview/jprobs.jpg" alt="Chromosome-8-Coded Proteome of Chinese Chromosome Proteome Data Set (CCPD) 2.0 with Partial Immunohistochemical Verifications preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://pubs.acs.org/doi/10.1021/pr400902u" target="_blank" rel="noopener noreferrer">Chromosome-8-Coded Proteome of Chinese Chromosome Proteome Data Set (CCPD) 2.0 with Partial Immunohistochemical Verifications</a>
@@ -459,21 +459,21 @@ nav_order: 2
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="Qualitative and quantitative expression status of the human chromosome 20 genes in cancer tissues and the representative cell lines preview" />
+      <img src="/assets/img/publication_preview/jprobs.2013.jpg" alt="Qualitative and quantitative expression status of the human chromosome 20 genes in cancer tissues and the representative cell lines preview" />
     </div>
     <div class="pub-body">
-      <a class="pub-title" href="https://pubs.acs.org/doi/10.1021/pr3007909" target="_blank" rel="noopener noreferrer">Qualitative and quantitative expression status of the human chromosome 20 genes in cancer tissues and the representative cell lines</a>
+      <a class="pub-title" href="https://pubs.acs.org/doi/10.1021/pr3008336" target="_blank" rel="noopener noreferrer">Qualitative and quantitative expression status of the human chromosome 20 genes in cancer tissues and the representative cell lines</a>
       <div class="pub-authors">Quanhui Wang#, Bo Wen#, Guangrong Yan#, Junying Wei#, Liqi Xie#, Shaohang Xu, Dahai Jiang, <strong>Tingyou Wang</strong>, Ruo Zhou, Haiyi Zhao et al.</div>
       <div class="pub-venue">Journal of Proteome Research, 2013, 12(1), 151-161. (#Co-first authors)</div>
       <div class="pub-links">
-        <a class="pub-link" href="https://pubs.acs.org/doi/10.1021/pr3007909" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-file-pdf"></i>Paper</a>
+        <a class="pub-link" href="https://pubs.acs.org/doi/10.1021/pr3008336" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-file-pdf"></i>Paper</a>
       </div>
     </div>
   </article>
 
   <article class="pub-card">
     <div class="pub-thumb">
-      <img src="/assets/img/publication_preview/default_paper.jpg" alt="A predicted protein-protein interaction network of the filamentous fungus Neurospora crassa preview" />
+      <img src="/assets/img/publication_preview/c1mb05028a-ga.png" alt="A predicted protein-protein interaction network of the filamentous fungus Neurospora crassa preview" />
     </div>
     <div class="pub-body">
       <a class="pub-title" href="https://pubs.rsc.org/en/content/articlelanding/2011/mb/c1mb05028a" target="_blank" rel="noopener noreferrer">A predicted protein-protein interaction network of the filamentous fungus Neurospora crassa</a>

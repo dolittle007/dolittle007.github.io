@@ -1,6 +1,6 @@
 cv:
   name: Ting-You Wang
-  label: Research Associate in Bioinformatics
+  label: Research Associate
   email: tywang@northwestern.edu
   location: Chicago, IL
   image: ""
@@ -22,8 +22,6 @@ cv:
         studyType: PhD
         start_date: 2013
         end_date: 2017
-        highlights:
-          - Focus on bioinformatics algorithm development and next-generation sequencing data analysis.
       - institution: China Agricultural University
         location: Beijing, China
         area: Bioinformatics
@@ -43,31 +41,26 @@ cv:
         location: Chicago, IL, USA
         start_date: 2022
         end_date: Present
-        summary: Conducting research in cancer genomics, alternative splicing, and deep learning modeling for genomic datasets.
       - company: University of Minnesota
         position: Staff Researcher
         location: Austin, MN, USA
         start_date: 2021
         end_date: 2022
-        summary: Developed bioinformatics software suites and implemented deep learning models for molecular structures.
       - company: University of Minnesota
         position: Postdoctoral Research Fellow
         location: Austin, MN, USA
         start_date: 2018
         end_date: 2021
-        summary: Conducted structural variant comparison and exitron splicing analysis. Awarded the Eagles Telethon Post Doctoral Fellowship.
       - company: The University of Hong Kong
         position: Research Assistant I
         location: Hong Kong
         start_date: 2017
         end_date: 2018
-        summary: Performed genomic data analysis and designed HLA allele imputation panels.
       - company: BGI Genomics
         position: Bioinformatics Engineer
         location: Shenzhen, China
         start_date: 2011
         end_date: 2013
-        summary: Designed and optimized pipeline tools for processing high-throughput next-generation sequencing data.
 
     Awards:
       - title: Eagles Telethon Post Doctoral Fellowship
@@ -89,8 +82,8 @@ cv:
 
     Skills:
       - name: Languages
-        keywords: Python, R, Bash, C++, SQL, JavaScript
+        keywords: Python, R, Bash, Perl, SQL, JavaScript
       - name: Bioinformatics
         keywords: Next-Generation Sequencing (NGS) analysis, RNA-Seq, alternative splicing, structural variant comparison, HLA imputation
       - name: ML & Workflows
-        keywords: PyTorch, TensorFlow, Deep Learning, Docker, Git, Linux, Snakemake
+        keywords: PyTorch, TensorFlow, Deep Learning, LLM, Docker, Git, Linux, Snakemake
