@@ -7,11 +7,11 @@ subtitle: Research Associate in Bioinformatics & Genomics
 profile:
   enabled: false
 
-selected_papers: false
-social: false
+selected_papers: true
+social: true
 
 announcements:
-  enabled: false # disable announcements since we don't have news items yet
+  enabled: false
 
 latest_posts:
   enabled: true
@@ -19,12 +19,31 @@ latest_posts:
   limit: 5
 ---
 
-I use code and statistical modeling to solve complex biological data problems. My expertise spans cancer genomics, immunogenomics, alternative splicing, systemic lupus erythematosus (SLE) susceptibility, and algorithm design for sequencing data. I build robust computational pipelines and leverage deep learning/machine learning models to extract biologically reproducible insights from large-scale multi-omics datasets.
+I am a computational biologist and bioinformatician specializing in cancer genomics, immunogenomics, and AI/ML applications in biology. Currently a **Research Associate** at **Northwestern University**, I design and build algorithms, software pipelines, and genomic language models to extract reproducible insights from large-scale multi-omics and sequencing datasets.
 
-Research and develop computational methods to accelerate scientific discovery and advance precision medicine through analyzing large-scale sequencing, multi-omics, and clinical datasets. Recent research focuses include:
+---
 
-- **Cancer genomics & immunogenomics** — developed innovative pipelines such as [ScanNeo](https://github.com/ylab-hi/ScanNeo), [ScanITD](https://github.com/ylab-hi/ScanITD), and [ScanExitron](https://github.com/ylab-hi/ScanExitron), enabling more accurate detection of neoantigens and non-canonical splicing events.
-- **AI and large language models (LLMs) in biomedical research** — exploring how LLMs can improve analysis of genomic data and uncover novel biological mechanisms.
-- **Systems biology & data mining** — integrating these approaches to uncover genetic drivers of complex diseases such as systemic lupus erythematosus and cancer.
+### 🧬 Research Highlights
 
-**Specialties:** Bioinformatics, AI/ML, LLMs, Cancer Genomics, Immunogenomics, Sequencing Data Analysis, Computational Biology, Systems Biology, Algorithm Development, Data Mining.
+- **Genomic Language Models & AI in RNA-Seq** — Developed a deep learning-based genomic language model (`DeepChopper`) for chimera artifact detection in Nanopore direct RNA sequencing (_Nature Communications_, 2026).
+- **Cancer Genomics & Transcriptome Splicing** — Discovered novel cancer driver genes and neoepitopes through pan-cancer transcriptome analysis of exitron splicing (_Molecular Cell_, 2021 - highlighted in _Cancer Immunology Research_).
+- **Systems Biology & Autoimmune Susceptibility** — Integrated multi-omics data to construct regulatory networks stratifying Lupus (SLE) disease mechanisms (_Molecular Therapy - Nucleic Acids_, 2020), and co-discovered multiple novel genetic susceptibility loci (_Nature Genetics_, 2016; _Nature Communications_, 2021).
+
+### 🛠️ Open-Source Software & Pipelines
+
+I develop and maintain robust computational methods to accelerate scientific discovery:
+
+- [**ScanNeo**](https://github.com/ylab-hi/ScanNeo) — Pipeline for identifying insertion/deletion (indel) derived neoantigens from RNA-Seq data (_Bioinformatics_, 2019).
+- [**ScanITD**](https://github.com/ylab-hi/ScanITD) — Method for detecting internal tandem duplications with robust variant allele frequency estimation (_GigaScience_, 2020).
+- [**ScanExitron**](https://github.com/ylab-hi/ScanExitron) — Pipeline for exitron and exitron-derived neoantigen identification (protocol in _STAR Protocols_, 2021).
+
+### 💻 Technical Expertise
+
+- **Languages**: Python, R, Bash, Perl, SQL, JavaScript
+- **Bioinformatics**: Next-Generation Sequencing (NGS), RNA-Seq, alternative splicing, structural variant (SV) comparison, HLA imputation, single-cell analysis
+- **ML & Workflows**: PyTorch, TensorFlow, Deep Learning, Large Language Models (LLMs), Snakemake, Docker, Git, HPC (Linux)
+
+### 🏆 Service & Honors
+
+- **Peer Review**: Active reviewer for top-tier journals including _Bioinformatics_, _Briefings in Bioinformatics_, _Nucleic Acids Research_, _PLOS Computational Biology_, _STAR Protocols_, and _Communications Medicine_.
+- **Fellowships**: Recipient of the Eagles Telethon Post Doctoral Fellowship (2019–2020) and Faculty Outstanding Research Output Award (HKU, 2018).
