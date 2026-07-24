@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Research Associate in Bioinformatics & Genomics
+subtitle: Computational genomics scientist specializing in long-read sequencing, AI-driven genome analysis, and bioinformatics tool development.
 
 profile:
   enabled: false
@@ -16,7 +16,7 @@ announcements:
 latest_posts:
   enabled: true
   scrollable: true
-  limit: 5
+  limit: 4
 ---
 
 I use code and statistical modeling to solve complex biological data problems. My expertise spans cancer genomics, immunogenomics, alternative splicing, systemic lupus erythematosus (SLE) susceptibility, and algorithm design for sequencing data. I build robust computational pipelines and leverage deep learning/machine learning models to extract biologically reproducible insights from large-scale multi-omics datasets.
