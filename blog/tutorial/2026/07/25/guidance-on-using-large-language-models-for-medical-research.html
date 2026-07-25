@@ -1,0 +1,516 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> From Bench to Bedside: A Practical Guide to Using Large Language Models in Medical Research | Ting-You Wang </title> <meta name="author" content="Ting-You Wang"> <meta name="description" content="Bioinformatics Research Associate at Northwestern University Feinberg School of Medicine. I explore, analyze, and visualize biological data, focusing on genetics, genomics, cancer, and lupus susceptibility. "> <meta name="keywords" content="bioinformatics, genomics, cancer research, lupus, jekyll, al-folio"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="/assets/img/favicon.jpg?v=8f5ecaac7618f8d1da1aeb6550f1de71"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://databeauty.com/blog/tutorial/2026/07/25/guidance-on-using-large-language-models-for-medical-research.html"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <div class="navbar-brand social"> <a href="https://scholar.google.com/citations?user=FVx_uDIAAAAJ" title="Scholar userid" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a> <a href="https://github.com/dolittle007" title="Github username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-github"></i></a> <a href="https://www.linkedin.com/in/dolittle007" title="Linkedin username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-linkedin"></i></a> <a href="/cv/" title="Cv pdf"><i class="ai ai-cv"></i></a> <a href="/feed.xml" title="Rss icon"><i class="fa-solid fa-square-rss"></i></a> </div> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">Projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">Books </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">Blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">From Bench to Bedside: A Practical Guide to Using Large Language Models in Medical Research</h1> <p class="post-meta"> Created on July 25, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/large-language-models"> <i class="fa-solid fa-hashtag fa-sm"></i> Large Language Models</a>   <a href="/blog/tag/medicine"> <i class="fa-solid fa-hashtag fa-sm"></i> Medicine</a>   <a href="/blog/tag/healthcare"> <i class="fa-solid fa-hashtag fa-sm"></i> Healthcare</a>   <a href="/blog/tag/prompt-engineering"> <i class="fa-solid fa-hashtag fa-sm"></i> Prompt Engineering</a>   <a href="/blog/tag/ai-in-medicine"> <i class="fa-solid fa-hashtag fa-sm"></i> AI in Medicine</a>   ·   <a href="/blog/category/tutorial"> <i class="fa-solid fa-tag fa-sm"></i> tutorial</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>Large Language Models (LLMs)—exemplified by frontier systems like GPT-5, Claude 4.5, Gemini 3, Llama 4, and DeepSeek-R1—are no longer just objects of computer science curiosity. They represent a transformative class of artificial intelligence tools that are actively reshaping healthcare and medical research, with applications spanning clinical documentation, automated trial matching, and medical question-answering.</p> <p>However, simple ad-hoc prompting (e.g., typing raw questions into a public chatbot) is far from sufficient for high-stakes medical workflows. To bridge this gap, a multi-institutional team of researchers (Jin et al., 2026) published a landmark tutorial in <em>Nature Protocols</em> outline a structured, five-phase methodology for implementing LLMs in medical settings. In this tutorial post, we break down their actionable best practices from task formulation to clinical deployment.</p> <p><img src="/figures/2026-07-25-guidance-llms-medical-research/figure-1.png" alt="Overview of LLM Integration in Medicine"></p> <hr> <h2 id="1-the-five-core-medical-task-formulations">1. The Five Core Medical Task Formulations</h2> <p>Before selecting a model or writing a prompt, you must formulate your abstract medical need into a concrete computational task. The <em>Nature Protocols</em> framework classifies medical LLM capabilities into five categories:</p> <h3 id="a-knowledge-and-reasoning">A. Knowledge and Reasoning</h3> <p>LLMs leverage medical knowledge encoded in their parameters to perform domain-specific reasoning.</p> <ul> <li> <strong>Applications:</strong> Clinical decision support, medical question answering, diagnostic differential generator.</li> <li> <strong>Format:</strong> Instances consist of a clinical scenario/question (Input), a detailed rationale or explanation (Context Output), and a final short answer (Output).</li> <li> <strong>Evaluation:</strong> Exact matching (for multiple-choice or yes/no answers) followed by expert rubric-based evaluations of the rationales.</li> </ul> <h3 id="b-summarization">B. Summarization</h3> <p>Condensing verbose medical text into concise, actionable summaries while preserving critical clinical facts.</p> <ul> <li> <strong>Applications:</strong> Generating progress notes or discharge summaries from raw EHR charts, systematic evidence synthesis from medical literature.</li> <li> <strong>Format:</strong> Instructions and original long text (Input) paired with the summary (Output).</li> <li> <strong>Evaluation:</strong> Automatic n-gram overlap metrics (BLEU, ROUGE, BERTScore) followed by physician-adjudicated review for hallucinations.</li> </ul> <h3 id="c-translation">C. Translation</h3> <p>Translating text across natural languages or transforming medical jargon into patient-friendly language.</p> <ul> <li> <strong>Applications:</strong> Multilingual healthcare delivery, patient education, professional consent simplification.</li> <li> <strong>Format:</strong> Instruction and source jargon (Input) paired with target text (Output).</li> </ul> <h3 id="d-structurization">D. Structurization</h3> <p>Transforming unstructured clinical narratives into structured databases (e.g., JSON or key-value pairs).</p> <ul> <li> <strong>Applications:</strong> Information extraction (e.g., variant-disease relationships, side effects), classifying patients into Diagnosis-Related Groups (DRGs).</li> <li> <strong>Format:</strong> Instruction and unstructured text (Input) paired with structured values (Output).</li> <li> <strong>Evaluation:</strong> Standard classification metrics (Precision, Recall, F1-score).</li> </ul> <h3 id="e-multimodal-data-analysis">E. Multimodal Data Analysis</h3> <p>Integrating and reasoning across heterogeneous clinical modalities.</p> <ul> <li> <strong>Applications:</strong> Generating radiology impressions from scans, predicting genomic outcomes from DNA sequences, and time-series vital sign analysis.</li> <li> <strong>Format:</strong> Inputs contain multimodal data (e.g., text history + medical images) paired with the report (Output).</li> </ul> <p><img src="/figures/2026-07-25-guidance-llms-medical-research/figure-2.png" alt="Task Formulations in Medical Research"></p> <hr> <h2 id="2-choosing-the-right-llm-core-considerations">2. Choosing the Right LLM: Core Considerations</h2> <p>Selecting a model requires navigating trade-offs between model size, deployment constraints, performance, and compliance. The three key considerations are:</p> <ol> <li> <strong>Task &amp; Data Modality:</strong> Determine if you require text-only capabilities (e.g., o3-mini, Llama 3) or natively multimodal models (e.g., Gemini 3, GPT-5, Claude 4.5) to process scans or omics data. Additionally, context length is a hard constraint: processing a patient’s entire longitudinal EHR history or multiple PubMed papers requires a long-context window (e.g., Gemini’s 1M-2M tokens).</li> <li> <strong>Performance Requirements:</strong> Automatic benchmarks (e.g., MedQA-USMLE multiple-choice scores) serve as initial screens, but clinical utility must be verified via human-expert rubric evaluations. Larger frontier models generally exhibit superior reasoning but require more resources.</li> <li> <strong>Model Interface &amp; Compliance:</strong> <ul> <li> <strong>Web Apps:</strong> Chatbots (e.g., ChatGPT) are easy to use but lack reproducibility controls (such as temperature adjustment) and are generally <strong>not HIPAA-compliant</strong> for raw patient data.</li> <li> <strong>APIs:</strong> Cloud APIs (e.g., Azure OpenAI, Anthropic API) allow programmatic control, and many offer BAA (Business Associate Agreement) options for HIPAA compliance.</li> <li> <strong>Local Implementations:</strong> Open-weights models (e.g., Llama 3.1, Qwen3, DeepSeek-R1) hosted on private institutional hardware provide the highest degree of security, data privacy, and parameters customizability.</li> </ul> </li> </ol> <p><img src="/figures/2026-07-25-guidance-llms-medical-research/figure-3.png" alt="Considerations for Choosing the LLM"></p> <p>The table below outlines the characteristics of commonly used LLMs, sorted by their reported MedQA-USMLE performance:</p> <p><img src="/figures/2026-07-25-guidance-llms-medical-research/table-1.png" alt="Characteristics of Common LLMs"></p> <hr> <h2 id="3-prompt-engineering-best-practices-for-medicine">3. Prompt Engineering Best Practices for Medicine</h2> <p>Designing and optimizing the prompt allows you to steer the behavior of a pre-trained LLM without updating its weights. The tutorial details five core prompt engineering techniques:</p> <h3 id="a-few-shot-learning-fsl">A. Few-Shot Learning (FSL)</h3> <p>Providing 1 to 5 diverse, representative examples of inputs and ground-truth outputs within the prompt. This clarifies the expected response style and instructs the model on how to handle edge cases.</p> <h3 id="b-chain-of-thought-cot-prompting">B. Chain-of-Thought (CoT) Prompting</h3> <p>Instructing the model to generate a step-by-step rationale before generating the final answer (e.g., appending <em>“Let’s think step-by-step”</em> or using native reasoning models like DeepSeek-R1). CoT improves accuracy on complex multi-step reasoning tasks and provides an auditable logic path for clinicians.</p> <h3 id="c-retrieval-augmented-generation-rag">C. Retrieval-Augmented Generation (RAG)</h3> <p>Integrating an external search tool (e.g., querying PubMed or institutional guidelines) to retrieve relevant text snippets and inject them into the prompt. This grounds the LLM’s responses in factual, up-to-date literature, significantly reducing <strong>hallucinations</strong>.</p> <h3 id="d-tool-learning">D. Tool Learning</h3> <p>Enabling the model to recognize when calculations or data retrieval are needed and call external APIs (e.g., medical calculators or database queries) to fetch precise values.</p> <h3 id="e-reproducibility-settings">E. Reproducibility Settings</h3> <p>When performing clinical evaluations, <strong>set the model temperature to 0</strong> and request <strong>JSON formatting</strong>. This ensures the output is deterministic, reproducible, and easily parsed by downstream code.</p> <p><img src="/figures/2026-07-25-guidance-llms-medical-research/figure-4.png" alt="Prompt Engineering and Fine-Tuning Techniques"></p> <hr> <h2 id="4-fine-tuning-when-and-how">4. Fine-Tuning: When and How?</h2> <p>When prompt engineering fails to meet clinical requirements, or when prompts become too long and costly, researchers should consider fine-tuning the model.</p> <ul> <li> <strong>When to Fine-Tune:</strong> When you have abundant annotated domain data (typically &gt;1,000 instances), when task-specific style is highly complex, or when you need to optimize a smaller model (e.g., a 7B or 8B model) to run locally on resource-constrained hardware.</li> <li> <strong>How to Fine-Tune:</strong> Standard approaches include full-parameter tuning and <strong>Parameter-Efficient Fine-Tuning (PEFT)</strong>. Techniques like <strong>LoRA (Low-Rank Adaptation)</strong> and its quantized version (<strong>QLoRA</strong>) freeze the base model and train only a tiny fraction of adapter parameters. QLoRA dramatically reduces hardware requirements, enabling researchers to fine-tune clinical-grade models on a single commercial GPU (e.g., NVIDIA A100 or RTX 8000).</li> </ul> <p>The table below contrasts the requirements, pros, and cons of these different approaches:</p> <p><img src="/figures/2026-07-25-guidance-llms-medical-research/table-2.png" alt="Comparison of LLM Adaption Approaches"></p> <hr> <h2 id="5-deployment-costs-and-safety-considerations">5. Deployment, Costs, and Safety Considerations</h2> <p>Bringing an LLM application into clinical production requires addressing severe safety, regulatory, and financial concerns:</p> <h3 id="a-privacy-and-regulatory-compliance">A. Privacy and Regulatory Compliance</h3> <p>Patient data is protected by strict regulations such as <strong>HIPAA</strong> (in the US) and <strong>GDPR</strong> (in the EU). Uploading protected health information (PHI) to commercial APIs without an explicit Business Associate Agreement (BAA) is a severe breach of compliance. Best practice dictates deploying local models inside the institution’s secure private cloud or using certified HIPAA-compliant cloud hosting.</p> <h3 id="b-system-robustness-and-bias">B. System Robustness and Bias</h3> <p>LLMs can inherit and propagate biases present in their training corpora. Studies have shown that models can output different treatment recommendations when presented with identical patient clinical summaries where only the patient’s race or gender is altered. Prior to deployment, researchers must evaluate model fairness using benchmarks (e.g., TrustLLM, DecodingTrust) or expert panels.</p> <h3 id="c-financial-costs">C. Financial Costs</h3> <ul> <li> <strong>Proprietary Models:</strong> Charged per token. For instance, processing 1,000 discharge notes (approx. 4 million tokens) through Gemini 3.0 Pro costs about $8 for prompt tokens, with additional charges for completion tokens. This pricing can scale rapidly.</li> <li> <strong>Open-Source Local Models:</strong> Incur upfront hardware procurement (GPUs) and ongoing maintenance costs. Smaller models (8B) can run on a single GPU, while larger reasoning models (e.g., DeepSeek-R1 671B) require multi-GPU cluster configurations.</li> </ul> <h3 id="d-post-deployment-monitoring">D. Post-Deployment Monitoring</h3> <p>LLMs must be treated as <strong>decision-support systems</strong>, not replacements for human clinical judgment. Successful deployment requires active clinician training, patient panel feedback, and continuous monitoring for drift, bias, and performance decay as the clinical setting evolves.</p> <p><img src="/figures/2026-07-25-guidance-llms-medical-research/table-3.png" alt="Representative Case Studies"></p> <hr> <h2 id="summary-the-10-best-practices">Summary: The 10 Best Practices</h2> <p>For quick reference, here are the ten key takeaways mapped out in the <em>Nature Protocols</em> tutorial:</p> <ol> <li> <strong>Classify your task</strong> into one of the five core categories and compile ~100 diverse test instances.</li> <li>Ensure <strong>HIPAA/GDPR compliance</strong> when processing sensitive patient data.</li> <li>Align your choice of LLM with the required <strong>data modalities and context window</strong>.</li> <li>Screen models using <strong>expert clinical evaluations</strong> in literature rather than automatic benchmarks.</li> <li>Use <strong>Few-Shot Learning (1–5 shots)</strong> to specify expected styles and resolve edge cases.</li> <li>Default to <strong>Chain-of-Thought prompting</strong> (asking the model to “think step-by-step”) to improve reasoning.</li> <li>Ground the model with <strong>RAG</strong> or <strong>Tool Learning</strong> to reduce hallucinations and access external databases.</li> <li>Set <strong>temperature to 0</strong> and request <strong>JSON output</strong> for reproducibility and automated parsing.</li> <li>Consider <strong>PEFT/LoRA fine-tuning</strong> when prompt engineering is insufficient or token costs are prohibitive.</li> <li>Implement <strong>continuous post-deployment monitoring</strong> for bias, drift, and clinical safety.</li> </ol> <hr> <h2 id="code-availability">Code Availability</h2> <p>For researchers looking to implement these protocols, the NCBI team has made their tutorial code, prompt templates, and step-by-step scripts publicly available on GitHub:</p> <p>👉 <a href="https://github.com/ncbi-nlp/LLM-Medicine-Primer" rel="external nofollow noopener" target="_blank">ncbi-nlp/LLM-Medicine-Primer</a></p> <hr> <h3 id="references">References</h3> <ol> <li>Jin, Q., Wan, N., Leaman, R., et al. (2026). “Tutorial: guidance on the use of large language models for medical research.” <em>Nature Protocols</em>, doi:10.1038/s41596-026-01408-z.</li> <li>Van Veen, D., et al. (2024). “Adapted large language models can outperform medical experts in clinical text summarization.” <em>Nature Medicine</em>, 30, 1134–1142.</li> <li>Singhal, K., et al. (2023). “Large language models encode clinical knowledge.” <em>Nature</em>, 620, 172–180.</li> <li>Wang, H., et al. (2024). “DRG-LLaMA: tuning LLaMA model to predict diagnosis-related group for hospitalized patients.” <em>npj Digital Medicine</em>, 7, 16.</li> <li>Mirza, F. N., et al. (2024). “Using ChatGPT to facilitate truly informed medical consent.” <em>NEJM AI</em>, 1, AIcs2300145.</li> <li>Zhang, K., et al. (2024). “A generalist vision–language foundation model for diverse biomedical tasks.” <em>Nature Medicine</em>, 30, 3129–3141.</li> </ol> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html">Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a Custodian</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html">Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html">Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2026/07/20/diffusion-llms.html">Diffusion LLMs</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html">Nanopore raw data visualization using squigualiser</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html">Nanopore direct RNA data analysis using Dorado</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html">Modern commnad line tools powered by Rust</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html">Nanopore direct cDNA data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/03/13/HiC-data-analysis.html">Hi-C data analysis</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html">Nanopore direct RNA data analysis</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Ting-You Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-projects",
+          title: "Projects",
+          description: "Software, pipelines, and tools developed for genomics and data analysis.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-publications",
+          title: "Publications",
+          description: "Peer-reviewed scientific publications, book chapters, and journal articles.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-books",
+          title: "Books",
+          description: "Books that I am reading, have read, or plan to read.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "nav-blog",
+          title: "Blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Ting-You Wang's professional curriculum vitae detailing research, education, and software.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-from-bench-to-bedside-a-practical-guide-to-using-large-language-models-in-medical-research",
+        
+          title: "From Bench to Bedside: A Practical Guide to Using Large Language Models in...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2026/07/25/guidance-on-using-large-language-models-for-medical-research.html";
+          
+        },
+      },{id: "post-rethinking-bioinformatics-expertise-in-the-era-of-ai-a-newbie-39-s-journey-as-a-custodian",
+        
+          title: "Rethinking Bioinformatics Expertise in the Era of AI: A Newbie's Journey as a...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2026/07/23/rethinking-bioinformatics-expertise-in-the-era-of-artificial-intelligence.html";
+          
+        },
+      },{id: "post-mapping-the-global-landscape-of-cancer-research-key-trends-from-the-nature-index",
+        
+          title: "Mapping the Global Landscape of Cancer Research: Key Trends from the Nature Index...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/21/mapping-global-cancer-research-nature-index.html";
+          
+        },
+      },{id: "post-shattered-chromosomes-understanding-chromothripsis-and-genome-rearrangement-models",
+        
+          title: "Shattered Chromosomes: Understanding Chromothripsis and Genome Rearrangement Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/article/2026/07/20/understanding-chromothripsis-and-rearrangement-models.html";
+          
+        },
+      },{id: "post-diffusion-llms",
+        
+          title: "Diffusion LLMs",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2026/07/20/diffusion-llms.html";
+          
+        },
+      },{id: "post-nanopore-raw-data-visualization-using-squigualiser",
+        
+          title: "Nanopore raw data visualization using squigualiser",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/18/ONT-raw-signal-visualization.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis-using-dorado",
+        
+          title: "Nanopore direct RNA data analysis using Dorado",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2024/06/14/ONT-direct-RNA-Data-Analysis-using-Dorado.html";
+          
+        },
+      },{id: "post-modern-commnad-line-tools-powered-by-rust",
+        
+          title: "Modern commnad line tools powered by Rust",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2023/01/03/Modern-Command-Line-Tools.html";
+          
+        },
+      },{id: "post-nanopore-direct-cdna-data-analysis",
+        
+          title: "Nanopore direct cDNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/10/20/ONT-direct-cDNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-hi-c-data-analysis",
+        
+          title: "Hi-C data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/03/13/HiC-data-analysis.html";
+          
+        },
+      },{id: "post-nanopore-direct-rna-data-analysis",
+        
+          title: "Nanopore direct RNA data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/20/ONT-direct-RNA-Data-Analysis.html";
+          
+        },
+      },{id: "post-operation-on-bigwig-files",
+        
+          title: "Operation on BigWig Files",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2022/01/07/operation-on-bigwig-files.html";
+          
+        },
+      },{id: "post-pacbio-iso-seq-data-analysis",
+        
+          title: "PacBio Iso-Seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/12/08/PacBio-Iso-Seq-Data-Analysis.html";
+          
+        },
+      },{id: "post-probabilistic-graphical-models-for-fraud-detection",
+        
+          title: "Probabilistic Graphical Models for Fraud Detection",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/09/15/Probabilistic-Graphical-Models-for-Fraud-Detection.html";
+          
+        },
+      },{id: "post-an-introduction-to-options",
+        
+          title: "An Introduction to Options",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2020/06/02/intro-options.html";
+          
+        },
+      },{id: "post-funding-schemes-for-postdoctoral-fellowship",
+        
+          title: "Funding schemes for postdoctoral fellowship",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/news/2018/02/05/postdoctoral-fellowships.html";
+          
+        },
+      },{id: "post-from-perceptron-to-deep-learning",
+        
+          title: "From Perceptron to Deep Learning",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/01/16/From-Perceptron-to-Deep-Learning.html";
+          
+        },
+      },{id: "post-introduction-to-meta-analysis-fixed-effect-model-and-random-effect-model",
+        
+          title: "Introduction to Meta-analysis: fixed-effect model and random-effect model",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/statistics/2017/09/08/meta-analysis.html";
+          
+        },
+      },{id: "post-recreate-economist-graph-by-ggplot2",
+        
+          title: "Recreate Economist graph by ggplot2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/03/03/recreate-economist-graph-by-ggplot2.html";
+          
+        },
+      },{id: "post-gwas-prephasing-and-imputation",
+        
+          title: "GWAS prephasing and imputation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2017/02/20/GWAS-prephasing-and-imputation.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis-strand-issues",
+        
+          title: "RNA-seq data analysis (strand issues)",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/09/21/RNA-seq-strand-issues.html";
+          
+        },
+      },{id: "post-rna-seq-data-analysis",
+        
+          title: "RNA-seq data analysis",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2016/09/13/RNA-seq-analysis.html";
+          
+        },
+      },{id: "post-rna-seq-normalization",
+        
+          title: "RNA-seq normalization",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/08/29/RNAseq-normalization.html";
+          
+        },
+      },{id: "post-linear-models-in-practice",
+        
+          title: "linear models in practice",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2016/03/23/Linear-models-in-practice.html";
+          
+        },
+      },{id: "post-introduction-to-linear-models",
+        
+          title: "Introduction to Linear Models",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Introduction-to-Linear-Models.html";
+          
+        },
+      },{id: "post-expressing-design-formula-in-r",
+        
+          title: "Expressing design formula in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2016/03/23/Expressing-design-formula-in-R.html";
+          
+        },
+      },{id: "post-penalized-regression-methods-for-association-studies",
+        
+          title: "Penalized Regression Methods for Association Studies",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/tutorial/2015/05/15/Penalized-Regression.html";
+          
+        },
+      },{id: "post-what-is-norm",
+        
+          title: "What is norm?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/27/What-is-norm.html";
+          
+        },
+      },{id: "post-the-making-of-manipulating-data-tables",
+        
+          title: "The Making of Manipulating Data Tables",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/06/slides-workflow.html";
+          
+        },
+      },{id: "post-when-is-a-z-statistic-and-when-a-t-statistic-used",
+        
+          title: "When is a z-statistic and when a t-statistic used?",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/opinion/2015/03/05/t-statistic-or-z-statistic.html";
+          
+        },
+      },{id: "post-creating-html5-slides-with-rstudio-knitr-and-pandoc",
+        
+          title: "Creating HTML5 slides with RStudio, knitr and pandoc",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/26/Creating-HTML5-Slides.html";
+          
+        },
+      },{id: "post-5-functions-to-do-principal-components-analysis-in-r",
+        
+          title: "5 functions to do Principal Components Analysis in R",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/how-to/2015/02/25/PCA-in-R.html";
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather";
+            },},{id: "news-a-simple-inline-announcement",
+          title: 'A simple inline announcement.',
+          description: "",
+          section: "News",},{id: "news-a-long-announcement-with-details",
+          title: 'A long announcement with details',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2";
+            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
+          title: 'A simple inline announcement with Markdown emoji! <img class="emoji" title=":sparkles:" alt=":sparkles:" src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png" height="20" width="20"> <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20">',
+          description: "",
+          section: "News",},{id: "projects-scanneo",
+          title: 'ScanNeo',
+          description: "A pipeline for identifying insertion and deletion (indel) introduced neoantigens from RNA sequencing data.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_scanneo";
+            },},{id: "projects-scanitd",
+          title: 'ScanITD',
+          description: "Performs a stepwise seed-and-realignment procedure for internal tandem duplication (ITD) detection with robust variant allele frequency estimation.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_scanitd";
+            },},{id: "projects-scanexitron",
+          title: 'ScanExitron',
+          description: "A computational workflow for exitron splicing identification and profiling from next-generation sequencing RNA-Seq datasets.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_scanexitron";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning";
+            },},{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=FVx_uDIAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/dolittle007", "_blank");
+        },
+      },{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/cv/", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
