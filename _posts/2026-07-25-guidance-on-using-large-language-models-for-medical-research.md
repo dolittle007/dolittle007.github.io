@@ -69,7 +69,27 @@ Selecting a model requires navigating trade-offs between model size, deployment 
 
 The table below outlines the characteristics of commonly used LLMs, sorted by their reported MedQA-USMLE performance:
 
-![Characteristics of Common LLMs](/figures/2026-07-25-guidance-llms-medical-research/table-1.png)
+| LLM | Weights | Size | Interface | Modality | Context | MedQA |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| GPT-5 | Closed | NA | Web, API | T, I | 400k | 95.8%<sup>109</sup> |
+| o1-preview | Closed | NA | Web, API | T | 128k | 94.9%<sup>58</sup> |
+| Gemini 3.0 Pro | Closed | NA | Web, API | T, I, V, A | 1M | 94.6%<sup>110</sup> |
+| o3-mini | Closed | NA | Web, API | T | 200k | 92.7%<sup>59</sup> |
+| Gemini 2.5 Pro | Closed | NA | Web, API | T, I, V, A | 1M | 92.6%<sup>111</sup> |
+| DeepSeek-R1 | Open | 671B | Web, API, Local | T | 128k | 92.0%<sup>59</sup> |
+| Claude 4.5 | Closed | NA | Web, API | T, I | 200k | 91.4%<sup>110</sup> |
+| Med-Gemini | Closed | NA | Web, API | T, I, V, A | 1M, 2M | 91.1%<sup>9</sup> |
+| GPT-4 | Closed | NA | Web, API | T, I | 8k, 32k, 128k | 90.2%<sup>14</sup> |
+| Llama 3.1 | Open | 8B, 70B, 405B | API, Local | T | 128k | 88.2%<sup>112</sup> |
+| Qwen3 | Open | 0.6B, 1.7B, 4B, 8B, 14B, 30B, 32B, 235B | Web, API, Local | T | 32k, 262k | 87.4%<sup>113</sup> |
+| Med-PaLM 2 | Closed | NA | API | T | 8k | 86.5%<sup>34</sup> |
+| Llama 3 | Open | 8B, 70B, 405B | API, Local | T | 8k | 80.9%<sup>81</sup> |
+| GPT-3.5 | Closed | NA | Web, API | T | 4k, 16k | 68.7%<sup>114</sup> |
+| Med-PaLM | Closed | 540B | API | T | 8k | 67.6%<sup>15</sup> |
+| Gemini 1.0 | Closed | NA | Web, API | T, I, V | 32k | 67.0%<sup>115</sup> |
+| Mixtral | Open | 8x7B | API, Local | T | 32k | 64.1%<sup>81</sup> |
+| Mistral | Open | 7B | API, Local | T | 8k, 32k | 59.6%<sup>81</sup> |
+| Llama 2 | Open | 7B, 70B | API, Local | T | 4k | 47.8%<sup>81</sup> |
 
 ---
 
@@ -105,7 +125,13 @@ When prompt engineering fails to meet clinical requirements, or when prompts bec
 
 The table below contrasts the requirements, pros, and cons of these different approaches:
 
-![Comparison of LLM Adaption Approaches](/figures/2026-07-25-guidance-llms-medical-research/table-2.png)
+| Approach | Requirements | Pros | Cons | Examples |
+| :--- | :--- | :--- | :--- | :--- |
+| FSL | Several exemplars | (1) Dealing with edge cases;<br>(2) specifying expected styles | Exemplars might introduce biases | MedPrompt<sup>14</sup> |
+| Tool learning | Application programming interfaces | Providing domain functionalities | Relies on the curation of tools | GeneGPT<sup>86</sup>, GeneAgent<sup>87</sup>, EHRAgent<sup>89</sup>, ChemCrow<sup>116</sup> |
+| CoT prompting | Additional prompt text ('Let’s think step-by-step') | (1) Providing explanations;<br>(2) improving performance | Hard to parse (mitigated by structured output) | MedPrompt<sup>14</sup> |
+| RAG | A knowledge base or document collection | (1) Providing up-to-date knowledge;<br>(2) reducing hallucinations | Depends on the quality of the retrieved documents | Almanac<sup>117</sup>, MedRAG<sup>81</sup> |
+| Fine-tuning | Data annotations and compute | (1) Improving performance;<br>(2) shorten the prompt | Full-scale fine-tuning can be costly and resource intensive | MEDITRON<sup>57</sup>, PMC-LLaMA<sup>56</sup> |
 
 ---
 
@@ -126,7 +152,13 @@ LLMs can inherit and propagate biases present in their training corpora. Studies
 ### D. Post-Deployment Monitoring
 LLMs must be treated as **decision-support systems**, not replacements for human clinical judgment. Successful deployment requires active clinician training, patient panel feedback, and continuous monitoring for drift, bias, and performance decay as the clinical setting evolves.
 
-![Representative Case Studies](/figures/2026-07-25-guidance-llms-medical-research/table-3.png)
+| Study | Task Formulation | LLM(s) Selection | Technique | Evaluation |
+| :--- | :--- | :--- | :--- | :--- |
+| Van Veen et al.<sup>21</sup> | Summarization | FLAN-T5<sup>97</sup>, Llama, etc | FSL, fine-tuning | Automatic and manual evaluation of summaries |
+| Singhal et al.<sup>15</sup> | Knowledge and reasoning | Med-PaLM | FSL, CoT prompting, fine-tuning | MCQ evaluation and manual evaluation of answers |
+| Wang et al.<sup>48</sup> | Structurization | Llama | Fine-tuning | Automatic classification evaluation and manual error analysis |
+| Mirza et al.<sup>47</sup> | Translation | GPT-4 | Direct prompting | Manual evaluation of clinical translation by domain experts |
+| Zhang et al.<sup>118</sup> | Multimodality | BiomedGPT<sup>118</sup> | Fine-tuning | MCQ evaluation and manual evaluation of visual tasks |
 
 ---
 
