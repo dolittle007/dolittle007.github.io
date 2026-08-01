@@ -63,8 +63,9 @@ cv:
         end_date: 2013
 
     Grants and Funding:
-      - label: 2026–2031
-        details: NIH/NCI Research Specialist Award, PI, National Cancer Institute
+      - title: NIH/NCI Research Specialist Award, PI
+        awarder: National Cancer Institute
+        date: 2026–2031
 
     Awards:
       - title: Eagles Telethon Post Doctoral Fellowship
