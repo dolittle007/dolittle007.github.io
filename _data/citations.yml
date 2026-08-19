@@ -1,12 +1,12 @@
 metadata:
-  last_updated: '2026-08-07'
+  last_updated: '2026-08-19'
 papers:
   FVx_uDIAAAAJ:0EnyYjriUFMC:
     citations: 3
     title: Comparative analyses of gene networks mediating cancer metastatic potentials across lineage types
     year: '2024'
   FVx_uDIAAAAJ:2osOgNQ5qMEC:
-    citations: 78
+    citations: 80
     title: A pan-cancer transcriptome analysis of exitron splicing identifies novel cancer driver genes and neoepitopes
     year: '2021'
   FVx_uDIAAAAJ:3fE2CSJIrl8C:
@@ -22,7 +22,7 @@ papers:
     title: Regulatory and evolutionary signatures of sex-biased genes on both the X chromosome and the autosomes
     year: '2017'
   FVx_uDIAAAAJ:IjCSPb-OGe4C:
-    citations: 337
+    citations: 340
     title: Identification of 38 novel loci for systemic lupus erythematosus and genetic heterogeneity between ancestral groups
     year: '2021'
   FVx_uDIAAAAJ:LkGwnXOMwfcC:
@@ -98,7 +98,7 @@ papers:
     title: "A predicted protein\u2013protein interaction network of the filamentous fungus Neurospora crassa"
     year: '2011'
   FVx_uDIAAAAJ:u-x6o8ySG0sC:
-    citations: 48
+    citations: 50
     title: Opposing transcriptional programs of KLF5 and AR emerge during therapy for advanced prostate cancer
     year: '2021'
   FVx_uDIAAAAJ:ufrVoPGSRksC:
