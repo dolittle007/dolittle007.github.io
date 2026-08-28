@@ -1,12 +1,12 @@
 metadata:
-  last_updated: '2026-08-19'
+  last_updated: '2026-08-28'
 papers:
   FVx_uDIAAAAJ:0EnyYjriUFMC:
     citations: 3
     title: Comparative analyses of gene networks mediating cancer metastatic potentials across lineage types
     year: '2024'
   FVx_uDIAAAAJ:2osOgNQ5qMEC:
-    citations: 80
+    citations: 81
     title: A pan-cancer transcriptome analysis of exitron splicing identifies novel cancer driver genes and neoepitopes
     year: '2021'
   FVx_uDIAAAAJ:3fE2CSJIrl8C:
@@ -22,7 +22,7 @@ papers:
     title: Regulatory and evolutionary signatures of sex-biased genes on both the X chromosome and the autosomes
     year: '2017'
   FVx_uDIAAAAJ:IjCSPb-OGe4C:
-    citations: 340
+    citations: 343
     title: Identification of 38 novel loci for systemic lupus erythematosus and genetic heterogeneity between ancestral groups
     year: '2021'
   FVx_uDIAAAAJ:LkGwnXOMwfcC:
@@ -30,7 +30,7 @@ papers:
     title: Qualitative and quantitative expression status of the human chromosome 20 genes in cancer tissues and the representative cell lines
     year: '2013'
   FVx_uDIAAAAJ:MXK_kJrjxJIC:
-    citations: 7
+    citations: 8
     title: "Androgen receptor\u2013regulated lncRNA PRCAT71 promotes AR signaling through the interaction with KHSRP in prostate cancer"
     year: '2025'
   FVx_uDIAAAAJ:Se3iqnhoufwC:
@@ -102,7 +102,7 @@ papers:
     title: Opposing transcriptional programs of KLF5 and AR emerge during therapy for advanced prostate cancer
     year: '2021'
   FVx_uDIAAAAJ:ufrVoPGSRksC:
-    citations: 11
+    citations: 12
     title: Integrated protocol for exitron and exitron-derived neoantigen identification using human RNA-seq data with ScanExitron and ScanNeo
     year: '2021'
   FVx_uDIAAAAJ:zYLM7Y9cAGgC:
