@@ -1,15 +1,10 @@
 name: Render a CV
+# Disabled on push: assets/pdf/CV.pdf is maintained by hand and does not track
+# _data/cv.yml, so this workflow produced nothing the site uses. It also cannot
+# succeed as-is: the site (al_folio_cv) needs cv.label/cv.summary, which the
+# current RenderCV schema rejects as extra inputs.
+# Run manually via workflow_dispatch if the CV data is ever migrated back.
 on:
-  push:
-    branches:
-      - main
-      - master
-    paths:
-      - "_data/cv.yml"
-      - "assets/rendercv/design.yaml"
-      - "assets/rendercv/locale.yaml"
-      - "assets/rendercv/settings.yaml"
-  workflow_call:
   workflow_dispatch:
 permissions:
   contents: write
