@@ -9,7 +9,7 @@ last_name: Wang
 contact_note: >
   You can contact me via email or LinkedIn.
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  Bioinformatics Research Associate at Northwestern University Feinberg School of Medicine. I explore, analyze, and visualize biological data, focusing on genetics, genomics, cancer, and lupus susceptibility.
+  Research Assistant Professor of Bioinformatics at Northwestern University Feinberg School of Medicine. I explore, analyze, and visualize biological data, focusing on genetics, genomics, cancer, and lupus susceptibility.
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.

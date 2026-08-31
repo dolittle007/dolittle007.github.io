@@ -1,10 +1,10 @@
 cv:
   name: Ting-You Wang
-  label: Research Associate
+  label: Research Assistant Professor
   email: tywang@northwestern.edu
   location: Chicago, IL
   image: ""
-  summary: Research Associate in Bioinformatics & Genomics. Experienced in exploring, analyzing, and visualizing biological data using code and statistical models.
+  summary: Research Assistant Professor in Bioinformatics & Genomics. Experienced in exploring, analyzing, and visualizing biological data using code and statistical models.
 
   social_networks:
     - network: X
@@ -37,10 +37,15 @@ cv:
 
     Experience:
       - company: Northwestern University
+        position: Research Assistant Professor
+        location: Chicago, IL, USA
+        start_date: 2026
+        end_date: Present
+      - company: Northwestern University
         position: Research Associate
         location: Chicago, IL, USA
         start_date: 2022
-        end_date: Present
+        end_date: 2026
       - company: University of Minnesota
         position: Staff Researcher
         location: Austin, MN, USA
