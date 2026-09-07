@@ -1,5 +1,5 @@
 metadata:
-  last_updated: '2026-09-04'
+  last_updated: '2026-09-07'
 papers:
   FVx_uDIAAAAJ:0EnyYjriUFMC:
     citations: 3
@@ -22,7 +22,7 @@ papers:
     title: Regulatory and evolutionary signatures of sex-biased genes on both the X chromosome and the autosomes
     year: '2017'
   FVx_uDIAAAAJ:IjCSPb-OGe4C:
-    citations: 344
+    citations: 346
     title: Identification of 38 novel loci for systemic lupus erythematosus and genetic heterogeneity between ancestral groups
     year: '2021'
   FVx_uDIAAAAJ:LkGwnXOMwfcC:
@@ -30,7 +30,7 @@ papers:
     title: Qualitative and quantitative expression status of the human chromosome 20 genes in cancer tissues and the representative cell lines
     year: '2013'
   FVx_uDIAAAAJ:MXK_kJrjxJIC:
-    citations: 8
+    citations: 9
     title: "Androgen receptor\u2013regulated lncRNA PRCAT71 promotes AR signaling through the interaction with KHSRP in prostate cancer"
     year: '2025'
   FVx_uDIAAAAJ:Se3iqnhoufwC:
@@ -46,7 +46,7 @@ papers:
     title: Tumor-specific lncRNA IGF1R-AS1 trans-regulates chromatin interactions associated with oncogenic MYC signaling
     year: '2026'
   FVx_uDIAAAAJ:UeHWp8X0CEIC:
-    citations: 370
+    citations: 371
     title: Genome-wide association meta-analysis in Chinese and European individuals identifies ten new loci associated with systemic lupus erythematosus
     year: '2016'
   FVx_uDIAAAAJ:UebtZRa9Y70C:
